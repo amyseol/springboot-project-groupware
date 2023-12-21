@@ -173,7 +173,7 @@
     <!-- -------------------------------------------list_form start------------------------------------------ -->
     <section id="common_list_form">
         <h2 class="big_title">타이틀</h2>
-        <h3 class="sub_title">리스트 폼</h2>
+        <h3 class="sub_title">리스트 폼</h3>
         <div class="list_form">
             <ul>
                 <li class="list_title">
