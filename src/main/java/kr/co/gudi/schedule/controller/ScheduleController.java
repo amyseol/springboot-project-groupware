@@ -54,15 +54,19 @@ public class ScheduleController {
 	*/
 
 	@GetMapping(value = "/schedule/save")
-	public void scheduleAdd(@RequestParam HashMap<String, Object> param) {
+	@ResponseBody
+	public HashMap<String, Object> scheduleAdd(@RequestParam HashMap<String, Object> param) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		int member_no=5;
-		String sch_depart="경영지원";
+		String sch_depart="A&R팀";
 		param.put("member_no", member_no);
 		param.put("sch_depart", sch_depart);
 		logger.info("일정:"+param);
 		
 		service.write(param);
+		return map;
 	}
+	
 	/*
 	@RequestMapping("/addForm")
 	public String addForm(@RequestParam HashMap<String, Object> params) {

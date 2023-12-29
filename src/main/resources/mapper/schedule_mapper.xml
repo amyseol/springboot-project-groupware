@@ -5,8 +5,8 @@
 <mapper namespace="kr.co.gudi.schedule.dao.ScheduleDAO">
 
 	<insert id="write" parameterType="Map">
-      INSERT INTO schedule(sch_content,sch_depart,title,start,end) 
-      	VALUES(#{content},#{sch_depart},#{title},#{start},#{end})
+      INSERT INTO schedule(content,sch_depart,title,start,end,member_no) 
+      	VALUES(#{content},#{sch_depart},#{title},#{start},#{end},#{member_no})
    </insert>
    
    <select id="list" resultType="sch">

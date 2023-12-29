@@ -10,7 +10,7 @@ public class ScheduleDTO {
 	private int member_no;
 	private String sch_depart;
 	private String title;
-	private String sch_content;
+	private String content;
 	private Timestamp start;
 	private Timestamp end;
 	private String sch_state;
@@ -38,11 +38,11 @@ public class ScheduleDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getSch_content() {
-		return sch_content;
+	public String getContent() {
+		return content;
 	}
-	public void setSch_content(String sch_content) {
-		this.sch_content = sch_content;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public Timestamp getStart() {
 		return start;
@@ -62,6 +62,7 @@ public class ScheduleDTO {
 	public void setSch_state(String sch_state) {
 		this.sch_state = sch_state;
 	}
+	
 	
 	
 }
