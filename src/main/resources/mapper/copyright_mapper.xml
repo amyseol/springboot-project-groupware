@@ -4,4 +4,12 @@
 >
 <mapper namespace="kr.co.gudi.resource.dao.CopyrightDAO">
 
+	<select id="copyrightlist" resultType="cr">
+	select * from cr_manage where cr_state = "1"
+	</select>
+	
+	<select id="copyrightnolist" resultType="cr">
+	select * from cr_manage where cr_state = "0"
+	</select>
+
 </mapper>
