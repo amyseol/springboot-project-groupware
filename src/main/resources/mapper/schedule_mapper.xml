@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
-<mapper namespace="kr.co.gudi.schedule.dao.scheduleDAO">
+<mapper namespace="kr.co.gudi.schedule.dao.ScheduleDAO">
 
+	<insert id="write" parameterType="Map">
+      INSERT INTO schedule(sch_content,sch_depart,title,start,end) 
+      	VALUES(#{content},#{sch_depart},#{title},#{start},#{end})
+   </insert>
+   
+   <select id="list" resultType="sch">
+   		select * from schedule
+   </select>
+   
+   
+   
+   <select id="listMy" resultType="sch">
+   		select * from schedule
+   			where member_no=#{param}
+   
+   </select>
+   
+   <select id="listDepart" resultType="sch">
+   		select * from schedule
+   			where sch_depart=#{param}
+   
+   </select>
 </mapper>
