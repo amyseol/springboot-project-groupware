@@ -40,7 +40,7 @@
                         $("#exampleModal").modal("show");
                     }
                 }
-                            },
+            },
 
             headerToolbar: {
                 left: 'prev,next today, myCustomButton',
@@ -48,8 +48,6 @@
                 right: 'dayGridMonth,timeGridWeek'
             }
            
-
-            
         });
   
 
@@ -72,7 +70,7 @@
 		        end: $("#end").val(),
 		        content: $("#content").val()
 		    };
-		    calendar.addEvent(eventData);
+		    //calendar.addEvent(eventData);
 		    titleData = $("#title").val();
 		    startData = $("#start").val();
 		    endData = $("#end").val();
@@ -90,19 +88,14 @@
 		        alert("시간을 잘못 입력 하셨습니다.");
 		    } else {
 		        // 이벤트 추가
-		
+				calendar.addEvent(eventData);
+		        
 		        // 서버로 데이터 전송
 		        $.ajax({
 		            type: "GET",
-		            url: "schedule/save",
+		            url: "save",
 		            contentType: "application/json",
-		            data:{
-		            	'title': eventData.title,
-		            	'start': eventData.start,
-		            	'endData': eventData.end,
-		            	'contentData':eventData.content	            	
-		            }
-		            ,
+		            data: $("#addData").serialize(),
 		            dataType: 'JSON',
 		            success: function(response) {
 		                console.log(response); // 서버에서의 응답 확인
@@ -127,11 +120,11 @@
          fetchEvents();
   
          // db 에서 값을 SELECT해오는거 
-    function fetchEvents() {
+    	function fetchEvents() {
     	/*       var isChecked = $('.myCallender').prop('checked');
     	      var isCheckedrsv = $('.rsvCallender').prop('checked'); */
     	       $.ajax({
-    	    	   type:'get',
+    	    	 type:'get',
     	         url: 'list',
     	         data:{},
     	         dataType: 'json',
@@ -144,9 +137,9 @@
     	         error: function(xhr, status, error) {
     	           console.error('에러 발생:', status, error);
     	         }
-    	       });
-    	     }
-});
+    	      });
+    	 }
+	});
 
     </script>
 
@@ -180,7 +173,7 @@
           <form id="addData">
           <div class="modal-body">
             일정이름 : <input type="text" id="title" name="title" /><br />
-            일정내용 : <textarea id="content"></textarea><br/>
+            일정내용 : <input type="text"  id="content" name="content"/><br/>
             시작시간 : <input type="datetime-local" id="start"  name="start"/><br />
             종료시간 : <input type="datetime-local" id="end" name="end" />
           </div>  
