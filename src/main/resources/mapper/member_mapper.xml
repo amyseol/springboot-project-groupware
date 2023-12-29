@@ -3,5 +3,23 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="kr.co.gudi.member.dao.MemberDAO">
+	<select id="selectMemberByParam" resultType="kr.co.gudi.member.vo.MemberVO" parameterType="Map">
+		SELECT * FROM member
+		WHERE member_id = #{member_id}
+	</select>
+		<select id="getMember" resultType="kr.co.gudi.member.vo.MemberVO">
+		SELECT * FROM member
+		WHERE member_id = "hoony84"
+	</select>
 
+	<select id="fileNo">
+		SELECT file_no FROM file
+		WHERE file_unique_no = #{member_no} and file_location = 'p'
+	</select>
+	<!-- 
+	<update id="">
+		UPDATE file SET file_newname = #{profileImg}
+		WHERE file_no = #{file_no}
+	</update>
+	 -->
 </mapper>

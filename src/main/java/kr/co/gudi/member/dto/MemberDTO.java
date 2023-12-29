@@ -1,5 +1,144 @@
 package kr.co.gudi.member.dto;
 
-public class MemberDTO {
+import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
+
+@Alias("member")
+public class MemberDTO {
+	private int member_no;
+	private String member_car_no;
+	private String member_id;
+	private String pw;
+	private String profileImg;
+	private String name;
+	private String gender;
+	private Date birth;
+	private String phone;
+	private String address;
+	private String email;
+	private Date hired;
+	private int total_leave;
+	private int total_point;
+	private String member_state;
+	private Date resign_date;
+	private Department dept;
+	private Team team;
+	private String member_position;
+	
+	public int getMember_no() {
+		return member_no;
+	}
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
+	}
+	public String getMember_car_no() {
+		return member_car_no;
+	}
+	public void setMember_car_no(String member_car_no) {
+		this.member_car_no = member_car_no;
+	}
+	public String getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	public String getProfileImg() {
+		return profileImg;
+	}
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public Date getBirth() {
+		return birth;
+	}
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Date getHired() {
+		return hired;
+	}
+	public void setHired(Date hired) {
+		this.hired = hired;
+	}
+	public int getTotal_leave() {
+		return total_leave;
+	}
+	public void setTotal_leave(int total_leave) {
+		this.total_leave = total_leave;
+	}
+	public int getTotal_point() {
+		return total_point;
+	}
+	public void setTotal_point(int total_point) {
+		this.total_point = total_point;
+	}
+	public String getMember_state() {
+		return member_state;
+	}
+	public void setMember_state(String member_state) {
+		this.member_state = member_state;
+	}
+	public Date getResign_date() {
+		return resign_date;
+	}
+	public void setResign_date(Date resign_date) {
+		this.resign_date = resign_date;
+	}
+	public Department getDept() {
+		return dept;
+	}
+	public void setDept(Department dept) {
+		this.dept = dept;
+	}
+	public Team getTeam() {
+		return team;
+	}
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+	public String getMember_position() {
+		return member_position;
+	}
+	public void setMember_position(String member_position) {
+		this.member_position = member_position;
+	}
 }
