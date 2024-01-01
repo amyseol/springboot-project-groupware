@@ -81,7 +81,10 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
-        #common_list_form .list_form .first_list{width: 50%; height: 32px;}
+        #common_list_form .list_form .first_list{width: 50%; float: left;}
+        #common_list_form .list_form .first_list:last-child li{width: 100%;}
+        #common_list_form .list_form .first_list li{float: left; width: 50%; border-bottom: 1px solid #333; box-sizing: border-box;}
+        #common_list_form .list_form .first_list:first-child li:nth-child(2n-1){font-weight: 500; text-align: center;}
 
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
@@ -210,10 +213,10 @@
     <section id="common_list_form">
         <h2 class="big_title">음반</h2>
         <h3 class="sub_title">상세보기</h3>
+        <input type="button" value="계약 취소" onclick="openCancelModal()"/>
+        <input type="button" value="목록" onclick="location.href='/album'"/>
         <div class="list_form">
-        	<input type="button" value="계약 취소" onclick="openCancelModal()"/>
-        	<input type="button" value="목록" onclick="location.href='/album'"/>
-            <ul id="first_list">
+            <ul class="first_list">
                 <li>음반명</li>
                 <li>${albumDetail.alb_name}</li>
                 <li>아티스트명</li>
@@ -225,15 +228,19 @@
                 <li>계약일</li>
                 <li>${albumDetail.alb_contract}</li>
                 <li>제작 단가(KRW)</li>
-                <li id="albpro_price"></li> <!-- 숫자 천 단위 구분 표시를 위해 js 에서 처리 -->
+                <li id="albpro_price">bc</li> <!-- 숫자 천 단위 구분 표시를 위해 js 에서 처리 -->
                 <li>판매 가격(KRW)</li>
-                <li id="alb_price"></li>
+                <li id="alb_price">bc</li>
                 <li>담당자</li>
                 <li>${albumDetail.member_id}</li>
                 <li>수익 분배율</li>
                 <li>${albumDetail.alb_revenue}</li>
                 <li>첨부 파일</li>
                 <li><input type="file" id="photo" name="photos" multiple/></li>
+            </ul>
+            <ul class="first_list">
+                <li>생산 회차별 판매량과 재고량</li>
+                <li><canvas id="doughnut" style="width: 300px; height:300px;"></canvas></li>
             </ul>
         </div>
        	

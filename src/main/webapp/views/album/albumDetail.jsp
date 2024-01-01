@@ -80,6 +80,12 @@
         #common_list_form .list_form .list_content ul li:last-child{width: 15%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
+        
+        /* list form 스타일 */
+        #common_list_form .list_form .first_list{width: 50%; float: left;}
+        #common_list_form .list_form .first_list:last-child li{width: 100%;}
+        #common_list_form .list_form .first_list li{float: left; width: 50%; border-bottom: 1px solid #333; box-sizing: border-box;}
+        #common_list_form .list_form .first_list:first-child li:nth-child(2n-1){font-weight: 500; text-align: center;}
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
         
@@ -207,61 +213,38 @@
     <section id="common_list_form">
         <h2 class="big_title">음반</h2>
         <h3 class="sub_title">상세보기</h3>
+        <input type="button" value="계약 취소" onclick="openCancelModal()"/>
+        <input type="button" value="목록" onclick="location.href='/album'"/>
         <div class="list_form">
-        	<input type="button" value="계약 취소" onclick="openCancelModal()"/>
-        	<input type="button" value="목록" onclick="location.href='/album'"/>
-			<table>
-				<tr>
-					<th style="width: 20%;">음반명</th>
-					<td style="width: 20%;">${albumDetail.alb_name}</td>
-					<th style="width: 60%;">생산 회차별 판매량과 재고량
-						<select id="option"></select>
-					</th>
-				</tr>
-				<tr>
-					<th>아티스트명</th>
-					<td>${albumDetail.art_name}</td>
-					<td rowspan="8">
-						<div><canvas id="doughnut" style="width: 300px; height:300px;"></canvas></div>
-					</td>
-				</tr>	
-				<tr>
-					<th>계약 시작일</th>
-					<td>${albumDetail.alb_startdate}</td>
-				</tr>	
-				<tr>
-					<th>계약 만료일</th>
-					<td>${albumDetail.alb_expiredate}</td>
-				</tr>	
-				<tr>
-					<th>계약일</th>
-					<td>${albumDetail.alb_contract}</td>
-				</tr>	
-				<tr>
-					<th>제작 단가(KRW)</th>
-					<!-- 숫자 천 단위 구분 표시를 위해 js 에서 처리 -->
-					<td id="albpro_price"></td>
-				</tr>
-				<tr>
-					<th>판매 가격(KRW)</th>
-					<td id="alb_price"></td>
-				</tr>
-				<tr>
-					<th>담당자</th>
-					<td>${albumDetail.member_id}</td>
-				</tr>
-				<tr>
-					<th>수익 분배율</th>
-					<td>${albumDetail.alb_revenue}</td>
-				</tr>
-				<tr>
-					<th>첨부 파일</th>
-					<td>
-						
-					</td>
-					<td><input type="button" value="추가 생산" onclick="openAddModal()"/></td>
-				</tr>
-			</table>
+            <ul class="first_list">
+                <li>음반명</li>
+                <li>${albumDetail.alb_name}</li>
+                <li>아티스트명</li>
+                <li>${albumDetail.art_name}</li>
+                <li>계약 시작일</li>
+                <li>${albumDetail.alb_startdate}</li>
+                <li>계약 만료일</li>
+                <li>${albumDetail.alb_expiredate}</li>
+                <li>계약일</li>
+                <li>${albumDetail.alb_contract}</li>
+                <li>제작 단가(KRW)</li>
+                <li id="albpro_price"></li> <!-- 숫자 천 단위 구분 표시를 위해 js 에서 처리 -->
+                <li>판매 가격(KRW)</li>
+                <li id="alb_price"></li>
+                <li>담당자</li>
+                <li>${albumDetail.member_id}</li>
+                <li>수익 분배율</li>
+                <li>${albumDetail.alb_revenue}</li>
+                <li>첨부 파일</li>
+                <li><input type="file" id="photo" name="photos" multiple/></li>
+            </ul>
+            <ul class="first_list">
+                <li>생산 회차별 판매량과 재고량 <select id="option"></select></li>
+                <li>
+                	<div><canvas id="doughnut" style="width: 300px; height:300px;"></canvas></div>
+                	<input type="button" value="추가 생산" onclick="openAddModal()"/>
+                </li>
+            </ul>
         </div>
        	
        	<!------ 추가 생산 모달 ------>
