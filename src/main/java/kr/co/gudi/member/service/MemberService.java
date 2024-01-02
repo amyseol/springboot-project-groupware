@@ -1,18 +1,26 @@
 package kr.co.gudi.member.service;
 
+import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import kr.co.gudi.member.dao.MemberDAO;
+import kr.co.gudi.member.dto.Department;
+import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.vo.MemberVO;
 
 @Service
 public class MemberService implements UserDetailsService{
+	Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private MemberDAO dao;
 	
@@ -30,23 +38,31 @@ public class MemberService implements UserDetailsService{
 		return dao.selectApprovMember(member_id);
 	}
 
-	public void updateProfileImg(Map<String, Object> param) {
-		String member_no = (String) param.get("member_no");
-		dao.fileNo(member_no);
-		
-		/*
-		if (service.updateProfileImg(param) > 0) {
-			model.addAttribute("msg", "프로필이 수정되었습니다.");
-			model.addAttribute("url", "/mypage");
-			session.setAttribute("loginMember", service.selectMemberByParam(param));
-		} else {
-			model.addAttribute("msg", "프로필 수정에 실패하였습니다!!");
-			model.addAttribute("url", "/mypage");
-		}
-		*/
+	public void updateProfileImg(Map<String, Object> param, Model model, String path) {
+
+		int member_no = (int) param.get("member_no");
+		int file_no =  dao.searchFileNo(member_no);
+		param.put("file_no", file_no);
+		dao.updateProfileImg(param);
+		//String new_name = dao.findPhoto(file_no);
+		logger.info(path);
+		model.addAttribute("photo", path);
 	}
 
 	public MemberVO getMember() {
 		return dao.getMember();
+	}
+	
+	public List<Department> getAllDepartments() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<MemberDTO> getTeamList(int depart_no) {
+		return dao.getTeamList(depart_no);
+	}
+
+	public List<MemberDTO> getMemberList(int team_no) {
+		return dao.getMemberList(team_no);
 	}
 }

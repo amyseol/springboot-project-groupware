@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -79,6 +82,42 @@
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
+        
+        #departModal{
+        	display: none;
+            position: fixed;
+            top: 60%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border: 1px solid black;
+            background-color: lightgray;
+            z-index: 1;
+        }
+
+        #departModal ul{
+            display: none;
+        }
+
+        #departModal li{
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .teamList, .memberList{
+            display: none;
+            margin-top: 10px;
+        }
+
+        #empModal{
+            display: none;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border: 1px solid black;
+            background-color: lightgray;
+            z-index: 1;
+        }
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -150,31 +189,32 @@
                 <a href="javascript:"><li class="dep1">복지몰</li></a>
             </ul>
         </div>
+        
+	    <div>
+	        <button onclick="showDepartModal()">조직도</button>
+	    </div>
+	
+	    <!-- 부서 모달 팝업 -->
+	    <div id="departModal">
+	        <ul id="departments">
+	            <!-- 부서 목록이 들어갈 공간 -->
+	        </ul>
+	    </div>
+		
+	    <!-- 직원 정보 모달 팝업 -->
+	    <div id="empModal">
+	        <div id="empProfile">
+	            <img id="empImg" alt="empProfile">
+	        </div>
+	        <div id="empInfo">
+	            <p id="empName"></p>
+	            <p id="empPosition"></p>
+	            <p id="empEmail"></p>
+	        </div>
+	    </div>
     </div>
     
-    <div>
-        <button onclick="showDepartModal()">조직도</button>
-    </div>
-    <!-- 부서 모달 팝업 -->
-    <div id="departModal" class="modal">
-        <ul>
-            <li onclick="toggleTeam('마케팅 본부')">마케팅 본부</li>
-            <li onclick="toggleTeam('운영 본부')">운영 본부</li>
-            <li onclick="toggleTeam('경영지원 본부')">경영지원 본부</li>
-        </ul>
-    </div>
 
-    <!-- 팀 모달 팝업 -->
-    <div id="teamModal" class="modal">
-        <span id="teamName"></span>
-        <ul id="teamList"></ul>
-    </div>
-
-    <!-- 직원 모달 팝업 -->
-    <div id="empModal" class="modal">
-        <span id="empName"></span>
-        <ul id="empList"></ul>
-    </div>
     <!-- -------------------------------------------nav end------------------------------------------ -->
     <!-- -------------------------------------------util start------------------------------------------ -->
     <div id="util">
@@ -261,38 +301,84 @@
     });
 //-------------------------------- toggle end ------------------------------------------
 
+        // 부서 모달 팝업
         function showDepartModal(){
-            $("#departModal").show();
-        }
+            var departModal = $("#departModal");
+            departModal.show();
 
-        function toggleTeamList(departName){
-            var teamModal = $("#teamModal");
-            var teamName = $("#teamName");
-            var teamList = $("teamList");
+            // 부서 리스트를 가져오는 AJAX
+            $.ajax({
+                type: "GET",
+                url: "/organization/departments",
+                success: function(departments){
+                    // Department list
+                    var departmentList = $("#departments");
+                    departmentList.empty();
+                    departments.forEach(function(department){
+                        var li = $('<li onclick="toggleTeam(${department.depart_no})"><a href="#">' + department.depart_name + '</a></li>');
+                        departmentList.append(li);
 
-            // 부서명 설정
-            teamName.text(departName);
+                        // 팀 리스트가 표시될 공간
+                        var teamList = $('<div class="teamList"></div>');
+                        departmentList.append(teamList);
 
-            // 해당 부서의 팀 리스트 가져오기
-            var team = getTeamByDepartment(departName);
-
-            // 팀 리스트 업데이트
-            teamList.empty();
-            $.each(team, function(index, team){
-                var listItem = $("<li>").text(team.name);
-                listItem.on("click", function(){
-                    toggleEmployeeList(team);
-                });
-                teamList.append(listItem);
+                        // 멤버 리스트가 표시될 공간
+                        var memberList = $('<div class="memberList"></div>');
+                        departmentList.append(memberList);
+                    });
+                },
+                error: function(e){
+                    console.log(e);
+                }
             });
-
-            // 팝업 보이기
-            teamModal.show();
         }
 
-        function toggleEmployeeList(team){
-            var empModal = $("#empModal");
-            var empName = $("#empName");
+        // 팀 리스트를 가져오는 AJAX
+        function toggleTeam(depart_no){
+            $.ajax({
+                type: "GET",
+                url: "/organization/teams/" + depart_no,
+                success: function(teams){
+                    // 팀 리스트를 생성
+                    var teamList = '<ul>';
+                    teams.forEach(function(team){
+                        teamList += `<li onclick="toggleMember(${team.team_no})">${team.name}</li>`;
+                    });
+                    teamList += '</ul>';
+
+                    // 해당 부서의 팀 리스트가 표시될 위치
+                    var teamLocation = $(".teamList").eq(depart_no - 1);
+                    teamLocation.html(teamList);
+                    teamLocation.show();
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        }
+
+        // 해당 팀의 직원 목록을 가져오는 AJAX 
+        function toggleMember(team_no){
+            $.ajax({
+                type: "GET",
+                url: "/organization/members/" + team_no,
+                success: function(members){
+                    // 직원 리스트를 생성
+                    var memberList = '<ul>';
+                    members.forEach(function(member){
+                        memberList += `<li onclick="showEmployeeDetails(${member.member_no})">${member.name}</li>`;
+                    });
+                    memberList += '</ul>';
+
+                    // 해당 팀의 직원 리스트가 표시될 위치
+                    var memberLocation = $(".memberList").eq(teamId - 1);
+                    memberLocation.html(memberList);
+                    memberLocation.show();
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
         }
     </script>
 </html>

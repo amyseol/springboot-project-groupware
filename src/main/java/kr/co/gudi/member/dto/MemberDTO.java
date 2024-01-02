@@ -12,6 +12,8 @@ public class MemberDTO {
 	private String member_id;
 	private String pw;
 	private String profileImg;
+	private String file_oriname;
+	private String file_newname;
 	private String name;
 	private String gender;
 	private Date birth;
@@ -27,6 +29,18 @@ public class MemberDTO {
 	private Team team;
 	private String member_position;
 	
+	public String getFile_oriname() {
+		return file_oriname;
+	}
+	public void setFile_oriname(String file_oriname) {
+		this.file_oriname = file_oriname;
+	}
+	public String getFile_newname() {
+		return file_newname;
+	}
+	public void setFile_newname(String file_newname) {
+		this.file_newname = file_newname;
+	}
 	public int getMember_no() {
 		return member_no;
 	}

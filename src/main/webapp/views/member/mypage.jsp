@@ -185,7 +185,7 @@
 					<div class="main-section section-shadow casrd profile-info">
 						<div class="right-container">
 							<h2>프로필</h2>
-							<img src="${path}/upload/profile/${loginMember.profileImg}" id="mypage-profile" alt="mypage-profile" onclick="fn_updateProfile()">
+							<img src="${photo}" id="mypage-profile" alt="mypage-profile" onclick="fn_updateProfile()">
 							<form action="${path}/member/profile" method="post" enctype="multipart/form-data" id="profile-form">
 								<input type="file" name="profileImg" id="profile-input" accept="image" required>
 		
@@ -284,7 +284,9 @@
 			$("#profile-input").click();
 			$("#profile-input").change(()=>{
 				const fileName = $("#profile-input")[0].files[0].name;
+				console.log(fileName);
 				const fileSrc = URL.createObjectURL($("#profile-input")[0].files[0]);
+				console.log(fileSrc);
 				$("#mypage-profile").attr("src", fileSrc);
 			});
 		}
@@ -299,6 +301,7 @@
 		function fn_profileSubmit(){
 			if($("#profile-input").val() != ''){
 				$("#profile-form").submit();
+				console.log("수정 폼 제출 성공!");
 			} else{
 				alert("변경할 이미지를 업로드 하세요!");
 				fn_updateProfile();

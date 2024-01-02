@@ -9,17 +9,36 @@
 	</select>
 		<select id="getMember" resultType="kr.co.gudi.member.vo.MemberVO">
 		SELECT * FROM member
-		WHERE member_id = "hoony84"
+		WHERE member_id = "hoony4"
 	</select>
 
-	<select id="fileNo">
+	<select id="searchFileNo" resultType="int">
 		SELECT file_no FROM file
-		WHERE file_unique_no = #{member_no} and file_location = 'p'
+		WHERE file_unique_no = 4 and file_location = 'p'
 	</select>
-	<!-- 
-	<update id="">
-		UPDATE file SET file_newname = #{profileImg}
-		WHERE file_no = #{file_no}
+	
+	<update id="updateProfileImg" >
+		UPDATE file SET file_newname = #{file_newname}
+			WHERE file_no = #{file_no}
 	</update>
-	 -->
+	
+	<select id="findPhoto" resultType="String">
+		SELECT file_newname FROM file
+			WHERE file_unique_no = 4 and file_location = 'p'
+	</select>
+	
+	<select id="getTeamList" resultType="member">
+		SELECT t.team_no, t.team_name
+		FROM team t
+		JOIN department d ON t.depart_no = d.depart_no
+		WHERE d.depart_no = #{depart_no};
+	</select>
+	
+	<select id="getMemberList" resultType="member">
+		SELECT m.member_no, m.name, t.team_no, t.team_name, m.member_position, m.phone, m.email
+		FROM team t
+		JOIN member m ON t.member_no = m.member_no
+		WHERE t.team_no = #{team_no}
+	</select>
+	
 </mapper>

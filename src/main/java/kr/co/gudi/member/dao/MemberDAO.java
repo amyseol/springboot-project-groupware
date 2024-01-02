@@ -1,9 +1,11 @@
 package kr.co.gudi.member.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.vo.MemberVO;
 
 @Mapper
@@ -14,7 +16,13 @@ public interface MemberDAO {
 
 	int updateProfileImg(Map<String, Object> param);
 
-	void fileNo(String member_no);
-
+	int searchFileNo(int member_no);
+	
 	MemberVO getMember();
+
+	String findPhoto(int file_no);
+
+	List<MemberDTO> getTeamList(int depart_no);
+
+	List<MemberDTO> getMemberList(int team_no);
 }

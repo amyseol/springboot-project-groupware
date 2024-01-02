@@ -2,18 +2,18 @@ package kr.co.gudi.member.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,11 +21,15 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.gudi.member.dto.Department;
+import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.service.MemberService;
 import kr.co.gudi.member.vo.MemberVO;
 
@@ -33,6 +37,7 @@ import kr.co.gudi.member.vo.MemberVO;
 public class MemberController {
 	@Value("${spring.servlet.multipart.location}") private String root;
 	
+	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired MemberService service;
 	
 	// 첫 페이지
@@ -102,45 +107,65 @@ public class MemberController {
 	// 프로필 이미지 저장
 	@PostMapping("/member/profile")
 	public String updateProfile(MultipartFile profileImg, HttpSession session, Model model) {
-		String path = session.getServletContext().getRealPath(root);		// 파일 저장 경로
-		
+				logger.info("사진 저장 컨트롤러 접근 성공!");
+				String file_oriname = profileImg.getOriginalFilename();
+				logger.info("file_oriname : " + file_oriname);
+				
 		try {
-			Path storagePath = Paths.get(path);
-			
-			if (!Files.exists(storagePath)) {
-				Files.createDirectories(storagePath);
-			} else {
-				if (!profileImg.getOriginalFilename().equals("")) {	// 파일이 있으면 실행
-					String file_oriname = profileImg.getOriginalFilename();
+				if (!file_oriname.equals("")) {	// 파일이 있으면 실행
+					logger.info("파일 확인 완료!");
+					
 					Date today = new Date(System.currentTimeMillis());
 					String ext = file_oriname.substring(file_oriname.lastIndexOf("."));
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+					
 					int random = (int) ((Math.random() * 10000) + 1);
 					String file_newname = sdf.format(today) + "_" + random + ext;
+					logger.info("file_newname : " + file_newname);
 					
-					profileImg.transferTo(new File(path + file_newname));
+					String path = root+"/"+	file_newname;	// 파일 저장 경로
+					logger.info("path : " + path);
+					
+					profileImg.transferTo(new File(path));
+					logger.info("profileImg : "+profileImg);
 					
 					Map<String, Object> param = new HashMap<String, Object>();
 					param.put("file_newname", file_newname);
 					param.put("member_no", ((MemberVO)session.getAttribute("loginMember")).getMember_no());
 					param.put("file_oriname", file_oriname);
 					
-					service.updateProfileImg(param);
-					/*
-					if (service.updateProfileImg(param) > 0) {
-						model.addAttribute("msg", "프로필이 수정되었습니다.");
-						model.addAttribute("url", "/mypage");
-						session.setAttribute("loginMember", service.selectMemberByParam(param));
-					} else {
-						model.addAttribute("msg", "프로필 수정에 실패하였습니다!!");
-						model.addAttribute("url", "/mypage");
-					}
-					*/
+					service.updateProfileImg(param, model, path);
+					model.addAttribute("msg", "프로필이 수정되었습니다.");
+					model.addAttribute("url", "/mypage");
+
 				}
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return "common/msg";
+	}
+	
+	@GetMapping("/organization")
+	public String organization() {
+		return "common/organization";
+	}
+	
+	@GetMapping("/departments")
+    public String showDepartments(Model model) {
+        List<Department> departments = service.getAllDepartments();
+        model.addAttribute("departments", departments);
+        return "departments";
+    }
+	
+	@GetMapping("/teamList/{depart_no}")
+	@ResponseBody
+	public List<MemberDTO> teamList(@PathVariable int depart_no){
+		return service.getTeamList(depart_no);
+	}
+	
+	@GetMapping("/memberList/{team_no}")
+	@ResponseBody
+	public List<MemberDTO> memberList(@PathVariable int team_no){
+		return service.getMemberList(team_no);
 	}
 }
