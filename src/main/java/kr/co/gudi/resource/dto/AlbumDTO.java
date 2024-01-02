@@ -28,8 +28,37 @@ public class AlbumDTO {
 	private int albsold_amount;
 	private Date albsold_date;
 	
+	private String file_location;
+	private int file_unique_no;
+	private String file_oriname;
+	private String file_newname;
 	
 	
+	
+	public String getFile_location() {
+		return file_location;
+	}
+	public void setFile_location(String file_location) {
+		this.file_location = file_location;
+	}
+	public int getFile_unique_no() {
+		return file_unique_no;
+	}
+	public void setFile_unique_no(int file_unique_no) {
+		this.file_unique_no = file_unique_no;
+	}
+	public String getFile_oriname() {
+		return file_oriname;
+	}
+	public void setFile_oriname(String file_oriname) {
+		this.file_oriname = file_oriname;
+	}
+	public String getFile_newname() {
+		return file_newname;
+	}
+	public void setFile_newname(String file_newname) {
+		this.file_newname = file_newname;
+	}
 	public Date getAlbsold_date() {
 		return albsold_date;
 	}

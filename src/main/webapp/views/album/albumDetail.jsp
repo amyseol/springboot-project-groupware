@@ -215,6 +215,11 @@
         <h3 class="sub_title">상세보기</h3>
         <input type="button" value="계약 취소" onclick="openCancelModal()"/>
         <input type="button" value="목록" onclick="location.href='/album'"/>
+        <form action="albumFile.do" method="post" enctype="multipart/form-data">
+        	<input type="file" id="file" name="files" multiple/>
+        	<input type="hidden" name="alb_no" value="${albumDetail.alb_no}"/>
+        	<input type="submit" value="등록">
+        </form>
         <div class="list_form">
             <ul class="first_list">
                 <li>음반명</li>
@@ -236,7 +241,14 @@
                 <li>수익 분배율</li>
                 <li>${albumDetail.alb_revenue}</li>
                 <li>첨부 파일</li>
-                <li><input type="file" id="photo" name="photos" multiple/></li>
+                <li>
+					<c:forEach items="${list}" var="file">
+						<p>
+							${file.file_newname}
+							<button onclick="location.href='albumDownload.do?newName=${file.file_newname}&oriName=${file.file_oriname}'">download</button>
+						</p>
+					</c:forEach>
+                </li>
             </ul>
             <ul class="first_list">
                 <li>생산 회차별 판매량과 재고량 <select id="option"></select></li>
