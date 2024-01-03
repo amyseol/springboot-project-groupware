@@ -202,22 +202,27 @@
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
-
-function listCall(page){	
+//-------------------------------- chart start ------------------------------------------
+function chartCall(){	
 	$.ajax({
 		type:'get',
-		url:'albumList',
-		data:{'page':page}, 
+		url:'musicChart',
+		data:{}, 
 		dataType:'JSON',
 		success: function(data){
 			console.log(data);
-			drawList(data);	
+			drawChart(data);	
 		},
 		error:function(e){
 			console.log(e);
 		}
 	});
 }
+
+
+
+//-------------------------------- chart end ------------------------------------------
+
 
 // -------------------------------- toggle start ------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
