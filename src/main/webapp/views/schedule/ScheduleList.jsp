@@ -41,7 +41,41 @@
                     }
                 }
             },
+			
+            eventClick: function(info) {
+                // info.event에 클릭한 이벤트의 정보가 들어 있음
+                var eventData = {
+                    id: info.event.id,
+                    title: info.event.title,
+                    start: info.event.start,
+                    end: info.event.end,
+                    content: info.event.extendedProps.content
+                };
 
+                // 폼 동적으로 생성
+                var form = document.createElement('form');
+                form.setAttribute('method', 'GET');
+                form.setAttribute('action', 'detailSchedule'); // 실제 컨트롤러의 URL로 변경
+
+                // 데이터를 폼에 추가
+                for (var key in eventData) {
+                    if (eventData.hasOwnProperty(key)) {
+                        var input = document.createElement('input');
+                        input.setAttribute('type', 'hidden');
+                        input.setAttribute('name', key);
+                        input.setAttribute('value', eventData[key]);
+                        form.appendChild(input);
+                    }
+                }
+
+                // 폼을 body에 추가하고 submit
+                document.body.appendChild(form);
+                form.submit();
+
+                // 폼 제거 (선택사항)
+                document.body.removeChild(form);
+            },
+            
             headerToolbar: {
                 left: 'prev,next today, myCustomButton',
                 center: 'title',
@@ -70,12 +104,14 @@
 		        end: $("#end").val(),
 		        content: $("#content").val()
 		    };
+
 		    //calendar.addEvent(eventData);
 		    titleData = $("#title").val();
 		    startData = $("#start").val();
 		    endData = $("#end").val();
 		    contentData = $('#content').val();
 		
+
 		    // 빈 값 입력 시 오류
 		    if (
 		        eventData.title == "" ||
@@ -87,6 +123,7 @@
 		    } else if ($("#start").val() > $("#end").val()) {
 		        alert("시간을 잘못 입력 하셨습니다.");
 		    } else {
+
 		        // 이벤트 추가
 				calendar.addEvent(eventData);
 		        
@@ -104,15 +141,16 @@
 		                console.error('Error while saving events:', error);
 		            }
 		        });
-		
+
 		        // 모달 닫기
-		        $("#exampleModal").modal("hide");
+		        //$("#exampleModal").modal("hide");
+		        document.getElementById("addData").submit();
 		
 		        // 입력 필드 초기화
-		        $("#title").val("");
+		       /*  $("#title").val("");
 		        $("#start").val("");
 		        $("#end").val("");
-		        $("#content").val("");
+		        $("#content").val(""); */
 		    }
 		});
 
@@ -140,6 +178,8 @@
     	      });
     	 }
 	});
+
+    
 
     </script>
 
@@ -170,7 +210,7 @@
               id="closeModalBtn"
             >X</button>
           </div>
-          <form id="addData">
+          <form id="addData" action="save">
           <div class="modal-body">
             일정이름 : <input type="text" id="title" name="title" /><br />
             일정내용 : <input type="text"  id="content" name="content"/><br/>

@@ -45,4 +45,111 @@
         WHERE depart_no = #{depart_no}
 	</select>
 	
+	<select id="getDepartList" resultType="member">
+		SELECT * FROM department
+	</select>
+	
+	<select id="teamList" resultType="member">
+		SELECT * FROM department
+			where depart_p_no = #{param1}
+	</select>
+	
+	<select id="getMember_id" resultType="int">
+		SELECT member_no FROM member
+			ORDER BY member_no DESC LIMIT 1
+	</select>
+	
+	<insert id="join" parameterType="map">
+		insert into member (member_id,pw,name,gender,phone,address,address_detail,email,member_position,hired
+			,total_point,birth,total_leave)
+			
+		<if test="member_position.equals('사원')">
+		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
+		,#{email},#{member_position},#{hired},0,#{birth},0)		
+		</if>	
+		<if test="member_position.equals('대리')">
+		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
+		,#{email},#{member_position},#{hired},0,#{birth},13)		
+		</if>	
+		<if test="member_position.equals('과장')">
+		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
+		,#{email},#{member_position},#{hired},0,#{birth},15)		
+		</if>	
+		<if test="member_position.equals('팀장')">
+		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
+		,#{email},#{member_position},#{hired},0,#{birth},18)		
+		</if>	
+		<if test="member_position.equals('부장')">
+		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
+		,#{email},#{member_position},#{hired},0,#{birth},20)		
+		</if>
+		<if test="member_position.equals('이사')">
+		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
+		,#{email},#{member_position},#{hired},0,#{birth},23)		
+		</if>	
+		<if test="member_position.equals('대표')">
+		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
+		,#{email},#{member_position},#{hired},0,#{birth},25)		
+		</if>		
+	</insert>
+	
+	<insert id="uploadProfile">
+		insert into file(file_location,file_unique_no,file_oriname,file_newname,file_size)
+			values(#{file_location},#{file_unique_no},#{oriFileName},#{newFileName},#{size})
+	</insert>
+	
+	<insert id="depart">
+    INSERT INTO department (member_no, depart_name)
+    	values(#{member_no}, #{depart_name})
+	</insert>
+
+	<insert id="team">
+		insert into team(member_no,team_name)
+			values(#{member_no},#{team_name})
+	</insert>
+	
+	<select id="list" resultType="member">
+		SELECT m.*,t.team_name FROM member m
+			JOIN department d ON m.member_no = d.member_no
+			LEFT JOIN team t ON m.member_no = t.member_no
+			WHERE m.member_state = #{member_state} AND d.depart_name = #{depart_name}
+	</select>
+	
+	<select id="detail" resultType="member">
+		SELECT m.*,t.team_name,d.depart_name FROM member m
+			JOIN department d ON m.member_no = d.member_no
+			LEFT JOIN team t ON m.member_no = t.member_no
+			WHERE m.member_no=#{member_no}
+	</select>
+	
+	<select id="file">
+		select file_newname from file 
+			where file_unique_no=#{param1} AND file_location=#{param2}
+	</select>
+	
+	<update id="updateDo" parameterType="map">
+		UPDATE member
+		 set pw=#{pw},name=#{name},gender=#{gender},birth=#{birth},phone=#{phone},
+		 				email=#{email},address=#{address},address_detail=#{address_detail},
+		 				hired=#{hired},member_position=#{member_position},total_leave=#{total_leave}
+ 			where member_no=#{member_no}
+	</update>
+	
+	<update id="updateDepart" parameterType="map">
+    	update department set depart_name=#{depart_name}
+	</update>
+	
+	<update id="updateTeam" parameterType="map">
+    	update team set team_name=#{team_name}
+	</update>
+	
+	<update id="updateProfile">
+		update file set file_oriname=#{oriFileName},file_newname=#{newFileName},file_size=#{size}
+			where file_location=#{file_location} and file_unique_no=#{member_no}
+	</update>
+	
+	<select id="departList" resultType="member">
+		select * from department
+			where depart_state=#{param1}
+	</select>
 </mapper>
