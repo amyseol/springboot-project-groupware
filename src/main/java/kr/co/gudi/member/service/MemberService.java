@@ -76,6 +76,10 @@ public class MemberService implements UserDetailsService{
 		return dao.getMemberList(depart_no);
 	}
 	
+	public List<MemberDTO> getMemberDetail(int member_no) {
+		return dao.getMemberDetail(member_no);
+	}
+	
 	public void join(HashMap<String, String> params, MultipartFile uploadFile) {
 		
 		dao.join(params);
