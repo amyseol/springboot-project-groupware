@@ -1,5 +1,12 @@
 package kr.co.gudi.marketing.service;
 
-public class MusicChartService {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
+@Service
+public class MusicChartService {
+	Logger logger = LoggerFactory.getLogger(getClass());
+
+	
 }

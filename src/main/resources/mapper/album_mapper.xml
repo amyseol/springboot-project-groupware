@@ -52,4 +52,13 @@
         AND alb_no = #{param1}
 	</select>
 	
+	<insert id="fileUpload">
+		INSERT INTO file(file_location, file_unique_no, file_oriname, file_newname, file_size, file_state) 
+			VALUES("l", #{param3}, #{param1},#{param2},#{param4},"0")
+	</insert>
+
+	<select id="getFile" resultType="album">
+		SELECT file_oriname, file_newname FROM file 
+			WHERE file_unique_no=#{param1} and file_location = "l"
+	</select>
 </mapper>

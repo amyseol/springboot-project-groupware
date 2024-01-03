@@ -103,7 +103,7 @@
         }
 
         .teamList, .memberList{
-            display: none;
+            /* display: none; */
             margin-top: 10px;
         }
         
@@ -367,9 +367,9 @@
                         var li = $('<li onclick="toggleDepart(' + department.depart_no + ')">' + department.depart_name + '</li>');
                         departmentList.append(li);
 
-                        // 팀 리스트가 표시될 공간
+                        /* // 팀 리스트가 표시될 공간
                         var teamList = $('<div class="teamList"></div>');
-                        departmentList.append(teamList);
+                        departmentList.append(teamList); */
                     });
                 },
                 error: function(e){
@@ -387,7 +387,7 @@
                 dataType: "JSON",
                 success: function(departments){
                     // 팀 리스트를 생성
-                    var teamList = '<ul>';
+                    var teamList = '<ul class="teamList">';
                     departments.forEach(function(department){
                         teamList += '<li onclick="toggleTeam(' + department.depart_no + ')">' + department.depart_name + '</li>';
                     });
@@ -395,7 +395,7 @@
 
                     // 해당 부서의 팀 리스트가 표시될 위치
                     var teamLocation = $(".teamList").eq(depart_no - 1);
-                    teamLocation.html(teamList);
+                    teamLocation.append(teamList);
                     teamLocation.show();
 
                     $(".memberList").eq(depart_no - 1).hide();
@@ -429,15 +429,15 @@
                      // teamLocation의 하위에 있는 .memberList를 찾음
                     var memberLocation = teamLocation.find(".memberList");
 
-                    // 만약 .memberList가 없다면, teamLocation 하위에 추가
+                    /* // 만약 .memberList가 없다면, teamLocation 하위에 추가
                     if (memberLocation.length === 1) {
                         memberLocation = $('<div class="memberList"></div>');
                         teamLocation.append(memberLocation);
-                    }
+                    } */
                     
                     console.log("직원 리스트가 표시되는 위치", memberLocation);
                     
-                    memberLocation.html(memberList);
+                    memberLocation.append(memberList);
                     memberLocation.show();
                 },
                 error: function(e){
