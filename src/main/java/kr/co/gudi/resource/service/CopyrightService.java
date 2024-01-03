@@ -2,6 +2,7 @@ package kr.co.gudi.resource.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,8 @@ public class CopyrightService {
 		
 		return resp;
 	}
+	
+	
 
 	public HashMap<String, Object> getListdetail(String page, String perPage, String search) {
 		logger.info("search"+search);
@@ -64,21 +67,100 @@ public class CopyrightService {
 		return resp;
 	}
 	
-	public ArrayList<CopyrightDTO> copyrightlist(){
+
+	//--------------------------등록중 저작권 목록 뿌리기 및 검색---------------------------
+	public Map<String, Object> copyrightlist(String page,String pagePerNum, String search, String searchtag) {
+		// pagePerNum 과 page 를 가지고 offset 을 계산해 내자
+
+		logger.info("searchtag : "+searchtag);
 		
-		ArrayList<CopyrightDTO> result = dao.copyrightlist();
+		int offset = 0;
+		int p =Integer.parseInt(page);
+		offset = (int) (Integer.parseInt(pagePerNum)*(p-1));
+		ArrayList<CopyrightDTO> list = dao.copyrightlist(search,searchtag,offset);
+		logger.info("list : "+list);
+		//만들수 있는 총 페이지수
+		logger.info("filter : "+Integer.parseInt(pagePerNum));
+		logger.info("search : "+search);
+		int max = dao.maxpage(Integer.parseInt(pagePerNum),search,searchtag);
+		logger.info("만들 수 있는 총 페이지수 : "+max);
 		
-		logger.info("result"+result);
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		return result;
+		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
+		if(p>max) {
+			
+			p = max;
+		}
+		
+		map.put("currPage", p);
+		
+		map.put("pages", max+1);
+		logger.info("list : "+list);
+		map.put("list", list);
+		
+		
+		
+		return map;
+		}
+
+	
+	//--------------------------만료 및 취소중 저작권 목록 뿌리기 및 검색---------------------------
+	public Map<String, Object> copyrightnolist(String page,String pagePerNum, String search, String searchtag) {
+		// pagePerNum 과 page 를 가지고 offset 을 계산해 내자
+
+		logger.info("searchtag : "+searchtag);
+		
+		int offset = 0;
+		int p =Integer.parseInt(page);
+		offset = (int) (Integer.parseInt(pagePerNum)*(p-1));
+		ArrayList<CopyrightDTO> list = dao.copyrightnolist(search,searchtag,offset);
+		logger.info("list : "+list);
+		//만들수 있는 총 페이지수
+		logger.info("filter : "+Integer.parseInt(pagePerNum));
+		logger.info("search : "+search);
+		int max = dao.nomaxpage(Integer.parseInt(pagePerNum),search,searchtag);
+		logger.info("만들 수 있는 총 페이지수 : "+max);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
+		if(p>max) {
+			
+			p = max;
+		}
+		
+		map.put("currPage", p);
+		
+		map.put("pages", max+1);
+		logger.info("list : "+list);
+		map.put("list", list);
+		
+		
+		
+		return map;
+		}
+
+
+
+	public Map<String, Object> detaildata(String num) {
+		
+		return dao.detaildata(num);
+		
+		
 	}
 
-	public ArrayList<CopyrightDTO> copyrightnolist() {
-		ArrayList<CopyrightDTO> result = dao.copyrightnolist();
+
+	
+	
+	
+	
+	//-----------------------------------실적------------------------------------
+	//실적등록
+	public void resourceCopyrightregister(String no, String date, String price) {
+		dao.resourceCopyrightregister(no,date,Integer.parseInt(price));
 		
-		logger.info("result"+result);
-		
-		return result;
 	}
 
+	//--------------------------------------------------------------------------
 }

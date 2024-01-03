@@ -2,10 +2,12 @@ package kr.co.gudi.resource.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,25 +25,54 @@ public class CopyrightController {
 	
 	@GetMapping(value = "/copyrightlist")
 	public ModelAndView cp() {
+		
+		
+		
+		
+		
 		ModelAndView mav = new ModelAndView("copyright/cr");
 		return mav ;
 	}
 	
 	
 	@PostMapping(value = "/copyrightgetlist")
-	public ArrayList<CopyrightDTO> copyrightlist() {
+	public Map<String, Object> copyrightlist(@RequestParam String pagePerNum,@RequestParam String page,@RequestParam String search,@RequestParam String searchtag) {
 		
-		ArrayList<CopyrightDTO> data = service.copyrightlist();
+		logger.info("search"+search+"/"+"pagePerNum"+pagePerNum+"page"+page);
 		
-		logger.info("data : "+data.size());
+		if(search.equals("")) {
+			logger.info("검색어 없음");
+		}else {
+			logger.info("검색어 있음");
+			if(searchtag.equals("cr")) {
+				logger.info("저작권번호");
+			}else {
+				logger.info("아티스트명");
+			}
+		}
+		
+		Map<String, Object> data = service.copyrightlist(page,pagePerNum,search,searchtag);
+		logger.info("data : "+data);
 		
 		return data;
 	}
+	
 	@PostMapping(value = "/copyrightnolist")
-	public ArrayList<CopyrightDTO> copyrightnolist(){
-		ArrayList<CopyrightDTO> data = service.copyrightnolist();
+	public Map<String, Object> copyrightnolist(@RequestParam String pagePerNum,@RequestParam String page,@RequestParam String search,@RequestParam String searchtag){
+		logger.info("search"+search+"/"+"pagePerNum"+pagePerNum+"page"+page);
 		
-		logger.info("data : "+data.size());
+		if(search.equals("")) {
+			logger.info("검색어 없음");
+		}else {
+			logger.info("검색어 있음");
+			if(searchtag.equals("cr")) {
+				logger.info("저작권번호");
+			}else {
+				logger.info("아티스트명");
+			}
+		}
+		Map<String, Object> data = service.copyrightnolist(page,pagePerNum,search,searchtag);
+		logger.info("data : "+data);
 		
 		return data;
 	}
@@ -85,11 +116,41 @@ public class CopyrightController {
 		
 		logger.info("num : "+num);
 		
+		Map<String, Object> detail = service.detaildata(num);
+		logger.info("detail : "+detail);
 		ModelAndView mav = new ModelAndView("copyright/crd");
+		mav.addObject("data",detail);
 		
 		return mav;
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	//==========================resource_cr start================================================
+	@GetMapping(value = "/resourceCopyright")
+	public ModelAndView resourceCopyright() {
+		ModelAndView mav = new ModelAndView("resource_cr/resource_cr");
+		
+		return mav;
+	}
+	
+	@GetMapping(value = "resourceCopyrightregister")
+	public ModelAndView resourceCopyrightregister(@RequestParam String no, @RequestParam String date, @RequestParam String price) {
+		logger.info("price : "+price);
+		logger.info("no : "+no);
+		logger.info("date : "+date);
+		
+		service.resourceCopyrightregister(no,date,price);
+		
+		ModelAndView mav = new ModelAndView("redirect:/resourceCopyright");
+		return mav;
+	}
 
 }

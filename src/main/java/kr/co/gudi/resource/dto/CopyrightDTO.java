@@ -21,10 +21,23 @@ public class CopyrightDTO {
 	int perhis_no;
 	int per_price;
 	Date per_date;
+	String per_member;
 	String cr_member;
-	
+	String cr_namae;
 	
 
+	public String getPer_member() {
+		return per_member;
+	}
+	public void setPer_member(String per_member) {
+		this.per_member = per_member;
+	}
+	public String getCr_namae() {
+		return cr_namae;
+	}
+	public void setCr_namae(String cr_namae) {
+		this.cr_namae = cr_namae;
+	}
 	public String getCr_member() {
 		return cr_member;
 	}
