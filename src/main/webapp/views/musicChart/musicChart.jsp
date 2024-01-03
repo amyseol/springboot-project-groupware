@@ -75,8 +75,8 @@
         #common_list_form .list_form .list_content ul li:nth-child(3){width: 35%;}
         #common_list_form .list_form .list_content ul li:nth-child(4){width: 25%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 20%;}
-        #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
+/*         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
+        #common_list_form .list_form .list_content ul:hover{background-color: #eee;} */
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
     </style>
@@ -172,7 +172,7 @@
     <!-- -------------------------------------------list_form start------------------------------------------ -->
     <section id="common_list_form">
         <h2 class="big_title"><img width="142" height="99" src="https://cdnimg.melon.co.kr/resource/image/web/common/logo_melon142x99.png" alt="Melon"></h2>
-        <h2 class="sub_title">멜론 차트 (날짜)</h2>
+        <h2 class="sub_title">멜론 차트 (날짜 데이터 추가)</h2>
         <div class="list_form">
             <ul>
                 <li class="list_title">
@@ -184,10 +184,8 @@
                         <li>앨범</li>
                     </ul>
                 </li>
-                <li class="list_content">
-    				<ul id="chartList">
-    					
-    				</ul>
+                <li class="list_content" id="chartList">
+                
                 </li>
             </ul>
         </div>
@@ -211,7 +209,15 @@ function chartCall(){
 		dataType:'JSON',
 		success: function(data){
 			console.log(data);
-			drawChart(data);	
+			var content = '';
+			data.forEach(function(item){
+				content+='<ul>';
+				content+='<li>'+item.rank+'</li>';
+				content+='<li><a href="albumDetail?alb_no='+item.alb_no+'">'+item.alb_name+'</a></li>';
+				
+				content+='</ul>';
+			});
+			$('#chartList').append(content);
 		},
 		error:function(e){
 			console.log(e);
