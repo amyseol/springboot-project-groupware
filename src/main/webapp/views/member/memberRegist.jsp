@@ -165,6 +165,7 @@ $('#selectedDptno').change(function(){
 	                var option = $('<option>').text(data[i].depart_name);
 	                select.append(option);
 	        }
+	        }
 	    });
 });
 //주소API id="addr_kakao"
