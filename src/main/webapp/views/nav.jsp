@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>HoonyMusic</title>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
 <style>
 	<style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -56,7 +56,7 @@
         #util .util_inner li svg{position:relative; top:15px; left:15px;}
         #util .util_inner li img{width:100%;}
 
-        #common_list_form{padding-left:15%;}
+      /*   #common_list_form{padding-left:15%;}
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .sub_title{padding: 20px 50px;}
         #common_list_form .list_form{position:relative;}
@@ -77,7 +77,7 @@
         #common_list_form .list_form .list_content ul li:nth-child(5){width: 5%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 15%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
+        #common_list_form .list_form .list_content ul:hover{background-color: #eee;} */
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
     </style>
@@ -145,7 +145,6 @@
                     </ul>
                 </ul>
                 <a href="javascript:"><li class="dep1">공용자료실</li></a>
-                <a href="copyrightlist"><li class="dep1">저작권관리</li></a>
                 <a href="javascript:"><li class="dep1">시설예약</li></a>
                 <a href="javascript:"><li class="dep1">근태관리</li></a>
                 <a href="javascript:"><li class="dep1">차량관리</li></a>
@@ -171,57 +170,14 @@
         </ul>
     </div>
     <!-- -------------------------------------------util end------------------------------------------ -->
-    <!-- -------------------------------------------list_form start------------------------------------------ -->
-     <section id="common_list_form">
-        <h2 class="big_title">저작권상세보기</h2>
-        <h3 class="sub_title">저작권정보</h3>
-
-        <div class="list_form">
-        <table style="margin-left:auto;margin-right:auto;">
-        <tr style="border: solid 1px black; border-collapse: collapse;">
-        	<td style="border: solid 1px black; border-collapse: collapse; ">
-        	저작권번호
-        	</td>
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	음원명
-        	</td>
-        </tr>
-        <tr style="border: solid 1px black; border-collapse: collapse;">
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	요금
-        	</td>
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	계약일
-        	</td>
-        </tr>
-        <tr style="border: solid 1px black; border-collapse: collapse;">
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	만료일
-        	</td>
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	아티스트명
-        	</td>
-        </tr>
-        <tr style="border: solid 1px black; border-collapse: collapse;">
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	담당자
-        	</td>
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	파일
-        	</td>
-        </tr>        
-        
-        </table>
-        <button id="back" >뒤로가기</button>
-        </div>
-    </section>
-    <!-- -------------------------------------------list_form end------------------------------------------ -->
+    
     <!-- -------------------------------------------music start------------------------------------------ -->
-    <div id="bottom_music">
+    <!-- <div id="bottom_music">
         <div class="music_inner">
 
         </div>
     </div>
+     -->
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
@@ -282,10 +238,5 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 //-------------------------------- toggle end ------------------------------------------
-$("#back").on("click", function(){
-	
-	location.href="copyrightlist";
-	
-});
-
 </script>
+</html>

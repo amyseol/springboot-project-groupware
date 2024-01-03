@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +26,7 @@ public class ScheduleController {
 	@RequestMapping(value={ "/schedule"})
 	public String index() {
 		logger.info("index 캘린더 출력 test");
-		return "schedule/scheduleList";
+		return "schedule/ScheduleList";
 	}
 	
 	@RequestMapping(value={ "/schedule/list"})
@@ -56,15 +57,19 @@ public class ScheduleController {
 	@GetMapping(value = "/schedule/save")
 	@ResponseBody
 	public void scheduleAdd(@RequestParam HashMap<String, Object> param) {
+
 		int member_no=5;
 		String sch_depart="A&R팀";
 		param.put("member_no", member_no);
 		param.put("sch_depart", sch_depart);
 		logger.info("일정:"+param);
-		
+	
+
 		service.write(param);
+
 	}
 	
+
 	@GetMapping(value = "/schedule/getEventDetails")
 	public String detail(@RequestParam String sch_no, Model model) {
 		logger.info("Controller detail 함수");
@@ -98,4 +103,12 @@ public class ScheduleController {
 	        
 	    }
 	    	*/
+
+	@GetMapping(value="/detailSchedule")
+	public String detailSchedule(@RequestParam HashMap<String, Object> param) {
+		logger.info("디테일정보 : "+param);
+		return "schedule/detailSchedule";
+	}
+	
+
 }
