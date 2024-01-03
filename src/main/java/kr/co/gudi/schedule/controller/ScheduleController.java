@@ -65,6 +65,17 @@ public class ScheduleController {
 		service.write(param);
 	}
 	
+	@GetMapping(value = "/schedule/getEventDetails")
+	public String detail(@RequestParam String sch_no, Model model) {
+		logger.info("Controller detail 함수");
+		ScheduleDTO sch = service.detail(sch_no);
+		model.addAttribute("sch", sch);
+		
+		return "scheduleDetail";
+	}
+	
+	
+	
 	/*
 	@RequestMapping("/addForm")
 	public String addForm(@RequestParam HashMap<String, Object> params) {
@@ -73,7 +84,9 @@ public class ScheduleController {
 		return service.addForm(params);
 	}
 	
-	*/
+
+	
+	
 	 @GetMapping("/list2")
 	 public String all(@RequestParam String filter,Model model) {
 			int member_no=8;
@@ -84,4 +97,5 @@ public class ScheduleController {
 			return "index";
 	        
 	    }
+	    	*/
 }

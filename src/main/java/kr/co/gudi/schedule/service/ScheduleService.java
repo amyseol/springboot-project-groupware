@@ -44,6 +44,9 @@ public class ScheduleService {
 		
 		return dao.addForm(params);
 	}
+	public ScheduleDTO detail(String sch_no) {
+		return dao.detail(sch_no);
+	}
 	
 	
 }
