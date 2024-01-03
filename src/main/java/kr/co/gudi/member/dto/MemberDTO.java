@@ -1,5 +1,6 @@
 package kr.co.gudi.member.dto;
 
+
 import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -8,35 +9,26 @@ import org.apache.ibatis.type.Alias;
 public class MemberDTO {
 	
 	private int member_no;
+	private String member_car_no;
 	private String member_id;
 	private String pw;
+	private String profileImg;
+	private String file_oriname;
+	private String file_newname;
 	private String name;
 	private String gender;
-	private String birth;
+	private Date birth;
 	private String phone;
 	private String address;
 	private String address_detail;
 	private String email;
-	private String member_position;
 	private Date hired;
 	private int total_leave;
 	private int total_point;
 	private String member_state;
-	public String getAddress_detail() {
-		return address_detail;
-	}
-	public void setAddress_detail(String address_detail) {
-		this.address_detail = address_detail;
-	}
-	private String file_newname;
-	public String getFile_newname() {
-		return file_newname;
-	}
-	public void setFile_newname(String file_newname) {
-		this.file_newname = file_newname;
-	}
 	private Date resign_date;
-	private int member_car_no;
+	
+	private String member_position;
 	// team 테이블
 	private String team_name;
 	// depart 테이블
@@ -47,6 +39,21 @@ public class MemberDTO {
 	private Date department_date;
 	private Date department_del_date;
 	private int depart_p_no;
+	
+	
+	
+	public String getAddress_detail() {
+		return address_detail;
+	}
+	public void setAddress_detail(String address_detail) {
+		this.address_detail = address_detail;
+	}
+	public String getFile_newname() {
+		return file_newname;
+	}
+	public void setFile_newname(String file_newname) {
+		this.file_newname = file_newname;
+	}
 	public String getDepart_state() {
 		return depart_state;
 	}
@@ -92,7 +99,7 @@ public class MemberDTO {
 	public void setFile_oriname(String file_oriname) {
 		this.file_oriname = file_oriname;
 	}
-	private String file_oriname;
+	
 	public void setDepart_name(String depart_name) {
 		this.depart_name = depart_name;
 	}
@@ -132,10 +139,10 @@ public class MemberDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 	public String getPhone() {
@@ -192,12 +199,12 @@ public class MemberDTO {
 	public void setResign_date(Date resign_date) {
 		this.resign_date = resign_date;
 	}
-	public int getMember_car_no() {
+	public String getMember_car_no() {
 		return member_car_no;
 	}
-	public void setMember_car_no(int member_car_no) {
+	public void setMember_car_no(String member_car_no) {
 		this.member_car_no = member_car_no;
 	}
-	
-
 }
+	
+	

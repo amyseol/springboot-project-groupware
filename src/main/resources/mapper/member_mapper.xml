@@ -3,6 +3,47 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="kr.co.gudi.member.dao.MemberDAO">
+	<select id="selectMemberByParam" resultType="kr.co.gudi.member.vo.MemberVO" parameterType="Map">
+		SELECT * FROM member
+		WHERE member_id = #{member_id}
+	</select>
+		<select id="getMember" resultType="kr.co.gudi.member.vo.MemberVO">
+		SELECT * FROM member
+		WHERE member_id = "hoony4"
+	</select>
+
+	<select id="searchFileNo" resultType="int">
+		SELECT file_no FROM file
+		WHERE file_unique_no = 4 and file_location = 'p'
+	</select>
+	
+	<update id="updateProfileImg" >
+		UPDATE file SET file_newname = #{file_newname}
+			WHERE file_no = #{file_no}
+	</update>
+	
+	<select id="findPhoto" resultType="String">
+		SELECT file_newname FROM file
+			WHERE file_unique_no = 4 and file_location = 'p'
+	</select>
+	
+	<select id="getAllDepartments" resultType="member">
+        SELECT depart_no, depart_name
+        FROM department
+        WHERE depart_p_no = 0;
+    </select>
+	
+	<select id="getTeamList" resultType="member">
+		SELECT depart_no, depart_name
+		FROM department
+		WHERE depart_p_no = #{depart_no}
+	</select>
+	
+	<select id="getMemberList" resultType="member">
+        SELECT name, member_position, depart_no
+        FROM member
+        WHERE depart_no = #{depart_no}
+	</select>
 	
 	<select id="getDepartList" resultType="member">
 		SELECT * FROM department
