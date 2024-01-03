@@ -12,14 +12,9 @@ public class BoardDTO {
 	private String board_depart;
 	private String board_title;
 	private String board_content;
-	
 	private Date board_date;
-	
-	
 	private int bHit;
 	private String board_state;
-	
-	
 	
 
 	public int getBoard_no() {

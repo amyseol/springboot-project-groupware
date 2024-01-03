@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.gudi.board.dto.BoardDTO;
 import kr.co.gudi.board.service.BoardService;
@@ -42,9 +43,10 @@ public class BoardController {
 	}
 	
 	@PostMapping(value = "/board/write")
-	public String write(BoardDTO dto) {
+	public String write(BoardDTO dto, MultipartFile[] photos) {
 		logger.info("===write 함수===");
-		service.write(dto);
+		logger.info("file 갯수 : "+photos.length);
+		service.write(dto, photos);
 		return "redirect:./";
 	}
 	
