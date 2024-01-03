@@ -16,4 +16,6 @@ public interface ScheduleDAO {
 
 	String addForm(HashMap<String, Object> params);
 
+	ScheduleDTO detail(String sch_no);
+
 }

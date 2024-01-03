@@ -4,4 +4,32 @@
    
 <mapper namespace="kr.co.gudi.board.dao.BoardDAO">
 
+	<select id="list" resultType="bbs">
+  		SELECT * FROM board
+	</select>
+	
+	<insert id="write" parameterType="bbs">
+  		INSERT INTO board(board_title, board_depart, board_content)
+  			VALUES(#{board_title}, #{board_depart}, #{board_content})
+  	</insert>
+	
+	<select id="detail">
+  		SELECT * FROM board 
+  			WHERE board_no=#{param1}
+  	</select>
+   
+   <update id="bHit">
+   		UPDATE board SET bHit=bHit+1 WHERE board_no=#{param1}
+  	</update>
+  	
+  	<delete id="del">
+  		DELETE FROM board
+  			WHERE board_no=#{param1}
+  	</delete>
+  
+  	<update id="modify">
+   		UPDATE board SET 
+   			board_title=#{board_title}, board_depart=#{board_depart}, board_content=#{board_content}, bHit=bHit-1 
+   				WHERE board_no=#{board_no} 
+   	</update>
 </mapper>

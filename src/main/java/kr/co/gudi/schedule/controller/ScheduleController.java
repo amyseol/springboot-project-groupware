@@ -69,10 +69,46 @@ public class ScheduleController {
 
 	}
 	
+
+	@GetMapping(value = "/schedule/getEventDetails")
+	public String detail(@RequestParam String sch_no, Model model) {
+		logger.info("Controller detail 함수");
+		ScheduleDTO sch = service.detail(sch_no);
+		model.addAttribute("sch", sch);
+		
+		return "scheduleDetail";
+	}
+	
+	
+	
+	/*
+	@RequestMapping("/addForm")
+	public String addForm(@RequestParam HashMap<String, Object> params) {
+		
+		logger.info("params:"+params);
+		return service.addForm(params);
+	}
+	
+
+	
+	
+	 @GetMapping("/list2")
+	 public String all(@RequestParam String filter,Model model) {
+			int member_no=8;
+			String sch_depart="경영지원";
+			//ArrayList<CalDTO> list = service.list(filter,member_no,sch_depart);
+			//model.addAttribute("list",list);
+			
+			return "index";
+	        
+	    }
+	    	*/
+
 	@GetMapping(value="/detailSchedule")
 	public String detailSchedule(@RequestParam HashMap<String, Object> param) {
 		logger.info("디테일정보 : "+param);
 		return "schedule/detailSchedule";
 	}
 	
+
 }
