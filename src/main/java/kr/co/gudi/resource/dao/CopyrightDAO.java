@@ -1,5 +1,6 @@
 package kr.co.gudi.resource.dao;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.gudi.resource.dto.CopyrightDTO;
 
-@Mapper
+@Mapper 
 public interface CopyrightDAO {
 
 	ArrayList<CopyrightDTO> copyrightnolist();
@@ -24,6 +25,7 @@ public interface CopyrightDAO {
 	Map<String, Object> detaildata(String num);
 
 	void resourceCopyrightregister(String no, String date, int price);
+
 
 
 }

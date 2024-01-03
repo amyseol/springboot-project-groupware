@@ -179,7 +179,7 @@
         <h2 class="big_title">저작권 실적관리</h2>
 		<table style="margin-left: auto;margin-right: auto;">
 			<tr>
-				<td>
+				<td> 
 				저작권번호 : <input type="text" id="no"/>
 				</td>
 				

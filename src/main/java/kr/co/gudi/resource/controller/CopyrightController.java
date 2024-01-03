@@ -1,5 +1,6 @@
 package kr.co.gudi.resource.controller;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -132,7 +133,7 @@ public class CopyrightController {
 	
 	
 	
-	
+	 
 	//==========================resource_cr start================================================
 	@GetMapping(value = "/resourceCopyright")
 	public ModelAndView resourceCopyright() {
@@ -152,5 +153,4 @@ public class CopyrightController {
 		ModelAndView mav = new ModelAndView("redirect:/resourceCopyright");
 		return mav;
 	}
-
 }

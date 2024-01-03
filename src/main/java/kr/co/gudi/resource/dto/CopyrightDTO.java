@@ -4,9 +4,9 @@ import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
-
 @Alias("cr")
 public class CopyrightDTO {
+
 	
 	String cr_no ;
 	int perSong_no;
@@ -117,5 +117,6 @@ public class CopyrightDTO {
 		this.per_date = per_date;
 	}
 	
+
 
 }

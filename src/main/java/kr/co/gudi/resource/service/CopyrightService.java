@@ -1,5 +1,6 @@
 package kr.co.gudi.resource.service;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +17,7 @@ import kr.co.gudi.resource.dao.CopyrightDAO;
 import kr.co.gudi.resource.dto.CopyrightDTO;
 import reactor.core.publisher.Mono;
 
-@Service
+@Service 
 public class CopyrightService {
 	@Autowired CopyrightDAO dao;
 	
