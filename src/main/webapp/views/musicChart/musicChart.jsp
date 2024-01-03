@@ -204,7 +204,7 @@
 function chartCall(){	
 	$.ajax({
 		type:'get',
-		url:'musicChart',
+		url:'getChart',
 		data:{}, 
 		dataType:'JSON',
 		success: function(data){
