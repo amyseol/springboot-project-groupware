@@ -1,12 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
+
+
+
+
+ 
 <html>
-<head>
-<meta charset="UTF-8">
-<title>HoonyMusic</title>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-</head>
-<style>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
 	<style>
+		.CONT_TITLE{cursor: pointer;}
+		
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
         @font-face {
@@ -56,7 +65,7 @@
         #util .util_inner li svg{position:relative; top:15px; left:15px;}
         #util .util_inner li img{width:100%;}
 
-      /*   #common_list_form{padding-left:15%;}
+        #common_list_form{padding-left:15%;}
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .sub_title{padding: 20px 50px;}
         #common_list_form .list_form{position:relative;}
@@ -77,7 +86,7 @@
         #common_list_form .list_form .list_content ul li:nth-child(5){width: 5%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 15%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;} */
+        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
     </style>
@@ -145,6 +154,7 @@
                     </ul>
                 </ul>
                 <a href="javascript:"><li class="dep1">공용자료실</li></a>
+                <a href="copyrightlist"><li class="dep1">저작권관리</li></a>
                 <a href="javascript:"><li class="dep1">시설예약</li></a>
                 <a href="javascript:"><li class="dep1">근태관리</li></a>
                 <a href="javascript:"><li class="dep1">차량관리</li></a>
@@ -170,14 +180,79 @@
         </ul>
     </div>
     <!-- -------------------------------------------util end------------------------------------------ -->
+    <!-- -------------------------------------------list_form start------------------------------------------ -->
+    <section id="common_list_form">
+        <h2 class="big_title">저작권등록</h2>
+        <h3 class="sub_title">저작권확인</h3>
 
+        <div class="list_form">
+        
+        <input type="text" id="searchbar"/>
+        <button id="search">검색</button>
+        
+        <ul id="list">
+
+
+    	</ul>
+       <ul id="list2">
+
+
+    	</ul>
+		<%-- <h3>${data}</h3> --%>
+		
+		<%-- <c:forEach items="${data}" var="data" begin="1" end="1" step="1" varStatus="status">
+		<h3>안녕</h3>
+		</c:forEach> --%>
+		
+		
+        <table style="margin-left:auto;margin-right:auto;">
+        <tr style="border: solid 1px black; border-collapse: collapse;">
+        	<td style="border: solid 1px black; border-collapse: collapse; ">
+        	<input type="text" id="searchbar"/>
+        	<button id="search">검색</button>
+        	</td>
+        	<td style="border: solid 1px black; border-collapse: collapse;">
+        	<input type="text" placeholder="음원명" />
+        	</td>
+        </tr>
+        <tr style="border: solid 1px black; border-collapse: collapse;">
+        	<td style="border: solid 1px black; border-collapse: collapse;">
+        	<input type="text" placeholder="요금" />
+        	</td>
+        	<td style="border: solid 1px black; border-collapse: collapse;">
+        	<input type="date" id="datePicker" class="datePicker" value="2018-07-22" min="2018-01-01" max="2018-12-31"/>
+        	</td>
+        </tr>
+        <tr style="border: solid 1px black; border-collapse: collapse;">
+        	<td style="border: solid 1px black; border-collapse: collapse;">
+        	<input type="date" id="datePicker" class="datePicker"/>
+        	</td>
+        	<td style="border: solid 1px black; border-collapse: collapse;">
+        	<input type="text" placeholder="아티스트명" />
+        	</td>
+        </tr>
+        <tr style="border: solid 1px black; border-collapse: collapse;">
+        	<td style="border: solid 1px black; border-collapse: collapse;">
+        	<input type="text" placeholder="담당자" />
+        	</td>
+        	<td style="border: solid 1px black; border-collapse: collapse;">
+        	파일
+        	</td>
+        </tr>        
+        
+        </table>
+		<h3>${data}</h3>
+     
+        
+        <button id="register">등록</button>
+        </div>
+    </section>
+    <!-- -------------------------------------------list_form end------------------------------------------ -->
     <!-- -------------------------------------------music start------------------------------------------ -->
-    <!-- <div id="bottom_music">
+    <div id="bottom_music">
         <div class="music_inner">
-
         </div>
     </div>
-     -->
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
@@ -238,5 +313,104 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 //-------------------------------- toggle end ------------------------------------------
+
+    var page = 1;
+    var perPage = 10;
+    var search = "";
+    var detaildata ;
+    
+    $("#search").on("click", function(){
+    	
+    	console.log($("#searchbar").val());
+    	search = $("#searchbar").val();
+    	console.log(search);
+    	api();
+    	
+    });
+
+    function api(){
+    $.ajax({
+        type : 'GET',
+        url : '/copyrightsearch',
+        data:{
+            'page':page,
+            'perPage':perPage,
+            'search':search 
+            
+        },
+        dataType:'JSON',
+        success:function(data){
+            //console.log(data);
+            var content ='';
+
+            data.data.forEach(function(item){
+                content += '<li>';
+                //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
+                content += '<div class="REG_ID">'+item.REG_ID+'</div>';
+                content += '<div class="CONT_TITLE">'+"<h3 "+'onClick = "copyrightsearchdetail('+"'"+item.REG_ID+"','"+page+"','"+perPage+"'"+')">'+item.CONT_TITLE+"</h3>"+'</div>';
+                content += '<div class="REG_DATE">'+item.REG_DATE+'</div>';
+                //content += '</a>';
+                content += '</li>';
+            });
+            $('#list').empty();
+            $('#list').append(content);
+
+
+        },error:function(e){
+            console.log(e);
+        }
+
+
+
+    });
+    
+    }
+    
+    //---------------------등록------------------------
+    $("#register").on("click", function(){
+    	
+    	location.href="copyrightregister";
+    	
+    });
+    
+   	function copyrightsearchdetail(id,page,perpage){
+   		
+   	   $.ajax({
+           type : 'GET',
+           url : '/copyrightsearchdetail',
+           data:{
+               'page':page,
+               'perPage':perPage,
+               'search':id 
+               
+           },
+           dataType:'JSON',
+           success:function(data){
+               console.log(data);
+               var content ='';
+               var i = 0;
+               
+               
+				
+               data.data.forEach(function(item){
+
+                   detaildata = item.CONT_TITLE;
+               });
+                   console.log(detaildata);
+			
+               //$('#list2').empty();
+               //$('#list2').append(content);
+               
+
+           },error:function(e){
+               console.log(e);
+           }
+
+
+
+       });
+       
+   		
+   	}
+
 </script>
-</html>

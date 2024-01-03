@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>HoonyMusic</title>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-</head>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html> 
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
 	<style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -56,7 +59,7 @@
         #util .util_inner li svg{position:relative; top:15px; left:15px;}
         #util .util_inner li img{width:100%;}
 
-      /*   #common_list_form{padding-left:15%;}
+        #common_list_form{padding-left:15%;}
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .sub_title{padding: 20px 50px;}
         #common_list_form .list_form{position:relative;}
@@ -77,7 +80,7 @@
         #common_list_form .list_form .list_content ul li:nth-child(5){width: 5%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 15%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;} */
+        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
     </style>
@@ -145,6 +148,7 @@
                     </ul>
                 </ul>
                 <a href="javascript:"><li class="dep1">공용자료실</li></a>
+                <a href="javascript:"><li class="dep1">저작권관리</li></a>
                 <a href="javascript:"><li class="dep1">시설예약</li></a>
                 <a href="javascript:"><li class="dep1">근태관리</li></a>
                 <a href="javascript:"><li class="dep1">차량관리</li></a>
@@ -170,14 +174,85 @@
         </ul>
     </div>
     <!-- -------------------------------------------util end------------------------------------------ -->
+    <!-- -------------------------------------------list_form start------------------------------------------ -->
+    <section id="common_list_form">
+        <h2 class="big_title">저작권 관리</h2>
+        <button id="getcr" style="border-radius: 5px; margin-left: 40px; padding: 5px 10px; background-color: blue; color: white; cursor: pointer;">저작권등록</button>
+        <select id="searchpath" name="searchtag">
+			<option  value="cr" >저작권번호</option>
+			<option value="name">저작권명</option>
+		</select>
+        <input type="text" style="margin-left: 300px;" id="searchbar"/>
+        <button id="search">검색</button>
+        <h3 class="sub_title">등록중 저작권</h3>
+        <div class="list_form">
+            <ul>
+                <li class="list_title" id="list1">
+                    <ul>
+                        <li>no.</li>
+                        <li>저작권명</li>
+                        <li>담당자</li>
+                        <li>기간</li>
+                        <li>취소하기</li>
+                    </ul>
+                </li>
+				
+				<li class="list_title" id="list_1">
+				
+				</li>
 
+             </ul>
+             
+
+        </div>
+		<div id="paging" class="pagingBox">
+			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
+			<div class="container">
+				<nav aria-label="Page navigation" style="text-align: center">
+					<ul class="pagination" id="getpagination"></ul>
+				</nav>
+			</div>
+		</div>
+		
+		
+		
+        <h3 class="sub_title">취소/만료 저작권</h3>
+        <div class="list_form" id="list2">
+            <ul>
+                <li class="list_title">
+                    <ul>
+                        <li>no.</li>
+                        <li>저작권명</li>
+                        <li>담당자</li>
+                        <li>기간</li>
+                        <li>취소/만료</li>
+                    </ul>
+                </li>
+                <li class="list_title" id="list_2">
+				
+				</li>
+             </ul>
+ 
+        </div>
+		<div id="paging" class="pagingBox">
+			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
+			<div class="container">
+				<nav aria-label="Page navigation" style="text-align: center">
+					<ul class="pagination" id="nopagination"></ul>
+				</nav>
+			</div>
+		</div>
+		
+		<div id="gong" style="margin-bottom: 100px "></div>
+		
+    </section>
+    <!-- -------------------------------------------list_form end------------------------------------------ -->
     <!-- -------------------------------------------music start------------------------------------------ -->
-    <!-- <div id="bottom_music">
+    <div id="bottom_music">
         <div class="music_inner">
 
         </div>
     </div>
-     -->
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
@@ -238,5 +313,184 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 //-------------------------------- toggle end ------------------------------------------
+
+$("#getcr").on("click", function(){
+	
+	location.href="copyrightregisterform";
+	
+});
+
+//-------------------------------search---------------------------------------------
+
+var search = "";
+var showPage=1;//페이징을 위한 변수
+var searchtag ="";
+
+$("#search").on("click", function(){
+	
+	search = $("#searchbar").val();
+	
+	var storyLength = $("#searchbar").val().length;
+	if(storyLength < 2 ){
+		alert("2자 이상 입력해주세요");
+	    $("#searchbar").focus();
+	}else{
+	//searchbox = $('#search').val();
+	console.log($('#searchpath option:selected').val());
+	searchtag = $('#searchpath option:selected').val();
+	call(showPage);
+	nocall(showPage);
+	}
+	
+	console.log(search);
+	
+});
+
+//--------------------------------ajax list------------------------------------------
+
+
+
+call(showPage);
+nocall(showPage);
+
+function call(showPage){
+   $.ajax({
+        type : 'POST',
+        url : '/copyrightgetlist',
+        data:{
+        	
+        	'pagePerNum':5
+        	,'page':showPage
+        	,'search':search
+        	,'searchtag':searchtag
+        	
+        },
+        dataType:'json',
+        success:function(data){
+        	//alert("성공");
+        	
+        	paging(data.list);
+        	
+            console.log(data);
+            var content ='';
+
+            data.list.forEach(function(item,idx){
+                //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
+                content += '<ul>';
+                content += '<li >'+item.cr_no+'</li>';
+                content += '<li >'+"<a href = 'copyrightdetail?num="+item.cr_no+"'>"+item.cr_namae+"</a>"+'</;i>';
+                content += '<li >'+item.cr_member+'</li>';
+       			var date = new Date(item.cr_contdate);
+    			var dateStr = date.toLocaleDateString("ko-KR"); //en-US
+    			content += '<li>'+dateStr+'</li>';	
+                content += '<li >'+"<button>취소</button>"+'</li>';
+                content += '</ul>';
+            });
+            $('#list_1').empty();
+            $('#list_1').append(content);
+
+
+        },error:function(e){
+            console.log(e);
+            alert("실패");
+        }
+    });
+
+}   
+   
+function nocall(showPage){  
+   $.ajax({
+       type : 'POST',
+       url : '/copyrightnolist',
+       data:{
+    	   
+       	'pagePerNum':5
+    	,'page':showPage
+    	,'search':search
+    	,'searchtag':searchtag
+    	   
+       },
+       dataType:'json',
+       success:function(data){
+       	//alert("성공");
+       	
+       	nopaging(data.list);
+       	
+           console.log(data);
+           
+           var content ='';
+
+           data.list.forEach(function(item,idx){
+               //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
+               content += '<ul>';
+               content += '<li >'+item.cr_no+'</li>';
+               content += '<li >'+"<a href = 'copyrightdetail?num="+item.cr_no+"'>"+item.cr_namae+"</a>"+'</;i>';
+               content += '<li >'+item.cr_member+'</li>';
+       			var date = new Date(item.cr_contdate);
+    			var dateStr = date.toLocaleDateString("ko-KR"); //en-US
+    			content += '<li>'+dateStr+'</li>';		
+               content += '<li >만료</li>';
+               content += '</ul>';
+           });
+           $('#list_2').empty();
+           $('#list_2').append(content);
+
+       },error:function(e){
+           console.log(e);
+           alert("실패");
+       }
+   });
+}
+
+
+
+
+   function paging(list){
+	   console.log("list : ", list);
+		$('#getpagination').twbsPagination({
+			startPage:list.currPage,//보여줄 페이지
+			totalPages:list.pages,//총페이지수(총갯수/페이지당 보여줄 게시물수) : 서버에서 계산해서 가져와야 한다.
+			visiblePages:5,//[1][2][3][4][5]
+			onPageClick:function(e,page){//번호 클릭시 실행할 내용
+			
+					
+					if(showPage!=page){
+						
+
+						console.log("con1 : "+page);
+						showPage = page;//클릭해서 다른 페이지를 보여주게 되면 현재 보고있는 페이지 번호도 변경해준다.
+						
+						call(page);
+						
+			}
+
+			}
+			
+		});
+   }
+   
+   function nopaging(list){
+	   console.log("list : ", list);
+		$('#nopagination').twbsPagination({
+			startPage:list.currPage,//보여줄 페이지
+			totalPages:list.pages,//총페이지수(총갯수/페이지당 보여줄 게시물수) : 서버에서 계산해서 가져와야 한다.
+			visiblePages:5,//[1][2][3][4][5]
+			onPageClick:function(e,page){//번호 클릭시 실행할 내용
+			
+					
+					if(showPage!=page){
+						
+
+						console.log("con1 : "+page);
+						showPage = page;//클릭해서 다른 페이지를 보여주게 되면 현재 보고있는 페이지 번호도 변경해준다.
+						
+						call(page);
+						
+			}
+
+			}
+			
+		});
+   }
+
 </script>
-</html>

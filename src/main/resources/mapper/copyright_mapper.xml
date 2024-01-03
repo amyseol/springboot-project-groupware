@@ -4,4 +4,110 @@
 >
 <mapper namespace="kr.co.gudi.resource.dao.CopyrightDAO">
 
+
+ 
+	
+	
+	<select id="copyrightlist" resultType="cr">
+
+		SELECT *
+		FROM cr_manage
+		WHERE cr_state = 0
+		<choose>
+			<when test="searchtag=='cr'">
+			AND cr_no = 
+			</when>
+		    <when test="searchtag=='name'">
+		    AND cr_namae = 
+		    </when>
+		</choose>
+		<if test="!(search=='')">
+			#{param1}
+		</if>
+	ORDER BY cr_regdate DESC LIMIT 5 OFFSET #{param3}
+	</select>
+	
+	
+	
+	
+	<select id="maxpage" resultType="int">
+		SELECT (count(cr_no)/#{pagePerNum})
+		FROM cr_manage
+		WHERE cr_state = 0
+		<choose>
+			<when test="searchtag=='cr'">
+			AND cr_no = 
+			</when>
+		    <when test="searchtag=='name'">
+		    AND cr_namae = 
+		    </when>
+		</choose>
+		<if test="!(search=='')">
+			#{search}
+		</if>
+		
+	</select>
+	
+	
+	
+		<select id="copyrightnolist" resultType="cr">
+
+		SELECT *
+		FROM cr_manage
+		WHERE cr_state = 1
+		<choose>
+			<when test="searchtag=='cr'">
+			AND cr_no = 
+			</when>
+		    <when test="searchtag=='name'">
+		    AND cr_namae = 
+		    </when>
+		</choose>
+		<if test="!(search=='')">
+			#{param1}
+		</if>
+	ORDER BY cr_regdate DESC LIMIT 5 OFFSET #{param3}
+	</select>
+	
+	
+	
+	
+	<select id="nomaxpage" resultType="int">
+		SELECT (count(cr_no)/#{pagePerNum})
+		FROM cr_manage
+		WHERE cr_state = 0
+		<choose>
+			<when test="searchtag=='cr'">
+			AND cr_no = 
+			</when>
+		    <when test="searchtag=='name'">
+		    AND cr_namae = 
+		    </when>
+		</choose>
+		<if test="!(search=='')">
+			#{search}
+		</if>
+		
+	</select>
+	
+	
+	
+	
+	<select id="detaildata" resultType="Map">
+	
+	SELECT * 
+	FROM cr_manage
+	WHERE cr_no = #{param1}
+	
+	</select>
+	
+	<insert id="resourceCopyrightregister" parameterType="String">
+	
+	insert
+	
+	</insert>
+
+
+
+
 </mapper>
