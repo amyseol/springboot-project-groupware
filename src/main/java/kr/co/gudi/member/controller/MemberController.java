@@ -124,7 +124,7 @@ public class MemberController {
 					String file_newname = sdf.format(today) + "_" + random + ext;
 					logger.info("file_newname : " + file_newname);
 					
-					String path = root+"/"+	file_newname;	// 파일 저장 경로
+					String path = root+	file_newname;	// 파일 저장 경로
 					logger.info("path : " + path);
 					
 					profileImg.transferTo(new File(path));
@@ -167,6 +167,12 @@ public class MemberController {
 	@ResponseBody
 	public List<MemberDTO> getMemberList(@PathVariable int depart_no){
 		return service.getMemberList(depart_no);
+	}
+	
+	@GetMapping("/organization/detail/{member_no}")
+	@ResponseBody
+	public List<MemberDTO>getMemberDetail(@PathVariable int member_no){
+		return service.getMemberDetail(member_no);
 	}
 	
     @GetMapping(value="/memberRegist")

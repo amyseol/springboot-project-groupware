@@ -40,9 +40,15 @@
 	</select>
 	
 	<select id="getMemberList" resultType="member">
-        SELECT name, member_position, depart_no
+        SELECT member_no, name, member_position, depart_no
         FROM member
         WHERE depart_no = #{depart_no}
+	</select>
+	
+	<select id="getMemberDetail" resultType="member">
+		SELECT name, member_position, phone, email
+		FROM member
+		WHERE member_no = #{member_no}
 	</select>
 	
 	<select id="getDepartList" resultType="member">

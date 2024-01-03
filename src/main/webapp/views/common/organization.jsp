@@ -108,24 +108,21 @@
         }
         
          /* 모달 스타일 */
-        #myModal {
+        #memberModal {
             display: none;
             position: fixed;
             z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
+            left: 40%;
+            top: 40%;
+            width: 60%;
+            height: 20%;
             overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-            padding-top: 60px;
         }
 
         /* 모달 내용 스타일 */
-        #modal-content {
+        #memberInfo {
             background-color: #fefefe;
-            margin: 5% auto;
+            margin: 1% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
@@ -133,6 +130,7 @@
 
         /* 닫기 버튼 스타일 */
         .close {
+        	display: none;
             color: #aaa;
             float: right;
             font-size: 28px;
@@ -341,12 +339,14 @@
         function showMemberModal(content){
         	var memberModal = $("#memberModal");
         	var memberInfo = $("#memberInfo");
+        	var close = $(".close");
         	
         	if (memberModal.css("display") == "none") {
         		
         		memberInfo.append(content);
         		
         		memberModal.show();
+        		close.show();
 			} else {
 				memberModal.hide();
 			}
@@ -364,12 +364,8 @@
                     departmentList.empty();
                     
                     departments.forEach(function(department){
-                        var li = $('<li onclick="toggleDepart(' + department.depart_no + ')">' + department.depart_name + '</li>');
+                        var li = $('<li class="departList"><span onclick="toggleDepart(' + department.depart_no + ')">' + department.depart_name + '</span></li>');
                         departmentList.append(li);
-
-                        /* // 팀 리스트가 표시될 공간
-                        var teamList = $('<div class="teamList"></div>');
-                        departmentList.append(teamList); */
                     });
                 },
                 error: function(e){
@@ -387,14 +383,15 @@
                 dataType: "JSON",
                 success: function(departments){
                     // 팀 리스트를 생성
-                    var teamList = '<ul class="teamList">';
+                    var teamList = '<ul>';
                     departments.forEach(function(department){
-                        teamList += '<li onclick="toggleTeam(' + department.depart_no + ')">' + department.depart_name + '</li>';
+                        teamList += '<li class="teamList"><span onclick="toggleTeam(' + department.depart_no + ')">' + department.depart_name + '</span></li>';
                     });
                     teamList += '</ul>';
 
                     // 해당 부서의 팀 리스트가 표시될 위치
-                    var teamLocation = $(".teamList").eq(depart_no - 1);
+                    var teamLocation = $(".departList").eq(depart_no - 1);
+                    // eq(depart_no - 1)
                     teamLocation.append(teamList);
                     teamLocation.show();
 
@@ -413,29 +410,16 @@
                 url: "/organization/members/" + depart_no,
                 dataType: "JSON",
                 success: function(members){
-                    console.log("직원 리스트 생성 함수 호출!", members);
                     // 직원 리스트를 생성
                     var memberList = '<ul>';
                     members.forEach(function(member){
-                        memberList += '<li onclick="getMemberDetail(' + member.member_no + ')">' + member.name + '</li>';
+                    	console.log("멤버 번호 : "+member.member_no);
+                        memberList += '<li class="memberList"><p data-member-no="'+ member.member_no  +'" onclick="getMemberDetail(' + member.member_no + ')">' + member.name + '</p></li>';
                     });
                     memberList += '</ul>';
 
                     // 해당 팀의 직원 리스트가 표시될 위치
-                    var teamLocation  = $(".teamList").eq(depart_no - 1)
-
-                    console.log("팀 리스트가 표시되는 위치", teamLocation);
-
-                     // teamLocation의 하위에 있는 .memberList를 찾음
-                    var memberLocation = teamLocation.find(".memberList");
-
-                    /* // 만약 .memberList가 없다면, teamLocation 하위에 추가
-                    if (memberLocation.length === 1) {
-                        memberLocation = $('<div class="memberList"></div>');
-                        teamLocation.append(memberLocation);
-                    } */
-                    
-                    console.log("직원 리스트가 표시되는 위치", memberLocation);
+                    var memberLocation  = $(".teamList").eq(depart_no - 5);
                     
                     memberLocation.append(memberList);
                     memberLocation.show();
@@ -455,18 +439,24 @@
                 	var memberInfo = $("#memberInfo");
                 	memberInfo.empty();
                 	
-                    // 팝업의 내용을 생성
-                    var popupContent = '<div style="display: flex;">' +
-                        '<div style="flex: 1;">' +
-                        '<img src="' + member.photo + '" alt="프로필 사진" style="max-width: 100%;">' +
-                        '<p>' + member.name + ' (' + member.member_position + ')</p>' +
-                        '</div>' +
-                        '<div style="flex: 1; padding-left: 10px;">' +
-                        '<p><strong>직급:</strong> ' + member.member_position + '</p>' +
-                        '<p><strong>연락처:</strong> ' + member.phone + '</p>' +
-                        '<p><strong>이메일:</strong> ' + member.email + '</p>' +
-                        '</div>' +
-                        '</div>';
+                	var popupContent = '<div style="display: flex;">';
+                	
+                	member.forEach(function(item){
+	                	console.log("멤버 정보", item);
+                		
+	                    // 팝업의 내용을 생성
+	                    popupContent += 
+	                        '<div style="flex: 1;">' +
+	                        '<img src="' + item.profileImg + '" alt="프로필 사진" style="max-width: 100%;">' +
+	                        '<p>' + item.name + ' ' + item.member_position + '</p>' +
+	                        '</div>' +
+	                        '<div style="flex: 1; padding-left: 10px;">' +
+	                        '<p><strong>직급:</strong> ' + item.member_position + '</p>' +
+	                        '<p><strong>연락처:</strong> ' + item.phone + '</p>' +
+	                        '<p><strong>이메일:</strong> ' + item.email + '</p>' +
+	                        '</div>' +
+	                        '</div>';
+                	});
 
                     // 팝업 생성 및 표시
                     showMemberModal(popupContent);
