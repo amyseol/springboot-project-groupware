@@ -27,18 +27,22 @@
 			WHERE file_unique_no = 4 and file_location = 'p'
 	</select>
 	
+	<select id="getAllDepartments" resultType="member">
+        SELECT depart_no, depart_name
+        FROM department
+        WHERE depart_p_no = 0;
+    </select>
+	
 	<select id="getTeamList" resultType="member">
-		SELECT t.team_no, t.team_name
-		FROM team t
-		JOIN department d ON t.depart_no = d.depart_no
-		WHERE d.depart_no = #{depart_no};
+		SELECT depart_no, depart_name
+		FROM department
+		WHERE depart_p_no = #{depart_no}
 	</select>
 	
 	<select id="getMemberList" resultType="member">
-		SELECT m.member_no, m.name, t.team_no, t.team_name, m.member_position, m.phone, m.email
-		FROM team t
-		JOIN member m ON t.member_no = m.member_no
-		WHERE t.team_no = #{team_no}
+        SELECT name, member_position, depart_no
+        FROM member
+        WHERE depart_no = #{depart_no}
 	</select>
 	
 </mapper>

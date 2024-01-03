@@ -150,22 +150,21 @@ public class MemberController {
 		return "common/organization";
 	}
 	
-	@GetMapping("/departments")
-    public String showDepartments(Model model) {
-        List<Department> departments = service.getAllDepartments();
-        model.addAttribute("departments", departments);
-        return "departments";
+	@GetMapping("/organization/departments")
+	@ResponseBody
+    public List<Department> showDepartments() {
+        return service.getAllDepartments();
     }
 	
-	@GetMapping("/teamList/{depart_no}")
+	@GetMapping("/organization/teams/{depart_no}")
 	@ResponseBody
 	public List<MemberDTO> teamList(@PathVariable int depart_no){
 		return service.getTeamList(depart_no);
 	}
 	
-	@GetMapping("/memberList/{team_no}")
+	@GetMapping("/organization/members/{depart_no}")
 	@ResponseBody
-	public List<MemberDTO> memberList(@PathVariable int team_no){
-		return service.getMemberList(team_no);
+	public List<MemberDTO> memberList(@PathVariable int depart_no){
+		return service.getMemberList(depart_no);
 	}
 }

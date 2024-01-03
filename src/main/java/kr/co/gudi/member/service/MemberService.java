@@ -54,15 +54,14 @@ public class MemberService implements UserDetailsService{
 	}
 	
 	public List<Department> getAllDepartments() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getAllDepartments();
 	}
 
 	public List<MemberDTO> getTeamList(int depart_no) {
 		return dao.getTeamList(depart_no);
 	}
 
-	public List<MemberDTO> getMemberList(int team_no) {
-		return dao.getMemberList(team_no);
+	public List<MemberDTO> getMemberList(int depart_no) {
+		return dao.getMemberList(depart_no);
 	}
 }

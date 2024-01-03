@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.vo.MemberVO;
 
@@ -21,8 +22,10 @@ public interface MemberDAO {
 	MemberVO getMember();
 
 	String findPhoto(int file_no);
+	
+	List<Department> getAllDepartments();
 
 	List<MemberDTO> getTeamList(int depart_no);
 
-	List<MemberDTO> getMemberList(int team_no);
+	List<MemberDTO> getMemberList(int depart_no);
 }

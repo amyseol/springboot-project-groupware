@@ -19,14 +19,15 @@ public class MemberDTO {
 	private Date birth;
 	private String phone;
 	private String address;
+	private String address_detail;
 	private String email;
 	private Date hired;
 	private int total_leave;
 	private int total_point;
 	private String member_state;
 	private Date resign_date;
-	private Department dept;
-	private Team team;
+	private String  depart_no;
+	private String depart_name;
 	private String member_position;
 	
 	public String getFile_oriname() {
@@ -101,6 +102,12 @@ public class MemberDTO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public String getAddress_detail() {
+		return address_detail;
+	}
+	public void setAddress_detail(String address_detail) {
+		this.address_detail = address_detail;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -137,17 +144,17 @@ public class MemberDTO {
 	public void setResign_date(Date resign_date) {
 		this.resign_date = resign_date;
 	}
-	public Department getDept() {
-		return dept;
+	public String getDepart_no() {
+		return depart_no;
 	}
-	public void setDept(Department dept) {
-		this.dept = dept;
+	public void setDepart_no(String depart_no) {
+		this.depart_no = depart_no;
 	}
-	public Team getTeam() {
-		return team;
+	public String getDepart_name() {
+		return depart_name;
 	}
-	public void setTeam(Team team) {
-		this.team = team;
+	public void setDepart_name(String depart_name) {
+		this.depart_name = depart_name;
 	}
 	public String getMember_position() {
 		return member_position;

@@ -93,10 +93,8 @@
             border: 1px solid black;
             background-color: lightgray;
             z-index: 1;
-        }
-
-        #departModal ul{
-            display: none;
+            width: 200px;
+            height: 300px;
         }
 
         #departModal li{
@@ -108,15 +106,44 @@
             display: none;
             margin-top: 10px;
         }
-
-        #empModal{
+        
+         /* 모달 스타일 */
+        #myModal {
             display: none;
             position: fixed;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            border: 1px solid black;
-            background-color: lightgray;
             z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        /* 모달 내용 스타일 */
+        #modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* 닫기 버튼 스타일 */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 <body>
@@ -202,14 +229,10 @@
 	    </div>
 		
 	    <!-- 직원 정보 모달 팝업 -->
-	    <div id="empModal">
-	        <div id="empProfile">
-	            <img id="empImg" alt="empProfile">
-	        </div>
-	        <div id="empInfo">
-	            <p id="empName"></p>
-	            <p id="empPosition"></p>
-	            <p id="empEmail"></p>
+	    <div id="memberModal">
+	        <div id="memberInfo">
+	        <span class="close" onclick="closeModal()">&times;</span>
+	        <!-- 직원 정보 -->
 	        </div>
 	    </div>
     </div>
@@ -304,27 +327,49 @@
         // 부서 모달 팝업
         function showDepartModal(){
             var departModal = $("#departModal");
-            departModal.show();
-
-            // 부서 리스트를 가져오는 AJAX
+            
+            if (departModal.css("display") == "none") {
+            	departModal.show();
+            	
+            	getDepartmentList();
+			} else {
+				departModal.hide();
+			}
+        }
+        
+        // 멤버 팝업 띄우기
+        function showMemberModal(content){
+        	var memberModal = $("#memberModal");
+        	var memberInfo = $("#memberInfo");
+        	
+        	if (memberModal.css("display") == "none") {
+        		
+        		memberInfo.append(content);
+        		
+        		memberModal.show();
+			} else {
+				memberModal.hide();
+			}
+        }
+        
+        function getDepartmentList(){
+        	// 부서 리스트를 가져오는 AJAX
             $.ajax({
                 type: "GET",
                 url: "/organization/departments",
+                dataType: "JSON",
                 success: function(departments){
-                    // Department list
+                    // 부서 목록
                     var departmentList = $("#departments");
                     departmentList.empty();
+                    
                     departments.forEach(function(department){
-                        var li = $('<li onclick="toggleTeam(${department.depart_no})"><a href="#">' + department.depart_name + '</a></li>');
+                        var li = $('<li onclick="toggleDepart(' + department.depart_no + ')">' + department.depart_name + '</li>');
                         departmentList.append(li);
 
                         // 팀 리스트가 표시될 공간
                         var teamList = $('<div class="teamList"></div>');
                         departmentList.append(teamList);
-
-                        // 멤버 리스트가 표시될 공간
-                        var memberList = $('<div class="memberList"></div>');
-                        departmentList.append(memberList);
                     });
                 },
                 error: function(e){
@@ -332,17 +377,19 @@
                 }
             });
         }
+        
 
         // 팀 리스트를 가져오는 AJAX
-        function toggleTeam(depart_no){
+        function toggleDepart(depart_no){
             $.ajax({
                 type: "GET",
                 url: "/organization/teams/" + depart_no,
-                success: function(teams){
+                dataType: "JSON",
+                success: function(departments){
                     // 팀 리스트를 생성
                     var teamList = '<ul>';
-                    teams.forEach(function(team){
-                        teamList += `<li onclick="toggleMember(${team.team_no})">${team.name}</li>`;
+                    departments.forEach(function(department){
+                        teamList += '<li onclick="toggleTeam(' + department.depart_no + ')">' + department.depart_name + '</li>';
                     });
                     teamList += '</ul>';
 
@@ -350,6 +397,8 @@
                     var teamLocation = $(".teamList").eq(depart_no - 1);
                     teamLocation.html(teamList);
                     teamLocation.show();
+
+                    $(".memberList").eq(depart_no - 1).hide();
                 },
                 error: function(e){
                     console.log(e);
@@ -358,20 +407,36 @@
         }
 
         // 해당 팀의 직원 목록을 가져오는 AJAX 
-        function toggleMember(team_no){
+        function toggleTeam(depart_no){
             $.ajax({
                 type: "GET",
-                url: "/organization/members/" + team_no,
+                url: "/organization/members/" + depart_no,
+                dataType: "JSON",
                 success: function(members){
+                    console.log("직원 리스트 생성 함수 호출!", members);
                     // 직원 리스트를 생성
                     var memberList = '<ul>';
                     members.forEach(function(member){
-                        memberList += `<li onclick="showEmployeeDetails(${member.member_no})">${member.name}</li>`;
+                        memberList += '<li onclick="getMemberDetail(' + member.member_no + ')">' + member.name + '</li>';
                     });
                     memberList += '</ul>';
 
                     // 해당 팀의 직원 리스트가 표시될 위치
-                    var memberLocation = $(".memberList").eq(teamId - 1);
+                    var teamLocation  = $(".teamList").eq(depart_no - 1)
+
+                    console.log("팀 리스트가 표시되는 위치", teamLocation);
+
+                     // teamLocation의 하위에 있는 .memberList를 찾음
+                    var memberLocation = teamLocation.find(".memberList");
+
+                    // 만약 .memberList가 없다면, teamLocation 하위에 추가
+                    if (memberLocation.length === 1) {
+                        memberLocation = $('<div class="memberList"></div>');
+                        teamLocation.append(memberLocation);
+                    }
+                    
+                    console.log("직원 리스트가 표시되는 위치", memberLocation);
+                    
                     memberLocation.html(memberList);
                     memberLocation.show();
                 },
@@ -379,6 +444,43 @@
                     console.log(e);
                 }
             });
+        }
+        
+        // 직원 정보 표시 팝업
+        function getMemberDetail(member_no){
+        	$.ajax({
+                type: "GET",
+                url: "/organization/detail/" + member_no,
+                success: function(member) {
+                	var memberInfo = $("#memberInfo");
+                	memberInfo.empty();
+                	
+                    // 팝업의 내용을 생성
+                    var popupContent = '<div style="display: flex;">' +
+                        '<div style="flex: 1;">' +
+                        '<img src="' + member.photo + '" alt="프로필 사진" style="max-width: 100%;">' +
+                        '<p>' + member.name + ' (' + member.member_position + ')</p>' +
+                        '</div>' +
+                        '<div style="flex: 1; padding-left: 10px;">' +
+                        '<p><strong>직급:</strong> ' + member.member_position + '</p>' +
+                        '<p><strong>연락처:</strong> ' + member.phone + '</p>' +
+                        '<p><strong>이메일:</strong> ' + member.email + '</p>' +
+                        '</div>' +
+                        '</div>';
+
+                    // 팝업 생성 및 표시
+                    showMemberModal(popupContent);
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+        	});
+        }
+        
+     	// 팝업 닫기 함수
+        function closeModal() {
+            var modal = $("#memberModal");
+            modal.hide();
         }
     </script>
 </html>
