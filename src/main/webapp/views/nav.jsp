@@ -170,62 +170,7 @@
         </ul>
     </div>
     <!-- -------------------------------------------util end------------------------------------------ -->
-<<<<<<< HEAD:src/main/webapp/views/copyright/crd.jsp
-    <!-- -------------------------------------------list_form start------------------------------------------ -->
-     <section id="common_list_form">
-        <h2 class="big_title">저작권상세보기</h2>
-        <h3 class="sub_title">저작권정보</h3>
 
-        <div class="list_form">
-        <table style="margin-left:auto;margin-right:auto;">
-        <tr style="border: solid 1px black; border-collapse: collapse;">
-        	<td style="border: solid 1px black; border-collapse: collapse; ">
-        	저작권번호
-        	${data.cr_no}
-        	</td>
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	음원명
-        	${data.cr_namae}
-        	</td>
-        </tr>
-        <tr style="border: solid 1px black; border-collapse: collapse;">
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	요금
-        	${data.cr_price}
-        	</td>
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	계약일
-        	${data.cr_contdate}
-        	</td>
-        </tr>
-        <tr style="border: solid 1px black; border-collapse: collapse;">
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	만료일
-        	${data.cr_expdate}
-        	</td>
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	아티스트명
-        	${data.cr_name}
-        	</td>
-        </tr>
-        <tr style="border: solid 1px black; border-collapse: collapse;">
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	담당자
-        	${data.cr_member}
-        	</td>
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	파일
-        	</td>
-        </tr>        
-        
-        </table>
-        <button id="back" >뒤로가기</button>
-        </div>
-    </section>
-    <!-- -------------------------------------------list_form end------------------------------------------ -->
-=======
-    
->>>>>>> origin/master:src/main/webapp/views/nav.jsp
     <!-- -------------------------------------------music start------------------------------------------ -->
     <!-- <div id="bottom_music">
         <div class="music_inner">
