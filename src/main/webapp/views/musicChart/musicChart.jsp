@@ -64,21 +64,27 @@
         #common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
         #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
         #common_list_form .list_form .list_title ul li:first-child{width: 10%; padding-left: 50px; }
-        #common_list_form .list_form .list_title ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_title ul li:nth-child(3){width: 35%;}
+        #common_list_form .list_form .list_title ul li:nth-child(2){width: 15%; padding-left:50px;}
+        #common_list_form .list_form .list_title ul li:nth-child(3){width: 25%;}
         #common_list_form .list_form .list_title ul li:nth-child(4){width: 25%;}
-        #common_list_form .list_form .list_title ul li:last-child{width: 20%;}
-        #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
-        #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 10%; padding-left: 50px; }
-        #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_content ul li:nth-child(3){width: 35%;}
-        #common_list_form .list_form .list_content ul li:nth-child(4){width: 25%;}
-        #common_list_form .list_form .list_content ul li:last-child{width: 20%;}
+        #common_list_form .list_form .list_title ul li:last-child{width: 25%;}
+        #common_list_form .list_form .list_content ul{width:100%; height: 60px;}
+        #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box; height: 100px; line-height:93px;}
+        #common_list_form .list_form .list_content ul li:first-child{width: 10%; padding-left:50px;}
+        #common_list_form .list_form .list_content ul li:nth-child(2){width: 15%;}
+        #common_list_form .list_form .list_content ul li:nth-child(3){width: 25%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        #common_list_form .list_form .list_content ul li:nth-child(4){width: 25%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        #common_list_form .list_form .list_content ul li:last-child{width: 25%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 /*         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;} */
 
-        #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
+        #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e; display: none;}
+        
+        h3{
+        	padding-left: 4%;
+    		padding-bottom: 2%;
+        }
+        
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -172,7 +178,8 @@
     <!-- -------------------------------------------list_form start------------------------------------------ -->
     <section id="common_list_form">
         <h2 class="big_title"><img width="142" height="99" src="https://cdnimg.melon.co.kr/resource/image/web/common/logo_melon142x99.png" alt="Melon"></h2>
-        <h2 class="sub_title">멜론 차트 (날짜 데이터 추가)</h2>
+        <h2 class="sub_title">실시간 멜론 차트</h2>
+        <h3>${date}&nbsp;&nbsp;&nbsp;${time}</h3>
         <div class="list_form">
             <ul>
                 <li class="list_title">
@@ -184,8 +191,16 @@
                         <li>앨범</li>
                     </ul>
                 </li>
-                <li class="list_content" id="chartList">
-                
+                <li class="list_content" id="musicChart">
+                	<c:forEach items="${list}" var="item">
+						<ul>
+							<li>${item.rank}</li>
+							<li><a href="https://www.melon.com/album/detail.htm?albumId=${item.albNo}"><img src="${item.imgSrc}" width="90" height="90"/></a></li>
+							<li>${item.songName}</li>
+							<li>${item.artName}</li>
+							<li>${item.albName}</li>
+						</ul>
+					</c:forEach>
                 </li>
             </ul>
         </div>
@@ -201,10 +216,11 @@
 </body>
 <script>
 //-------------------------------- chart start ------------------------------------------
+/* chartCall();
 function chartCall(){	
 	$.ajax({
 		type:'get',
-		url:'getChart',
+		url:'getMusicChart',
 		data:{}, 
 		dataType:'JSON',
 		success: function(data){
@@ -213,17 +229,19 @@ function chartCall(){
 			data.forEach(function(item){
 				content+='<ul>';
 				content+='<li>'+item.rank+'</li>';
-				content+='<li><a href="albumDetail?alb_no='+item.alb_no+'">'+item.alb_name+'</a></li>';
-				
+				content+='<li><a href="https://www.melon.com/album/detail.htm?albumId='+item.albNo+'"><img src="'+ item.imgSrc +'"/></a></li>';
+				content+='<li>'+item.rank+'</li>';
+				content+='<li>'+item.rank+'</li>';
+				content+='<li>'+item.rank+'</li>';
 				content+='</ul>';
 			});
-			$('#chartList').append(content);
+			$('#musicChart').append(content);
 		},
 		error:function(e){
 			console.log(e);
 		}
 	});
-}
+} */
 
 
 

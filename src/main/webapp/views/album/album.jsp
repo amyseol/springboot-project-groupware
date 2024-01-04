@@ -87,6 +87,18 @@
 		
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
         
+        #common_list_form .search_box{position: relative; margin: 0 0 10px 50px; border: 1px solid #fff; display: inline-block;}
+        #common_list_form .search_box li{float: left;}
+        #common_list_form .search_box select{width: 70px; height: 28px; border: 1px solid #ccc; border-right: none;}
+        #common_list_form .search_box #search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
+        #common_list_form .search_box #search_info::placeholder{color: #ccc;}
+        #common_list_form .search_box .btn_box{width: 28px; height: 28px; cursor: pointer; border: 1px solid #ccc; box-sizing: border-box; border-left: none;}
+        #common_list_form .search_box .btn_box .search_btn{position:relative; width: 14px; height: 14px; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+        #common_list_form .search_box .btn_box .search_btn img{width: 100%;}
+        #common_list_form .search_box:hover select{border: 1px solid #333; border-right: none;}
+        #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
+        #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
+        
         .searchbox{
 			width: 90%;
 		    height: 6%;
@@ -189,10 +201,16 @@
         <h2 class="big_title">음반</h2>
         <h3 class="sub_title">계약 현황</h3>
         <!------- 검색 ------->
-        <div class="searchbox" >
-			<div> 아티스트명/음반명으로 검색하기 : <input type="text" id="a_name" onkeydown="handleKeyDown(event)"/></div>
-			<div><input type="button" value="조회" onclick="search()"/></div>
-		</div>
+        <ul class="search_box">
+            <li>
+                <input type="text" id="search_info" placeholder="검색" onkeydown="handleKeyDown(event)"/>
+            </li>
+            <li class="btn_box">
+                <div class="search_btn">
+                    <img src="./img/search.png" alt="검색 버튼" onclick="search()">
+                </div>
+            </li>
+        </ul>
 		 <!------- 리스트 ------->
         <div class="list_form">
             <ul>
@@ -263,7 +281,7 @@ function drawList(list){
 		var edate = new Date(item.alb_expiredate);
 		var expireDate = edate.toLocaleDateString("ko-KR");
 		content+='<li>'+expireDate+'</li>';
-		content+='<li>'+item.member_id+'</li>'; // member 테이블
+		content+='<li>'+item.name+' '+item.member_position+'</li>'; // member 테이블
 		content+='<li>'+item.alb_price.toLocaleString()+'</li>';
 		content+='<li>'+item.total_albsold_stock+'</li>'; // album_sold 테이블	
 		content+='</ul>';
@@ -295,11 +313,11 @@ function handleKeyDown(event) {
     }
 }
 function search(){
-	console.log($('#a_name').val());
+	console.log($('#search_info').val());
 	$.ajax({
         type: "get",
         url: "albumSearch", 
-        data: { "a_name": $('#a_name').val(), "page":showPage},
+        data: { "a_name": $('#search_info').val(), "page":showPage},
         dataType:'JSON',
         success: function (data) {
             drawList(data);

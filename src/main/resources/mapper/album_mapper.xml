@@ -4,7 +4,7 @@
    
 <mapper namespace="kr.co.gudi.resource.dao.AlbumDAO">
 	<select id="list" resultType="album">
-		SELECT a.*, t.art_name, m.member_id, s.albsold_profit, s.albsold_date, 
+		SELECT a.*, t.art_name, m.member_id, m.name, m.member_position, s.albsold_profit, s.albsold_date, 
 			COALESCE(SUM(s.albsold_stock), 0) AS total_albsold_stock FROM album a
 	    		LEFT OUTER JOIN artist t ON t.art_no = a.art_no 
 	    		LEFT OUTER JOIN member m ON m.member_no = a.member_no

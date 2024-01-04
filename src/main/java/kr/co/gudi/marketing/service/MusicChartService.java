@@ -3,7 +3,6 @@ package kr.co.gudi.marketing.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -13,57 +12,75 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 @Service
 public class MusicChartService {
 	Logger logger = LoggerFactory.getLogger(getClass());
+	
+	// url 에 page 라는 parameter 추가해서 document 객체에 저장
+	String url = "https://www.melon.com/chart/index.htm";	
+
 
 	public ModelAndView getChart() throws IOException {
-		String url = "https://www.melon.com/chart/index.htm";	
-		// url 에 page 라는 parameter 추가해서 document 객체에 저장
 		Document doc = Jsoup.connect(url).get();
-		doc = Jsoup.connect(url).get();
-
-        Elements el = doc.select("table"); // table 태그 가져오기
-        
-        
+		ModelAndView mav = new ModelAndView("musicChart/musicChart");
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();		
 		HashMap<String, String> map = null;
+
+		// 시간 데이터 가져오기 calendar_prid mt12
+		Elements timeDate = doc.select("div.multi_row"); 
+		Element timeDate2 = timeDate.get(0);
+		mav.addObject("time", timeDate2.select("span.hour").html());
+		mav.addObject("date", timeDate2.select("span.year").html());
 		
-        for(Element chartList : el) {
+		// table 데이터 가져오기
+		Elements el = doc.select("table"); 
+		Element elem = el.get(0);
+		Elements elem2 = elem.select("tbody tr.lst50, tbody tr.lst100");
+		
+        for(Element chartList : elem2) {
 			// 반복할 때마다 새로운 hashmap 이 생성됨  
 			map = new HashMap<String, String>();
 			
 			// 순위 출력 
-			Elements rank = chartList.select("span.rank");
-	        List<Element> rankList = rank.subList(1, rank.size()); // 1번 인덱스부터 가져오기
+	        map.put("rank", chartList.select("span.rank").html());
 	        
-	        String ranks = "";
-	        for (Element rankEl : rankList) {
-	        	ranks+=rankEl.html();
-	        } 
-	        map.put("rank", ranks);
+	        // 앨범 이미지 src 출력 
+	        map.put("imgSrc", chartList.select("a.image_typeAll img").attr("src"));
 	        
-	        // 앨범 이미지 출력 
-	        Elements albImg = chartList.select("a.image_typeAll img");
-	        String imgSrc = "";
-	        for(Element img : albImg) {
-	        	imgSrc += img.attr("src");
-	        	logger.info("img src ==="+img.attr("src"));
+	        // 이미지 a 태그 href 에서 숫자만 출력 (앨범 번호) 
+	        Elements albHref = chartList.select("a.image_typeAll");
+	        String albNo="";
+	        for(Element href : albHref) {
+	        	String[] numList = href.attr("href").split("\\D+");
+	            // 분할된 문자열에서 숫자 부분을 연결
+	            for (String num : numList) {
+	                if (!num.isEmpty()) {
+	                	albNo += num;
+	                }
+	            }
 	        }
-	        map.put("imgSrc", imgSrc);
+	        map.put("albNo", albNo); 
 	        
-	        // 이미지 a 태그 href 출력
-	        Elements albHref = chartList.select("a.image_typeAll ");
+	        // 곡명 가져오기 ellipsis rank01
+	        map.put("songName", chartList.select("div.ellipsis.rank01 a").html());
 	        
+	        // 아티스트 가져오기 ellipsis rank02
+	        map.put("artName", chartList.select("div.ellipsis.rank02 span a").html());
 	        
+	        // 앨범명 가져오기 ellipsis rank03
+	        map.put("albName", chartList.select("div.ellipsis.rank03 a").html());
+	        
+	        //map.put("albNo", albNo);
 	        list.add(map);
+	        
         }
+        //logger.info("list === "+list);
+        mav.addObject("list", list);
         
-        
-		
-		return null;
+		return mav;
 	}
 
 	
