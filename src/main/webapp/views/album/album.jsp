@@ -249,7 +249,7 @@
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
-  var showPage=1;
+var showPage=1;
 listCall(showPage);
 
 function listCall(page){	

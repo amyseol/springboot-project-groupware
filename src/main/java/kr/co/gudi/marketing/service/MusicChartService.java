@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,29 +12,37 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.gudi.marketing.dao.MusicChartDAO;
+
 @Service
 public class MusicChartService {
 	Logger logger = LoggerFactory.getLogger(getClass());
+	@Autowired MusicChartDAO dao;
 	
 	// url 에 page 라는 parameter 추가해서 document 객체에 저장
 	String url = "https://www.melon.com/chart/index.htm";	
 
-
-	public ModelAndView getChart() throws IOException {
+	// 날짜/시간 크롤링
+	public void getDatetime(Model model) throws Exception {
 		Document doc = Jsoup.connect(url).get();
-		ModelAndView mav = new ModelAndView("musicChart/musicChart");
-		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();		
-		HashMap<String, String> map = null;
-
-		// 시간 데이터 가져오기 calendar_prid mt12
+		
 		Elements timeDate = doc.select("div.multi_row"); 
 		Element timeDate2 = timeDate.get(0);
-		mav.addObject("time", timeDate2.select("span.hour").html());
-		mav.addObject("date", timeDate2.select("span.year").html());
+		model.addAttribute("time", timeDate2.select("span.hour").html());
+		model.addAttribute("date", timeDate2.select("span.year").html());
+	}
+	
+	// 음원 차트 크롤링 
+	public List<HashMap<String, Object>> getChart() throws IOException {
+		Document doc = Jsoup.connect(url).get();
+		//ModelAndView mav = new ModelAndView("musicChart/musicChart");
+		List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();		
+		HashMap<String, Object> map = null;
 		
 		// table 데이터 가져오기
 		Elements el = doc.select("table"); 
@@ -42,7 +51,7 @@ public class MusicChartService {
 		
         for(Element chartList : elem2) {
 			// 반복할 때마다 새로운 hashmap 이 생성됨  
-			map = new HashMap<String, String>();
+			map = new HashMap<String, Object>();
 			
 			// 순위 출력 
 	        map.put("rank", chartList.select("span.rank").html());
@@ -78,10 +87,15 @@ public class MusicChartService {
 	        
         }
         //logger.info("list === "+list);
-        mav.addObject("list", list);
+        //mav.addObject("list", list);
         
-		return mav;
+		return list;
 	}
 
+		
+	// 소속 아티스트 이름 확인 
+	public List<String> musicArtistCall(List<String> artNameArray) {
+		return dao.musicArtistCall(artNameArray);
+	}
 	
 }
