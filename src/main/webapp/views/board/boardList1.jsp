@@ -176,7 +176,7 @@
     <section id="common_list_form">
         <h2 class="big_title">타이틀</h2>
         <h3 class="sub_title">리스트 폼</h3>
-        <button>글작성</button>
+        <button onclick="location.href='boardWrite'">글작성</button>
         
 
         <div class="list_form">
@@ -247,7 +247,7 @@ function listCall(page){
 		data:{
 			 'page': page,
 			 'board_name': $('#board_name').val()
-		},//'page'라는 이름으로 listCall()의 매개변수 list를 가져옴
+		},
 		dataType:'json', // 받는 타입
 		success:function(data){
 			console.log(data);
@@ -266,7 +266,7 @@ function drawList(list){
 	list.list.forEach(function(item, idx){
 		content += '<ul>';
 		content += '<li>'+item.board_no+'</li>';
-		content += '<li>'+item.board_title+'</li>';
+		content += '<li><a href="boardDetail?board_no='+item.board_no+'">'+item.board_title+'</li>';
 		content += '<li>'+item.board_depart+'</li>';
 		content += '<li>'+item.board_date+'</li>';
 		content += '<li>'+item.bHit+'</li>';			
