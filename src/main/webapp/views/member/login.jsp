@@ -14,29 +14,31 @@
 	
 	<body>
 		<section class="login-container">
-			<form action="${path}/login" method="post" id="login-form">
-				<div class="logo-container" onclick="fn_loginPage();">
-					<img src="${path}/resources/images/common/SampleLogo.png" alt="Honny_Music">
+			<div class="login-div">
+				<form action="${path}/login" method="post" id="login-form">
+					<div class="logo-container" onclick="fn_loginPage();">
+						<img src="${path}/resources/images/common/SampleLogo.png" alt="Honny_Music">
+					</div>
+	
+					<h4>Hoony Music에 오신 것을 환영합니다!</h4>
+	
+					<span>아이디</span>
+					<div class="input-container">
+						<input type="text" name="member_id" class="login-input" id="id" value="${cookie.userid.value}">
+					</div>
+	
+					<span>비밀번호</span>
+					<div class="input-container">
+						<input type="password" name="pw" class="login-input" id="pw">
+					</div>
+				</form>
+	
+				<div class="btn-container">
+					<div>
+						<input type="checkbox" id="remember-id"><span>아이디 저장하기</span>
+					</div>
+					<button onclick="fn_login();">로그인</button>
 				</div>
-
-				<h4>Hoony Music에 오신 것을 환영합니다!</h4>
-
-				<span>아이디</span>
-				<div class="input-container">
-					<input type="text" name="member_id" class="login-input" id="id" value="${cookie.userid.value}">
-				</div>
-
-				<span>비밀번호</span>
-				<div class="input-container">
-					<input type="password" name="pw" class="login-input" id="pw">
-				</div>
-			</form>
-
-			<div class="btn-container">
-				<div>
-					<input type="checkbox" id="remember-id"><span>아이디 저장하기</span>
-				</div>
-				<button onclick="fn_login();">로그인</button>
 			</div>
 		</section>
 	</body>

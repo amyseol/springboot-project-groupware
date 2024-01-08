@@ -39,6 +39,7 @@ public class MemberService implements UserDetailsService{
 		return dao.selectMemberByParam(param);
 	}
 	
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberVO loginMember = dao.selectMemberByParam(Map.of("member_id", username));
 		if(loginMember==null) return null;

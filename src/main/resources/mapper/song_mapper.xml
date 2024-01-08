@@ -2,6 +2,48 @@
 <!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
-<mapper namespace="kr.co.gudi.song.dao.SongDAO">
-
+<mapper namespace="kr.co.gudi.performance.dao.SongDAO">
+	<select id="list" resultType="song">
+		SELECT s.*, a.art_name, m.name, m.member_position, p.allsong_profit, p.song_streaming
+			FROM song s
+		LEFT OUTER JOIN artist a ON a.art_no = s.art_no
+		LEFT OUTER JOIN member m ON m.member_no = s.member_no
+		LEFT OUTER JOIN song_per p ON p.song_no = s.song_no
+		GROUP BY s.song_no
+		ORDER BY s.song_contract DESC LIMIT 10 OFFSET #{param1}
+	</select>
+	
+	<select id="totalPage" resultType="int">
+		SELECT CEIL(COUNT(song_no) / 5) AS pages
+		FROM song
+	</select>
+	
+	<select id="songDetail" resultType="song">
+		SELECT s.*, a.art_name, m.name, m.member_position, p.allSong_profit, p.song_streaming
+		FROM song s
+			LEFT OUTER JOIN artist a ON s.art_no = a.art_no
+			LEFT OUTER JOIN member m ON s.member_no = m.member_no
+			LEFT OUTER JOIN song_per ON p.song_no = s.song_no
+		WHERE s.song_no = #{param1}
+	</select>
+	
+	<select id="getFile" resultType="song">
+		SELECT file_oriname, file_newnaame
+		FROM file
+		WHERE file_unique_no = #{param1} and file_location = "x"
+	</select>
+	
+	<select id="songSearch">
+		SELECT s.*, m.name, m.member_position
+		FROM song s
+			LEFT OUTER JOIN member m ON m.member_no = s.member_no
+		WHERE a.song_owner LIKE CONCAT('%', #{param1},'%') OR s.song_name LIKE CONCAT('%', #{param1}, '%')
+		GROUP BY s.song_no
+		ORDER BY s.song_contract DESC LIMIT 10 OFFSET #{param2}
+	</select>
+	
+	<insert id="fileUpload">
+		INSERT INTO file(file_location, file_unique_no, file_oriname, file_newname, file_size, file_state)
+		VALUES("x", #{param1}, #{param2}, #{param3}, #{param4}, "0")
+	</insert>
 </mapper>

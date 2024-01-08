@@ -88,13 +88,14 @@ public class MemberController {
 	// 마이 페이지 이동
 	@GetMapping("/mypage")
 	public String enrollView(Model model, HttpSession session) {
-		/*
+		
 		String member_id = ((MemberVO)session.getAttribute("loginMember")).getMember_id();
 		model.addAttribute("loginMember", member_id);
-		*/
+		/*
 		MemberVO vo = service.getMember();
 		 session.setAttribute("loginMember", vo);
 		 model.addAttribute("loginMember", vo);
+		 */
 		return "member/mypage";
 	}
 	
