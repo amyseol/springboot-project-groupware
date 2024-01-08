@@ -22,9 +22,11 @@ public class MainController {
 		return mav;
 	}
 	
+
 	@GetMapping(value="/main")
 	public ModelAndView main() {
 		return new ModelAndView("member/main");
 	}
+
 
 }

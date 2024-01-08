@@ -31,8 +31,9 @@ public interface MemberDAO {
 
 	List<MemberDTO> getTeamList(int depart_no);
 
-
 	List<MemberDTO> getMemberList(int depart_no);
+	
+	List<MemberDTO> getMemberDetail(int member_no);
 
 	void join(HashMap<String, String> params);
 

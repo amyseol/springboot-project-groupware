@@ -12,7 +12,6 @@ public class MemberDTO {
 	private String member_car_no;
 	private String member_id;
 	private String pw;
-	private String profileImg;
 	private String file_oriname;
 	private String file_newname;
 	private String name;
@@ -27,11 +26,7 @@ public class MemberDTO {
 	private int total_point;
 	private String member_state;
 	private Date resign_date;
-	
 	private String member_position;
-	// team 테이블
-	private String team_name;
-	// depart 테이블
 	private String depart_name;
 	private String depart_state;
 	private int depart_no;
@@ -99,15 +94,8 @@ public class MemberDTO {
 	public void setFile_oriname(String file_oriname) {
 		this.file_oriname = file_oriname;
 	}
-	
 	public void setDepart_name(String depart_name) {
 		this.depart_name = depart_name;
-	}
-	public String getTeam_name() {
-		return team_name;
-	}
-	public void setTeam_name(String team_name) {
-		this.team_name = team_name;
 	}
 	public int getMember_no() {
 		return member_no;

@@ -43,6 +43,7 @@ public class MemberService implements UserDetailsService{
 		return dao.selectMemberByParam(param);
 	}
 	
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberVO loginMember = dao.selectMemberByParam(Map.of("member_id", username));
 		if(loginMember==null) return null;
@@ -78,6 +79,10 @@ public class MemberService implements UserDetailsService{
 
 	public List<MemberDTO> getMemberList(int depart_no) {
 		return dao.getMemberList(depart_no);
+	}
+	
+	public List<MemberDTO> getMemberDetail(int member_no) {
+		return dao.getMemberDetail(member_no);
 	}
 	
 	public void join(HashMap<String, String> params, MultipartFile uploadFile) {

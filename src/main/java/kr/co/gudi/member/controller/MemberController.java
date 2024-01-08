@@ -84,13 +84,14 @@ public class MemberController {
 	// 마이 페이지 이동
 	@GetMapping("/mypage")
 	public String enrollView(Model model, HttpSession session) {
-		/*
+		
 		String member_id = ((MemberVO)session.getAttribute("loginMember")).getMember_id();
 		model.addAttribute("loginMember", member_id);
-		*/
+		/*
 		MemberVO vo = service.getMember();
 		 session.setAttribute("loginMember", vo);
 		 model.addAttribute("loginMember", vo);
+		 */
 		return "member/mypage";
 	}
 	
@@ -163,6 +164,12 @@ public class MemberController {
 	@ResponseBody
 	public List<MemberDTO> getMemberList(@PathVariable int depart_no){
 		return service.getMemberList(depart_no);
+	}
+	
+	@GetMapping("/organization/detail/{member_no}")
+	@ResponseBody
+	public List<MemberDTO>getMemberDetail(@PathVariable int member_no){
+		return service.getMemberDetail(member_no);
 	}
 	
     @GetMapping(value="/memberRegist")
