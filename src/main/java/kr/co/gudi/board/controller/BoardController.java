@@ -73,7 +73,7 @@ public class BoardController {
 		return "redirect:./";
 	}
 	
-	@GetMapping(value = "/board/detail")
+	@GetMapping(value = "/boardDetail")
 	public String detail(@RequestParam String board_no, Model model) {
 		logger.info("===detail 함수===");
 		service.detail(board_no,model);

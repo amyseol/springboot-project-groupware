@@ -266,7 +266,7 @@ function drawList(list){
 	list.list.forEach(function(item, idx){
 		content += '<ul>';
 		content += '<li>'+item.board_no+'</li>';
-		content += '<li><a href="boardDetail?board_no='+item.board_no+'">'+item.board_title+'</li>';
+		content+='<li><a href="boardDetail?board_no='+item.board_no+'">'+item.board_title+'</a></li>';
 		content += '<li>'+item.board_depart+'</li>';
 		content += '<li>'+item.board_date+'</li>';
 		content += '<li>'+item.bHit+'</li>';			
