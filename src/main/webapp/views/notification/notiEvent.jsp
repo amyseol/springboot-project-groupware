@@ -37,7 +37,7 @@
         };
 
         
-        const sse = new EventSource("http://localhost:8080/connect");
+        const sse = new EventSource("http://localhost/noti");
 
         sse.addEventListener('connect', (e) => {
         	const { data: receivedConnectData } = e;
