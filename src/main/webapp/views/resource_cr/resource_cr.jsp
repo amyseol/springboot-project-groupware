@@ -83,6 +83,23 @@
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
+        
+        
+        
+                
+        /* =============검색====================== css */
+        
+        #common_list_form .search_box{position: relative; margin: 50 0 10px 800px; border: 1px solid #fff; display: inline-block;}
+        #common_list_form .search_box li{float: left;}
+        #common_list_form .search_box select{width: 100px; height: 28px; border: 1px solid #ccc; border-right: none;}
+        #common_list_form .search_box .search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
+        #common_list_form .search_box .search_info::placeholder{color: #ccc;}
+        #common_list_form .search_box .btn_box{width: 28px; height: 28px; cursor: pointer; border: 1px solid #ccc; box-sizing: border-box; border-left: none;}
+        #common_list_form .search_box .btn_box .search_btn{position:relative; width: 14px; height: 14px; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+        #common_list_form .search_box .btn_box .search_btn img{width: 100%;}
+        #common_list_form .search_box:hover select{border: 1px solid #333; border-right: none;}
+        #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
+        #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -177,6 +194,9 @@
     <!-- -------------------------------------------list_form start------------------------------------------ -->
     <section id="common_list_form">
         <h2 class="big_title">저작권 실적관리</h2>
+        <ul id="list">
+
+        </ul>
 		<table style="margin-left: auto;margin-right: auto;">
 			<tr>
 				<td> 
@@ -189,6 +209,10 @@
 				
 				<td>
 				사용료 : <input type="text" id="price"/>
+				</td>
+				
+				<td>
+				저작권이름 : <input type="text" id="namae"/>
 				</td>	
 				
 				<td>
@@ -197,23 +221,21 @@
 			</tr>
 		</table>
         
-        <table style=" margin-left: auto; margin-right: 80px;">
-        	<tr>
-        	
-        		<td>
-		        <select id="searchpath" name="searchtag">
+ 		<ul class="search_box">
+            <li>
+                <select id="searchpath" name="searchtag">
 					<option  value="cr" >저작권번호</option>
-					<option value="name">저작권명</option>
-				</select>
-				</td>
-				
-				<td>
-		        <input type="text" style="margin-left: 300px;" id="searchbar"/>
-		        <button id="search">검색</button>
-		        </td>
-		        
-        	</tr>
-        </table>
+                </select>
+            </li>
+            <li>
+                <input type="text" class="search_info" placeholder="검색" id="searchbar"/>
+            </li>
+            <li class="btn_box">
+                <div class="search_btn">
+                    <img src="./img/search.png" alt="검색 버튼" id="search">
+                </div>
+            </li>
+        </ul>
         <h3 class="sub_title">저작권 실적목록</h3>
         <div class="list_form">
             <ul>
@@ -222,11 +244,10 @@
                         <li>no.</li>
                         <li>저작권명</li>
                         <li>담당자</li>
-                        <li>기간</li>
+                        <li>저작권사용료</li>
                         <li>취소하기</li>
                     </ul>
                 </li>
-				
 				<li class="list_title" id="list_1">
 				
 				</li>
@@ -242,6 +263,12 @@
 					<ul class="pagination" id="getpagination"></ul>
 				</nav>
 			</div>
+		</div>
+		
+		<div >
+		
+		<h2 id="all" ></h2>
+		
 		</div>
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
@@ -318,6 +345,7 @@ $("#get").on("click", function(){
 	var nolen = $("#no").val().length;
 	var datelen = $("#date").val().length;
 	var pricelen = $("#price").val().length;
+	var nalen = $("#namae").val().length;
 	
 	if(nolen<2){
 		alert("저작권 번호를 입력해주세요.");
@@ -325,13 +353,17 @@ $("#get").on("click", function(){
 		alert("사용날짜를 입력해주세요")
 	}else if(pricelen<2){
 		alert("사용료를 입력해주세요")
-	}else{
+	}else if(nalen<2){
+		alert("저작권명을 입력해주세요")
+	}
+	else{
 		
 		var no = $("#no").val();
 		var date = $("#date").val();
 		var price = $("#price").val();
+		var namae = $("#namae").val();
 		
-		location.href="resourceCopyrightregister?no="+no+"&date="+date+"&price="+price;
+		location.href="resourceCopyrightregister?no="+no+"&date="+date+"&price="+price+"&namae="+namae;
 		
 
 		
@@ -374,7 +406,7 @@ call(showPage);
 function call(showPage){
    $.ajax({
         type : 'POST',
-        url : '/copyrightgetlist',
+        url : '/resourcecopyrightgetlist',
         data:{
         	
         	'pagePerNum':5
@@ -391,22 +423,22 @@ function call(showPage){
         	
             console.log(data);
             var content ='';
+            var all = 0;
 
             data.list.forEach(function(item,idx){
                 //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
                 content += '<ul>';
                 content += '<li >'+item.cr_no+'</li>';
-                content += '<li >'+"<a href = 'copyrightdetail?num="+item.cr_no+"'>"+item.cr_namae+"</a>"+'</;i>';
-                content += '<li >'+item.cr_member+'</li>';
-       			var date = new Date(item.cr_contdate);
-    			var dateStr = date.toLocaleDateString("ko-KR"); //en-US
-    			content += '<li>'+dateStr+'</li>';	
-                content += '<li >'+"<button>취소</button>"+'</li>';
+                content += '<li >'+item.cr_namae+'</li>';
+                content += '<li >'+item.per_member+'</li>';
+                content += '<li >'+item.per_price+'</li>';
+                content += '<li>'+'<button onclick="location.href='+"'resourceCopyrightdelete?cr_no="+item.cr_no+"&per_price="+item.per_price+"'"+'">취소</button>'+'</li>';
                 content += '</ul>';
+                all = all+item.per_price;
             });
             $('#list_1').empty();
             $('#list_1').append(content);
-
+			document.getElementById('all').innerHTML="총 실적 : "+all+" 원";
 
         },error:function(e){
             console.log(e);
@@ -440,7 +472,7 @@ function call(showPage){
 			
 		});
    }
-   
+   //-------------------------------저작권 검색------------------------------------------
 
 
 </script>

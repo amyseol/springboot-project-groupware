@@ -6,6 +6,11 @@
 
 
  
+ 	<update id="resourceCopyrightdelete" parameterType="String">
+ 	
+ 	update cr_history set per_state="1" where cr_no =#{param1} and per_price = #{param2}
+ 	
+ 	</update>
 	
 	
 	<select id="copyrightlist" resultType="cr">
@@ -93,6 +98,10 @@
 	
 	
 	
+	
+	
+
+	
 	<select id="detaildata" resultType="Map">
 	
 	SELECT * 
@@ -103,11 +112,71 @@
 	
 	<insert id="resourceCopyrightregister" parameterType="String">
 	
-	insert
+	INSERT into cr_history (cr_no,member_no,per_price,per_date,per_member,cr_namae,per_state)values(#{no},2,${price},#{date},"고양희",#{namae},"0");
 	
 	</insert>
 
 
+
+	
+	<insert 			
+			useGeneratedKeys="true"
+			keyColumn="cr_no"
+			keyProperty="cr_no"
+			id="copyrightregister" parameterType="cr">
+	
+		INSERT into cr_manage values(#{cr_no},2,#{cr_name},#{cr_member},#{cr_price},curdate(),#{cr_expdate},#{cr_contdate},"0",#{cr_namae});
+	
+	</insert>
+	
+		<select id="resourcecopyrightgetlist" resultType="cr">
+
+		SELECT *
+		FROM cr_history
+		WHERE per_state = 0
+		<choose>
+			<when test="searchtag=='cr'">
+			AND cr_no = 
+			</when>
+		    <when test="searchtag=='name'">
+		    AND cr_namae = 
+		    </when>
+		</choose>
+		<if test="!(search=='')">
+			#{param1}
+		</if>
+	ORDER BY per_date DESC LIMIT 5 OFFSET #{param3}
+	</select>
+	
+	
+	
+	
+	<select id="rclmaxpage" resultType="int">
+		SELECT (count(cr_no)/#{pagePerNum})
+		FROM cr_history
+		WHERE per_state = 0
+		<choose>
+			<when test="searchtag=='cr'">
+			AND cr_no = 
+			</when>
+		    <when test="searchtag=='name'">
+		    AND cr_namae = 
+		    </when>
+		</choose>
+		<if test="!(search=='')">
+			#{search}
+		</if>
+		
+	</select>
+	
+	<insert id="writeFile" parameterType="String">
+	
+	INSERT INTO file (file_location,file_unique_no,file_oriname,file_newname,file_size,file_state)values("f",#{idx},#{oriFileName},#{newFileName},#{kb},"0")
+	
+	</insert>
+	
+	
+	
 
 
 </mapper>
