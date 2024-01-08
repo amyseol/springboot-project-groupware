@@ -241,7 +241,7 @@
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
     <!-- -------------------------------------------music start------------------------------------------ -->
-    <div id="bottom_music">
+    <div id="bottom_music" style="display:none;">
         <div class="music_inner">
 
         </div>
@@ -253,10 +253,11 @@ var showPage=1;
 listCall(showPage);
 
 function listCall(page){	
+	console.log('검색값==='+$('#search_info').val());
 	$.ajax({
 		type:'get',
 		url:'albumList',
-		data:{'page':page}, 
+		data:{'page':page, "a_name": $('#search_info').val()}, 
 		dataType:'JSON',
 		success: function(data){
 			console.log(data);
@@ -312,20 +313,10 @@ function handleKeyDown(event) {
         search();
     }
 }
+
 function search(){
-	console.log($('#search_info').val());
-	$.ajax({
-        type: "get",
-        url: "albumSearch", 
-        data: { "a_name": $('#search_info').val(), "page":showPage},
-        dataType:'JSON',
-        success: function (data) {
-            drawList(data);
-        },
-        error: function (e) {
-            console.error(e);
-        }
-    });
+    showPage = 1; // 검색 시 페이지를 1로 초기화
+    listCall(showPage);
 }
 //-------------------------------- 검색 end ------------------------------------------
 
