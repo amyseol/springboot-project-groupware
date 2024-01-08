@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <title>HoonyMusic</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 
 </head>
 <style>
@@ -71,8 +73,8 @@
         #common_list_form .list_form .list_title ul li:last-child{width: 10%;}
         #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 10%; padding-left: 50px; }
-        #common_list_form .list_form .list_content ul li:nth-child(2){width: 50%;}
+        #common_list_form .list_form .list_content ul li:first-child{width: 30%; padding-left: 50px; }
+        #common_list_form .list_form .list_content ul li:nth-child(2){width: 30%;}
         #common_list_form .list_form .list_content ul li:nth-child(3){width: 15%;}
         #common_list_form .list_form .list_content ul li:nth-child(4){width: 15%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 10%;}
@@ -174,7 +176,9 @@
     <section id="common_list_form">
         <h2 class="big_title">타이틀</h2>
         <h3 class="sub_title">리스트 폼</h3>
-        <button>글작성</button>
+        <button onclick="location.href='boardWrite'">글작성</button>
+        
+
         <div class="list_form">
             <ul>
                 <li class="list_title">
@@ -186,80 +190,35 @@
                         <li>조회수</li>
                     </ul>
                 </li>
-                <li class="list_content">
-                    <ul>
-                        <li>1</li>
-                        <li><a href="javascript:">제목111111</a></li>
-                        <li>작성자</li>
-                        <li>2023-12-19</li>
-                        <li>11</li>
-                    </ul>
-                    <ul>
-                        <li>2</li>
-                        <li><a href="javascript:">제목222222</a></li>
-                        <li>작성자</li>
-                        <li>2023-12-19</li>
-                        <li>22</li>
-                    </ul>
-                    <ul>
-                        <li>3</li>
-                        <li><a href="javascript:">제목333333</a></li>
-                        <li>작성자</li>
-                        <li>2023-12-19</li>
-                        <li>33</li>
-                    </ul>
-                    <ul>
-                        <li>4</li>
-                        <li><a href="javascript:">제목444444</a></li>
-                        <li>작성자</li>
-                        <li>2023-12-19</li>
-                        <li>44</li>
-                    </ul>
-                    <ul>
-                        <li>5</li>
-                        <li><a href="javascript:">제목555555</a></li>
-                        <li>작성자</li>
-                        <li>2023-12-19</li>
-                        <li>55</li>
-                    </ul>
-                    <ul>
-                        <li>6</li>
-                        <li><a href="javascript:">제목666666</a></li>
-                        <li>작성자</li>
-                        <li>2023-12-19</li>
-                        <li>66</li>
-                    </ul>
-                    <ul>
-                        <li>7</li>
-                        <li><a href="javascript:">제목777777</a></li>
-                        <li>작성자</li>
-                        <li>2023-12-19</li>
-                        <li>77</li>
-                    </ul>
-                    <ul>
-                        <li>8</li>
-                        <li><a href="javascript:">제목888888</a></li>
-                        <li>작성자</li>
-                        <li>2023-12-19</li>
-                        <li>88</li>
-                    </ul>
-                    <ul>
-                        <li>9</li>
-                        <li><a href="javascript:">제목999999</a></li>
-                        <li>작성자</li>
-                        <li>2023-12-19</li>
-                        <li>99</li>
-                    </ul>
-                    <ul>
-                        <li>10</li>
-                        <li><a href="javascript:">제목10101010</a></li>
-                        <li>작성자</li>
-                        <li>2023-12-19</li>
-                        <li>1010</li>
-                    </ul>
+                <li class="list_content" id="list">
+
                 </li>
             </ul>
         </div>
+        
+        
+        
+        
+        
+        <!------- 검색 ------->
+        <div class="searchbox" >
+			<div> 작성자/제목으로 검색하기 : <input type="text" id="board_name" onkeydown="handleKeyDown(event)"/></div>
+			<div><input type="button" value="검색" onclick="listCall('1')"/></div>
+		</div>
+        
+        
+        
+        
+        
+        
+        <div id="paging" class="pagingBox">
+			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
+			<div class="container">
+				<nav aria-label="Page navigation" style="text-align: center">
+					<ul class="pagination" id="pagination"></ul>
+				</nav>
+			</div>
+		</div>
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
     <!-- -------------------------------------------music start------------------------------------------ -->
@@ -271,6 +230,95 @@
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
+
+
+var showPage = 1;
+
+listCall(showPage);
+
+
+
+
+function listCall(page){
+	console.log("ajax시작");
+	$.ajax({
+		type:'get',
+		url:'list',
+		data:{
+			 'page': page,
+			 'board_name': $('#board_name').val()
+		},
+		dataType:'json', // 받는 타입
+		success:function(data){
+			console.log(data);
+			console.log("------listCall-----");
+			drawList(data);	
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+	
+}
+
+function drawList(list){
+	var content = '';
+	list.list.forEach(function(item, idx){
+		content += '<ul>';
+		content += '<li>'+item.board_no+'</li>';
+		content+='<li><a href="boardDetail?board_no='+item.board_no+'">'+item.board_title+'</a></li>';
+		content += '<li>'+item.board_depart+'</li>';
+		content += '<li>'+item.board_date+'</li>';
+		content += '<li>'+item.bHit+'</li>';			
+		content += '</ul>';
+	});
+	$('#list').empty(); 
+	$('#list').append(content);
+	
+	
+	//페이징 처리 UI 그리기(플러그인 사용)
+	$('#pagination').twbsPagination({
+		startPage:list.currPage, // 보여줄 페이지
+		totalPages:list.pages, // 총 페이지 수(총 갯수/페이지 당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
+		visiblePages:5, // [1][2][3][4][5]
+		onPageClick:function(e, page){ // 번호 클릭 시 실행할 내용
+			//console.log(e);
+			if(showPage != page){ // 1페이지 보고있는데 1페이지를 또 클릭하진 않을 거니까 (클릭하지 않은 것이라고 생각하기)
+				console.log(page);
+				showPage = page; // 클릭해서 다른 페이지를 보여주게 되면 현재 보고있는 페이지 번호도 변경해준다.
+				listCall(page);
+			}
+		}
+		
+	});
+}
+
+
+
+function handleKeyDown(event) {
+    // 엔터 키의 keyCode는 13
+    if (event.keyCode === 13) {
+        // 엔터 키를 눌렀을 때 실행할 검색 함수 호출
+        search();
+    }
+}
+/*
+function search(){
+	console.log($('#board_name').val());
+	$.ajax({
+        type: "get",
+        url: "boardSearch", 
+        data: { "board_name": $('#board_name').val(), "page":showPage},
+        dataType:'JSON',
+        success: function (data) {
+            drawList(data);
+        },
+        error: function (e) {
+            console.error(e);
+        }
+    });
+}
+*/
 
 // -------------------------------- toggle start ------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {

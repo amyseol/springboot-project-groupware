@@ -1,3 +1,5 @@
+// 스케줄 컨트롤러
+
 package kr.co.gudi.schedule.controller;
 
 import java.util.HashMap;
@@ -26,7 +28,7 @@ public class ScheduleController {
 	@RequestMapping(value={ "/schedule"})
 	public String index() {
 		logger.info("index 캘린더 출력 test");
-		return "schedule/ScheduleList";
+		return "schedule/scheduleList";
 	}
 	
 	@RequestMapping(value={ "/schedule/list"})
