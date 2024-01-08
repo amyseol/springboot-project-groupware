@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="detail" resultType="album">
-		SELECT a.*, t.art_name, m.member_id, p.albpro_round, p.albpro_price
+		SELECT a.*, t.art_name, m.member_id, m.name, p.albpro_round, p.albpro_price
 			FROM album a
 				LEFT OUTER JOIN artist t ON a.art_no = t.art_no
 				LEFT OUTER JOIN member m ON a.member_no = m.member_no

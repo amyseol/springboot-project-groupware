@@ -270,6 +270,7 @@ function listCall(page){
 	});
 }
 
+
 function drawList(list){
 	console.log(list);
 	var content='';
@@ -306,6 +307,8 @@ function drawList(list){
 }
 
 //-------------------------------- list end ------------------------------------------
+
+
 //-------------------------------- 검색 start ------------------------------------------
 function handleKeyDown(event) {
     // 엔터 키의 keyCode는 13

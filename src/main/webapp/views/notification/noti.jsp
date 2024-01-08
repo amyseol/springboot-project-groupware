@@ -5,9 +5,6 @@
 <meta charset="UTF-8">
 <title>HoonyMusic</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
-<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 </head>
 <style>
 	<style>
@@ -87,11 +84,11 @@
 		
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
         
-        #common_list_form .list_form .notiBox{width:35%; height: 10%;border: 1px solid grey;margin-bottom:10px;float: left;}        
+        #common_list_form .list_form .notiOuterBox{justify-content: center;align-items: center;width:80%;height:100%;}
+        #common_list_form .list_form .notiBox{display:flex; justify-content: space-between;width:50%; height: 10%;border: 1px solid grey;margin-bottom:10px;}        
         #common_list_form .list_form .notiBox ul{padding: 10px;}
-        #common_list_form .list_form .notiBox ul #noti{display:flex;}
-        #common_list_form .list_form .notiBox ul .notiContent{margin-right: 20px;}
-        #common_list_form .list_form .notiBox ul .notiDate{text-align: right;}
+        #common_list_form .list_form .notiBox .notiContent{margin-right: 20px;}
+        #common_list_form .list_form .notiBox .notiDate{text-align: right;}
         
 </style>
 <body>
@@ -189,20 +186,18 @@
         <h3 class="sub_title">알림 🔔</h3>
 		 <!------- 리스트 ------->
         <div class="list_form">
-			<div class="notiBox">
-				<!-- ajax로 데이터 삽입 -->
-				<ul>
-					<li id="noti">
-						<ul class="notiContent">
-							<li>[회의실/공연장]</li>
-							<li>새로운 예약 신청이 있습니다. 확인해주세요.</li>
-						</ul>
-						<ul class="notiDate">
-							<li>datetime</li>
-							<li>김수현 대리</li>
-						</ul>
-					</li>
-				</ul>
+        	<div class="notiOuterBox" id="notiList">
+<!-- 				<div class="notiBox">
+					ajax로 데이터 삽입
+					<ul class="notiContent">
+						<li>[회의실/공연장]</li>
+						<li>새로운 예약 신청이 있습니다. 확인해주세요.</li>
+					</ul>
+					<ul class="notiDate">
+						<li>datetime</li>
+						<li>김수현 대리</li>
+					</ul> 
+				</div> -->
 			</div>
         </div>
     </section>
@@ -216,6 +211,69 @@
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
+//-------------------------------- list start ------------------------------------------
+listCall();
+
+function listCall(){	
+	var member_no = ${sessionScope.loginMember.member_no};
+	console.log(member_no);
+	
+	$.ajax({
+		type:'get',
+		url:'notiList',
+		data:{'member_no':member_no}, 
+		dataType:'JSON',
+		success: function(data){
+			console.log(data);
+			drawList(data);	
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+}
+
+function drawList(list){
+	console.log(list);
+	var content='';
+	list.list.forEach(function(item,idx){ 
+		content+='<div class="notiBox" onclick="boxClick('+item.noti_unique_no+')">';
+		content+='<ul class="notiContent">';
+		if(item.noti_locate=='p'){
+			content+='<li>[회의실/공연장]</li>'; // artist 테이블
+		}else{
+			content+='<li>[일정]</li>'; 
+		}
+		if(item.noti_content==1){
+			content+='<li>새로운 예약 신청이 있습니다. 확인해주세요.</li>'; 
+		}else if(item.noti_content==2) {
+			content+='<li>예약 신청이 반려되었습니다. 확인해주세요.</li>'; 
+		}else if(item.noti_content==3) {
+			content+='<li>예약 신청이 승인되었습니다. 확인해주세요.</li>'; 
+		}else if(item.noti_content==4) {
+			content+='<li>예약 취소 신청이 있습니다. 확인해주세요.</li>'; 
+		}
+		content+='</ul>';
+		content+='<ul class="notiDate">';
+		var date = new Date(item.noti_date);
+		var notiDate = date.toLocaleString("ko-KR");
+		content+='<li>'+notiDate+'</li>';
+		content+='<li>'+item.name+' '+item.member_position+'</li>';
+		content+='</ul>';
+		content+='</div>';
+	});
+	$('#notiList').empty();
+	$('#notiList').append(content);
+}
+//-------------------------------- list end ------------------------------------------
+
+//-------------------------------- click event start ------------------------------------------
+function boxClick(unique){
+	console.log('클릭 이벤트 동작!');
+	console.log(unique);
+	//location.href='/reserv'; 페이지 만들면 이동시키기 
+}
+//-------------------------------- click event end ------------------------------------------
 
 
 // -------------------------------- toggle start ------------------------------------------
