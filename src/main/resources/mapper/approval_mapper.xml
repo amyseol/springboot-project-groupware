@@ -1,7 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC	"-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
->
-<mapper namespace="kr.co.gudi.approval.dao.ApprovalDAO">	
+<!DOCTYPE mapper PUBLIC	"-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.gudi.approval.dao.ApprovalDAO">
+	
+	<insert 
+		useGeneratedKeys="true"
+         keyColumn="approval_no"
+         keyProperty="approval_no"
+		id="commWrite" parameterType="approval">
+		INSERT INTO approval(member_no, approval_title, approval_content, form_no) 
+			VALUES(#{member_no}, #{approval_title}, #{approval_content}, #{form_no})
+	</insert>
+	
+	<insert id="saveFile">
+		INSERT INTO file(file_location,file_unique_no,file_oriname,file_newname,file_size)
+			VALUES(#{file_location},#{approval_no},#{oriFileName},#{newFileName},#{size})
+	</insert>
+	
+	<insert id="draftWrite" parameterType="map">
+		INSERT INTO draft_appr(approval_no, coper_team, effec_date)
+			VALUES(#{approval_no} ,#{team_name},#{date})
+	</insert>
+	
+	<insert id="firstApprover" parameterType="map">
+		INSERT INTO approver(member_no, approval_no, approval_order, sortation)
+			VALUES(#{first_approver}, #{approval_no}, 1, 0)
+	</insert>
+	
+	<insert id="secondApprover" parameterType="map">
+		INSERT INTO approver(member_no, approval_no, approval_order, sortation)
+			VALUES(#{second_approver}, #{approval_no}, 2, 0)
+	</insert>
+	
+	<insert id="thirdApprover" parameterType="map">
+		INSERT INTO approver(member_no, approval_no, approval_order, sortation)
+			VALUES(#{third_approver}, #{approval_no}, 3, 0)
+	</insert>
+	
+	<insert id="observer">
+		INSERT INTO approver(member_no, approval_no, sortation)
+			VALUES(#{param1}, #{param2}, 1)
+	</insert>
 	
 </mapper>
