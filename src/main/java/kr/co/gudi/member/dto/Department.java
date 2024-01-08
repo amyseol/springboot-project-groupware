@@ -8,10 +8,9 @@ public class Department implements Serializable{
 	private static final long serialVersionUID = 5394728630150921069L;
 	private int depart_no;
 	private String depart_name;
-	private int depart_parrent;
+	private int depart_p_no;
 	private int depart_member;
 	private String depart_state;
-	private List<Team> team;
 	
 	
 	public int getDepart_no() {
@@ -27,10 +26,10 @@ public class Department implements Serializable{
 		this.depart_name = depart_name;
 	}
 	public int getDepart_parrent() {
-		return depart_parrent;
+		return depart_p_no;
 	}
-	public void setDepart_parrent(int depart_parrent) {
-		this.depart_parrent = depart_parrent;
+	public void setDepart_parrent(int depart_p_no) {
+		this.depart_p_no = depart_p_no;
 	}
 	public int getDepart_member() {
 		return depart_member;
@@ -43,11 +42,5 @@ public class Department implements Serializable{
 	}
 	public void setDepart_state(String depart_state) {
 		this.depart_state = depart_state;
-	}
-	public List<Team> getTeam() {
-		return team;
-	}
-	public void setTeam(List<Team> team) {
-		this.team = team;
 	}
 }

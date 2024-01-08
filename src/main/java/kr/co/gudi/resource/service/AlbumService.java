@@ -99,7 +99,8 @@ public class AlbumService {
 				Files.write(path, arr);
 				
 				// 3. 파일 사이즈 가져오기
-	            String size = String.format("%.2f KB", file.getSize() / 1024.0);
+				long sizeInKB = Math.round(file.getSize() / 1024.0);
+				String size = Long.toString(sizeInKB);
 				//3. 기존 파일명, 새로운 파일명, 파일 사이즈, alb_no 를 file 테이블에 추가
 				dao.fileUpload(oriFileName, newFileName, alb_no, size);
 			}

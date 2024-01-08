@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberAuthority;
-import kr.co.gudi.member.dto.Team;
 
 
 public class MemberVO implements UserDetails {
@@ -24,21 +23,22 @@ public class MemberVO implements UserDetails {
 	private String member_car_no;
 	private String member_id;
 	private String pw;
-	private String profileImg;
 	private String name;
 	private String gender;
 	private Date birth;
 	private String phone;
 	private String address;
+	private String address_detail;
 	private String email;
 	private Date hired;
 	private int total_leave;
 	private int total_point;
 	private String member_state;
 	private Date resign_date;
-	private Department dept;
-	private Team team;
 	private String member_position;
+	private int depart_no;
+	private String depart_name;
+	private int depart_p_no;
 	
 
 	@Override		// 권한 판단
@@ -46,33 +46,74 @@ public class MemberVO implements UserDetails {
 		List<GrantedAuthority> auth = new ArrayList<>();
 		
 		// 부서와 팀에 따른 권한 부여
-		if (dept.getDepart_name().equals("경영지원 본부")) {
-			if (team.getTeam_name().equals("인사팀")) {
-				auth.add(new SimpleGrantedAuthority(MemberAuthority.TEAM_EMP.name()));
-			} else if(team.getTeam_name().equals("지원팀")){
-				auth.add(new SimpleGrantedAuthority(MemberAuthority.TEAM_EMP.name()));
-			} else if(team.getTeam_name().equals("총무팀")) {
-				auth.add(new SimpleGrantedAuthority(MemberAuthority.TEAM_EMP.name()));
-			}
-		} else if(dept.getDepart_name().equals("운영 본부")){
-			if (team.getTeam_name().equals("물류팀")) {
-				auth.add(new SimpleGrantedAuthority(MemberAuthority.TEAM_EMP.name()));
-			} else if(team.getTeam_name().equals("저작권 관리팀")){
-				auth.add(new SimpleGrantedAuthority(MemberAuthority.TEAM_EMP.name()));
-			} else if(team.getTeam_name().equals("계약운영 관리팀")){
-				auth.add(new SimpleGrantedAuthority(MemberAuthority.TEAM_EMP.name()));
-			} else if(team.getTeam_name().equals("전략분석 관리팀")){
-				auth.add(new SimpleGrantedAuthority(MemberAuthority.TEAM_EMP.name()));
-			}
-		} else if(dept.getDepart_name().equals("마케팅 본부")) {
-			if (team.getTeam_name().equals("광고팀")) {
-				auth.add(new SimpleGrantedAuthority(MemberAuthority.TEAM_EMP.name()));
-			} else if(team.getTeam_name().equals("기획팀")){
-				auth.add(new SimpleGrantedAuthority(MemberAuthority.TEAM_EMP.name()));
-			} else if(team.getTeam_name().equals("영상디자인팀")){
-				auth.add(new SimpleGrantedAuthority(MemberAuthority.TEAM_EMP.name()));
-			}
+		switch(depart_p_no) {
+			case 1:
+				auth.add(new SimpleGrantedAuthority(MemberAuthority.MARKETING.name()));
+				switch (depart_no) {
+					case 5:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.AD_TEAM_EMP.name()));
+						break;
+					case 6:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.PLANNING_TEAM_EMP.name()));
+						break;
+					case 7:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.DESIGN_TEAM_EMP.name()));
+						break;
+					}
+					break;
+						
+			case 2:
+				auth.add(new SimpleGrantedAuthority(MemberAuthority.OPERATIONS.name()));
+				switch(depart_no) {
+					case 8:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.DISTRIBUTION_TEAM_EMP.name()));
+						break;
+					case 9:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.CORYRIGHT_TEAM_EMP.name()));
+						break;
+					case 10:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.CONTRACT_TEAM_EMP.name()));
+						break;
+					case 11:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.STRATEGY_TEAM_EMP.name()));
+						break;
+				}
+				break;
+						
+			case 3:
+				auth.add(new SimpleGrantedAuthority(MemberAuthority.SUPPORT.name()));
+				switch (depart_no) {
+					case 12:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.SUPPORT_TEAM_EMP.name()));
+						break;
+					case 13:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.ADMINIST_TEAM_EMP.name()));
+						break;
+					case 14:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.REPRESENT_TEAM_EMP.name()));
+						break;
+				}
+				break;
+						
+			case 4:
+				auth.add(new SimpleGrantedAuthority(MemberAuthority.EXECUTIVE.name()));
+				switch (depart_no) {
+					case 15:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.CEO.name()));
+						break;
+					case 16:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.PRESIDENT.name()));
+						break;
+					case 17:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.SENIOR.name()));
+						break;
+					case 18:
+						auth.add(new SimpleGrantedAuthority(MemberAuthority.EXEPRESIDENT.name()));
+						break;
+				}
+				break;
 		}
+		
 		return auth;
 	}
 
@@ -102,8 +143,7 @@ public class MemberVO implements UserDetails {
 
 	@Override		// 비밀번호 만료 여부 반환, 퇴사 기간이 지났거나 입사 전이면 권한 없음
 	public boolean isCredentialsNonExpired() {
-		Date today = new Date();
-		return resign_date==null || (today.before(resign_date)&&today.after(hired));
+		return true;
 	}
 
 
@@ -163,16 +203,6 @@ public class MemberVO implements UserDetails {
 	}
 
 
-	public String getProfileImg() {
-		return profileImg;
-	}
-
-
-	public void setProfileImg(String profileImg) {
-		this.profileImg = profileImg;
-	}
-
-
 	public String getName() {
 		return name;
 	}
@@ -222,6 +252,14 @@ public class MemberVO implements UserDetails {
 		this.address = address;
 	}
 
+
+	public String getAddress_detail() {
+		return address_detail;
+	}
+
+	public void setAddress_detail(String address_detail) {
+		this.address_detail = address_detail;
+	}
 
 	public String getEmail() {
 		return email;
@@ -282,26 +320,6 @@ public class MemberVO implements UserDetails {
 		this.resign_date = resign_date;
 	}
 
-
-	public Department getDept() {
-		return dept;
-	}
-
-
-	public void setDept(Department dept) {
-		this.dept = dept;
-	}
-
-
-	public Team getTeam() {
-		return team;
-	}
-
-
-	public void setTeam(Team team) {
-		this.team = team;
-	}
-
 	
 	public String getMember_position() {
 		return member_position;
@@ -310,5 +328,29 @@ public class MemberVO implements UserDetails {
 	
 	public void setMember_position(String member_position) {
 		this.member_position = member_position;
+	}
+
+	public int getDepart_no() {
+		return depart_no;
+	}
+
+	public void setDepart_no(int depart_no) {
+		this.depart_no = depart_no;
+	}
+
+	public String getDepart_name() {
+		return depart_name;
+	}
+
+	public void setDepart_name(String depart_name) {
+		this.depart_name = depart_name;
+	}
+
+	public int getDepart_p_no() {
+		return depart_p_no;
+	}
+
+	public void setDepart_p_no(int depart_p_no) {
+		this.depart_p_no = depart_p_no;
 	}
 }
