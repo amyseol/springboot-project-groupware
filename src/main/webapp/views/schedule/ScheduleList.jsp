@@ -41,69 +41,13 @@
                     }
                 }
             },
-			
-            eventClick: function(info) {
-                // info.event에 클릭한 이벤트의 정보가 들어 있음
-                var eventData = {
-                    id: info.event.id,
-                    title: info.event.title,
-                    start: info.event.start,
-                    end: info.event.end,
-                    content: info.event.extendedProps.content
-                };
 
-                // 폼 동적으로 생성
-                var form = document.createElement('form');
-                form.setAttribute('method', 'GET');
-                form.setAttribute('action', 'detailSchedule'); // 실제 컨트롤러의 URL로 변경
-
-                // 데이터를 폼에 추가
-                for (var key in eventData) {
-                    if (eventData.hasOwnProperty(key)) {
-                        var input = document.createElement('input');
-                        input.setAttribute('type', 'hidden');
-                        input.setAttribute('name', key);
-                        input.setAttribute('value', eventData[key]);
-                        form.appendChild(input);
-                    }
-                }
-
-                // 폼을 body에 추가하고 submit
-                document.body.appendChild(form);
-                form.submit();
-
-                // 폼 제거 (선택사항)
-                document.body.removeChild(form);
-            },
-            
             headerToolbar: {
                 left: 'prev,next today, myCustomButton',
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek'
-            },
-            eventClick: function(info) {
-                // info.event.id를 이용하여 클릭한 이벤트의 ID를 가져올 수 있습니다.
-                var eventId = info.event.id;
-
-                // 서버로 eventId 등을 전송하여 해당 이벤트에 대한 데이터를 요청할 수 있습니다.
-                $.ajax({
-                    type: "GET",
-                    url: "/getEventDetails", // 서버에서 이벤트 세부 정보를 가져오는 엔드포인트로 변경해야 합니다.
-                    data: { eventId: eventId }, // 클릭한 이벤트의 ID를 서버에 보냅니다.
-                    dataType: 'JSON',
-                    success: function(response) {
-                        // 모달에 데이터 표시하는 코드 추가
-                        $('#exampleModal').modal('show');
-                        $('#title').val(response.title);
-                        $('#content').val(response.content);
-                        $('#start').val(response.start);
-                        $('#end').val(response.end);
-                    },
-                    error: function(error) {
-                        console.error('Error while fetching event details:', error);
-                    }
-                });
             }
+           
         });
   
 
@@ -126,14 +70,12 @@
 		        end: $("#end").val(),
 		        content: $("#content").val()
 		    };
-
 		    //calendar.addEvent(eventData);
 		    titleData = $("#title").val();
 		    startData = $("#start").val();
 		    endData = $("#end").val();
 		    contentData = $('#content').val();
 		
-
 		    // 빈 값 입력 시 오류
 		    if (
 		        eventData.title == "" ||
@@ -145,7 +87,6 @@
 		    } else if ($("#start").val() > $("#end").val()) {
 		        alert("시간을 잘못 입력 하셨습니다.");
 		    } else {
-
 		        // 이벤트 추가
 				calendar.addEvent(eventData);
 		        
@@ -163,16 +104,15 @@
 		                console.error('Error while saving events:', error);
 		            }
 		        });
-
+		
 		        // 모달 닫기
-		        //$("#exampleModal").modal("hide");
-		        document.getElementById("addData").submit();
+		        $("#exampleModal").modal("hide");
 		
 		        // 입력 필드 초기화
-		       /*  $("#title").val("");
+		        $("#title").val("");
 		        $("#start").val("");
 		        $("#end").val("");
-		        $("#content").val(""); */
+		        $("#content").val("");
 		    }
 		});
 
@@ -201,8 +141,6 @@
     	 }
 	});
 
-    
-
     </script>
 
     
@@ -224,56 +162,6 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">일정 추가하기</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              id="closeModalBtn"
-            >X</button>
-          </div>
-          <form id="addData" action="save">
-          <div class="modal-body">
-            일정이름 : <input type="text" id="title" name="title" /><br />
-            일정내용 : <input type="text"  id="content" name="content"/><br/>
-            시작시간 : <input type="datetime-local" id="start"  name="start"/><br />
-            종료시간 : <input type="datetime-local" id="end" name="end" />
-          </div>  
-          </form>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              취소
-            </button>
-            <button type="button" class="btn btn-primary" id="addChanges">
-              추가
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <!-- 상세보기Modal -->
-    <div
-      class="modal fade"
-      id="detailModel"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">일정 상세보기</h5>
             <button
               type="button"
               class="btn-close"
@@ -305,9 +193,6 @@
         </div>
       </div>
     </div>
-    
-    
-    
     
     
     
