@@ -60,6 +60,18 @@ fieldset{
 			<th>내용</th>
 			<td>${board.board_content}</td>
 		</tr>
+		
+		<c:if test="${photos.size() >0}">
+		<tr>
+			<th>사진</th>
+			<td>
+			<c:forEach items="${photos}" var="file">
+				<img src="/photo/${file.file_newname}" width="500" alt="${file.file_oriname}"/>
+			</c:forEach>			
+			</td>
+		</tr>
+		</c:if>
+		
 		<tr>
 			<th colspan="2">
 			<input type="button" onclick="location.href='./'" value="리스트"/>

@@ -43,7 +43,7 @@ fieldset{
 </style>
 </head>
 <body>
-	<form action="/board/write" method="post">
+	<form action="/board/write" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<th>제목</th>
@@ -56,6 +56,10 @@ fieldset{
 			<tr>
 				<th>내용</th>
 				<td><textarea name="board_content"></textarea></td>
+			</tr>
+			<tr>
+			<th>사진</th>
+			<td><input type="file" name="photos" multiple="multiple"/></td>
 			</tr>
 			<tr>
 				<th colspan="2"></th>

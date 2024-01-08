@@ -68,25 +68,29 @@
 			ORDER BY member_no DESC LIMIT 1
 	</select>
 	
+	<select id="getDepart">
+		select depart_no from department
+			where depart_name = #{team_name}
+	</select>
+	
 	<insert id="join" parameterType="map">
 		insert into member (member_id,pw,name,gender,phone,address,address_detail,email,member_position,hired
-			,total_point,birth,total_leave)
-			
+			,total_point,birth,total_leave,depart_no)		
 		<if test="member_position.equals('사원')">
 		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
-		,#{email},#{member_position},#{hired},0,#{birth},0)		
+		,#{email},#{member_position},#{hired},0,#{birth},0,#{depart_no})		
 		</if>	
 		<if test="member_position.equals('대리')">
 		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
-		,#{email},#{member_position},#{hired},0,#{birth},13)		
+		,#{email},#{member_position},#{hired},0,#{birth},13,#{depart_no})		
 		</if>	
 		<if test="member_position.equals('과장')">
 		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
-		,#{email},#{member_position},#{hired},0,#{birth},15)		
+		,#{email},#{member_position},#{hired},0,#{birth},15,#{depart_no})		
 		</if>	
 		<if test="member_position.equals('팀장')">
 		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
-		,#{email},#{member_position},#{hired},0,#{birth},18)		
+		,#{email},#{member_position},#{hired},0,#{birth},18,#{depart_no})		
 		</if>	
 		<if test="member_position.equals('부장')">
 		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
@@ -94,11 +98,11 @@
 		</if>
 		<if test="member_position.equals('이사')">
 		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
-		,#{email},#{member_position},#{hired},0,#{birth},23)		
+		,#{email},#{member_position},#{hired},0,#{birth},23,#{depart_no})		
 		</if>	
 		<if test="member_position.equals('대표')">
 		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
-		,#{email},#{member_position},#{hired},0,#{birth},25)		
+		,#{email},#{member_position},#{hired},0,#{birth},25,#{depart_no})		
 		</if>		
 	</insert>
 	
@@ -107,28 +111,33 @@
 			values(#{file_location},#{file_unique_no},#{oriFileName},#{newFileName},#{size})
 	</insert>
 	
-	<insert id="depart">
-    INSERT INTO department (member_no, depart_name)
-    	values(#{member_no}, #{depart_name})
-	</insert>
-
-	<insert id="team">
-		insert into team(member_no,team_name)
-			values(#{member_no},#{team_name})
-	</insert>
 	
 	<select id="list" resultType="member">
-		SELECT m.*,t.team_name FROM member m
-			JOIN department d ON m.member_no = d.member_no
-			LEFT JOIN team t ON m.member_no = t.member_no
-			WHERE m.member_state = #{member_state} AND d.depart_name = #{depart_name}
+		SELECT m.*, d.depart_name FROM member m
+			JOIN department d ON m.depart_no = d.depart_no
+			WHERE m.depart_no IN (SELECT depart_no FROM department WHERE depart_p_no = #{depart_no})
+    		AND m.member_state = #{member_state};
 	</select>
 	
 	<select id="detail" resultType="member">
-		SELECT m.*,t.team_name,d.depart_name FROM member m
-			JOIN department d ON m.member_no = d.member_no
-			LEFT JOIN team t ON m.member_no = t.member_no
-			WHERE m.member_no=#{member_no}
+		SELECT * FROM member 
+			WHERE member_no=#{member_no}
+	</select>
+	
+	<select id="getDepartNo" resultType="int">
+		select depart_no from member
+			where member_no = #{param1}
+	</select>
+	
+	<select id="teamName">
+		SELECT depart_name FROM department
+			where depart_no =#{param1}
+	</select>
+	
+	<select id="depart_name">
+		SELECT depart_name FROM department
+			where depart_no =(SELECT depart_p_no FROM department
+			where depart_no =#{param1});
 	</select>
 	
 	<select id="file">

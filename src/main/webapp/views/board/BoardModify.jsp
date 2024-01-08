@@ -43,7 +43,7 @@ fieldset{
 </style>
 </head>
 <body>
-	<form action="modify" method="post">
+	<form action="modify" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="board_no" value="${board.board_no}"/>
 		<table>
 			<tr>
@@ -62,6 +62,8 @@ fieldset{
 				<th colspan="2">
 					<input type="button" onclick="location.href='./'" value="이전"/>
 					<button>수정</button>
+					<th>사진</th>
+					<td><input type="file" name="photos"/></td>
 				</th>
 			</tr>	
 		</table>

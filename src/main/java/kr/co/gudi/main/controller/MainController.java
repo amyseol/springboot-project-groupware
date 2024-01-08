@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.gudi.main.service.MainService;
@@ -21,8 +22,11 @@ public class MainController {
 		return mav;
 	}
 	
-	@GetMapping("/main")
+
+	@GetMapping(value="/main")
 	public ModelAndView main() {
-		return new ModelAndView("/member/main");
+		return new ModelAndView("member/main");
 	}
+
+
 }

@@ -2,6 +2,7 @@ package kr.co.gudi.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,11 +42,6 @@ public class MemberController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired MemberService service;
 	
-	// 첫 페이지
-	@RequestMapping("/")
-	public String start() {
-		return "member/login";
-	}
 	
 	// 로그인 페이지 이동
 	@RequestMapping("/loginPage")
@@ -190,20 +186,22 @@ public class MemberController {
         return service.teamList(depart_no);
     }
     @PostMapping(value="/join")
-    public String join(@RequestParam HashMap<String, String> params,@RequestParam("uploadFile") MultipartFile uploadFile) {
-        logger.info("date:{}"+params);
-        logger.info("file"+uploadFile);
-        String member_id=service.getMember_id();
-        params.put("member_id", member_id);    
-        String phone = params.get("phone1")+"-"+params.get("phone2")+"-"+params.get("phone3");
-        params.put("phone", phone);
-        String email = params.get("email1")+"@"+params.get("email2");
-        params.put("email", email);
-        String hired = params.get("hiredY")+params.get("hiredM")+params.get("hiredD");
-        params.put("hired", hired);
-        String birth = params.get("birthY")+params.get("birthM")+params.get("birthD");
-        params.put("birth", birth);
-        service.join(params,uploadFile);
+    public String join(@RequestParam HashMap<String, String> params
+    		,@RequestParam("uploadFile") MultipartFile uploadFile) {
+    	logger.info("date:{}"+params);
+		logger.info("file"+uploadFile);
+		String member_id=service.getMember_id();
+		params.put("member_id", member_id);	
+		String phone = params.get("phone1")+"-"+params.get("phone2")+"-"+params.get("phone3");
+		params.put("phone", phone);
+		String email = params.get("email1")+"@"+params.get("email2");
+		params.put("email", email);
+		String hired = params.get("hiredY")+params.get("hiredM")+params.get("hiredD");
+		params.put("hired", hired);
+		String birth = params.get("birthY")+params.get("birthM")+params.get("birthD");
+		params.put("birth", birth);
+		service.join(params,uploadFile);
+
         return "member/memberList";
     }
     @GetMapping(value="/memberList")
@@ -212,11 +210,11 @@ public class MemberController {
     }
     @GetMapping(value="/memberListCall")
     @ResponseBody
-    public HashMap<String, Object> memberListCall(@RequestParam String member_state,@RequestParam String depart_name) {
-        logger.info("부서명 : "+depart_name);
+    public HashMap<String, Object> memberListCall(@RequestParam String member_state,@RequestParam int depart_no) {
+        logger.info("부서명 : "+depart_no);
         logger.info("근무 상태 : "+member_state);
         HashMap<String, Object> list = new HashMap<String, Object>();
-        list=service.list(member_state,depart_name);
+        list=service.list(member_state,depart_no);
         return list;
     }
     @GetMapping(value="/detail")

@@ -1,6 +1,7 @@
 package kr.co.gudi.member.service;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,9 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,11 +33,11 @@ import kr.co.gudi.member.vo.MemberVO;
 @Service
 public class MemberService implements UserDetailsService{
 	Logger logger = LoggerFactory.getLogger(getClass());
-	
+	@Autowired PasswordEncoder encoder;
 	@Autowired
 	private MemberDAO dao;
 	
-	@Value("${spring.servlet.multipart.location}") private String root; //C:/upload
+	@Value("${spring.servlet.multipart.location}") private String root; //C:/upload/
 	
 	public MemberVO selectMemberByParam(Map<String, Object> param) {
 		return dao.selectMemberByParam(param);
@@ -83,6 +87,12 @@ public class MemberService implements UserDetailsService{
 	
 	public void join(HashMap<String, String> params, MultipartFile uploadFile) {
 		
+		String pain_pw =params.get("pw");
+		String enc_pw = encoder.encode(pain_pw);
+		logger.info("암호화 : "+enc_pw);
+		params.put("pw", enc_pw);
+		String depart_no=dao.getDepart(params);
+		params.put("depart_no", depart_no);
 		dao.join(params);
 		
 		String oriFileName = uploadFile.getOriginalFilename(); // 파일명 추출
@@ -97,26 +107,14 @@ public class MemberService implements UserDetailsService{
 			double fileSizeInKB = bytes.length / 1024.0;  // 바이트에서 킬로바이트로 변환
 			int size=(int) fileSizeInKB;
 			logger.info("파일크기"+fileSizeInKB+"KB");
-			Path path = Paths.get(root+"/"+newFileName);
+			Path path = Paths.get(root+newFileName);
 			Files.write(path, bytes);
 			// 파일위치(p),해당테이블pk(member_no),오리네임,뉴네임,사이즈
 			dao.uploadProfile(file_location,file_unique_no,oriFileName,newFileName,size);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		insertDepart(params,member_no);
 
-	}
-
-
-	private void insertDepart(HashMap<String, String> params, int member_no) {
-		String depart_name=params.get("depart_name");
-		String team_name = params.get("team_name");
-		
-		  dao.depart(member_no,depart_name);
-		  dao.team(member_no,team_name);
-		
 	}
 
 
@@ -126,24 +124,38 @@ public class MemberService implements UserDetailsService{
 	}
 
 
-	public HashMap<String, Object> list(String member_state, String depart_name) {
+	public HashMap<String, Object> list(String member_state, int depart_no) {
 		ArrayList<MemberDTO> dto = new ArrayList<MemberDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		dto=dao.list(member_state,depart_name);
+		dto=dao.list(member_state,depart_no);
 		map.put("list",dto);
 		
 		return map;
 	}
 
 
-	public ModelAndView detail(String member_no) {
+	public ModelAndView detail(String member_no){
 		ModelAndView mav = new ModelAndView();
 		ArrayList<MemberDTO> detail=dao.detail(member_no);
 		mav.addObject("dto", detail);
+		int depart_no=dao.getDepartNo(member_no);
+		String team_name=dao.teamName(depart_no);		
+		String depart_name = dao.depart_name(depart_no);
 		String file_name=dao.file(member_no,"p");
+		mav.addObject("team_name", team_name);
+		mav.addObject("depart_name", depart_name);
 		// C:/upload 에 있는 파일 정보 가져오기
-		mav.addObject("file", file_name);
-		logger.info("파일명 : "+file_name);
+		String filePath = root+file_name;
+		Resource resource;
+		try {
+			resource = new UrlResource("file:" + filePath);
+			logger.info("URL 파일경로 : "+resource);
+			mav.addObject("file", resource);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		logger.info("상세보기 파일명 : "+file_name);
+		logger.info("상세보기 파일경로 : "+filePath);
 
 		return mav;
 	}

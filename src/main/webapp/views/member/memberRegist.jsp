@@ -130,7 +130,12 @@
          <tr>
           <th>팀</th>
              <th>
-                 <select id="teamSelect" name="team_name">      
+                 <select id="teamSelect" name="team_name">    
+                 <c:forEach items="${depart}" var="department">
+            		<c:if test="${department.depart_p_no eq 1}">
+                	<option>${department.depart_name}</option>
+                	</c:if>  
+                	</c:forEach>
                  </select>
              </th>
          </tr>
@@ -156,14 +161,14 @@ $('#selectedDptno').change(function(){
 	        data: { 'depart_no': depart_no },
 	        success: function(data) {
 	        	console.log(data);
-	        	 // 받아온 데이터를 이용하여 옵션을 동적으로 생성 및 추가
-	            var select = $('#teamSelect');  // teamSelect는 셀렉트 태그의 ID
-	            select.empty();  // 기존 옵션 제거
 
-	            // data를 반복하면서 옵션을 생성 및 추가
-	            for (var i = 0; i < data.length; i++) {
-	                var option = $('<option>').text(data[i].depart_name);
-	                select.append(option);
+	            var content =''; 
+	            data.team.forEach(function(item, idx){
+	            	content+='<option>'+item.depart_name+'</option>';	
+	            });
+	            $('#teamSelect').empty();
+	        	$('#teamSelect').append(content);
+
 	        }
 	    });
 });
