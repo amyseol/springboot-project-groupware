@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html> 
+<html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
@@ -32,7 +32,7 @@
         }
 
         *{margin:0; padding:0;}
-        li{list-style: none;}
+        li{list-style: none; width: 1000px;}
         a{text-decoration: none;}
         img{border:none; display: block;}
         body, header, section, footer, div, ul, li, p, a, span, input, textarea{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 14px;}
@@ -85,9 +85,11 @@
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
         
         
+        
+                
         /* =============검색====================== css */
         
-        #common_list_form .search_box{position: relative; margin: 0 0 10px 700px; border: 1px solid #fff; display: inline-block;}
+        #common_list_form .search_box{position: relative; margin: 50 0 10px 800px; border: 1px solid #fff; display: inline-block;}
         #common_list_form .search_box li{float: left;}
         #common_list_form .search_box select{width: 100px; height: 28px; border: 1px solid #ccc; border-right: none;}
         #common_list_form .search_box .search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
@@ -99,6 +101,35 @@
         #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
         #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
         
+        
+        /*  */
+        
+                #common_list_form .list_form .list_title1 ul{width: 100%; height: 32px;}
+        #common_list_form .list_form .list_title1 ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
+        #common_list_form .list_form .list_title1 ul li:first-child{width: 15%; padding-left: 50px; }
+        #common_list_form .list_form .list_title1 ul li:nth-child(2){width: 10%;}
+        #common_list_form .list_form .list_title1 ul li:nth-child(3){width: 5%;}
+        #common_list_form .list_form .list_title1 ul li:nth-child(4){width: 50%;}
+        #common_list_form .list_form .list_title1 ul li:nth-child(5){width: 5%;}
+        #common_list_form .list_form .list_title1 ul li:last-child{width: 15%;}
+        
+                #common_list_form .list_form .list_title2 ul{width: 100%; height: 32px;}
+        #common_list_form .list_form .list_title2 ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
+        #common_list_form .list_form .list_title2 ul li:first-child{width: 15%; padding-left: 50px; }
+        #common_list_form .list_form .list_title2 ul li:nth-child(2){width: 10%;}
+        #common_list_form .list_form .list_title2 ul li:nth-child(3){width: 5%;}
+        #common_list_form .list_form .list_title2 ul li:nth-child(4){width: 50%;}
+        #common_list_form .list_form .list_title2 ul li:nth-child(5){width: 5%;}
+        #common_list_form .list_form .list_title2 ul li:last-child{width: 15%;}
+        
+                #common_list_form .list_form .list_title3 ul{width: 100%; height: 32px;}
+        #common_list_form .list_form .list_title3 ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
+        #common_list_form .list_form .list_title3 ul li:first-child{width: 15%; padding-left: 50px; }
+        #common_list_form .list_form .list_title3 ul li:nth-child(2){width: 10%;}
+        #common_list_form .list_form .list_title3 ul li:nth-child(3){width: 5%;}
+        #common_list_form .list_form .list_title3 ul li:nth-child(4){width: 50%;}
+        #common_list_form .list_form .list_title3 ul li:nth-child(5){width: 5%;}
+        #common_list_form .list_form .list_title3 ul li:last-child{width: 15%;}
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -192,34 +223,47 @@
     <!-- -------------------------------------------util end------------------------------------------ -->
     <!-- -------------------------------------------list_form start------------------------------------------ -->
     <section id="common_list_form">
-        <h2 class="big_title">저작권 관리</h2>
-        <button id="getcr" style="border-radius: 5px; margin-left: 40px; padding: 5px 10px; background-color: blue; color: white; cursor: pointer;">저작권등록</button>
-		<ul class="search_box">
-            <li>
-                <select id="searchpath" name="searchtag">
-					<option  value="cr" >저작권번호</option>
-					<option value="name">저작권명</option>
-                </select>
-            </li>
-            <li>
-                <input type="text" class="search_info" placeholder="검색" id="searchbar"/>
-            </li>
-            <li class="btn_box">
-                <div class="search_btn">
-                    <img src="./img/search.png" alt="검색 버튼" id="search">
-                </div>
-            </li>
-        </ul>
-        <h3 class="sub_title">등록중 저작권</h3>
-        <div class="list_form">
+        <h2 class="big_title">아티스트 상세보기</h2>
+	<!-- 아티스트 이름 소속사 명 -->
+		<div>
+		<table>
+			<tr>
+				<td>
+				
+				
+				<input type="text" value="${name}" id="name"/>
+				
+				</td>
+			</tr>
+			<tr>
+				<td>
+				
+				
+				<input type="text" value="${agency}" id="agency"/>
+				
+				</td>
+			</tr>
+		</table>
+		
+		
+		
+		</div>
+		<!-- 아티스트 관련 목록들 -->
+		<div>
+		
+		
+			<table>
+			<tr>
+				<td>
+				
+		<h3 class="sub_title">음반명</h3>
+         <div class="list_form">
             <ul>
-                <li class="list_title" id="list1">
+                <li class="list_title1" id="list1">
                     <ul>
                         <li>no.</li>
-                        <li>저작권명</li>
-                        <li>담당자</li>
-                        <li>기간</li>
-                        <li>취소하기</li>
+                        <li>음반명</li>
+                        <li>계약금</li>
                     </ul>
                 </li>
 				
@@ -235,42 +279,83 @@
 			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
 			<div class="container">
 				<nav aria-label="Page navigation" style="text-align: center">
-					<ul class="pagination" id="getpagination"></ul>
+					<ul class="pagination" id="getpagination1"></ul>
 				</nav>
 			</div>
+			
 		</div>
-		
-		
-		
-        <h3 class="sub_title">취소/만료 저작권</h3>
-        <div class="list_form" id="list2">
+				
+				</td>
+			</tr>
+			<tr>
+				<td>
+				
+		<h3 class="sub_title">음원명</h3>
+         <div class="list_form">
             <ul>
-                <li class="list_title">
+                <li class="list_title2" id="list2">
                     <ul>
                         <li>no.</li>
-                        <li>저작권명</li>
-                        <li>담당자</li>
-                        <li>등록날짜</li>
-                        <li>취소/만료</li>
+                        <li>음원명</li>
+                        <li>계약금</li>
                     </ul>
                 </li>
-                <li class="list_title" id="list_2">
+				
+				<li class="list_title" id="list_2">
 				
 				</li>
+
              </ul>
- 
+             
+
         </div>
 		<div id="paging" class="pagingBox">
 			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
 			<div class="container">
 				<nav aria-label="Page navigation" style="text-align: center">
-					<ul class="pagination" id="nopagination"></ul>
+					<ul class="pagination" id="getpagination2"></ul>
 				</nav>
 			</div>
 		</div>
-		
-		<div id="gong" style="margin-bottom: 100px "></div>
-		
+				
+				</td>
+			</tr>
+			<tr>
+				<td>
+				
+		<h3 class="sub_title">이벤트</h3>
+         <div class="list_form">
+            <ul>
+                <li class="list_title3" id="list3">
+                    <ul>
+                        <li>no.</li>
+                        <li>아티스트이름</li>
+                        <li>소속사이름</li>
+                    </ul>
+                </li>
+				
+				<li class="list_title" id="list_3">
+				
+				</li>
+
+             </ul>
+             
+
+        </div>
+		<div id="paging" class="pagingBox">
+			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
+			<div class="container">
+				<nav aria-label="Page navigation" style="text-align: center">
+					<ul class="pagination" id="getpagination3"></ul>
+				</nav>
+			</div>
+		</div>
+				
+				</td>
+			</tr>
+			</table>
+		</div>
+
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
     <!-- -------------------------------------------music start------------------------------------------ -->
@@ -340,11 +425,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 //-------------------------------- toggle end ------------------------------------------
 
-$("#getcr").on("click", function(){
-	
-	location.href="copyrightregisterform";
-	
-});
 
 //-------------------------------search---------------------------------------------
 
@@ -352,43 +432,25 @@ var search = "";
 var showPage=1;//페이징을 위한 변수
 var searchtag ="";
 
-$("#search").on("click", function(){
-	
-	search = $("#searchbar").val();
-	
-	var storyLength = $("#searchbar").val().length;
-	if(storyLength < 2 ){
-		alert("2자 이상 입력해주세요");
-	    $("#searchbar").focus();
-	}else{
-	//searchbox = $('#search').val();
-	console.log($('#searchpath option:selected').val());
-	searchtag = $('#searchpath option:selected').val();
-	call(showPage);
-	nocall(showPage);
-	}
-	
-	console.log(search);
-	
-});
+var name = $("#name").val();
+var num = ${num};
 
-//--------------------------------ajax list------------------------------------------
+//--------------------------------ajax list1------------------------------------------
 
 
 
-call(showPage);
-nocall(showPage);
+call1(showPage);
+call2(showPage);
 
-function call(showPage){
+function call1(showPage){
    $.ajax({
         type : 'POST',
-        url : '/copyrightgetlist',
+        url : '/artistdetail_1',
         data:{
         	
         	'pagePerNum':5
         	,'page':showPage
-        	,'search':search
-        	,'searchtag':searchtag
+        	,'num' : num
         	
         },
         dataType:'json',
@@ -403,13 +465,9 @@ function call(showPage){
             data.list.forEach(function(item,idx){
                 //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
                 content += '<ul>';
-                content += '<li >'+item.cr_no+'</li>';
-                content += '<li >'+"<a href = 'copyrightdetail?num="+item.cr_no+"'>"+item.cr_namae+"</a>"+'</;i>';
-                content += '<li >'+item.cr_member+'</li>';
-       			var date = new Date(item.cr_contdate);
-    			var dateStr = date.toLocaleDateString("ko-KR"); //en-US
-    			content += '<li>'+dateStr+'</li>';	
-                content += '<li >'+"<button>취소</button>"+'</li>';
+                content += '<li id="'+item.alb_no+'">'+item.alb_no+'</li>';
+                content += '<li id="'+item.alb_name+'">'+"<a href = 'artistdetail?num="+item.alb_no+"&name="+item.alb_name+"&agency="+item.art_agency+"'>"+item.alb_name+"</a>"+'</li>';
+                content += '<li id="'+item.alb_price+'">'+item.alb_price+'</li>';
                 content += '</ul>';
             });
             $('#list_1').empty();
@@ -424,56 +482,10 @@ function call(showPage){
 
 }   
    
-function nocall(showPage){  
-   $.ajax({
-       type : 'POST',
-       url : '/copyrightnolist',
-       data:{
-    	   
-       	'pagePerNum':5
-    	,'page':showPage
-    	,'search':search
-    	,'searchtag':searchtag
-    	   
-       },
-       dataType:'json',
-       success:function(data){
-       	//alert("성공");
-       	
-       	nopaging(data.list);
-       	
-           console.log(data);
-           
-           var content ='';
-
-           data.list.forEach(function(item,idx){
-               //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
-               content += '<ul>';
-               content += '<li >'+item.cr_no+'</li>';
-               content += '<li >'+"<a href = 'copyrightdetail?num="+item.cr_no+"'>"+item.cr_namae+"</a>"+'</;i>';
-               content += '<li >'+item.cr_member+'</li>';
-       			var date = new Date(item.cr_contdate);
-    			var dateStr = date.toLocaleDateString("ko-KR"); //en-US
-    			content += '<li>'+dateStr+'</li>';		
-               content += '<li >만료</li>';
-               content += '</ul>';
-           });
-           $('#list_2').empty();
-           $('#list_2').append(content);
-
-       },error:function(e){
-           console.log(e);
-           alert("실패");
-       }
-   });
-}
-
-
-
 
    function paging(list){
 	   console.log("list : ", list);
-		$('#getpagination').twbsPagination({
+		$('#getpagination1').twbsPagination({
 			startPage:list.currPage,//보여줄 페이지
 			totalPages:list.pages,//총페이지수(총갯수/페이지당 보여줄 게시물수) : 서버에서 계산해서 가져와야 한다.
 			visiblePages:5,//[1][2][3][4][5]
@@ -495,9 +507,52 @@ function nocall(showPage){
 		});
    }
    
-   function nopaging(list){
+   //-------------------------------ajax.list2------------------------------------------
+
+   function call2(showPage){
+   $.ajax({
+        type : 'POST',
+        url : '/artistdetail_2',
+        data:{
+        	
+        	'pagePerNum':5
+        	,'page':showPage
+        	,'num' : num
+        	
+        },
+        dataType:'json',
+        success:function(data){
+        	//alert("성공");
+        	
+        	paging2(data.list);
+        	
+            console.log(data);
+            var content ='';
+
+            data.list.forEach(function(item,idx){
+                //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
+                content += '<ul>';
+                content += '<li id="'+item.song_no+'">'+item.song_no+'</li>';
+                content += '<li id="'+item.song_name+'">'+"<a href = 'artistdetail?num="+item.song_no+"&name="+item.song_name+"&agency="+item.art_agency+"'>"+item.song_name+"</a>"+'</li>';
+                content += '<li id="'+item.allSong_profit+'">'+item.allSong_profit+'</li>';
+                content += '</ul>';
+            });
+            $('#list_2').empty();
+            $('#list_2').append(content);
+
+
+        },error:function(e){
+            console.log(e);
+            alert("실패");
+        }
+    });
+
+}   
+   
+
+   function paging2(list){
 	   console.log("list : ", list);
-		$('#nopagination').twbsPagination({
+		$('#getpagination2').twbsPagination({
 			startPage:list.currPage,//보여줄 페이지
 			totalPages:list.pages,//총페이지수(총갯수/페이지당 보여줄 게시물수) : 서버에서 계산해서 가져와야 한다.
 			visiblePages:5,//[1][2][3][4][5]

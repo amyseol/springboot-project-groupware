@@ -187,8 +187,8 @@
 
         <div class="list_form">
         
-        <input type="text" id="searchbar"/>
-        <button id="search">검색</button>
+<!--         <input type="text" id="searchbar"/>
+        <button id="search">검색</button> -->
         
         <ul id="list">
 
@@ -198,53 +198,49 @@
 
 
     	</ul>
-		<%-- <h3>${data}</h3> --%>
 		
-		<%-- <c:forEach items="${data}" var="data" begin="1" end="1" step="1" varStatus="status">
-		<h3>안녕</h3>
-		</c:forEach> --%>
-		
-		
+	<form action="copyrightregister" method="POST" enctype="multipart/form-data">
         <table style="margin-left:auto;margin-right:auto;">
         <tr style="border: solid 1px black; border-collapse: collapse;">
         	<td style="border: solid 1px black; border-collapse: collapse; ">
-        	<input type="text" id="searchbar"/>
+        	저작권 번호 : <input type="text" id="searchbar" placeholder="저작권번호" name="no"/>
         	<button id="search">검색</button>
         	</td>
         	<td style="border: solid 1px black; border-collapse: collapse;">
-        	<input type="text" placeholder="음원명" />
+        	음원명 : <input type="text" placeholder="음원명" id="namae" name="namae"/>
         	</td>
         </tr>
         <tr style="border: solid 1px black; border-collapse: collapse;">
         	<td style="border: solid 1px black; border-collapse: collapse;">
-        	<input type="text" placeholder="요금" />
+        	요금 : <input type="text" placeholder="요금" id="price" name="price"/>
         	</td>
         	<td style="border: solid 1px black; border-collapse: collapse;">
-        	<input type="date" id="datePicker" class="datePicker" value="2018-07-22" min="2018-01-01" max="2018-12-31"/>
+        	계약일 : <input type="date" id="cont" class="datePicker" value="2018-07-22" min="2018-01-01" max="2018-12-31" name="cont"/>
         	</td>
         </tr>
         <tr style="border: solid 1px black; border-collapse: collapse;">
         	<td style="border: solid 1px black; border-collapse: collapse;">
-        	<input type="date" id="datePicker" class="datePicker"/>
+        	만료일 : <input type="date" id="exp" class="datePicker" name="exp"/>
         	</td>
         	<td style="border: solid 1px black; border-collapse: collapse;">
-        	<input type="text" placeholder="아티스트명" />
+        	아티스트 명 : <input type="text" placeholder="아티스트명" id="name" name="name"/>
         	</td>
         </tr>
         <tr style="border: solid 1px black; border-collapse: collapse;">
         	<td style="border: solid 1px black; border-collapse: collapse;">
-        	<input type="text" placeholder="담당자" />
+        	담당자 : <input type="text" placeholder="담당자" id="member" name="member"/>
         	</td>
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	파일
-        	</td>
+			<td style="border: solid 1px black; border-collapse: collapse;">
+			<input type="file" id="file" name="file" multiple="multiple" />
+			</td>
         </tr>        
         
         </table>
 		<h3>${data}</h3>
      
         
-        <button id="register">등록</button>
+        <input type="submit" value="등록" />
+    </form>
         </div>
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
@@ -367,12 +363,25 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     //---------------------등록------------------------
+    /*
     $("#register").on("click", function(){
     	
-    	location.href="copyrightregister";
+    	var no = $("#searchbar").val();
+    	var namae = $("#namae").val();
+    	var name = $("#name").val();
+    	var cont = $("#cont").val();
+    	var exp = $("#exp").val();
+    	var member = $("#member").val();
+    	var price = $("#price").val();
+    	
+    	console.log(no,"/",namae,"/",name,"/",cont,"/",exp);
+    	
+    	location.href="copyrightregister?no="+no+"&namae="+namae+"&name="+name+"&cont="+cont+"&exp="+exp+"&member="+member+"&price="+price;
+    	
+
     	
     });
-    
+    */
    	function copyrightsearchdetail(id,page,perpage){
    		
    	   $.ajax({
@@ -397,9 +406,9 @@ document.addEventListener('DOMContentLoaded', function () {
                    detaildata = item.CONT_TITLE;
                });
                    console.log(detaildata);
-			
-               //$('#list2').empty();
-               //$('#list2').append(content);
+                   const element = document.getElementById('namae');
+                   element.value = detaildata;
+                   
                
 
            },error:function(e){

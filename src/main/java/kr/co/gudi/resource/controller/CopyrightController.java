@@ -1,18 +1,23 @@
 package kr.co.gudi.resource.controller;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.gudi.resource.dto.CopyrightDTO;
@@ -26,11 +31,6 @@ public class CopyrightController {
 	
 	@GetMapping(value = "/copyrightlist")
 	public ModelAndView cp() {
-		
-		
-		
-		
-		
 		ModelAndView mav = new ModelAndView("copyright/cr");
 		return mav ;
 	}
@@ -102,15 +102,18 @@ public class CopyrightController {
 		return service.getListdetail(page,perPage,search);
 	}
 	
-	@GetMapping(value = "/copyrightregister")
-	public ModelAndView copyrightregister() {
+	@PostMapping(value = "/copyrightregister")
+	public ModelAndView copyrightregister(MultipartFile[] file, @RequestParam HashMap<String, String> data) throws Exception {
 		logger.info("여기는 등록완료를 거치는곳");
+		logger.info("data : "+data.get("no"));
+		
+		service.copyrightregister(data,file);
 		
 		ModelAndView mav = new ModelAndView("redirect:/copyrightlist");
 		return mav;
 	}
 	
-	//---------------------------detail
+	//---------------------------detail---------------------------
 	
 	@GetMapping(value = "/copyrightdetail")
 	public ModelAndView copyrightdetail(@RequestParam String num) {
@@ -143,14 +146,56 @@ public class CopyrightController {
 	}
 	
 	@GetMapping(value = "resourceCopyrightregister")
-	public ModelAndView resourceCopyrightregister(@RequestParam String no, @RequestParam String date, @RequestParam String price) {
+	public ModelAndView resourceCopyrightregister(@RequestParam String no, @RequestParam String date, @RequestParam String price, @RequestParam String namae) {
 		logger.info("price : "+price);
 		logger.info("no : "+no);
 		logger.info("date : "+date);
+		logger.info("namae : "+namae);
 		
-		service.resourceCopyrightregister(no,date,price);
+		service.resourceCopyrightregister(no,date,price,namae);
 		
 		ModelAndView mav = new ModelAndView("redirect:/resourceCopyright");
 		return mav;
 	}
+	
+	@PostMapping(value = "/resourcecopyrightgetlist")
+	public Map<String, Object> resourcecopyrightgetlist(@RequestParam String pagePerNum,@RequestParam String page,@RequestParam String search,@RequestParam String searchtag) {
+		
+		logger.info("search"+search+"/"+"pagePerNum"+pagePerNum+"page"+page);
+		
+		if(search.equals("")) {
+			logger.info("검색어 없음");
+		}else {
+			logger.info("검색어 있음");
+			if(searchtag.equals("cr")) {
+				logger.info("저작권번호");
+			}else {
+				logger.info("아티스트명");
+			}
+		}
+		
+		Map<String, Object> data = service.resourcecopyrightgetlist(page,pagePerNum,search,searchtag);
+		logger.info("data : "+data);
+		int all = 0;
+		
+		return data;
+	}
+	
+	@GetMapping(value = "resourceCopyrightdelete")
+	public ModelAndView resourceCopyrightdelete(@RequestParam String cr_no, @RequestParam String per_price) {
+		
+		logger.info("cr_no : "+cr_no);
+		logger.info("per_price : "+per_price);
+		
+		service.resourceCopyrightdelete(cr_no,per_price);
+		
+		ModelAndView mav = new ModelAndView("redirect:/resourceCopyright");
+		
+		return mav; 
+	}
+	
+	
+	
+	
+
 }
