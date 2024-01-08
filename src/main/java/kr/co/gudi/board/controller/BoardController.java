@@ -54,13 +54,13 @@ public class BoardController {
 	}
 	
 
-	@GetMapping(value = "/board/boardWrite")
+	@GetMapping(value = "/boardWrite")
 	public String boardWrite() {
 		logger.info("boardWrite로 이동");
 		return "board/boardWrite";
 	}
 	
-	@PostMapping(value = "/board/write")
+	@PostMapping(value = "/write")
 	public String write(BoardDTO dto, MultipartFile[] photos) throws Exception {
 		if(photos==null) {
 			logger.info("photos null");
@@ -81,7 +81,7 @@ public class BoardController {
 		return "board/boardDetail";
 	}
 
-	@GetMapping(value = "/board/del")
+	@GetMapping(value = "/del")
 	public String del(@RequestParam String board_no) {
 		logger.info("===del 함수===");
 		service.del(board_no);
@@ -92,13 +92,13 @@ public class BoardController {
 	public String boardModify(@RequestParam String board_no, Model model) {
 		logger.info("===boardModify 함수===");
 		model.addAttribute("board", service.boardModify(board_no));
-		return "board/BoardModify";
+		return "board/boardModify";
 	}
 	
 	@PostMapping(value = "/modify")
 	public ModelAndView modify(@RequestParam HashMap<String, String> params, @RequestParam("photos") MultipartFile file) {
 		String board_no = (String) params.get("board_no");
-		ModelAndView mav = new ModelAndView("redirect:/board/boardModify"+board_no);
+		ModelAndView mav = new ModelAndView("board/boardModify");
 		logger.info("수정 내용 {} : "+params);
 		service.modify(board_no, params, file);
 		

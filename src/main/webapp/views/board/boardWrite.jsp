@@ -43,7 +43,7 @@ fieldset{
 </style>
 </head>
 <body>
-	<form action="/board/write" method="post" enctype="multipart/form-data">
+	<form action="write" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<th>제목</th>
@@ -63,7 +63,7 @@ fieldset{
 			</tr>
 			<tr>
 				<th colspan="2"></th>
-				<input type="button" onclick="location.href='./'" value="리스트"/>
+					<input type="button" onclick="location.href='./'" value="리스트"/>
 				<button>저장</button>
 			</tr>
 			
