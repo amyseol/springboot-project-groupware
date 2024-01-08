@@ -1,6 +1,11 @@
 package kr.co.gudi.resource.service;
 
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode;
@@ -22,6 +28,8 @@ public class CopyrightService {
 	@Autowired CopyrightDAO dao;
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
+	
+	private String root = "C:/upload/";
 	
 	public HashMap<String, Object> getList(String page, String perPage, String search) {
 		String url = "https://api.odcloud.kr/api/CpyrRegInforService/v1/getCpyrRegInforUniList";
@@ -158,8 +166,129 @@ public class CopyrightService {
 	
 	//-----------------------------------실적------------------------------------
 	//실적등록
-	public void resourceCopyrightregister(String no, String date, String price) {
-		dao.resourceCopyrightregister(no,date,Integer.parseInt(price));
+	public void resourceCopyrightregister(String no, String date, String price, String namae) {
+		dao.resourceCopyrightregister(no,date,Integer.parseInt(price),namae);
+		
+	}
+
+
+
+	public void copyrightregister(HashMap<String, String> data, MultipartFile[] file) throws Exception {
+		// TODO Auto-generated method stub
+
+		logger.info("등록 들어옴");
+		copyrightnoti(data);
+		CopyrightDTO dto = new CopyrightDTO();
+		dto.setCr_no(data.get("no"));
+		dto.setCr_namae(data.get("namae"));
+		dto.setCr_name(data.get("name"));
+		dto.setCr_price(Integer.parseInt(data.get("price")));
+		dto.setCr_contdate(Date.valueOf(data.get("cont")));
+		dto.setCr_expdate(Date.valueOf(data.get("exp")));
+		dto.setCr_member(data.get("member"));
+		
+		logger.info("date : "+dto.getCr_member());
+		
+		dao.copyrightregister(dto);
+		logger.info("dto : "+dto.getCr_no());
+		
+		String idx = dto.getCr_no();
+		
+		saveFile(idx, file);
+		
+	}
+	
+	
+	
+	private void saveFile(String idx, MultipartFile[] file) throws Exception {
+		
+		
+		for (MultipartFile photo : file) {
+			String oriFileName = photo.getOriginalFilename();
+			logger.info("oriFileName : "+oriFileName);
+			logger.info("oriFileName : "+idx+oriFileName);
+			logger.info("idx : "+idx);
+
+			
+			if (!oriFileName.equals("")) {
+				
+				// 1. 파일이름 변경
+				String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
+				String newFileName = System.currentTimeMillis()+ext;
+				
+				// 2. 파일 저장
+				byte[] arr = photo.getBytes();
+				logger.info("크기 : "+arr.length);
+				String kb = String.valueOf(arr.length);
+				logger.info("크기 : "+kb);
+				Path path = Paths.get(root+newFileName);
+				Files.write(path, arr);
+				
+				//3. 파일명, 변경된파일명, idx를 photo 테이블에 추가
+
+				dao.writeFile(idx,oriFileName,newFileName,kb);
+					
+
+			}
+		}
+		
+		
+		
+		
+
+		
+	}
+	
+	
+	
+	
+	public void copyrightnoti(HashMap<String, String> data) {
+		//dao.copyrightnoti(data);
+	}
+
+
+
+	public Map<String, Object> resourcecopyrightgetlist(String page, String pagePerNum, String search,
+			String searchtag) {
+		// pagePerNum 과 page 를 가지고 offset 을 계산해 내자
+
+		logger.info("searchtag : "+searchtag);
+		
+		int offset = 0;
+		int p =Integer.parseInt(page);
+		offset = (int) (Integer.parseInt(pagePerNum)*(p-1));
+		ArrayList<CopyrightDTO> list = dao.resourcecopyrightgetlist(search,searchtag,offset);
+		logger.info("list : "+list);
+		//만들수 있는 총 페이지수
+		logger.info("filter : "+Integer.parseInt(pagePerNum));
+		logger.info("search : "+search);
+		int max = dao.rclmaxpage(Integer.parseInt(pagePerNum),search,searchtag);
+		logger.info("만들 수 있는 총 페이지수 : "+max);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
+		if(p>max) {
+			
+			p = max;
+		}
+		
+		map.put("currPage", p);
+		
+		map.put("pages", max+1);
+		logger.info("list : "+list);
+		map.put("list", list);
+		
+		
+		
+		return map;
+	}
+
+
+
+	public void resourceCopyrightdelete(String cr_no, String per_price) {
+		
+		dao.resourceCopyrightdelete(cr_no,per_price);
 		
 	}
 
