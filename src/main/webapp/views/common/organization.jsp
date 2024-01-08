@@ -322,6 +322,7 @@
     });
 //-------------------------------- toggle end ------------------------------------------
 
+/*  
         // 부서 모달 팝업
         function showDepartModal(){
             var departModal = $("#departModal");
@@ -341,15 +342,14 @@
         	var memberInfo = $("#memberInfo");
         	var close = $(".close");
         	
-        	if (memberModal.css("display") == "none") {
-        		
-        		memberInfo.append(content);
-        		
-        		memberModal.show();
-        		close.show();
+        	if (memberModal.is(":visible")) {
+        		memberInfo.empty().append(content);
 			} else {
-				memberModal.hide();
+				memberInfo.append(content);
+                memberModal.show();
 			}
+        	
+        	close.show();
         }
         
         function getDepartmentList(){
@@ -436,9 +436,6 @@
                 type: "GET",
                 url: "/organization/detail/" + member_no,
                 success: function(member) {
-                	var memberInfo = $("#memberInfo");
-                	memberInfo.empty();
-                	
                 	var popupContent = '<div style="display: flex;">';
                 	
                 	member.forEach(function(item){
@@ -470,7 +467,184 @@
      	// 팝업 닫기 함수
         function closeModal() {
             var modal = $("#memberModal");
+            var close = $(".close");
             modal.hide();
+            close.hide();
+        }
+        */
+        
+        
+        var selecEl = null;
+        
+        // 부서 모달 팝업
+        function showDepartModal(){
+            var departModal = $("#departModal");
+            
+            if (departModal.css("display") == "none") {
+            	departModal.show();
+            	
+            	getDepartmentList();
+			} else {
+				departModal.hide();
+			}
+        }
+        
+        // 멤버 팝업 띄우기
+        function showMemberModal(content){
+        	var memberModal = $("#memberModal");
+        	var memberInfo = $("#memberInfo");
+        	var close = $(".close");
+        	
+        	if (memberModal.is(":visible")) {
+        		memberInfo.empty().append(content);
+			} else {
+				memberInfo.append(content);
+                memberModal.show();
+			}
+        	
+        	close.show();
+        }
+        
+        function getDepartmentList(){
+        	// 부서 리스트를 가져오는 AJAX
+            $.ajax({
+                type: "GET",
+                url: "/organization/departments",
+                dataType: "JSON",
+                success: function(departments){
+                    // 부서 목록
+                    var departmentList = $("#departments");
+                    departmentList.empty();
+                    
+                    departments.forEach(function(department){
+                        var li = $('<li class="departList"><span onclick="toggleDepart(' + department.depart_no + ')">' + department.depart_name + '</span></li>');
+                        departmentList.append(li);
+                    });
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        }
+        
+
+        // 팀 리스트를 가져오는 AJAX
+        function toggleDepart(depart_no){
+            // 팀 리스트
+            var teamList = $("#teamListUl" + depart_no);
+            // 해당 부서의 팀 리스트가 표시될 위치
+            var teamLocation = $(".departList").eq(depart_no - 1);
+
+            if(teamList.length){
+                teamList.toggle();
+            } else{
+                $.ajax({
+                    type: "GET",
+                    url: "/organization/teams/" + depart_no,
+                    dataType: "JSON",
+                    success: function(departments){
+                        teamList = $('<ul id="teamListUl'+depart_no+'" class="teamListUl"></ul>');
+
+                        departments.forEach(function(department){
+                            var teamItem = $('<li class="teamList"><span onclick="toggleTeam(' + department.depart_no + ')">' + department.depart_name + '</span></li>');
+                            teamList.append(teamItem);
+                        });
+                        
+                        teamLocation.append(teamList);
+                        teamLocation.slideDown(300);
+    
+                        $(".memberList").eq(depart_no - 1).slideUp(300);
+                    },
+                    error: function(e){
+                        console.log(e);
+                    }
+                });
+            }
+
+            toggleElement(teamLocation);
+
+        }
+
+        // 해당 팀의 직원 목록을 가져오는 AJAX 
+        function toggleTeam(depart_no){
+            // 직원 리스트
+            var memberList = $("#memberListUl" + depart_no);
+            // 해당 팀의 직원 리스트가 표시될 위치
+            var memberLocation  = $(".teamList").eq(depart_no - 5);
+
+            if(memberList.length){
+                memberList.toggle();
+            } else{
+                $.ajax({
+                    type: "GET",
+                    url: "/organization/members/" + depart_no,
+                    dataType: "JSON",
+                    success: function(members){
+                        memberList = $('<ul id="memberListUl'+ depart_no +'" class="memberListUl"></ul>');
+                        members.forEach(function(member){
+                            var memberItem = $('<li class="memberList"><p data-member-no="'+ member.member_no  +'" onclick="getMemberDetail(' + member.member_no + ')">' + member.name + '</p></li>');
+                            memberList.append(memberItem);
+                        });
+                        
+                        memberLocation.append(memberList);
+                        memberLocation.slideDown(300);
+                    },
+                    error: function(e){
+                        console.log(e);
+                    }
+                });
+            }
+
+            toggleElement(memberLocation);
+        }
+
+        function toggleElement(element){
+            // 클릭한 요소에 토글 스타일 적용 및 이전에 선택된 요소의 스타일 제거
+            if(selecEl){
+                selecEl.removeClass("active");
+            }
+            selecEl = element;
+            element.addClass("active");
+        }
+        
+        // 직원 정보 표시 팝업
+        function getMemberDetail(member_no){
+        	$.ajax({
+                type: "GET",
+                url: "/organization/detail/" + member_no,
+                success: function(member) {
+                	var popupContent = '<div style="display: flex;">';
+                	
+                	member.forEach(function(item){
+	                    // 팝업의 내용을 생성
+	                    popupContent += 
+	                        '<div style="flex: 1;">' +
+	                        '<img src="' + item.profileImg + '" alt="프로필 사진" style="max-width: 100%;">' +
+	                        '<p>' + item.name + ' ' + item.member_position + '</p>' +
+	                        '</div>' +
+	                        '<div style="flex: 1; padding-left: 10px;">' +
+	                        '<p><strong>직급:</strong> ' + item.member_position + '</p>' +
+	                        '<p><strong>연락처:</strong> ' + item.phone + '</p>' +
+	                        '<p><strong>이메일:</strong> ' + item.email + '</p>' +
+	                        '</div>' +
+	                        '</div>';
+                	});
+
+                    // 팝업 생성 및 표시
+                    showMemberModal(popupContent);
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+        	});
+        }
+        
+     	// 팝업 닫기 함수
+        function closeModal() {
+            var modal = $("#memberModal");
+            var close = $(".close");
+            modal.hide();
+            close.hide();
         }
     </script>
 </html>

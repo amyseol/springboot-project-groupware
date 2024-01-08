@@ -17,9 +17,12 @@ public class MainController {
 	@GetMapping(value="/")
 	public ModelAndView login() {
 		
-		ModelAndView mav = new ModelAndView("member/main");
+		ModelAndView mav = new ModelAndView("member/login");
 		return mav;
 	}
 	
-	
+	@GetMapping("/main")
+	public ModelAndView main() {
+		return new ModelAndView("/member/main");
+	}
 }
