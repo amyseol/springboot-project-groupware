@@ -24,11 +24,11 @@
 		<h2 class="big_title">직원관리</h2>
 		<span id="incumbentStateLabel" onclick="selectMemberState('재직')">재직자</span>
 		<span id="quitterStateLabel" onclick="selectMemberState('퇴사')">퇴사자</span>
-		<select id="depart_name" class="depart_name" name="depart_name">
-			<option>운영본부</option>
-			<option>마케팅본부</option>
-			<option>경영지원본부</option>
-			<option selected>임직원</option>
+		<select id="depart_name" class="depart_name" name="depart_no">
+			<option value="2">운영본부</option>
+			<option value="1">마케팅본부</option>
+			<option value="3">경영지원본부</option>
+			<option selected value="4">임직원</option>
 		</select>
 		<div class="list_form">
             <ul>
@@ -78,7 +78,7 @@ function memberListCall(){
 		type:'get',
 		url:'memberListCall',
 		data:{
-			'depart_name':$('#depart_name').val(),
+			'depart_no':$('#depart_name').val(),
 			'member_state':selectedMemberState
 			}, 
 		dataType:'JSON',
@@ -100,7 +100,7 @@ function drawMemberList(memberList){
 		content+='<ul onclick="memberDetail('+item.member_no+')">';
 		content+='<li>'+item.member_no+'</li>';
 		content+='<li>'+item.name+'</li>';
-		content+='<li>'+item.team_name+'</li>';
+		content+='<li>'+item.depart_name+'</li>';
 		content+='<li>'+item.member_position+'</li>';
 		content+='<li>'+item.phone+'</li>';
 		content+='<li>'+item.email+'</li>';

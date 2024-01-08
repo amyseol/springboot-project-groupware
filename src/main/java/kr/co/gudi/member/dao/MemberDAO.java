@@ -40,7 +40,7 @@ public interface MemberDAO {
 
 	void uploadProfile(String file_location, int file_unique_no, String oriFileName, String newFileName, int size);
 
-	ArrayList<MemberDTO> list(String member_state, String depart_name);
+	ArrayList<MemberDTO> list(String member_state,int depart_no);
 
 	void depart(int member_no, String depart_name);
 
@@ -65,4 +65,14 @@ public interface MemberDAO {
 	List<MemberDTO> getDepartList();
 
 	List<MemberDTO> teamList(int depart_no);
+
+	String getDepart(HashMap<String, String> params);
+
+	String getDepartNo(int member_no);
+
+	int getDepartNo(String member_no);
+
+	String teamName(int depart_no);
+
+	String depart_name(int depart_no);
 }

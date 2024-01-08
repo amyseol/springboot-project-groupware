@@ -29,10 +29,8 @@
 	<div class="detailInner">
 		<ul class="detailBox">
 			<li class="memberImg">
-			<div class="imgBox">
-			<c:forEach items="${file}" var="photo">
-    			<img  src="/photo/${photo}"/>
-			</c:forEach>			
+			<div class="imgBox">			
+    			<img  src="${file.getURL()}" alt="Image"/>				
 			</div>
 			</li>
 			<c:forEach items="${dto}" var="detail">
@@ -59,9 +57,9 @@
 			<li>직급</li>
 			<li>${detail.member_position}</li>
 			<li>부서</li>
-			<li>${detail.depart_name}</li>
+			<li>${depart_name}</li>
 			<li>팀</li>
-			<li>${detail.team_name}</li>
+			<li>${team_name}</li>
 			<li>연/월차수</li>
 			<li>${detail.total_leave}</li>
 			<li>차량등록번호</li>
