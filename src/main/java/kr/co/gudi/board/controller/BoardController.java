@@ -88,17 +88,17 @@ public class BoardController {
 		return "redirect:./";
 	}
 	
-	@GetMapping(value = "board/boardModify")
+	@GetMapping(value = "/boardModify")
 	public String boardModify(@RequestParam String board_no, Model model) {
 		logger.info("===boardModify 함수===");
 		model.addAttribute("board", service.boardModify(board_no));
-		return "board/boardModify";
+		return "board/BoardModify";
 	}
 	
-	@PostMapping(value = "board/modify")
+	@PostMapping(value = "/modify")
 	public ModelAndView modify(@RequestParam HashMap<String, String> params, @RequestParam("photos") MultipartFile file) {
 		String board_no = (String) params.get("board_no");
-		ModelAndView mav = new ModelAndView("redirect:./boardModify?board_no="+board_no);
+		ModelAndView mav = new ModelAndView("redirect:/board/boardModify"+board_no);
 		logger.info("수정 내용 {} : "+params);
 		service.modify(board_no, params, file);
 		

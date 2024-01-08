@@ -125,8 +125,12 @@ public class AttendService {
         LocalDate lastDayOfMonth = yearMonth.atEndOfMonth();
         int member_no=(int) map.get("member_no");
         String totalM=dao.totalM(firstDayOfMonth,lastDayOfMonth,member_no);
-        totalM = totalM.startsWith("-") ? totalM.substring(1) : totalM;
-        logger.info("이번달 근무시간 : "+totalM);
+        if(totalM!=null) {
+        	 totalM = totalM.startsWith("-") ? totalM.substring(1) : totalM;
+             logger.info("이번달 근무시간 : "+totalM);
+    		}else {
+    			totalM="00:00:00";
+    		}
         LocalTime localTotalM =LocalTime.parse(totalM, formatter);
         int totalM_hour = localTotalM.getHour();
         int totalM_minute = localTotalM.getMinute();
@@ -137,8 +141,8 @@ public class AttendService {
         
         String overTime = dao.overTime(firstDayOfMonth,lastDayOfMonth,member_no);
         logger.info("OT 야간근무 : "+overTime);
-        LocalTime localOt =LocalTime.parse(overTime, formatter);
         if(overTime!=null) {
+        	LocalTime localOt =LocalTime.parse(overTime, formatter);
         	time.put("overTime_hour", localOt.getHour());
         	time.put("overTime_minute",localOt.getMinute());
         	time.put("overTime_second",localOt.getSecond());

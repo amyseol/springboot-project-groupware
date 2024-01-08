@@ -63,7 +63,7 @@ fieldset{
 					<input type="button" onclick="location.href='./'" value="이전"/>
 					<button>수정</button>
 					<th>사진</th>
-					<td><input type="file" name="photos" multiple="multiple"/></td>
+					<td><input type="file" name="photos"/></td>
 				</th>
 			</tr>	
 		</table>

@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +19,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.gudi.attend.dto.AttendDTO;
 import kr.co.gudi.attend.service.AttendService;
+import kr.co.gudi.member.vo.MemberVO;
 
 @Controller
 public class AttendController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired AttendService service;
 	
-	int member_no=15;
+	int member_no;
 	
 	@GetMapping(value="/attend")
-	public ModelAndView attend() {
+	public ModelAndView attend(HttpSession session) {
+		member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
+		logger.info("세션 로그인 아이디 체크 : "+member_no);
 		return new ModelAndView("attend/attend");
 	}
 	
