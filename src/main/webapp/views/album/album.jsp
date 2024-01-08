@@ -252,6 +252,7 @@
 var showPage=1;
 listCall(showPage);
 
+
 function listCall(page){	
 	console.log('검색값==='+$('#search_info').val());
 	$.ajax({

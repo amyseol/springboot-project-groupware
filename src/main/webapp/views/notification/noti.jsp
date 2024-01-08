@@ -87,11 +87,11 @@
 		
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
         
-        #common_list_form .list_form .notiBox{width:30%; height: 10%;border: 1px solid grey;margin-bottom:10px;}        
-        #common_list_form .list_form .notiBox ul{float: left;padding: 10px;}
+        #common_list_form .list_form .notiBox{width:35%; height: 10%;border: 1px solid grey;margin-bottom:10px;float: left;}        
+        #common_list_form .list_form .notiBox ul{padding: 10px;}
+        #common_list_form .list_form .notiBox ul #noti{display:flex;}
         #common_list_form .list_form .notiBox ul .notiContent{margin-right: 20px;}
         #common_list_form .list_form .notiBox ul .notiDate{text-align: right;}
-        
         
 </style>
 <body>
@@ -191,13 +191,17 @@
         <div class="list_form">
 			<div class="notiBox">
 				<!-- ajax로 데이터 삽입 -->
-				<ul class="notiContent">
-					<li>[회의실/공연장]</li>
-					<li>새로운 예약 신청이 있습니다. 확인해주세요.</li>
-				</ul>
-				<ul class="notiDate">
-					<li>datetime</li>
-					<li>김수현 대리</li>
+				<ul>
+					<li id="noti">
+						<ul class="notiContent">
+							<li>[회의실/공연장]</li>
+							<li>새로운 예약 신청이 있습니다. 확인해주세요.</li>
+						</ul>
+						<ul class="notiDate">
+							<li>datetime</li>
+							<li>김수현 대리</li>
+						</ul>
+					</li>
 				</ul>
 			</div>
         </div>

@@ -21,7 +21,7 @@
 //-------------------------------- noti subscribe start  ------------------------------------------
 
         // 서버와 SSE 연결
-        var eventSource = new EventSource("http://localhost/noti");
+        var eventSource = new EventSource("http://localhost/notiPage");
 
         // 서버로부터 이벤트를 수신하면 실행되는 콜백 함수
         eventSource.onmessage = function (event) {
@@ -36,14 +36,6 @@
             console.error('SSE connection error');
         };
 
-        
-        const sse = new EventSource("http://localhost/noti");
-
-        sse.addEventListener('connect', (e) => {
-        	const { data: receivedConnectData } = e;
-        	console.log('connect event data: ',receivedConnectData);  // "connected!"
-        });
-        
         
      	// 버튼 클릭 시 form을 submit하는 함수
         function submitForm() {
