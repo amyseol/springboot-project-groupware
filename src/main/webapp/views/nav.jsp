@@ -156,7 +156,7 @@
                 </li></a>
                 <ul data-index="7">
                     <a href="/attend"><li class="dep2">근태 현황</li></a>
-<<<<<<< HEAD
+
                     <a href="/leave"><li class="dep2">연차 관리</li></a>                   
                 </ul>
                    <a href="javascript:"><li class="dep1" data-index="8">인사관리
@@ -169,20 +169,17 @@
                     <a href="/memberList"><li class="dep2">직원 관리</li></a>
                      <a href="/departmentList"><li class="dep2">부서 관리</li></a>                    
                 </ul>     
-=======
-                    <a href="javascript:"><li class="dep2">연차 관리</li></a>                   
-                </ul>   
-                <a href="javascript:"><li class="dep1" data-index="8">자원 관리
+                <a href="javascript:"><li class="dep1" data-index="9">자원 관리
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                         <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
                     </svg></div>
                 </li></a>
-                <ul data-index="8">
+                <ul data-index="9">
                     <a href="/album"><li class="dep2">음반 현황</li></a>
                     <a href="/musicChart"><li class="dep2">음원 차트</li></a>                   
                 </ul> 
                 
->>>>>>> origin/master
+
                 <a href="javascript:"><li class="dep1">차량관리</li></a>
                 <a href="javascript:"><li class="dep1">복지몰</li></a>
             </ul>
