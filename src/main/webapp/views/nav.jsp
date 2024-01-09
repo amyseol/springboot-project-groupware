@@ -85,7 +85,7 @@
     <!-- -------------------------------------------nav start------------------------------------------ -->
     <div id="nav">
         <div class="nav_inner">
-            <h1 class="logo"><a href="javascript:">Hoony Music</a></h1>
+            <h1 class="logo"><a href="/main">Hoony Music</a></h1>
             <ul class="gnb">
                 <a href="javascript:"><li class="dep1">게시판</li></a>
                 <a href="javascript:"><li class="dep1" data-index="1">쪽지
@@ -153,8 +153,18 @@
                 </li></a>
                 <ul data-index="7">
                     <a href="/attend"><li class="dep2">근태 현황</li></a>
-                    <a href="javascript:"><li class="dep2">연차 관리</li></a>                   
-                </ul>   
+                    <a href="/leave"><li class="dep2">연차 관리</li></a>                   
+                </ul>
+                   <a href="javascript:"><li class="dep1" data-index="8">인사관리
+                    <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
+                    </svg></div>
+                </li></a>
+                <ul data-index="8">
+                    <a href="/memberRegist"><li class="dep2">계정 생성</li></a>
+                    <a href="/memberList"><li class="dep2">직원 관리</li></a>
+                     <a href="/departmentList"><li class="dep2">부서 관리</li></a>                    
+                </ul>     
                 <a href="javascript:"><li class="dep1">차량관리</li></a>
                 <a href="javascript:"><li class="dep1">복지몰</li></a>
             </ul>

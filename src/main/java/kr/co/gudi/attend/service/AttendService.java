@@ -6,7 +6,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -154,6 +158,88 @@ public class AttendService {
         
 		return time;
 	}
+
+	public HashMap<String, Object> selectDate(HashMap<String, Object> params, int member_no) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<AttendDTO> list = new ArrayList<AttendDTO>();
+		AttendDTO dto = new AttendDTO();
+		String StrYear = (String) params.get("year");
+		String StrMonth = (String) params.get("month");
+		int year =Integer.parseInt(StrYear);
+		int month = Integer.parseInt(StrMonth);
+		
+		LocalDate firstDayOfMonth  = LocalDate.of(year, month, 1);
+        // 현재 달의 모든 주의 시작일과 끝일 계산
+        List<WeekRange> weekRanges = getWeekRanges(firstDayOfMonth);
+        // 결과 출력
+        int cnt=0;
+        
+        for (WeekRange weekRange : weekRanges) {
+            logger.info("주의 시작일: " + weekRange.getStartDate() + ", 주의 끝일: " + weekRange.getEndDate());
+            list=dao.selectDate(weekRange.getStartDate(),weekRange.getEndDate(),member_no);
+            cnt++;
+            if(list!=null) {
+            	map.put(cnt+"week", list);
+            }
+
+            
+        }
+        return map;
+    }
+
 	
+// 현재 달의 모든 주의 시작일과 끝일을 계산하는 메서드
+private static List<WeekRange> getWeekRanges(LocalDate firstDayOfMonth) {
+    List<WeekRange> weekRanges = new ArrayList<>();
+    LocalDate currentDate = firstDayOfMonth;
+
+    // 현재 달의 모든 주의 시작일과 끝일 계산
+    while (currentDate.getMonthValue() == firstDayOfMonth.getMonthValue()) {
+        LocalDate startOfWeek = currentDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        LocalDate endOfWeek = currentDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        weekRanges.add(new WeekRange(startOfWeek, endOfWeek));
+
+        currentDate = endOfWeek.plusDays(1);
+    }
+
+    return weekRanges;
+}
+	
+private static class WeekRange {
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+
+    public WeekRange(LocalDate startDate, LocalDate endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+}
+
+public HashMap<String, Object> calLeave(int member_no) {
+	logger.info("직원번호 : "+member_no);
+	HashMap<String, String> info = new HashMap<String, String>();
+	HashMap<String, Object> map = new HashMap<String, Object>();
+	info = dao.calLeave(member_no);
+	String position=info.get("member_position");
+	String hired=info.get("hired");
+	logger.info("직급 : "+ position);	
+	// 현재 날짜를 구함
+    LocalDate currentDate = LocalDate.now();
+    // 주어진 날짜를 생성
+    LocalDate hiredDate = LocalDate.parse(hired);
+    // 현재 날짜와 주어진 날짜와의 차이를 계산
+    long daysDifference = ChronoUnit.DAYS.between(hiredDate, currentDate);
+
+    System.out.println("현재 날짜와 " + hired + " 사이의 차이: " + daysDifference + "일");
+	return map;
+}
 
 }

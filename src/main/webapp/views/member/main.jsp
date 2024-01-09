@@ -59,15 +59,6 @@
 <body>
 <%@ include file="/views/nav.jsp" %>
 <div class="div_inner">
-	<form action="memberRegist">
-	<button type="submit">계정생성</button>
-	</form>
-	<form action="memberList">
-	<button type="submit">직원관리</button>
-	</form>
-	<form action="departmentList">
-	<button type="submit">부서관리</button>
-	</form>
 	<div class="mainBox">
 			<div class="mainLeft float">
 				<div class="mainAttend">근태관리</div>

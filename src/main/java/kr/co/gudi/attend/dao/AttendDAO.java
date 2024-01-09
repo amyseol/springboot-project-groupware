@@ -2,6 +2,7 @@ package kr.co.gudi.attend.dao;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -26,5 +27,9 @@ public interface AttendDAO {
 	String totalM(LocalDate firstDayOfMonth, LocalDate lastDayOfMonth, int member_no);
 
 	String overTime(LocalDate firstDayOfMonth, LocalDate lastDayOfMonth, int member_no);
+
+	ArrayList<AttendDTO> selectDate(LocalDate startDate, LocalDate endDate, int member_no);
+
+	HashMap<String, String> calLeave(int member_no);
 
 }

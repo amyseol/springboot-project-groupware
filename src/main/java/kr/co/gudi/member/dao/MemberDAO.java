@@ -76,4 +76,6 @@ public interface MemberDAO {
 	String teamName(int depart_no);
 
 	String depart_name(int depart_no);
+
+	void updateLeave(String formattedDate);
 }

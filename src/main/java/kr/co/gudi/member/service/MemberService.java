@@ -212,4 +212,10 @@ public class MemberService implements UserDetailsService{
 		list.put("team", team);
 		return list;
 	}
+	
+	// 연차 스케줄링
+	public void updateLeave(String formattedDate) {
+		dao.updateLeave(formattedDate);
+		
+	}
 }
