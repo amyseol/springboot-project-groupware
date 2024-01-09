@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.gudi.archive.service.ArchiveService;
 
+@Controller
 public class ArchiveController {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
@@ -21,6 +23,7 @@ public class ArchiveController {
 	
 	@RequestMapping(value = "/archive")
 	public String home() {
+		logger.info("archive/archiveAll 페이지로 이동");
 		return "archive/archiveAll";
 	}
 	
@@ -31,10 +34,10 @@ public class ArchiveController {
 		logger.info("file : "+uploadFile.getOriginalFilename());
 		service.upload(uploadFile);
 		
-		return "redirect:/archiveAllList";
+		return "redirect:/archiveAll";
 	}
 	
-	@RequestMapping(value = "/list")
+	@RequestMapping(value = "/archiveList")
 	public String list(Model model) {
 	
 		List<String> list = service.list();

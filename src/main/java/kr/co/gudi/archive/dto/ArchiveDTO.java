@@ -2,6 +2,9 @@ package kr.co.gudi.archive.dto;
 
 import java.sql.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("arch")
 public class ArchiveDTO {
 
 	private int arch_no;

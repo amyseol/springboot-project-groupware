@@ -39,6 +39,12 @@
         body, header, section, footer, div, ul, li, p, a, span, input, textarea{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 14px;}
         h1, h2, h3, h4, h5, h6{font-family: 'GmarketSansMedium'; color:#222;}
 
+
+		#BoardWriteButton {
+			float: right;
+		}
+
+
         #nav{position:fixed; width:15%; height:100%; box-shadow: 0 0 3px 0.5px rgb(228, 228, 228); background-color: #fff; overflow: auto;}
         #nav .nav_inner{padding-top: 40px;}
         #nav .logo{padding: 0 0 30px 40px;}
@@ -73,8 +79,8 @@
         #common_list_form .list_form .list_title ul li:last-child{width: 10%;}
         #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 30%; padding-left: 50px; }
-        #common_list_form .list_form .list_content ul li:nth-child(2){width: 30%;}
+        #common_list_form .list_form .list_content ul li:first-child{width: 10%; padding-left: 50px; }
+        #common_list_form .list_form .list_content ul li:nth-child(2){width: 50%;}
         #common_list_form .list_form .list_content ul li:nth-child(3){width: 15%;}
         #common_list_form .list_form .list_content ul li:nth-child(4){width: 15%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 10%;}
@@ -173,10 +179,17 @@
     </div>
     <!-- -------------------------------------------util end------------------------------------------ -->
     <!-- -------------------------------------------list_form start------------------------------------------ -->
+  
+    
+    
+    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+    
+    
+    
     <section id="common_list_form">
         <h2 class="big_title">타이틀</h2>
         <h3 class="sub_title">리스트 폼</h3>
-        <button onclick="location.href='boardWrite'">글작성</button>
+        <li><button id="BoardWriteButton1" onclick="location.href='boardWrite'">글작성</button></li>
         
 
         <div class="list_form">
@@ -207,6 +220,9 @@
 		</div>
         
         
+        
+        
+     	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
         
         
         

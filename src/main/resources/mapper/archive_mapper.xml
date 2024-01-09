@@ -4,4 +4,9 @@
    
 <mapper namespace="kr.co.gudi.archive.dao.ArchiveDAO">
 
+	<select id="list" resultType="arch">
+		SELECT * FROM archive ORDER BY archive ASC LIMIT 10 OFFSET #{param1}
+	</select>
+	
+
 </mapper>
