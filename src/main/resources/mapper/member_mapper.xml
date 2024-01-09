@@ -170,4 +170,21 @@
 		select * from department
 			where depart_state=#{param1}
 	</select>
+	
+	<update id="formattedDate">
+		<![CDATA[
+            UPDATE member
+            SET total_leave = CASE
+                WHEN DATE_FORMAT(hired, '%m-%d') = #{param1} THEN 15
+                WHEN member_position = '사원' THEN 10
+                WHEN member_position = '대리' THEN 13
+                WHEN member_position = '과장' THEN 15
+                WHEN member_position = '팀장' THEN 18
+                WHEN member_position = '부장' THEN 20
+                WHEN member_position = '이사' THEN 23
+                WHEN member_position = '대표' THEN 25
+                ELSE total_leave
+            END
+        ]]>
+	</update>
 </mapper>

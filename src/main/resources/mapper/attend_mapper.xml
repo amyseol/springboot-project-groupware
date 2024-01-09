@@ -47,6 +47,14 @@
 			AND att_outtime > '18:00:00' and member_no = #{param3}
 </select>
 
+	<select id="selectDate" resultType="attend">
+		select * from attend
+			where member_no=#{param3} and att_date BETWEEN #{param1} AND #{param2}
+	</select>
 
+<select id="calLeave" resultType="map">
+	select * from member
+		where member_no=#{param1}
+</select>
 
 </mapper>

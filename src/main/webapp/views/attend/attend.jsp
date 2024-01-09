@@ -8,112 +8,172 @@
 <title>HoonyMusic</title>
 </head>
 <style>
-        .list_title ul{width: 100%; height: 45px;}
-       .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
-        .list_title ul li:first-child{width: 20%; padding-left: 50px; }
-        .list_title ul li:nth-child(2){width: 20%;}
-        .list_title ul li:nth-child(3){width: 20%;}
-       .list_title ul li:nth-child(4){width: 20%;}
-        .list_title ul li:last-child{width: 20%;}
+.list_title ul {
+	width: 100%;
+	height: 45px;
+}
 
-		 .list_content ul{width: 100%; height: 45px;}
-		  .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
-        .list_content ul li:first-child{width: 20%; padding-left: 50px; }
-        .list_content ul li:nth-child(2){width: 20%;}
-        .list_content ul li:nth-child(3){width: 20%;}
-       .list_content ul li:nth-child(4){width: 20%;}
-        .list_content ul li:last-child{width: 20%;}
- #clock {
- 			height:20%;
-            text-align: center;
-            margin: 0;
-            font-size: 22px;
-            font-weight: 500;
-        }
-        
-        #date {
-            font-size: 18px;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin-top: 10px;
-        }
-.div_inner{
+.list_title ul li {
+	float: left;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #222;
+	padding: 5px 0 5px 10px;
+	box-sizing: border-box;
+}
+
+.list_title ul li:first-child {
+	width: 20%;
+	padding-left: 50px;
+}
+
+.list_title ul li:nth-child(2) {
+	width: 20%;
+}
+
+.list_title ul li:nth-child(3) {
+	width: 20%;
+}
+
+.list_title ul li:nth-child(4) {
+	width: 20%;
+}
+
+.list_title ul li:last-child {
+	width: 20%;
+}
+
+.list_content ul {
+	width: 100%;
+	height: 45px;
+}
+
+.list_content ul li {
+	float: left;
+	padding: 5px 0 5px 10px;
+	box-sizing: border-box;
+}
+
+.list_content ul li:first-child {
+	width: 20%;
+	padding-left: 50px;
+}
+
+.list_content ul li:nth-child(2) {
+	width: 20%;
+}
+
+.list_content ul li:nth-child(3) {
+	width: 20%;
+}
+
+.list_content ul li:nth-child(4) {
+	width: 20%;
+}
+
+.list_content ul li:last-child {
+	width: 20%;
+}
+
+#clock {
+	height: 20%;
+	text-align: center;
+	margin: 0;
+	font-size: 22px;
+	font-weight: 500;
+}
+
+#date {
+	font-size: 18px;
+	font-family: 'Arial', sans-serif;
+	text-align: center;
+	margin-top: 10px;
+}
+
+.div_inner {
 	padding-left: 15%;
-	padding-top: 100px; 	
+	padding-top: 100px;
 	box-sizing: border-box;
 	height: 550px;
-	}
-.float{
-	float:left;
-	margin-left:2%;
 }
-.float:first-child{margin-left:0;}
-.mainLeft{	
+
+.float {
+	float: left;
+	margin-left: 2%;
+}
+
+.float:first-child {
+	margin-left: 0;
+}
+
+.mainLeft {
 	box-sizing: border-box;
 	width: 26%;
-    height: 50%;
-}	
-.mainCenter{	
+	height: 50%;
+}
+
+.mainCenter {
 	box-sizing: border-box;
 	width: 70%;
-    height: 50%;
-}	
-.mainbottom{
-	padding-top:200px;
+	height: 50%;
+}
+
+.mainbottom {
+	padding-top: 200px;
 	box-sizing: border-box;
 	width: 98%;
-    height: 50%;
+	height: 50%;
 }
-.mainAttend{
+
+.mainAttend {
 	box-sizing: border-box;
 	height: 183px;
 	background-color: #FFC0CB;
-	margin-bottom:16px;
+	margin-bottom: 16px;
 }
-.mainBoard{
+
+.mainBoard {
 	box-sizing: border-box;
 	height: 183px;
 	background-color: #FFC0CB;
 	position: relative;
 }
-.attendList{
+
+.attendList {
 	box-sizing: border-box;
 	height: 200px;
 	background-color: #FFC0CB;
 }
-.attendBox{
+
+.attendBox {
 	height: 40%;
 }
 
-.attendBox>div{
+.attendBox>div {
 	float: left;
 	width: 45.25%;
 	padding: 3% 2% 3% 2%;
 }
 
-
-.mainBoard .absol{
+.mainBoard .absol {
 	position: absolute;
 	width: 10%;
 	top: 5%;
-	tansform: translate(-50%,-50%);
+	tansform: translate(-50%, -50%);
 }
 
-.mainBoard .absol_left{
+.mainBoard .absol_left {
 	left: 0;
-	width:20%;
-	height:80px;
+	width: 20%;
+	height: 80px;
 }
 
-.mainBoard .absol_right{
+.mainBoard .absol_right {
 	right: 0;
-	width:20%;
-	height:80px;
+	width: 20%;
+	height: 80px;
 }
 
-
-
-.attendBtn{
+.attendBtn {
 	width: 100px;
 	height: 30px;
 	background-color: #aaa;
@@ -124,27 +184,36 @@
 	line-height: 30px;
 }
 
-.topBox, .bottomBox{
-	width:100%;
-	height:90px;
+.topBox, .bottomBox {
+	width: 100%;
+	height: 90px;
 	padding-top: 0.5px;
 	padding-bottom: 0.5px;
 	text-align: center;
 	display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.bottomBox>div{
-	width:100%;
-	height:85px;
+	align-items: center;
+	justify-content: space-between;
 }
 
-.monthYearBoard{
-	margin-left:125px;
+.bottomBox>div {
+	width: 100%;
+	height: 85px;
+}
+
+.monthYearBoard {
+	margin-left: 125px;
 	width: 60%;
-	height:95%;
+	height: 95%;
 }
 
+.togle {
+	cursor: pointer;
+	list-style: none;
+}
+
+.hide {
+	display: none;
+}
 </style>
 <body>
 <%@ include file="/views/nav.jsp" %>
@@ -195,7 +264,7 @@
 							<ul>
 								<li class="list_title">
 									<ul>
-										<li >이번주 누적</li>
+										<li>이번주 누적</li>
 										<li>이번주 초과</li>
 										<li>이번주 잔여</li>
 										<li>이번달 누적</li>
@@ -210,7 +279,68 @@
 				</div>
 			</div>
 			<div class="mainbottom">
-			<div class="attendList">근무 리스트</div>
+				<div class="attendList">
+					<ul class="attendListItem togle" id="attendList1">1주차
+						<li class="list_title">
+							<ul class="hide">
+								<li>일자</li>
+								<li>업무 시작</li>
+								<li>업무 종료</li>
+								<li>총 근무시간</li>
+								<li>상세</li>
+							</ul>
+						</li>
+						<li class="list_content hide" id="attendListContent1"></li>
+					</ul>
+					<ul class="attendListItem togle" id="attendList2">2주차
+						<li class="list_title">
+							<ul class="hide">
+								<li>일자</li>
+								<li>업무 시작</li>
+								<li>업무 종료</li>
+								<li>총 근무시간</li>
+								<li>상세</li>
+							</ul>
+						</li>
+						<li class="list_content hide" id="attendListContent2"></li>
+					</ul>
+					<ul class="attendListItem togle" id="attendList3">3주차
+						<li class="list_title">
+							<ul class="hide">
+								<li>일자</li>
+								<li>업무 시작</li>
+								<li>업무 종료</li>
+								<li>총 근무시간</li>
+								<li>상세</li>
+							</ul>
+						</li>
+						<li class="list_content hide" id="attendListContent3"></li>
+					</ul>
+					<ul class="attendListItem togle"  id="attendList4">4주차
+						<li class="list_title">
+							<ul class="hide">
+								<li>일자</li>
+								<li>업무 시작</li>
+								<li>업무 종료</li>
+								<li>총 근무시간</li>
+								<li>상세</li>
+							</ul>
+						</li>
+						<li class="list_content hide" id="attendListContent4"></li>
+					</ul>
+					<ul class="attendListItem togle" id="attendList5">5주차
+						<li class="list_title">
+							<ul class="hide">
+								<li>일자</li>
+								<li>업무 시작</li>
+								<li>업무 종료</li>
+								<li>총 근무시간</li>
+								<li>상세</li>
+							</ul>
+						</li>
+						<li class="list_content hide" id="attendListContent5"></li>
+					</ul>
+				</div>
 			</div>
 	</div>
 </div>
@@ -285,6 +415,7 @@ function timeTable(){
 var currentMonth = new Date().getMonth();
 var currentYear = new Date().getFullYear();
 
+
 function updateClock() {
     var now = new Date();
     var hours = now.getHours().toString().padStart(2, '0');
@@ -304,8 +435,43 @@ function updateClock() {
 
 function updateMonthYear() {
     var monthYearString = currentYear + '년 ' + (currentMonth + 1) + '월';
-    document.getElementById('monthYearBoard').innerHTML = monthYearString;
+    document.getElementById('monthYearBoard').innerHTML = monthYearString;   
+    selectDate(currentYear,currentMonth + 1);
 }
+function selectDate(year,month){
+	
+	$.ajax({
+		type: 'POST',
+        url: 'selectDate',
+        data: { 'year': year, 'month': month },
+        success: function(data) {
+            console.log('조회한 달 :', data);
+         for (var weekNumber = 1; weekNumber <= 5; weekNumber++) {
+            var content='';
+            
+            data[weekNumber +'week'].forEach(function(item, idx){         
+            	 var offCheckLabel = (item.off_check === 'N') ? '근무' : '휴가';
+            	 var attOutTimeLabel = (item.att_intime === null) ? '' : item.att_intime;
+            	 var workHoursLabel = (item.work_hours === null) ? '' : item.work_hours;
+            	 
+            	content+='<ul onclick="attendDetail('+item.attend_no+')">';
+        		content+='<li>'+item.att_date+'</li>';
+        		content+='<li>'+item.att_intime+'</li>';
+        		content+='<li>'+attOutTimeLabel+'</li>';
+        		content+='<li>'+workHoursLabel+'</li>';
+        		content+='<li>'+offCheckLabel+'</li>';
+        		content+='</ul>';         	               
+            });
+            $('#attendListContent'+weekNumber).empty();
+        	$('#attendListContent'+weekNumber).append(content);
+            }
+        },
+        error: function(error) {
+            console.error('Error:', error);
+        }
+	});
+}
+
 
 function changeMonth(diff) {
     currentMonth += diff;
@@ -316,8 +482,8 @@ function changeMonth(diff) {
         currentMonth = 0;
         currentYear++;
     }
-
     updateMonthYear();
+ // 월별 리스트
 }
 // 매 초마다 시계 업데이트
 setInterval(updateClock, 1000);
@@ -352,6 +518,11 @@ function attTime(type){
 		
 	
 }
- 
+// 리스트 토글
+$('.togle').on('click',function(){
+	$(this).find('.hide').slideToggle(300);
+	$('.togle').not(this).find('.hide').slideUp(300);
+});
+
 </script>
 </html>

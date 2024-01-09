@@ -72,5 +72,23 @@ public class AttendController {
 		return service.timeTable(map);
 	}
 	
+	@PostMapping(value="/selectDate")
+	@ResponseBody
+	public HashMap<String, Object> selectDate(@RequestParam HashMap<String, Object> params){
+		logger.info("선택한 월 : "+params);
+		return service.selectDate(params,member_no);
+	}
+	
+	@GetMapping(value="/leave")
+	public ModelAndView leave(HttpSession session) {
+		member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
+		return new ModelAndView("attend/leave");
+	}
+	
+	@GetMapping(value="/calLeave")
+	@ResponseBody
+	public HashMap<String, Object> calLeave(){
+		return service.calLeave(member_no);
+	}
 	
 }
