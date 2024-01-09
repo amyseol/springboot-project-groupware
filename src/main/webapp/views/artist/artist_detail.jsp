@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>HoonyMusic</title>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
 	<style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -30,7 +32,7 @@
         }
 
         *{margin:0; padding:0;}
-        li{list-style: none;}
+        li{list-style: none; width: 1000px;}
         a{text-decoration: none;}
         img{border:none; display: block;}
         body, header, section, footer, div, ul, li, p, a, span, input, textarea{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 14px;}
@@ -63,26 +65,71 @@
         #common_list_form .list_form{position:relative;}
         #common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
         #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .list_form .list_title ul li:first-child{width: 10%; padding-left: 45px; }
-        #common_list_form .list_form .list_title ul li:nth-child(2){width: 15%; padding-left:50px;}
-        #common_list_form .list_form .list_title ul li:nth-child(3){width: 25%;}
-        #common_list_form .list_form .list_title ul li:nth-child(4){width: 25%;}
-        #common_list_form .list_form .list_title ul li:last-child{width: 25%;}
-        #common_list_form .list_form .list_content ul{width:100%; height: 60px;}
-        #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box; height: 100px; line-height:93px;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 10%; padding-left:50px;}
-        #common_list_form .list_form .list_content ul li:nth-child(2){width: 15%;}
-        #common_list_form .list_form .list_content ul li:nth-child(3){width: 25%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-        #common_list_form .list_form .list_content ul li:nth-child(4){width: 25%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-        #common_list_form .list_form .list_content ul li:last-child{width: 25%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-/*         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;} */
+        #common_list_form .list_form .list_title ul li:first-child{width: 15%; padding-left: 50px; }
+        #common_list_form .list_form .list_title ul li:nth-child(2){width: 10%;}
+        #common_list_form .list_form .list_title ul li:nth-child(3){width: 5%;}
+        #common_list_form .list_form .list_title ul li:nth-child(4){width: 50%;}
+        #common_list_form .list_form .list_title ul li:nth-child(5){width: 5%;}
+        #common_list_form .list_form .list_title ul li:last-child{width: 15%;}
+        #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
+        #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
+        #common_list_form .list_form .list_content ul li:first-child{width: 15%; padding-left: 50px; }
+        #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
+        #common_list_form .list_form .list_content ul li:nth-child(3){width: 5%;}
+        #common_list_form .list_form .list_content ul li:nth-child(4){width: 50%;}
+        #common_list_form .list_form .list_content ul li:nth-child(5){width: 5%;}
+        #common_list_form .list_form .list_content ul li:last-child{width: 15%;}
+        #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
+        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
-        #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e; display: none;}
+        #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
         
-        h3{padding-left: 4%; padding-bottom: 2%;}
-        .artBtn{margin: 0px 0px 20px 50px; background-color: white;border: 1px solid black;padding: 5px;}
         
+        
+                
+        /* =============검색====================== css */
+        
+        #common_list_form .search_box{position: relative; margin: 50 0 10px 800px; border: 1px solid #fff; display: inline-block;}
+        #common_list_form .search_box li{float: left;}
+        #common_list_form .search_box select{width: 100px; height: 28px; border: 1px solid #ccc; border-right: none;}
+        #common_list_form .search_box .search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
+        #common_list_form .search_box .search_info::placeholder{color: #ccc;}
+        #common_list_form .search_box .btn_box{width: 28px; height: 28px; cursor: pointer; border: 1px solid #ccc; box-sizing: border-box; border-left: none;}
+        #common_list_form .search_box .btn_box .search_btn{position:relative; width: 14px; height: 14px; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+        #common_list_form .search_box .btn_box .search_btn img{width: 100%;}
+        #common_list_form .search_box:hover select{border: 1px solid #333; border-right: none;}
+        #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
+        #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
+        
+        
+        /*  */
+        
+                #common_list_form .list_form .list_title1 ul{width: 100%; height: 32px;}
+        #common_list_form .list_form .list_title1 ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
+        #common_list_form .list_form .list_title1 ul li:first-child{width: 15%; padding-left: 50px; }
+        #common_list_form .list_form .list_title1 ul li:nth-child(2){width: 10%;}
+        #common_list_form .list_form .list_title1 ul li:nth-child(3){width: 5%;}
+        #common_list_form .list_form .list_title1 ul li:nth-child(4){width: 50%;}
+        #common_list_form .list_form .list_title1 ul li:nth-child(5){width: 5%;}
+        #common_list_form .list_form .list_title1 ul li:last-child{width: 15%;}
+        
+                #common_list_form .list_form .list_title2 ul{width: 100%; height: 32px;}
+        #common_list_form .list_form .list_title2 ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
+        #common_list_form .list_form .list_title2 ul li:first-child{width: 15%; padding-left: 50px; }
+        #common_list_form .list_form .list_title2 ul li:nth-child(2){width: 10%;}
+        #common_list_form .list_form .list_title2 ul li:nth-child(3){width: 5%;}
+        #common_list_form .list_form .list_title2 ul li:nth-child(4){width: 50%;}
+        #common_list_form .list_form .list_title2 ul li:nth-child(5){width: 5%;}
+        #common_list_form .list_form .list_title2 ul li:last-child{width: 15%;}
+        
+                #common_list_form .list_form .list_title3 ul{width: 100%; height: 32px;}
+        #common_list_form .list_form .list_title3 ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
+        #common_list_form .list_form .list_title3 ul li:first-child{width: 15%; padding-left: 50px; }
+        #common_list_form .list_form .list_title3 ul li:nth-child(2){width: 10%;}
+        #common_list_form .list_form .list_title3 ul li:nth-child(3){width: 5%;}
+        #common_list_form .list_form .list_title3 ul li:nth-child(4){width: 50%;}
+        #common_list_form .list_form .list_title3 ul li:nth-child(5){width: 5%;}
+        #common_list_form .list_form .list_title3 ul li:last-child{width: 15%;}
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -127,7 +174,7 @@
                     </svg></div>
                 </li></a>
                 <ul data-index="4">
-                    <a href="schedule"><li class="dep2">전사 일정</li></a>
+                    <a href="javascript:"><li class="dep2">전사 일정</li></a>
                     <a href="javascript:"><li class="dep2" data-index="5">부서 일정
                         <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                             <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
@@ -148,6 +195,7 @@
                     </ul>
                 </ul>
                 <a href="javascript:"><li class="dep1">공용자료실</li></a>
+                <a href="javascript:"><li class="dep1">저작권관리</li></a>
                 <a href="javascript:"><li class="dep1">시설예약</li></a>
                 <a href="javascript:"><li class="dep1">근태관리</li></a>
                 <a href="javascript:"><li class="dep1">차량관리</li></a>
@@ -175,26 +223,139 @@
     <!-- -------------------------------------------util end------------------------------------------ -->
     <!-- -------------------------------------------list_form start------------------------------------------ -->
     <section id="common_list_form">
-        <h2 class="big_title"><img width="142" height="99" src="https://cdnimg.melon.co.kr/resource/image/web/common/logo_melon142x99.png" alt="Melon"></h2>
-        <h2 class="sub_title">실시간 멜론 차트</h2>
-        <h3>${date}&nbsp;&nbsp;&nbsp;${time}</h3>
-        <input type="button" value="소속 아티스트만 보기" class="artBtn" onclick="musicArtistCall()"/>
-        <div class="list_form">
+        <h2 class="big_title">아티스트 상세보기</h2>
+	<!-- 아티스트 이름 소속사 명 -->
+		<div>
+		<table>
+			<tr>
+				<td>
+				
+				
+				<input type="text" value="${name}" id="name"/>
+				
+				</td>
+			</tr>
+			<tr>
+				<td>
+				
+				
+				<input type="text" value="${agency}" id="agency"/>
+				
+				</td>
+			</tr>
+		</table>
+		
+		
+		
+		</div>
+		<!-- 아티스트 관련 목록들 -->
+		<div>
+		
+		
+			<table>
+			<tr>
+				<td>
+				
+		<h3 class="sub_title">음반명</h3>
+         <div class="list_form">
             <ul>
-                <li class="list_title">
-					<ul>
-                        <li>순위</li>
-                        <li>-</li>
-                        <li>곡 정보</li>
-                        <li>아티스트</li>
-                        <li>앨범</li>
+                <li class="list_title1" id="list1">
+                    <ul>
+                        <li>no.</li>
+                        <li>음반명</li>
+                        <li>계약금</li>
                     </ul>
                 </li>
-                <li class="list_content" id="musicChart">
+				
+				<li class="list_title" id="list_1">
+				
+				</li>
 
-                </li>
-            </ul>
+             </ul>
+             
+
         </div>
+		<div id="paging" class="pagingBox">
+			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
+			<div class="container">
+				<nav aria-label="Page navigation" style="text-align: center">
+					<ul class="pagination" id="getpagination1"></ul>
+				</nav>
+			</div>
+			
+		</div>
+				
+				</td>
+			</tr>
+			<tr>
+				<td>
+				
+		<h3 class="sub_title">음원명</h3>
+         <div class="list_form">
+            <ul>
+                <li class="list_title2" id="list2">
+                    <ul>
+                        <li>no.</li>
+                        <li>음원명</li>
+                        <li>계약금</li>
+                    </ul>
+                </li>
+				
+				<li class="list_title" id="list_2">
+				
+				</li>
+
+             </ul>
+             
+
+        </div>
+		<div id="paging" class="pagingBox">
+			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
+			<div class="container">
+				<nav aria-label="Page navigation" style="text-align: center">
+					<ul class="pagination" id="getpagination2"></ul>
+				</nav>
+			</div>
+		</div>
+				
+				</td>
+			</tr>
+			<tr>
+				<td>
+				
+		<h3 class="sub_title">이벤트</h3>
+         <div class="list_form">
+            <ul>
+                <li class="list_title3" id="list3">
+                    <ul>
+                        <li>no.</li>
+                        <li>아티스트이름</li>
+                        <li>소속사이름</li>
+                    </ul>
+                </li>
+				
+				<li class="list_title" id="list_3">
+				
+				</li>
+
+             </ul>
+             
+
+        </div>
+		<div id="paging" class="pagingBox">
+			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
+			<div class="container">
+				<nav aria-label="Page navigation" style="text-align: center">
+					<ul class="pagination" id="getpagination3"></ul>
+				</nav>
+			</div>
+		</div>
+				
+				</td>
+			</tr>
+			</table>
+		</div>
+
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
     <!-- -------------------------------------------music start------------------------------------------ -->
@@ -206,85 +367,6 @@
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
-//------------------------------- music chart start ------------------------------------------
-var artNames = [];
-musicChartCall(artNames);
-
-function musicChartCall(artNames){	
-	$.ajax({
-		type:'get',
-		url:'musicChartCall',
-		data:{}, 
-		dataType:'JSON',
-		success: function(data){
-			console.log(data);
-			// data의 artName 이 artNames 에 포함된 리스트만 그리기
-			if(artNames!=''){
-				console.log('비어있지 않아!');
-				console.log(artNames);
-				drawList(data, artNames);
-			}else{
-				console.log('비어있어!');
-				drawList(data, []);	
-			}
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
-}
-
-function drawList(list, artNames){
-	console.log(list);
-	var content='';
-	list.forEach(function(item,idx){ 
-		if (artNames.length === 0 || artNames.some(function (artName) 
-				{ return item.artName.includes(artName); })) { // artNames 에 있는 artName 만 가져오기 
-			content+='<ul>';
-			content+='<li>'+item.rank+'</li>'; 
-			content+='<li><a href="https://www.melon.com/album/detail.htm?albumId='+item.albNo+'"><img src="'+item.imgSrc+'" width="90" height="90"/></a></li>';
-			content+='<li>'+item.songName+'</li>';
-			content+='<li id="artName">'+item.artName+'</li>';
-			content+='<li>'+item.albName+'</li>';
-			content+='</ul>';
-		}
-	});
-	$('#musicChart').empty();
-	$('#musicChart').append(content);
-}
-//------------------------------- music chart end ------------------------------------------
-
-
-//------------------------------- 소속 아티스트 불러오기 start ------------------------------------------
-function musicArtistCall(){
-	// ${item.artName} 만 가져와서 배열에 담기 
-	var artNameArray = [];
-	var artNameElements = document.querySelectorAll('#musicChart li#artName');
- 	artNameArray = Array.from(artNameElements).map(function(element) {
-	    return element.textContent.trim(); // 앞, 뒤 공백 제거 
-	}); 
-	console.log(artNameArray); 
-	
- 	$.ajax({
-		type:'post',
-		url:'musicArtistCall',
-		data:JSON.stringify({artNameArray:artNameArray}), // JSON 형태로 데이터 보내기 
-		contentType:'application/json',
-		dataType:'JSON',
-		success: function(data){
-			//console.log(data);
-			// 전역 변수 artNames 배열에 누적하기 
-			artNames = artNames.concat(data);
-			//console.log(artNames); // ['Red Velvet', '세븐틴'] 같이 출력됨 
-			musicChartCall(artNames);
-		},
-		error:function(e){
-			console.log(e);
-		}
-	}); 
-}
-//-------------------------------- 소속 아티스트 불러오기 end ------------------------------------------
-
 
 // -------------------------------- toggle start ------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
@@ -342,5 +424,154 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 //-------------------------------- toggle end ------------------------------------------
+
+
+//-------------------------------search---------------------------------------------
+
+var search = "";
+var showPage=1;//페이징을 위한 변수
+var searchtag ="";
+
+var name = $("#name").val();
+var num = ${num};
+
+//--------------------------------ajax list1------------------------------------------
+
+
+
+call1(showPage);
+call2(showPage);
+
+function call1(showPage){
+   $.ajax({
+        type : 'POST',
+        url : '/artistdetail_1',
+        data:{
+        	
+        	'pagePerNum':5
+        	,'page':showPage
+        	,'num' : num
+        	
+        },
+        dataType:'json',
+        success:function(data){
+        	//alert("성공");
+        	
+        	paging(data.list);
+        	
+            console.log(data);
+            var content ='';
+
+            data.list.forEach(function(item,idx){
+                //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
+                content += '<ul>';
+                content += '<li id="'+item.alb_no+'">'+item.alb_no+'</li>';
+                content += '<li id="'+item.alb_name+'">'+"<a href = 'artistdetail?num="+item.alb_no+"&name="+item.alb_name+"&agency="+item.art_agency+"'>"+item.alb_name+"</a>"+'</li>';
+                content += '<li id="'+item.alb_price+'">'+item.alb_price+'</li>';
+                content += '</ul>';
+            });
+            $('#list_1').empty();
+            $('#list_1').append(content);
+
+
+        },error:function(e){
+            console.log(e);
+            alert("실패");
+        }
+    });
+
+}   
+   
+
+   function paging(list){
+	   console.log("list : ", list);
+		$('#getpagination1').twbsPagination({
+			startPage:list.currPage,//보여줄 페이지
+			totalPages:list.pages,//총페이지수(총갯수/페이지당 보여줄 게시물수) : 서버에서 계산해서 가져와야 한다.
+			visiblePages:5,//[1][2][3][4][5]
+			onPageClick:function(e,page){//번호 클릭시 실행할 내용
+			
+					
+					if(showPage!=page){
+						
+
+						console.log("con1 : "+page);
+						showPage = page;//클릭해서 다른 페이지를 보여주게 되면 현재 보고있는 페이지 번호도 변경해준다.
+						
+						call(page);
+						
+			}
+
+			}
+			
+		});
+   }
+   
+   //-------------------------------ajax.list2------------------------------------------
+
+   function call2(showPage){
+   $.ajax({
+        type : 'POST',
+        url : '/artistdetail_2',
+        data:{
+        	
+        	'pagePerNum':5
+        	,'page':showPage
+        	,'num' : num
+        	
+        },
+        dataType:'json',
+        success:function(data){
+        	//alert("성공");
+        	
+        	paging2(data.list);
+        	
+            console.log(data);
+            var content ='';
+
+            data.list.forEach(function(item,idx){
+                //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
+                content += '<ul>';
+                content += '<li id="'+item.song_no+'">'+item.song_no+'</li>';
+                content += '<li id="'+item.song_name+'">'+"<a href = 'artistdetail?num="+item.song_no+"&name="+item.song_name+"&agency="+item.art_agency+"'>"+item.song_name+"</a>"+'</li>';
+                content += '<li id="'+item.allSong_profit+'">'+item.allSong_profit+'</li>';
+                content += '</ul>';
+            });
+            $('#list_2').empty();
+            $('#list_2').append(content);
+
+
+        },error:function(e){
+            console.log(e);
+            alert("실패");
+        }
+    });
+
+}   
+   
+
+   function paging2(list){
+	   console.log("list : ", list);
+		$('#getpagination2').twbsPagination({
+			startPage:list.currPage,//보여줄 페이지
+			totalPages:list.pages,//총페이지수(총갯수/페이지당 보여줄 게시물수) : 서버에서 계산해서 가져와야 한다.
+			visiblePages:5,//[1][2][3][4][5]
+			onPageClick:function(e,page){//번호 클릭시 실행할 내용
+			
+					
+					if(showPage!=page){
+						
+
+						console.log("con1 : "+page);
+						showPage = page;//클릭해서 다른 페이지를 보여주게 되면 현재 보고있는 페이지 번호도 변경해준다.
+						
+						call(page);
+						
+			}
+
+			}
+			
+		});
+   }
+
 </script>
-</html>

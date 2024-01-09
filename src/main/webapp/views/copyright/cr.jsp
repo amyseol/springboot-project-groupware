@@ -83,6 +83,22 @@
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
+        
+        
+        /* =============검색====================== css */
+        
+        #common_list_form .search_box{position: relative; margin: 0 0 10px 700px; border: 1px solid #fff; display: inline-block;}
+        #common_list_form .search_box li{float: left;}
+        #common_list_form .search_box select{width: 100px; height: 28px; border: 1px solid #ccc; border-right: none;}
+        #common_list_form .search_box .search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
+        #common_list_form .search_box .search_info::placeholder{color: #ccc;}
+        #common_list_form .search_box .btn_box{width: 28px; height: 28px; cursor: pointer; border: 1px solid #ccc; box-sizing: border-box; border-left: none;}
+        #common_list_form .search_box .btn_box .search_btn{position:relative; width: 14px; height: 14px; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+        #common_list_form .search_box .btn_box .search_btn img{width: 100%;}
+        #common_list_form .search_box:hover select{border: 1px solid #333; border-right: none;}
+        #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
+        #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
+        
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -178,12 +194,22 @@
     <section id="common_list_form">
         <h2 class="big_title">저작권 관리</h2>
         <button id="getcr" style="border-radius: 5px; margin-left: 40px; padding: 5px 10px; background-color: blue; color: white; cursor: pointer;">저작권등록</button>
-        <select id="searchpath" name="searchtag">
-			<option  value="cr" >저작권번호</option>
-			<option value="name">저작권명</option>
-		</select>
-        <input type="text" style="margin-left: 300px;" id="searchbar"/>
-        <button id="search">검색</button>
+		<ul class="search_box">
+            <li>
+                <select id="searchpath" name="searchtag">
+					<option  value="cr" >저작권번호</option>
+					<option value="name">저작권명</option>
+                </select>
+            </li>
+            <li>
+                <input type="text" class="search_info" placeholder="검색" id="searchbar"/>
+            </li>
+            <li class="btn_box">
+                <div class="search_btn">
+                    <img src="./img/search.png" alt="검색 버튼" id="search">
+                </div>
+            </li>
+        </ul>
         <h3 class="sub_title">등록중 저작권</h3>
         <div class="list_form">
             <ul>
@@ -224,7 +250,7 @@
                         <li>no.</li>
                         <li>저작권명</li>
                         <li>담당자</li>
-                        <li>기간</li>
+                        <li>등록날짜</li>
                         <li>취소/만료</li>
                     </ul>
                 </li>

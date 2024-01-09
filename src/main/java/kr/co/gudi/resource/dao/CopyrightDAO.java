@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.gudi.resource.dto.CopyrightDTO;
 
@@ -24,7 +25,21 @@ public interface CopyrightDAO {
 	
 	Map<String, Object> detaildata(String num);
 
-	void resourceCopyrightregister(String no, String date, int price);
+	void resourceCopyrightregister(String no, String date, int price, String namae);
+
+	
+
+	ArrayList<CopyrightDTO> resourcecopyrightgetlist(String search, String searchtag, int offset);
+
+	int rclmaxpage(int pagePerNum, String search, String searchtag);
+
+	void copyrightnoti(HashMap<String,String> data);
+
+	void copyrightregister(CopyrightDTO dto);
+
+	void writeFile(String idx, String oriFileName, String newFileName, String kb);
+
+	void resourceCopyrightdelete(String cr_no, String per_price);
 
 
 

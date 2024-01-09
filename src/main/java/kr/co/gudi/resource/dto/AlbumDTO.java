@@ -19,7 +19,23 @@ public class AlbumDTO {
 	
 	private String art_name;
 	private String member_id;
+	private String name;
+	private String member_position;
+	
+	
 
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getMember_position() {
+		return member_position;
+	}
+	public void setMember_position(String member_position) {
+		this.member_position = member_position;
+	}
 	private int albpro_round;
 	private int albpro_price;
 

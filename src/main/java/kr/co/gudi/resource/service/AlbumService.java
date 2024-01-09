@@ -25,14 +25,15 @@ public class AlbumService {
 	Map<String, Object> map = new HashMap<String, Object>();
 	@Value("${spring.servlet.multipart.location}") private String root;
 	
-	public Map<String, Object> list(String page) {
+	public Map<String, Object> list(String page, String a_name) {
 		int p = Integer.parseInt(page);
 		int offset = (p - 1) * 10;
 		
 		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
-		list = dao.list(offset);
+		logger.info("검색 값이 있던지 말던지 리스트 그리기!");
+		list = dao.searchList(a_name, offset);
 		map.put("list", list);
-		
+
 		int pages = dao.totalPage();
 		map.put("pages", pages);
 		// 전체 페이지가 p 값보다 작을 때 
@@ -57,24 +58,24 @@ public class AlbumService {
 		return mav;
 	}
 
-	public Map<String, Object> searchList(String a_name, String page) {
-		int p = Integer.parseInt(page);
-		int offset = (p - 1) * 10;
-		
-		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
-		list = dao.searchList(a_name, offset);
-		map.put("list", list);
-		
-		int pages = dao.totalPage();
-		map.put("pages", pages);
-		// 전체 페이지가 p 값보다 작을 때 
-		if (p > pages) {
-			p = pages;
-		}
-		map.put("currPage", p);
-		
-		return map;
-	}
+//	public Map<String, Object> searchList(String a_name, String page) {
+//		int p = Integer.parseInt(page);
+//		int offset = (p - 1) * 10;
+//		
+//		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
+//		list = dao.searchList(a_name, offset);
+//		map.put("list", list);
+//		
+//		int pages = dao.totalPage();
+//		map.put("pages", pages);
+//		// 전체 페이지가 p 값보다 작을 때 
+//		if (p > pages) {
+//			p = pages;
+//		}
+//		map.put("currPage", p);
+//		
+//		return map;
+//	}
 
 	public Map<String, Object> chartData(String num, String optionVal) {
 		ArrayList<AlbumDTO> list = dao.chartData(num, optionVal);
@@ -99,7 +100,7 @@ public class AlbumService {
 				Files.write(path, arr);
 				
 				// 3. 파일 사이즈 가져오기
-				long sizeInKB = Math.round(file.getSize() / 1024.0);
+				long sizeInKB = Math.round(file.getSize()/1024.0);
 				String size = Long.toString(sizeInKB);
 				//3. 기존 파일명, 새로운 파일명, 파일 사이즈, alb_no 를 file 테이블에 추가
 				dao.fileUpload(oriFileName, newFileName, alb_no, size);

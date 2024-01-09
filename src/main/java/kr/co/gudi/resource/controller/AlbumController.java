@@ -39,8 +39,9 @@ public class AlbumController {
 	
 	@GetMapping(value="/albumList")
 	@ResponseBody
-	public Map<String, Object> albumList(String page) {
-		return service.list(page);
+	public Map<String, Object> albumList(String page, String a_name) {
+		logger.info("a_name ==== " +a_name);
+		return service.list(page, a_name);
 	} 
 	
 	@GetMapping(value="/albumDetail")
@@ -48,11 +49,11 @@ public class AlbumController {
 		return service.detail(alb_no);
 	}	
 	
-	@GetMapping(value="/albumSearch")
-	@ResponseBody
-	public Map<String, Object> albumSearch(String a_name, String page){
-		return service.searchList(a_name, page);
-	}
+//	@GetMapping(value="/albumSearch")
+//	@ResponseBody
+//	public Map<String, Object> albumSearch(String a_name, String page){
+//		return service.searchList(a_name, page);
+//	}
 	
 	@GetMapping(value="/albumChartData")
 	@ResponseBody
