@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>HoonyMusic</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 </head>
 <style>
 	<style>
@@ -155,6 +158,16 @@
                     <a href="/attend"><li class="dep2">근태 현황</li></a>
                     <a href="javascript:"><li class="dep2">연차 관리</li></a>                   
                 </ul>   
+                <a href="javascript:"><li class="dep1" data-index="8">자원 관리
+                    <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
+                    </svg></div>
+                </li></a>
+                <ul data-index="8">
+                    <a href="/album"><li class="dep2">음반 현황</li></a>
+                    <a href="/musicChart"><li class="dep2">음원 차트</li></a>                   
+                </ul> 
+                
                 <a href="javascript:"><li class="dep1">차량관리</li></a>
                 <a href="javascript:"><li class="dep1">복지몰</li></a>
             </ul>
@@ -169,10 +182,13 @@
                     <path fill="#eb568e" d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396l1.414-1.414l-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8s3.589 8 8 8m0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6s-6-2.691-6-6s2.691-6 6-6"/>
                 </svg>
             </li>
-            <li class="Notification">
+            <li class="Notification" style="position:relative;">
+            	<a href="/noti">
                 <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#eb568e" d="M4 8a8 8 0 1 1 16 0v4.697l2 3V20h-5.611a4.502 4.502 0 0 1-8.777 0H2v-4.303l2-3zm5.708 12a2.5 2.5 0 0 0 4.584 0zM12 2a6 6 0 0 0-6 6v5.303l-2 3V18h16v-1.697l-2-3V8a6 6 0 0 0-6-6"/>
                 </svg>
+                </a>
+                <span id="notiCnt" style="position:absolute;left:10;top:8;color:red;"></span>
             </li>
             <li class="profile"><img src="./img/kang.jpg" alt="231217_강태오"></li>
         </ul>
@@ -189,6 +205,27 @@
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
+
+var member_no = ${sessionScope.loginMember.member_no};
+console.log(member_no);
+
+$.ajax({
+	type:'get',
+	url:'notiList',
+	data:{'member_no':member_no}, 
+	dataType:'JSON',
+	success: function(data){
+		console.log(data);
+		// 새로운 알림 개수 
+		notiCount = data.noti_count || 0;
+		console.log(notiCount);
+        $('#notiCnt').text(notiCount); 
+	},
+	error:function(e){
+		console.log(e);
+	}
+});
+
 
 // -------------------------------- toggle start ------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
