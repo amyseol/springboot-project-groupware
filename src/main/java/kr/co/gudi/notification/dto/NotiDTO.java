@@ -16,6 +16,14 @@ public class NotiDTO {
 	private String noti_unique_no;
 	private String noti_state;
 	
+	private int noti_count;
+	
+	public int getNoti_count() {
+		return noti_count;
+	}
+	public void setNoti_count(int noti_count) {
+		this.noti_count = noti_count;
+	}
 	private String name;
 	private String member_position;
 	

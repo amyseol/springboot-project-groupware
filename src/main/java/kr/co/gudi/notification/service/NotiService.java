@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.gudi.notification.dao.NotiDAO;
 import kr.co.gudi.notification.dto.NotiDTO;
@@ -24,9 +25,15 @@ public class NotiService {
 		ArrayList<NotiDTO> list = new ArrayList<NotiDTO>();
 		list = dao.notiList(member_no);
 		map.put("list", list);
-		
+		// 새로운 알림 개수 
+		int noti_count = dao.notiCount(member_no);
+		map.put("noti_count", noti_count);
+		logger.info("noti_count==="+noti_count);
 		return map;
 	}
-	
+
+	public void stateUpdate(String unique_no, String locate) {
+		dao.stateUpdate(unique_no, locate);
+	}
 
 }

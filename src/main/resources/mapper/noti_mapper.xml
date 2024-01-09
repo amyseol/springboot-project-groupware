@@ -11,4 +11,16 @@
 			WHERE n.noti_receiver = #{param1}
 	</select>
 	
+	<select id="notiCount" resultType="int">
+		SELECT count(*) AS noti_count FROM notification 
+			WHERE cast(noti_state as UNSIGNED) = '0' AND noti_receiver=#{param1}
+	</select>
+		
+	<update id="stateUpdate">
+		UPDATE notification SET noti_state = 1
+			WHERE noti_unique_no = #{param1} AND noti_locate = #{param2}
+	</update>
+	
+	
+	
 </mapper>

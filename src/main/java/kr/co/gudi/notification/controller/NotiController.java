@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.gudi.notification.service.NotiService;
 
@@ -29,4 +30,10 @@ public class NotiController {
 		return service.notiList(member_no);
 	}
 	
+	@GetMapping(value="/notiStateUpdate")
+	public String notiStateUpdate(String unique_no, String locate){
+		logger.info("unique_no / locate === " + unique_no + " / " + locate);
+		service.stateUpdate(unique_no, locate);
+		return "redirect:/noti";
+	}
 }
