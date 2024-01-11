@@ -7,78 +7,75 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"> </script>
 <style>
-table {
-      margin: 0 auto; /* 가로 가운데 정렬 */
-}
-table, th, td{
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 5px 10px;
-}
-
-input[type="submit"]{
-	height: 50px;
-}
-
-fieldset{
-	margin-top: 15px;
-}
-
-#notice{
-	display: none;
-	position: absolute;
-	widht: 200px;
-	height: 50px;
-	border: 1px solid black;
-	bottom: 1%;
-	right: 1%;
-}
-
-.msg{
-	width: 100%;
-	margin-top: 15px;
-	text-align: center;
-	font-size: 12px;
-}	
+#common_list_form{padding-left:15%;}
+        #common_list_form .big_title{padding: 50px 50px;}
+        #common_list_form .sub_title{padding: 20px 50px;}
+        #common_list_form .list_form{position:relative;}
+        #common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
+        #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
+        #common_list_form .list_form .list_title ul li:first-child{width: 10%; padding-left: 50px; }
+        #common_list_form .list_form .list_title ul li:nth-child(2){width: 50%;}
+        #common_list_form .list_form .list_title ul li:nth-child(3){width: 15%;}
+        #common_list_form .list_form .list_title ul li:nth-child(4){width: 15%;}
+        #common_list_form .list_form .list_title ul li:last-child{width: 10%;}
+        #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
+        #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
+        #common_list_form .list_form .list_content ul li:first-child{width: 10%; padding-left: 50px; }
+        #common_list_form .list_form .list_content ul li:nth-child(2){width: 50%;}
+        #common_list_form .list_form .list_content ul li:nth-child(3){width: 15%;}
+        #common_list_form .list_form .list_content ul li:nth-child(4){width: 15%;}
+        #common_list_form .list_form .list_content ul li:last-child{width: 10%;}
+        #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
+        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
+        
 </style>
 </head>
 <body>
-	<table>
-		<tr>
-			<th>제목</th>
-			<td>${board.board_title}</td>
-		</tr>
-		<tr>
-			<th>조회수</th>
-			<td>${board.bHit}</td>
-		</tr>
-		<tr>
-			<th>작성자</th>
-			<td>${board.board_depart}</td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td>${board.board_content}</td>
-		</tr>
-		
-		<c:if test="${photos.size() >0}">
-		<tr>
-			<th>사진</th>
-			<td>
-			<c:forEach items="${photos}" var="file">
-				<img src="/photo/${file.file_newname}" width="500" alt="${file.file_oriname}"/>
-			</c:forEach>			
-			</td>
-		</tr>
-		</c:if>
-		
-		<tr>
-			<th colspan="2">
-			<input type="button" onclick="location.href='./'" value="리스트"/>
-			<input type="button" onclick="location.href='./del?board_no=${board.board_no}'" value="삭제"/>
-			<input type="button" onclick="location.href='./boardModify?board_no=${board.board_no}'" value="수정"/>
-		</tr>
-	</table>
+<%@ include file="/views/nav.jsp" %>
+	<section id="common_list_form">
+        <h2 class="big_title">타이틀</h2>
+        <h3 class="sub_title">리스트 폼</h3>
+        
+		<ul>
+	    <li>
+	        <label for="board_title">제목</label>
+	        <span id="board_title">${board.board_title}</span>
+	    </li>
+	    <li>
+	        <label for="bHit">조회수</label>
+	        <span id="bHit">${board.bHit}</span>
+	    </li>
+	    <li>
+	        <label for="board_depart">작성자</label>
+	        <span id="board_depart">${board.board_depart}</span>
+	    </li>
+	    <li>
+	        <label for="board_content">내용</label>
+	        <span id="board_content">${board.board_content}</span>
+	    </li>
+    
+    	<c:if test="${photos.size() > 0}">
+	        <li>
+	            <label for="board_photos">사진</label>
+	            <span id="board_photos">
+	                <c:forEach items="${photos}" var="file">
+	                    <img src="/photo/${file.file_newname}" width="500" alt="${file.file_oriname}" />
+	                </c:forEach>
+	            </span>
+	        </li>
+    	</c:if>
+	
+		<li>
+        	<input type="button" onclick="location.href='./'" value="리스트" />
+	    </li>
+	    <li>
+	        <input type="button" onclick="location.href='./del?board_no=${board.board_no}'" value="삭제" />
+	    </li>
+	    <li>
+	        <input type="button" onclick="location.href='./boardModify?board_no=${board.board_no}'" value="수정" />
+	    </li>
+	</ul>
+	</section>
 </body>
 <script>
 

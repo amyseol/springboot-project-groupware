@@ -90,7 +90,7 @@
         <div class="nav_inner">
             <h1 class="logo"><a href="/main">Hoony Music</a></h1>
             <ul class="gnb">
-                <a href="javascript:"><li class="dep1">게시판</li></a>
+                <a href="/board"><li class="dep1">게시판</li></a>
                 <a href="javascript:"><li class="dep1" data-index="1">쪽지
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>

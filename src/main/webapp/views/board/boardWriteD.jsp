@@ -33,13 +33,7 @@
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
 
-		#common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
-        #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .list_form .list_title ul li:first-child{width: 10%; padding-left: 50px; }
-        #common_list_form .list_form .list_title ul li:nth-child(2){width: 50%;}
-        #common_list_form .list_form .list_title ul li:nth-child(3){width: 15%;}
-        #common_list_form .list_form .list_title ul li:nth-child(4){width: 15%;}
-        #common_list_form .list_form .list_title ul li:last-child{width: 10%;}
+
  
 </style>
 </head>
@@ -50,31 +44,26 @@
     <h3 class="sub_title">리스트 폼</h3>
 
     <div class="list_form">
-        <form action="write" method="post" enctype="multipart/form-data">
-        <ul>
-            <li class="list_list">
+        <form action="writeD" method="post" enctype="multipart/form-data">
 	    <ul>
 	        <li>
 	            <label for="board_title">제목</label>
 	            <input type="text" id="board_title" name="board_title" />
 	        </li>
 	        <li>
-	        내용
-	        	<div id="rich_deditor"></div>
+	            <div id="rich_deditor"></div>
 				
 				<input type="hidden" id="board_content" name="board_content" value=""/>
 	            <!-- <textarea id="board_content" name="board_content"></textarea> -->
 	        </li>
 	        <li>
-	            <label for="photos">사진</label>
+	            <label for="photos">사진</label>_
 	            <input type="file" id="photos" name="photos" multiple="multiple" />
 	        </li>
 	        <li>
 	            <button type="button" onclick="location.href='./'">리스트</button>
 	            <button type="submit">저장</button>
 	        </li>
-	    </ul>
-	    </li>
 	    </ul>
 		</form>
 
@@ -96,10 +85,12 @@
     </section>
 </body>
 <script>
-var config = {}
-//config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
-config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
-var editor = new RichTextEditor("board_content", config);
-
+	
+	var config = {}
+	//config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
+	config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
+	var editor = new RichTextEditor("#board_content", config);
+	
+	//alert("접근이 거부되었습니다! 권한이 없습니다.");
 </script>
 </html>
