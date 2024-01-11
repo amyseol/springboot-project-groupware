@@ -1,7 +1,6 @@
 package kr.co.gudi.resource.service;
 
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,6 +8,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode;
 
+import kr.co.gudi.member.vo.MemberVO;
 import kr.co.gudi.resource.dao.CopyrightDAO;
 import kr.co.gudi.resource.dto.CopyrightDTO;
 import reactor.core.publisher.Mono;
@@ -97,7 +99,7 @@ public class CopyrightService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
-		if(p>max) {
+		if(p>max+1) {
 			
 			p = max;
 		}
@@ -134,7 +136,7 @@ public class CopyrightService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
-		if(p>max) {
+		if(p>max+1) {
 			
 			p = max;
 		}
@@ -166,14 +168,17 @@ public class CopyrightService {
 	
 	//-----------------------------------실적------------------------------------
 	//실적등록
-	public void resourceCopyrightregister(String no, String date, String price, String namae) {
-		dao.resourceCopyrightregister(no,date,Integer.parseInt(price),namae);
+	public void resourceCopyrightregister(String no, String date, String price, String namae, HttpSession session) {
+		
+		String per_member = ((MemberVO)session.getAttribute("loginMember")).getName();
+		
+		dao.resourceCopyrightregister(no,date,Integer.parseInt(price),namae,per_member);
 		
 	}
 
 
 
-	public void copyrightregister(HashMap<String, String> data, MultipartFile[] file) throws Exception {
+	public void copyrightregister(HashMap<String, String> data, MultipartFile[] file, HttpSession session) throws Exception {
 		// TODO Auto-generated method stub
 
 		logger.info("등록 들어옴");
@@ -186,6 +191,8 @@ public class CopyrightService {
 		dto.setCr_contdate(Date.valueOf(data.get("cont")));
 		dto.setCr_expdate(Date.valueOf(data.get("exp")));
 		dto.setCr_member(data.get("member"));
+		dto.setMember_no(((MemberVO)session.getAttribute("loginMember")).getMember_no());
+		
 		
 		logger.info("date : "+dto.getCr_member());
 		
@@ -268,14 +275,17 @@ public class CopyrightService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
-		if(p>max) {
+		if(p>max+1) {
 			
 			p = max;
 		}
 		
 		map.put("currPage", p);
-		
+		if(max<1) {
 		map.put("pages", max+1);
+		}else {
+			map.put("pages", max);
+		}
 		logger.info("list : "+list);
 		map.put("list", list);
 		

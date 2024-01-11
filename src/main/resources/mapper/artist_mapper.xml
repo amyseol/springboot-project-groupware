@@ -74,7 +74,7 @@
 	
 	<select id="artistdetail_2" resultType="artist">
 	
-	select * from song_per c inner join song d inner join artist t on c.song_no = (d.art_no = 1 and t.art_no = 1) ORDER BY perSong_no DESC LIMIT 5 OFFSET #{offset}
+	select * from song_per c inner join (SELECT song_no, song_name from song a inner join artist b on a.art_no = #{num} and b.art_no = #{num} ) d on c.song_no = d.song_no ORDER BY perSong_no DESC LIMIT 5 OFFSET #{offset}
 	
 	</select>
 	

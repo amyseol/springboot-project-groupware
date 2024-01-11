@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +83,7 @@ public class CopyrightController {
 	
 	@GetMapping(value = "/copyrightregisterform")
 	public ModelAndView crg() {
-		ModelAndView mav = new ModelAndView("copyright/crg");
+		ModelAndView mav = new ModelAndView("copyright/crg_2");
 		return mav;
 	}
 	
@@ -103,11 +104,11 @@ public class CopyrightController {
 	}
 	
 	@PostMapping(value = "/copyrightregister")
-	public ModelAndView copyrightregister(MultipartFile[] file, @RequestParam HashMap<String, String> data) throws Exception {
+	public ModelAndView copyrightregister(MultipartFile[] file, @RequestParam HashMap<String, String> data, HttpSession session) throws Exception {
 		logger.info("여기는 등록완료를 거치는곳");
 		logger.info("data : "+data.get("no"));
 		
-		service.copyrightregister(data,file);
+		service.copyrightregister(data,file,session);
 		
 		ModelAndView mav = new ModelAndView("redirect:/copyrightlist");
 		return mav;
@@ -146,13 +147,13 @@ public class CopyrightController {
 	}
 	
 	@GetMapping(value = "resourceCopyrightregister")
-	public ModelAndView resourceCopyrightregister(@RequestParam String no, @RequestParam String date, @RequestParam String price, @RequestParam String namae) {
+	public ModelAndView resourceCopyrightregister(@RequestParam String no, @RequestParam String date, @RequestParam String price, @RequestParam String namae, HttpSession session) {
 		logger.info("price : "+price);
 		logger.info("no : "+no);
 		logger.info("date : "+date);
 		logger.info("namae : "+namae);
 		
-		service.resourceCopyrightregister(no,date,price,namae);
+		service.resourceCopyrightregister(no,date,price,namae,session);
 		
 		ModelAndView mav = new ModelAndView("redirect:/resourceCopyright");
 		return mav;

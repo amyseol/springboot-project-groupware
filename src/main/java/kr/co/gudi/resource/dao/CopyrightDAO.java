@@ -25,7 +25,7 @@ public interface CopyrightDAO {
 	
 	Map<String, Object> detaildata(String num);
 
-	void resourceCopyrightregister(String no, String date, int price, String namae);
+	void resourceCopyrightregister(String no, String date, int price, String namae, String per_member);
 
 	
 

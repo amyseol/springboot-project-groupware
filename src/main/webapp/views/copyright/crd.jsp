@@ -80,6 +80,42 @@
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
+        
+        
+        
+        
+        
+        
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
