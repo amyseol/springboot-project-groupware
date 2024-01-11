@@ -91,4 +91,10 @@ public class AttendController {
 		return service.calLeave(member_no);
 	}
 	
+	@GetMapping(value="/useList")
+	@ResponseBody
+	public HashMap<String, Object> useList(@RequestParam String selectFilter){
+		logger.info("필터링할 기간 : "+selectFilter);
+		return service.useList(member_no,selectFilter);
+	}
 }

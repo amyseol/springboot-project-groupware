@@ -53,29 +53,23 @@ public interface MemberDAO {
 
 	void updateDo(String member_no);
 
-	void updateDo(HashMap<String, Object> params);
-
-	void updateDepart(HashMap<String, Object> params);
-
-	void updateTeam(HashMap<String, Object> params);
-
 	void updateProfile(String file_location, String member_no, String oriFileName, String newFileName, int size);
 
-	HashMap<String, Object> departList(String depart_state);
+	ArrayList<MemberDTO> departList(String depart_state);
 
 	List<MemberDTO> getDepartList();
 
 	List<MemberDTO> teamList(int depart_no);
 
-	String getDepart(HashMap<String, String> params);
-
-	String getDepartNo(int member_no);
-
-	int getDepartNo(String member_no);
+	String getDepartNo(HashMap<String, String> params);
 
 	String teamName(int depart_no);
 
 	String depart_name(int depart_no);
 
 	void updateLeave(String formattedDate);
+
+	int getDepart(String member_no);
+
+	void updateDo(HashMap<String, String> params);
 }

@@ -9,10 +9,25 @@
       	VALUES(#{content},#{sch_depart},#{title},#{start},#{end},#{member_no})
    </insert>
    
-   <select id="list" resultType="sch">
-   		select * from schedule
+   <insert id="nWrite" parameterType="map">
+   	INSERT into notification(noti_sender,noti_locate, noti_unique_no, noti_depart_no) 
+		values(#{memb_no},'s',#{sch_no},#{sch_depart})
+   </insert>
+   
+   <select id="list"  resultType="sch">
+   		select * from schedule  		
+   			where sch_state=#{sch_state} and member_no=#{member_no}   		
    </select>
    
+   <select id="allList" resultType="sch">
+   		select * from schedule  		
+   			where sch_state=#{sch_state}
+   </select>
+   
+   <select id="dptList" resultType="sch">
+   		select * from schedule  		
+   			where sch_state=#{sch_state} and sch_depart=#{sch_depart}
+   </select>
    
    
    <select id="listMy" resultType="sch">
@@ -24,6 +39,16 @@
    <select id="listDepart" resultType="sch">
    		select * from schedule
    			where sch_depart=#{param}
-   
    </select>
+   
+   <select id="schDetail" resultType="sch">
+   		select * from schedule
+   			where sch_no = #{param1}
+   </select>
+   
+   <update id="delSch">
+   		update schedule
+   			set sch_state = '1'
+   			where sch_no = #{param1}
+   </update>
 </mapper>
