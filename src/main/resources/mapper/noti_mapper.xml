@@ -8,7 +8,7 @@
 		SELECT n.*, m.name, m.member_position
 			FROM notification n 
 				LEFT OUTER JOIN member m ON n.noti_sender = m.member_no
-			WHERE n.noti_receiver = #{param1}
+			WHERE n.noti_receiver = #{param1} 			
 	</select>
 	
 	<select id="notiCount" resultType="int">

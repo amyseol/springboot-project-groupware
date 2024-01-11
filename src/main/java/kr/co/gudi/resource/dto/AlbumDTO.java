@@ -22,20 +22,6 @@ public class AlbumDTO {
 	private String name;
 	private String member_position;
 	
-	
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getMember_position() {
-		return member_position;
-	}
-	public void setMember_position(String member_position) {
-		this.member_position = member_position;
-	}
 	private int albpro_round;
 	private int albpro_price;
 
@@ -50,6 +36,18 @@ public class AlbumDTO {
 	private String file_newname;
 	
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getMember_position() {
+		return member_position;
+	}
+	public void setMember_position(String member_position) {
+		this.member_position = member_position;
+	}
 	
 	public String getFile_location() {
 		return file_location;

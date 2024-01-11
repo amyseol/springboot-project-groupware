@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>HoonyMusic</title>
+<title>Hoony Music</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 </head>
 <style>
@@ -51,6 +51,7 @@
 		    position: relative;
 		    left: 65%;
         }
+        
 </style>
 <body>
 	<%@ include file="/views/nav.jsp" %>
@@ -58,7 +59,7 @@
     <section id="common_list_form">
         <h2 class="big_title">음반</h2>
         <h3 class="sub_title">계약 현황</h3>
-        <!------- 검색 ------->
+        <!----------- 검색 ------------>
         <ul class="search_box">
             <li>
                 <input type="text" id="search_info" placeholder="검색" onkeydown="handleKeyDown(event)"/>
@@ -69,10 +70,10 @@
                 </div>
             </li>
         </ul>
-		 <!------- 리스트 ------->
+		<!------- 리스트 ------->
         <div class="list_form">
             <ul>
-                <li class="list_title">
+			    <li class="list_title">
                     <ul>
                         <li>음반명</li>
                         <li>아티스트명</li>
@@ -82,7 +83,7 @@
                         <li>판매 가격(KRW)</li>
                         <li>총 재고량</li>
                     </ul>
-                </li>
+                </li> 
                 <li class="list_content" id="albumList">
                     
                 </li>
@@ -146,8 +147,9 @@ function drawList(list){
 	$('#pagination').twbsPagination({
 		startPage: list.currPage,
 		totalPages: list.pages, 
-		visiblePages:5, 
+		visiblePages: 5, 
 		onPageClick:function(e,page){ 
+			console.log('showPage==',showPage);
 			if(showPage != page){ 
 				console.log(page);	
 				showPage=page; 
