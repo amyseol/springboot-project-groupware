@@ -24,6 +24,7 @@ public class NotiService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		ArrayList<NotiDTO> list = new ArrayList<NotiDTO>();
 		list = dao.notiList(member_no);
+		
 		map.put("list", list);
 		// 새로운 알림 개수 
 		int noti_count = dao.notiCount(member_no);

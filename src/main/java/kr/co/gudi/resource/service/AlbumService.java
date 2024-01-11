@@ -27,19 +27,27 @@ public class AlbumService {
 	
 	public Map<String, Object> list(String page, String a_name) {
 		int p = Integer.parseInt(page);
-		int offset = (p - 1) * 10;
+		int offset = (p - 1) * 20;
 		
 		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
 		logger.info("검색 값이 있던지 말던지 리스트 그리기!");
-		list = dao.searchList(a_name, offset);
-		map.put("list", list);
-
+		list = dao.list(offset);
 		int pages = dao.totalPage();
-		map.put("pages", pages);
-		// 전체 페이지가 p 값보다 작을 때 
-		if (p > pages) {
-			p = pages;
+		// 검색 값이 있을 때 
+		if(a_name!=null) {
+			logger.info("검색중!");
+			list = dao.searchList(a_name,offset);
+			pages = dao.totalSearchPage(a_name);
 		}
+		
+		if (p >= pages) {
+			p = pages;
+			logger.info("검색 p=="+p);
+		}
+		
+		map.put("pages", pages);
+		map.put("list", list);
+		// 전체 페이지가 p 값보다 작을 때 
 		map.put("currPage", p);
 		
 		return map;
@@ -57,25 +65,6 @@ public class AlbumService {
 		
 		return mav;
 	}
-
-//	public Map<String, Object> searchList(String a_name, String page) {
-//		int p = Integer.parseInt(page);
-//		int offset = (p - 1) * 10;
-//		
-//		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
-//		list = dao.searchList(a_name, offset);
-//		map.put("list", list);
-//		
-//		int pages = dao.totalPage();
-//		map.put("pages", pages);
-//		// 전체 페이지가 p 값보다 작을 때 
-//		if (p > pages) {
-//			p = pages;
-//		}
-//		map.put("currPage", p);
-//		
-//		return map;
-//	}
 
 	public Map<String, Object> chartData(String num, String optionVal) {
 		ArrayList<AlbumDTO> list = dao.chartData(num, optionVal);
@@ -107,6 +96,5 @@ public class AlbumService {
 			}
 		}
 	}
-
 	
 }

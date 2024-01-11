@@ -24,4 +24,6 @@ public interface AlbumDAO {
 
 	ArrayList<AlbumDTO> getFile(String alb_no);
 
+	int totalSearchPage(String a_name);
+
 }

@@ -2,7 +2,10 @@ package kr.co.gudi.resource.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -16,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,7 +56,7 @@ public class AlbumController {
 //	@GetMapping(value="/albumSearch")
 //	@ResponseBody
 //	public Map<String, Object> albumSearch(String a_name, String page){
-//		return service.searchList(a_name, page);
+//	return service.searchList(a_name, page);
 //	}
 	
 	@GetMapping(value="/albumChartData")
@@ -67,7 +71,7 @@ public class AlbumController {
 		return "/album/albumPerform";
 	}
 	
-	// 파일 업로드 (return 값은 결재 페이지로 수정시 변경하기) 
+	// 파일 업로드 (return 값은 기능을 결재 페이지로 옮길 때 변경하기) 
 	@PostMapping(value="/albumFile.do")
 	public String albumFile(MultipartFile[] files, int alb_no) throws Exception {
 		service.fileUpload(files, alb_no);
@@ -75,10 +79,12 @@ public class AlbumController {
 	}
 	
 	// 파일 다운로드 
-	@GetMapping(value="/albumDownload.do")
+	@GetMapping(value="/download.do")
 	public ResponseEntity<Resource> albumDownload(String newName, String oriName) throws IOException {
+		logger.info("newName / oriName === "+newName+" / "+oriName);
 		String path = root+newName;
-		String ext = newName.substring(newName.lastIndexOf("."));		
+		logger.info(path);
+		//String ext = newName.substring(newName.lastIndexOf("."));		
 		//본문(파일)
 		Resource resource = new FileSystemResource(path); // 파일시스템의 특정 파일을 읽어오는 기능		
 		
@@ -89,11 +95,17 @@ public class AlbumController {
 		// content-Disposition : 내려보낼 내용이 문자(inline)인지 파일(attachment)인지 명시
 		// 파일일 경우 파일명이 들어가는데, 한글은 다 깨진다.
 		// DB 에서 원본 파일명을 가져왔다고 가정하자
-		String oriFileName = URLEncoder.encode(oriName+ext, "UTF-8");
+		String oriFileName = URLEncoder.encode(oriName, "UTF-8");
+		logger.info("oriFileName==="+oriFileName);
 		// attachment;fileName="원본.jpg"
-		header.add("content-Disposition", "attachment;fileName=\""+oriFileName+"\"");		
+		header.add("Content-Disposition", "attachment;fileName=\""+oriFileName+"\"");		
 		
 		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK); //바디,헤더,상태(200,500)
 	}
 	
+	
+	@GetMapping(value="/albumApproval")
+	public String albumApproval() {
+		return "album/albumApproval";
+	}
 }

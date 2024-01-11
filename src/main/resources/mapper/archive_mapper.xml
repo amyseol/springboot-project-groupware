@@ -3,5 +3,41 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="kr.co.gudi.archive.dao.ArchiveDAO">
+	<select id="totalPage" resultType="int">
+		SELECT CEIL(COUNT(arch_no)/20) AS pages FROM archive
+	</select>
+	
+	<!-- WHERE a.arch_depart='전사' 추가하기 -->
+	<select id="archAllList" resultType="archive">
+		SELECT a.*, m.name, f.file_oriname, f.file_newname, f.file_size FROM archive a
+			LEFT OUTER JOIN member m ON a.member_no = m.member_no
+			LEFT OUTER JOIN file f ON f.file_location ='s' AND f.file_unique_no = a.arch_no
+		WHERE a.arch_state = '0'
+				ORDER BY a.arch_no DESC LIMIT 20 OFFSET #{param1}
+	</select> 
+	
+	<select id="getDepartName" resultType="String">
+		SELECT depart_name from department where depart_no = 
+					(select depart_p_no from department where depart_no=
+						(select depart_no from member where member_no=#{param1}))
+	</select>
+	
+	<insert 
+		useGeneratedKeys="true"
+		keyColumn="arch_no"
+		keyProperty="arch_no"
+		id="saveDepartArchive">
+		INSERT INTO archive (member_no, arch_depart)
+			VALUES (#{member_no}, #{arch_depart})
+	</insert>
 
+	<insert id="departFileUpload">
+		INSERT INTO file(file_location, file_unique_no, file_oriname, file_newname, file_size, file_state) 
+			VALUES("s", #{param3}, #{param1},#{param2},#{param4},"0")
+	</insert> 
+	
+	<update id="archiveDel">
+		UPDATE archive SET arch_state=1 WHERE arch_no=#{param1}
+	</update>
+	
 </mapper>
