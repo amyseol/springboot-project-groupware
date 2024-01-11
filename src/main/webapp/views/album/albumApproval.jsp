@@ -86,9 +86,11 @@
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(4){width: 40%;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(6){width: 24%;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(7){width: 18%; }
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:last-child{width: 100%; height:400px;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li>input, #approval_write .bottom_area .right_area .form_bottom>div>ul>li>select{width: 100%; height: 100%; box-sizing: border-box; border: 1px solid #ccc;;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li #testDatepicker{padding-left: 26px;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li svg{position:absolute; left: 9px; top: 9px;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li #rich_editor{width: 100%; height:400px;}
         .file-list {height: 145px; border: 2px dashed #ddd; padding: 10px;}
         .file-list .filebox p {font-size: 13px; margin-top: 8px; display: inline-block;}
         .file-list .filebox .delete i{color: #aaa;margin-left: 5px;}
