@@ -2,8 +2,11 @@
 
 package kr.co.gudi.schedule.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.gudi.member.vo.MemberVO;
 import kr.co.gudi.schedule.dto.ScheduleDTO;
 import kr.co.gudi.schedule.service.ScheduleService;
 
@@ -25,43 +30,34 @@ public class ScheduleController {
 	
 	@Autowired ScheduleService service;
 	
-	@RequestMapping(value={ "/schedule"})
-	public String index() {
+	@GetMapping(value="/schedule")
+	public ModelAndView index() {
 		logger.info("index 캘린더 출력 test");
-		return "schedule/scheduleList";
+		return new ModelAndView("schedule/scheduleList");
 	}
 	
-	@RequestMapping(value={ "/schedule/list"})
+	@GetMapping(value="/schedule/list")
 	@ResponseBody
-	public HashMap<String, Object> list() {
-		List<ScheduleDTO> eventList = service.list();
+	public HashMap<String, Object> list(HttpSession session,@RequestParam String sch_state) {
+		logger.info("일정 리스트 호출");
+		logger.info("일정 분류 상태 : "+sch_state);
+		int member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
+		int sch_depart=((MemberVO)session.getAttribute("loginMember")).getDepart_p_no();
+		List<ScheduleDTO> eventList = service.list(member_no,sch_state,sch_depart);
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("eventList", eventList);
 		return result;
 	}
-	/*
-	@GetMapping("/schedule/save")
-    public void saveCalendarEvents(@RequestParam HashMap<String, Object> param,HttpSession session) {
-        // 여기서 events를 처리하는 로직을 작성
-        // EventDto는 모달 창에서 전송된 이벤트 데이터의 구조에 맞게 정의되어야 합니다.
-		int member_no=5;
-		String sch_depart="경영지원";
-		param.put("member_no", member_no);
-		param.put("sch_depart", sch_depart);
-		logger.info("일정:"+param);
-		
-		service.write(param);
-        
-    }
-	*/
 
-	@GetMapping(value = "/schedule/save")
+
+	@GetMapping(value = "/save")
 	@ResponseBody
-	public void scheduleAdd(@RequestParam HashMap<String, Object> param) {
+	public void scheduleAdd(@RequestParam HashMap<String, Object> param,HttpSession session) {
 
-		int member_no=5;
-		String sch_depart="A&R팀";
+		int member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
+		int sch_depart=((MemberVO)session.getAttribute("loginMember")).getDepart_p_no();
+		logger.info("직원번호 : "+member_no+"/ 부서명 : "+sch_depart);
 		param.put("member_no", member_no);
 		param.put("sch_depart", sch_depart);
 		logger.info("일정:"+param);
@@ -80,36 +76,23 @@ public class ScheduleController {
 		
 		return "scheduleDetail";
 	}
-	
-	
-	
-	/*
-	@RequestMapping("/addForm")
-	public String addForm(@RequestParam HashMap<String, Object> params) {
-		
-		logger.info("params:"+params);
-		return service.addForm(params);
-	}
-	
-
-	
-	
-	 @GetMapping("/list2")
-	 public String all(@RequestParam String filter,Model model) {
-			int member_no=8;
-			String sch_depart="경영지원";
-			//ArrayList<CalDTO> list = service.list(filter,member_no,sch_depart);
-			//model.addAttribute("list",list);
 			
-			return "index";
-	        
-	    }
-	    	*/
 
 	@GetMapping(value="/detailSchedule")
-	public String detailSchedule(@RequestParam HashMap<String, Object> param) {
-		logger.info("디테일정보 : "+param);
-		return "schedule/detailSchedule";
+	@ResponseBody
+	public HashMap<String, Object> detailSchedule(@RequestParam String sch_no) {
+		logger.info("디테일정보 : "+sch_no);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<ScheduleDTO> dto = service.schDetail(sch_no);
+		map.put("dto", dto);
+		return map;
+	}
+	
+	@GetMapping(value="/delSch")
+	public ModelAndView delSch(@RequestParam String sch_no){
+		logger.info("일정 pk 번호 : "+sch_no);
+		service.delSch(sch_no);
+		return new ModelAndView("schedule/scheduleList");
 	}
 	
 

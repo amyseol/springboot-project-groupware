@@ -22,6 +22,10 @@
 	<!-- axios -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
+  <style>
+
+
+  </style>
     <script>
     var titleData;
     var startData;
@@ -46,6 +50,24 @@
                 left: 'prev,next today, myCustomButton',
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek'
+            },
+            
+        	eventClick: function(info) {
+                // info는 클릭한 이벤트의 정보를 포함하는 객체입니다.
+                var eventNo = info.event.extendedProps.sch_no;
+                var eventTitle = info.event.title;
+                var eventStart = info.event.start;
+                var eventEnd = info.event.end;
+                var eventContent = info.event.extendedProps.content;
+				
+                openModal(eventNo);
+                // 콘솔에 이벤트 정보 출력
+                console.log('클릭한 이벤트 정보:');
+                console.log('클릭한 이벤트 번호:',eventNo);
+                console.log('제목:', eventTitle);
+                console.log('시작 시간:', eventStart);
+                console.log('종료 시간:', eventEnd);
+                console.log('내용:', eventContent);
             }
            
         });
@@ -118,20 +140,28 @@
 
          calendar.render(); 
          fetchEvents();
-  
+  		
+         //상태 필터링  
+         $('#depart_select').change(function () {
+             console.log($(this).val());
+             fetchEvents();
+         });
+         
          // db 에서 값을 SELECT해오는거 
     	function fetchEvents() {
-    	/*       var isChecked = $('.myCallender').prop('checked');
-    	      var isCheckedrsv = $('.rsvCallender').prop('checked'); */
+
     	       $.ajax({
     	    	 type:'get',
-    	         url: 'list',
-    	         data:{},
+    	         url: 'schedule/list',
+    	         data:{'sch_state':$('#depart_select').val()},
     	         dataType: 'json',
     	         success: function(data) {
     	            eventList = data.eventList;
+    	            // eventList의 각 이벤트 객체에서 sch_no 값을 뽑아내기
+    	       
     	          console.log(data.eventList);
     	          //풀캘린더 자체내에서 제공하는 일종의 함수? 이벤트추가할수있는거 
+    	           calendar.removeAllEvents();
     	           calendar.addEventSource(eventList);
     	         },
     	         error: function(xhr, status, error) {
@@ -139,12 +169,49 @@
     	         }
     	      });
     	 }
+    	 
 	});
+    
+
+    function openModal(sch_no) {
+    	$('#myModal').modal('show');
+    	$.ajax({
+    		type:'get',
+    		url:'detailSchedule',
+    		data:{'sch_no':sch_no}, 
+    		dataType:'JSON',
+    		success: function(data){	
+    			console.log(data);
+    			$('#eventTitle').empty();
+		        $('#eventContent').empty();
+		        $('#eventStart').empty();
+		        $('#eventEnd').empty();
+    			 data.dto.forEach(function(dtoItem) {
+    			        $('#eventTitle').append(dtoItem.title);
+    			        $('#eventContent').append(dtoItem.content);
+    			        $('#eventStart').append(dtoItem.start);
+    			        $('#eventEnd').append(dtoItem.end);
+    			        $('#eventSchNo').val(dtoItem.sch_no);
+    			    });
+    		},
+    		error:function(e){
+    			console.log(e)
+    		}
+    	}); 
+    }
+    
+ 
 
     </script>
 
     
   <body style="padding:30px;">
+
+  <select id="depart_select" class="depart_select" name="sch_state">
+  	<option value="0" selected>내 일정</option>
+  	<option value="2">전사 일정</option>
+  	<option value="3">부서 일정</option>
+  </select>
     <!-- calendar 태그 -->
   <div id='calendar-container'>
     <div id='calendar'></div>
@@ -193,7 +260,53 @@
         </div>
       </div>
     </div>
-    
+    	
+    <!-- 모달 창 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">이벤트 상세 정보</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- 제목 -->
+                <div class="form-group">
+                    <label for="eventTitle">제목:</label>
+                    <span id="eventTitle"></span>
+                </div>
+
+                <!-- 내용 -->
+                <div class="form-group">
+                    <label for="eventContent">내용:</label>
+                    <span id="eventContent"></span>
+                </div>
+
+                <!-- 시작일 -->
+                <div class="form-group">
+                    <label for="eventStart">시작일:</label>
+                    <span id="eventStart"></span>
+                </div>
+
+                <!-- 종료일 -->
+                <div class="form-group">
+                    <label for="eventEnd">종료일:</label>
+                    <span id="eventEnd"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- 삭제 버튼 -->
+                <form action="delSch">
+                <input type="hidden" id="eventSchNo" name="sch_no"/>
+                <button type="submit" class="btn btn-danger" id="deleteEvent">삭제</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
     
     
     </body>

@@ -30,14 +30,14 @@
 		<ul class="detailBox">
 			<li class="memberImg">
 			<div class="imgBox">			
-    			<img  src="${file.getURL()}" alt="Image"/>				
+    			<img src="/photo/${file}" width="300" height="300"/>				
 			</div>
 			</li>
 			<c:forEach items="${dto}" var="detail">
 			<li>ID</li>
 			<li>${detail.member_id}</li>
 			<li>PW</li>
-			<li>${detail.pw}</li>
+			<li>***********</li>
 			<li>이름</li>
 			<li>${detail.name}</li>
 			<li>성별</li>

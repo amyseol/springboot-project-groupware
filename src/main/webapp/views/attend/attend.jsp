@@ -211,7 +211,7 @@
 	list-style: none;
 }
 
-.hide {
+.hidee {
 	display: none;
 }
 </style>
@@ -224,7 +224,7 @@
 					<div class="attendBox">
 						<div class="leftBox">
 							<ul>
-								<li><h2>근태관리</h2></li>
+								<li><p>근태관리</p></li>
 								<li> <div id="date"></div></li>
 							</ul>
 						</div>
@@ -281,8 +281,8 @@
 			<div class="mainbottom">
 				<div class="attendList">
 					<ul class="attendListItem togle" id="attendList1">1주차
-						<li class="list_title">
-							<ul class="hide">
+						<li class="list_title hidee">
+							<ul>
 								<li>일자</li>
 								<li>업무 시작</li>
 								<li>업무 종료</li>
@@ -290,11 +290,11 @@
 								<li>상세</li>
 							</ul>
 						</li>
-						<li class="list_content hide" id="attendListContent1"></li>
+						<li class="list_content hidee" id="attendListContent1"></li>
 					</ul>
 					<ul class="attendListItem togle" id="attendList2">2주차
-						<li class="list_title">
-							<ul class="hide">
+						<li class="list_title hidee">
+							<ul>
 								<li>일자</li>
 								<li>업무 시작</li>
 								<li>업무 종료</li>
@@ -302,11 +302,11 @@
 								<li>상세</li>
 							</ul>
 						</li>
-						<li class="list_content hide" id="attendListContent2"></li>
+						<li class="list_content hidee" id="attendListContent2"></li>
 					</ul>
 					<ul class="attendListItem togle" id="attendList3">3주차
-						<li class="list_title">
-							<ul class="hide">
+						<li class="list_title hidee">
+							<ul>
 								<li>일자</li>
 								<li>업무 시작</li>
 								<li>업무 종료</li>
@@ -314,11 +314,11 @@
 								<li>상세</li>
 							</ul>
 						</li>
-						<li class="list_content hide" id="attendListContent3"></li>
+						<li class="list_content hidee" id="attendListContent3"></li>
 					</ul>
 					<ul class="attendListItem togle"  id="attendList4">4주차
-						<li class="list_title">
-							<ul class="hide">
+						<li class="list_title hidee">
+							<ul>
 								<li>일자</li>
 								<li>업무 시작</li>
 								<li>업무 종료</li>
@@ -326,11 +326,11 @@
 								<li>상세</li>
 							</ul>
 						</li>
-						<li class="list_content hide" id="attendListContent4"></li>
+						<li class="list_content hidee" id="attendListContent4"></li>
 					</ul>
 					<ul class="attendListItem togle" id="attendList5">5주차
-						<li class="list_title">
-							<ul class="hide">
+						<li class="list_title hidee">
+							<ul>
 								<li>일자</li>
 								<li>업무 시작</li>
 								<li>업무 종료</li>
@@ -338,7 +338,7 @@
 								<li>상세</li>
 							</ul>
 						</li>
-						<li class="list_content hide" id="attendListContent5"></li>
+						<li class="list_content hidee" id="attendListContent5"></li>
 					</ul>
 				</div>
 			</div>
@@ -451,7 +451,7 @@ function selectDate(year,month){
             
             data[weekNumber +'week'].forEach(function(item, idx){         
             	 var offCheckLabel = (item.off_check === 'N') ? '근무' : '휴가';
-            	 var attOutTimeLabel = (item.att_intime === null) ? '' : item.att_intime;
+            	 var attOutTimeLabel = (item.att_intime === null) ? '' : item.att_outtime;
             	 var workHoursLabel = (item.work_hours === null) ? '' : item.work_hours;
             	 
             	content+='<ul onclick="attendDetail('+item.attend_no+')">';
@@ -520,8 +520,9 @@ function attTime(type){
 }
 // 리스트 토글
 $('.togle').on('click',function(){
-	$(this).find('.hide').slideToggle(300);
-	$('.togle').not(this).find('.hide').slideUp(300);
+	console.log('토글클릭');
+	$(this).find('.hidee').slideToggle(300);
+	$('.togle').not(this).find('.hidee').slideUp(300);
 });
 
 </script>

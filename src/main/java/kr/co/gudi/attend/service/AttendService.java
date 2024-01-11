@@ -1,7 +1,11 @@
 package kr.co.gudi.attend.service;
 
+import java.sql.Date;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
@@ -59,12 +63,30 @@ public class AttendService {
 		}else {
 			work="00:00:00";
 		}
+		// ":"를 기준으로 문자열을 분리
+        String[] parts = work.split(":");
+        // 첫 번째 요소를 추출하여 정수로 변환
+        int hours = Integer.parseInt(parts[0]);
+        int hoursCnt=0;
+        while(hours>=24) {
+        	hours = hours-24;
+        	hoursCnt++;
+        	if(hours<10) {
+        		work = "0"+hours + ":" + parts[1] + ":" + parts[2];
+            	logger.info("시간 크기 : "+ hours);
+        	}else {
+        	work = hours + ":" + parts[1] + ":" + parts[2];
+        	logger.info("시간 크기 : "+ hours);
+        	}
+        }
+        logger.info("24시간수:"+hoursCnt+"남은시간:"+work);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	
 		LocalTime localTime =LocalTime.parse(work, formatter);
-		int work_seconds = localTime.toSecondOfDay();
+		int work_seconds = localTime.toSecondOfDay()+hoursCnt*86400;
 		logger.info("초 변환 : "+work_seconds);
         // 시간, 분, 초 추출
-        int work_hour = localTime.getHour();
+        int work_hour = localTime.getHour()+hoursCnt*24;
         int work_minute = localTime.getMinute();
         int work_second = localTime.getSecond();
 		time.put("total_week_hour", work_hour);
@@ -115,7 +137,7 @@ public class AttendService {
 			time.put("week_left_minute", 0);
 			time.put("week_left_second", 0);
 		}
-		
+
 		 // 이번달
 		// 1. 현재 날짜 구하기
         LocalDate currentDate = LocalDate.now();
@@ -135,27 +157,63 @@ public class AttendService {
     		}else {
     			totalM="00:00:00";
     		}
+        
+     // ":"를 기준으로 문자열을 분리
+        String[] total_parts = totalM.split(":");
+        // 첫 번째 요소를 추출하여 정수로 변환
+        int total_hours = Integer.parseInt(total_parts[0]);
+        int totalCnt=0;
+        while(total_hours>=24) {
+        	total_hours = total_hours-24;
+        	totalCnt++;
+        	if(total_hours<10) {
+        		totalM = "0"+total_hours + ":" + parts[1] + ":" + parts[2];
+            	logger.info("시간 크기 : "+ total_hours);
+        	}else {
+        		totalM = total_hours + ":" + parts[1] + ":" + parts[2];
+        	logger.info("시간 크기 : "+ total_hours);
+        	}
+        }
         LocalTime localTotalM =LocalTime.parse(totalM, formatter);
-        int totalM_hour = localTotalM.getHour();
+        int totalM_hour = localTotalM.getHour()+totalCnt*24;
         int totalM_minute = localTotalM.getMinute();
         int totalM_second = localTotalM.getSecond();
         time.put("total_month_hour", totalM_hour);
         time.put("total_month_minute", totalM_minute);
         time.put("total_month_second", totalM_second);
         
-        String overTime = dao.overTime(firstDayOfMonth,lastDayOfMonth,member_no);
-        logger.info("OT 야간근무 : "+overTime);
+       int overHour = 0;
+       int overMinute = 0;
+       int overSecond = 0;
+       int overCnt =0;
+        ArrayList<String> overTime = dao.overTime(firstDayOfMonth,lastDayOfMonth,member_no);
+        for (String time2 : overTime) {
+        	LocalTime localOver =LocalTime.parse(time2, formatter);
+        	overHour+=localOver.getHour();
+        	overMinute+=localOver.getMinute();
+        	overSecond+=localOver.getSecond();
+        	overCnt++;
+			logger.info("초과한 퇴근 시간 : "+time2);
+		}
+        logger.info(overHour+"시간"+overMinute+"분"+overSecond+"초");
+        
         if(overTime!=null) {
-        	LocalTime localOt =LocalTime.parse(overTime, formatter);
-        	time.put("overTime_hour", localOt.getHour());
-        	time.put("overTime_minute",localOt.getMinute());
-        	time.put("overTime_second",localOt.getSecond());
+        	while(overSecond>=60) {
+        		overSecond=overSecond-60;
+        		overMinute++;
+        	}
+        	while(overMinute>=60) {
+        		overMinute=overMinute-60;
+        		overHour++;
+        	}    	
+        	time.put("overTime_hour",overHour-(overCnt*18));
+        	time.put("overTime_minute",overMinute);
+        	time.put("overTime_second",overSecond);
         }else {
         	time.put("overTime_hour", 0);
         	time.put("overTime_minute", 0);
         	time.put("overTime_second", 0);
         }
-        
 		return time;
 	}
 
@@ -225,20 +283,99 @@ private static class WeekRange {
 
 public HashMap<String, Object> calLeave(int member_no) {
 	logger.info("직원번호 : "+member_no);
-	HashMap<String, String> info = new HashMap<String, String>();
+	HashMap<String, Object> info = new HashMap<String, Object>();
 	HashMap<String, Object> map = new HashMap<String, Object>();
 	info = dao.calLeave(member_no);
-	String position=info.get("member_position");
-	String hired=info.get("hired");
-	logger.info("직급 : "+ position);	
-	// 현재 날짜를 구함
+	String position=(String) info.get("member_position");
+	Date hired=(Date) info.get("hired");
+	int total_leave=0;
+	Object totalLeaveObj = info.get("total_leave");
+	if (totalLeaveObj != null) {
+	    if (totalLeaveObj instanceof Integer) {
+	        // 이미 정수인 경우 캐스팅
+	        total_leave = (int) totalLeaveObj;
+	    } 
+	}
+	int month_leave =0;
+	Object monthLeaveObj = info.get("month_leave");
+	if (monthLeaveObj != null) {
+	    if (monthLeaveObj instanceof Integer) {
+	        // 이미 정수인 경우 캐스팅
+	    	month_leave = (int) monthLeaveObj;
+	    } 
+	}
+	logger.info("직급 : "+ position);
+	logger.info("입사일 : "+ hired);
+	
+	 // 현재 날짜를 구함
     LocalDate currentDate = LocalDate.now();
-    // 주어진 날짜를 생성
-    LocalDate hiredDate = LocalDate.parse(hired);
+	// Date 타입을 LocalDate로 변환
+    LocalDate convertedHiredDate = hired.toLocalDate();
     // 현재 날짜와 주어진 날짜와의 차이를 계산
-    long daysDifference = ChronoUnit.DAYS.between(hiredDate, currentDate);
+    long daysDifference = ChronoUnit.DAYS.between(convertedHiredDate, currentDate);
+    logger.info("근속일 : "+daysDifference);
+    if(daysDifference<=365&&position.equals("사원")) {
+    	logger.info("근속 1년미만 직원은 월차 계산");
+    	map.put("leaveY", 0);
+		map.put("leaveM", month_leave);
+		map.put("leaveA", month_leave);
+		map.put("leaveC", total_leave);
+		map.put("leaveU", 10-total_leave);
+    }else {
+    	logger.info("근속 1년이상이거나 대리이상은 연차 계산");
+    	if(position.equals("사원")) {
+    		map.put("leaveY", 10);
+    		map.put("leaveM", 0);
+    		map.put("leaveA", 10);
+    		map.put("leaveC", total_leave);
+    		map.put("leaveU", 10-total_leave);
+    	}else if(position.equals("대리")) {
+    		map.put("leaveY", 13);
+    		map.put("leaveM", 0);
+    		map.put("leaveA", 13);
+    		map.put("leaveC", total_leave);
+    		map.put("leaveU", 13-total_leave);
+    	}else if(position.equals("과장")) {
+    		map.put("leaveY", 15);
+    		map.put("leaveM", 0);
+    		map.put("leaveA", 15);
+    		map.put("leaveC", total_leave);
+    		map.put("leaveU", 15-total_leave);
+    	}else if(position.equals("팀장")) {
+    		map.put("leaveY", 18);
+    		map.put("leaveM", 0);
+    		map.put("leaveA", 18);
+    		map.put("leaveC", total_leave);
+    		map.put("leaveU", 18-total_leave);
+    	}else if(position.equals("부장")) {
+    		map.put("leaveY", 20);
+    		map.put("leaveM", 0);
+    		map.put("leaveA", 20);
+    		map.put("leaveC", total_leave);
+    		map.put("leaveU", 20-total_leave);
+    	}else if(position.equals("이사")) {
+    		map.put("leaveY", 23);
+    		map.put("leaveM", 0);
+    		map.put("leaveA", 23);
+    		map.put("leaveC", total_leave);
+    		map.put("leaveU", 23-total_leave);
+    	}else if(position.equals("대표")) {
+    		map.put("leaveY", 25);
+    		map.put("leaveM", 0);
+    		map.put("leaveA", 25);
+    		map.put("leaveC", total_leave);
+    		map.put("leaveU", 25-total_leave);
+    	}
+    }
+    
+	return map;
+}
 
-    System.out.println("현재 날짜와 " + hired + " 사이의 차이: " + daysDifference + "일");
+public HashMap<String, Object> useList(int member_no, String selectFilter) {
+	HashMap<String, Object> map = new HashMap<String, Object>();
+	List<AttendDTO> dto=dao.useList(member_no,selectFilter);
+	map.put("list", dto);
+	
 	return map;
 }
 

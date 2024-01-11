@@ -19,6 +19,15 @@ public class AttendDTO {
 	private String off_type;
 	private Timestamp off_start;
 	private Timestamp off_end;
+	private double use_date;
+	public void setUse_date(double use_date) {
+		this.use_date = use_date;
+	}
+
+	public double getUse_date() {
+		return use_date;
+	}
+
 	public int getAttend_no() {
 		return attend_no;
 	}

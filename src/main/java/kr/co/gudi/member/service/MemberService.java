@@ -86,13 +86,14 @@ public class MemberService implements UserDetailsService{
 	}
 	
 	public void join(HashMap<String, String> params, MultipartFile uploadFile) {
-		
+		logger.info("팀명 : "+params.get("depart_name"));
+		String depart_no=dao.getDepartNo(params);
+		logger.info("depart_no : "+depart_no);
+		params.put("depart_no", depart_no);
 		String pain_pw =params.get("pw");
 		String enc_pw = encoder.encode(pain_pw);
 		logger.info("암호화 : "+enc_pw);
 		params.put("pw", enc_pw);
-		String depart_no=dao.getDepart(params);
-		params.put("depart_no", depart_no);
 		dao.join(params);
 		
 		String oriFileName = uploadFile.getOriginalFilename(); // 파일명 추출
@@ -138,19 +139,20 @@ public class MemberService implements UserDetailsService{
 		ModelAndView mav = new ModelAndView();
 		ArrayList<MemberDTO> detail=dao.detail(member_no);
 		mav.addObject("dto", detail);
-		int depart_no=dao.getDepartNo(member_no);
-		String team_name=dao.teamName(depart_no);		
-		String depart_name = dao.depart_name(depart_no);
-		String file_name=dao.file(member_no,"p");
+		int dpt_no = dao.getDepart(member_no);
+		String team_name=dao.teamName(dpt_no);
+		String depart_name=dao.depart_name(dpt_no);
 		mav.addObject("team_name", team_name);
 		mav.addObject("depart_name", depart_name);
+		String file_name=dao.file(member_no,"p");
+	
 		// C:/upload 에 있는 파일 정보 가져오기
 		String filePath = root+file_name;
 		Resource resource;
 		try {
 			resource = new UrlResource("file:" + filePath);
 			logger.info("URL 파일경로 : "+resource);
-			mav.addObject("file", resource);
+			mav.addObject("file", file_name);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -161,11 +163,12 @@ public class MemberService implements UserDetailsService{
 	}
 
 
-	public void updateDo(String member_no, HashMap<String, Object> params, MultipartFile uploadFile) {
+	public void updateDo(String member_no, HashMap<String, String> params, MultipartFile uploadFile) {
 		params.put("member_no", member_no);
-		dao.updateDo(params);
-		dao.updateDepart(params);
-		dao.updateTeam(params);		
+		String depart_no=dao.getDepartNo(params);
+		logger.info("depart_no : "+depart_no);
+		params.put("depart_no", depart_no);
+		dao.updateDo(params);		
 		logger.info("사진 : "+uploadFile);
 		String oriFileName = uploadFile.getOriginalFilename(); // 파일명 추출
 		String ext = oriFileName.substring(oriFileName.lastIndexOf(".")); // 확장자 추출 
@@ -190,13 +193,16 @@ public class MemberService implements UserDetailsService{
 
 	public HashMap<String, Object> departList(String departState) {
 		String depart_state="";
+		ArrayList<MemberDTO> dto = new ArrayList<MemberDTO>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		if(departState.equals("existence")) {
 			depart_state="0";
 		}else {
 			depart_state="1";
 		}
-		
-		return dao.departList(depart_state);
+		dto=dao.departList(depart_state);
+		map.put("list", dto);
+		return map;
 	}
 
 
