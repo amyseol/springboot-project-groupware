@@ -1,11 +1,5 @@
 package kr.co.gudi.archive.controller;
 
-<<<<<<< HEAD
-
-public class ArchiveController {
-	
-	
-=======
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -61,6 +55,4 @@ public class ArchiveController {
 		logger.info("name ==="+member_name);
 		return service.archiveDel(delList,names,member_name,model);
 	}
->>>>>>> origin/master
-	
 }

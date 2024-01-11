@@ -1,8 +1,5 @@
 package kr.co.gudi.archive.dao;
 
-<<<<<<< HEAD
-
-=======
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -11,7 +8,6 @@ import kr.co.gudi.archive.dto.ArchiveDTO;
 import kr.co.gudi.resource.dto.AlbumDTO;
 
 @Mapper
->>>>>>> origin/master
 public interface ArchiveDAO {
 
 	int totalPage();

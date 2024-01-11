@@ -1,10 +1,5 @@
 package kr.co.gudi.archive.dto;
 
-<<<<<<< HEAD
-
-public class ArchiveDTO {
-
-=======
 import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -100,9 +95,5 @@ public class ArchiveDTO {
 	public void setArch_date(Date arch_date) {
 		this.arch_date = arch_date;
 	}
-	
-
-	
->>>>>>> origin/master
 	
 }

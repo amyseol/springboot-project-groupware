@@ -31,9 +31,6 @@
 			VALUES (#{member_no}, #{arch_depart})
 	</insert>
 
-<<<<<<< HEAD
-
-=======
 	<insert id="departFileUpload">
 		INSERT INTO file(file_location, file_unique_no, file_oriname, file_newname, file_size, file_state) 
 			VALUES("s", #{param3}, #{param1},#{param2},#{param4},"0")
@@ -43,5 +40,4 @@
 		UPDATE archive SET arch_state=1 WHERE arch_no=#{param1}
 	</update>
 	
->>>>>>> origin/master
 </mapper>

@@ -1,10 +1,5 @@
 package kr.co.gudi.archive.service;
 
-<<<<<<< HEAD
-
-public class ArchiveService {
-
-=======
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -119,8 +114,6 @@ public class ArchiveService {
 		
 		map.put("del_cnt", cnt);
 		return map;
-	}
->>>>>>> origin/master
-	
+	}	
 	
 }
