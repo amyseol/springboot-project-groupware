@@ -38,7 +38,7 @@ public class ArtistService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
-		if(p>max) {
+		if(p>max+1) {
 			
 			p = max;
 		}
@@ -84,7 +84,7 @@ public class ArtistService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
-		if(p>max) {
+		if(p>max+1) {
 			
 			p = max;
 		}
@@ -121,7 +121,7 @@ public class ArtistService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
-		if(p>max) {
+		if(p>max+1) {
 			
 			p = max;
 		}

@@ -238,16 +238,14 @@
                         <li>아티스트이름</li>
                         <li>소속사</li>
                         <li>수정</li>
-                        <li>삭제</li>
                     </ul>
                 </li>
 				
-				<li class="list_title" id="list_1">
+				<li class="list_content" id="list_1">
 				
 				</li>
 
              </ul>
-             <input id="faketest" value="테스트" type="text" />
 
         </div>
 		<div id="paging" class="pagingBox">
@@ -399,7 +397,7 @@ function call(showPage){
         success:function(data){
         	//alert("성공");
         	
-        	paging(data.list);
+        	paging(data);
         	
             console.log(data);
             var content ='';
@@ -410,8 +408,7 @@ function call(showPage){
                 content += '<li id="'+item.art_no+'">'+item.art_no+'</li>';
                 content += '<li id="'+item.art_name+'">'+"<a href = 'artistdetail?num="+item.art_no+"&name="+item.art_name+"&agency="+item.art_agency+"'>"+item.art_name+"</a>"+'</li>';
                 content += '<li id="'+item.art_agency+'">'+item.art_agency+'</li>';
-                content += '<li >'+"<button onclick='test("+item.art_no+","+item.art_name+","+item.art_agency+")'>수정</button>"+'</li>';
-                content += '<li >'+'<button onclick="location.href='+"'artistdelete?art_no="+item.art_no+"'"+'">취소</button>'+'</li>';
+                content += '<li >'+"<a onclick='test("+item.art_no+","+item.art_name+","+item.art_agency+")'>수정</a>"+'</li>';
                 content += '</ul>';
             });
             $('#list_1').empty();
@@ -450,22 +447,9 @@ function call(showPage){
 			
 		});
    }
-   //-------------------------------저작권 검색------------------------------------------
+   //-------------------------------수정------------------------------------------
 
-   function test(art_no,art_name,art_agency){
-	   
-	   console.log(art_no);
-	   console.log($(art_name).attr("id"));
-	   
-	   var name = $(art_name).attr("id");
-	   console.log(name);
-	   var agency = $(art_agency).attr("id");
-	   console.log(agency);
-	   var no = art_no;
-	   console.log(no);
-	   console.log($("#"+agency).attr("id"));
-	   document.createElement(agency).innerHTML('id','test');
-	   console.log($("#test").attr("id"));
-   }
+   
+
 
 </script>

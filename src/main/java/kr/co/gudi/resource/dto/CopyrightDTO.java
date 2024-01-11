@@ -24,8 +24,17 @@ public class CopyrightDTO {
 	String per_member;
 	String cr_member;
 	String cr_namae;
+	String per_state;
+	
+	
 	
 
+	public String getPer_state() {
+		return per_state;
+	}
+	public void setPer_state(String per_state) {
+		this.per_state = per_state;
+	}
 	public String getPer_member() {
 		return per_member;
 	}
