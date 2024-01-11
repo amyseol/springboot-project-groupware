@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -228,14 +229,16 @@ public class MemberController {
     public ModelAndView update(@RequestParam String member_no) {
         logger.info("직원번호"+member_no);
         ModelAndView mav = service.detail(member_no);
+        List<MemberDTO> departmentList = service.getDepartList();
+        mav.addObject("depart", departmentList);
         mav.setViewName("member/memberUpdate");        
         return mav;
     }
     @PostMapping(value="/updateDo")
-    public ModelAndView updateDo(@RequestParam HashMap<String, Object> params
+    public ModelAndView updateDo(@RequestParam HashMap<String, String> params
             ,@RequestParam("uploadFile") MultipartFile uploadFile){
     String member_no=(String) params.get("member_no");    
-    ModelAndView mav = new ModelAndView("redirect:/detail?member_no="+member_no);
+    ModelAndView mav = new ModelAndView("member/memberList");
     logger.info("수정 내용 {} : "+params);
     service.updateDo(member_no,params,uploadFile);
     return mav;

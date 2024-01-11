@@ -4,4 +4,53 @@
    
 <mapper namespace="kr.co.gudi.schedule.dao.ScheduleDAO">
 
+
+	<insert id="write" parameterType="Map">
+      INSERT INTO schedule(content,sch_depart,title,start,end,member_no) 
+      	VALUES(#{content},#{sch_depart},#{title},#{start},#{end},#{member_no})
+   </insert>
+   
+   <insert id="nWrite" parameterType="map">
+   	INSERT into notification(noti_sender,noti_locate, noti_unique_no, noti_depart_no) 
+		values(#{memb_no},'s',#{sch_no},#{sch_depart})
+   </insert>
+   
+   <select id="list"  resultType="sch">
+   		select * from schedule  		
+   			where sch_state=#{sch_state} and member_no=#{member_no}   		
+   </select>
+   
+   <select id="allList" resultType="sch">
+   		select * from schedule  		
+   			where sch_state=#{sch_state}
+   </select>
+   
+   <select id="dptList" resultType="sch">
+   		select * from schedule  		
+   			where sch_state=#{sch_state} and sch_depart=#{sch_depart}
+   </select>
+   
+   
+   <select id="listMy" resultType="sch">
+   		select * from schedule
+   			where member_no=#{param}
+   
+   </select>
+   
+   <select id="listDepart" resultType="sch">
+   		select * from schedule
+   			where sch_depart=#{param}
+   </select>
+   
+   <select id="schDetail" resultType="sch">
+   		select * from schedule
+   			where sch_no = #{param1}
+   </select>
+   
+   <update id="delSch">
+   		update schedule
+   			set sch_state = '1'
+   			where sch_no = #{param1}
+   </update>
+
 </mapper>

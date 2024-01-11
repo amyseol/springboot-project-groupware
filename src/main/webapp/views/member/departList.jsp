@@ -89,11 +89,11 @@ function drawDepartmentList(departmentList){
 		content+='<li>'+item.depart_name+'</li>';
 		content+='<li>'+item.depart_master+'</li>';
 		content+='<li>'+item.total+'</li>';
-		content+='<li>'+item.department_date+'</li>';
+		content+='<li>'+item.depart_date+'</li>';
 		content+='</ul>';
 	});
-	$('#memberList').empty();
-	$('#memberList').append(content);
+	$('#departmentList').empty();
+	$('#departmentList').append(content);
 	}
 	
 function approver_select(){

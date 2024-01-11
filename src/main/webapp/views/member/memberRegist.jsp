@@ -118,7 +118,7 @@
          <tr>
           <th>부서</th>
              <th>
-                 <select id="selectedDptno" name="depart_name">
+                 <select id="selectedDptno">
             		<c:forEach items="${depart}" var="department">
             		<c:if test="${department.depart_p_no eq 0}">
                 	<option value="${department.depart_no}">${department.depart_name}</option>
@@ -130,7 +130,7 @@
          <tr>
           <th>팀</th>
              <th>
-                 <select id="teamSelect" name="team_name">    
+                 <select id="teamSelect" name="depart_name">    
                  <c:forEach items="${depart}" var="department">
             		<c:if test="${department.depart_p_no eq 1}">
                 	<option>${department.depart_name}</option>
@@ -180,7 +180,7 @@ function showMap(event){
         oncomplete: function(data) { //선택시 입력값 세팅
             document.getElementById("addr_kakao").value = data.address; // 주소 넣기              
             console.log('도로명주소 : ' + data.roadAddress);
-            document.querySelector("input[name=addr_detail]").focus(); //상세입력 포커싱                
+            document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱                
         }
     }).open();
 }

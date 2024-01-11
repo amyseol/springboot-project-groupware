@@ -21,7 +21,7 @@
 </select>
 
 <select id="getHours">
-    SELECT TIMEDIFF(att_intime, att_outtime) FROM attend
+    SELECT TIMEDIFF( att_outtime,att_intime) FROM attend
     WHERE member_no =#{member_no} and att_date=#{attDate}
 </select>
 
@@ -41,10 +41,10 @@
 		WHERE att_date BETWEEN #{param1} AND #{param2} and member_no=#{param3}
 </select>
 
-<select id="overTime">
-	SELECT SEC_TO_TIME(SUM(TIMEDIFF(att_outtime, '18:00:00'))) FROM attend
-		where  att_date BETWEEN #{param1} AND #{param2} 
-			AND att_outtime > '18:00:00' and member_no = #{param3}
+<select id="overTime">		
+	SELECT att_outtime FROM attend
+	WHERE att_date BETWEEN #{param1}  AND #{param2}
+		AND att_outtime >'18:00:00' AND member_no = #{param3}			
 </select>
 
 	<select id="selectDate" resultType="attend">
@@ -57,4 +57,9 @@
 		where member_no=#{param1}
 </select>
 
+<select id="useList" resultType="attend">
+	SELECT * FROM attend      
+     where member_no=#{param1} and off_check ='Y'
+     and DATE_FORMAT(att_date , '%Y') =#{param2}
+</select>
 </mapper>

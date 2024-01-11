@@ -31,12 +31,24 @@ public class MemberDTO {
 	private String depart_state;
 	private int depart_no;
 	private String depart_master;
-	private Date department_date;
-	private Date department_del_date;
+	private Date depart_date;
+	private Date depart_del_date;
 	private int depart_p_no;
 	
 	
 	
+	public Date getDepart_date() {
+		return depart_date;
+	}
+	public void setDepart_date(Date depart_date) {
+		this.depart_date = depart_date;
+	}
+	public Date getDepart_del_date() {
+		return depart_del_date;
+	}
+	public void setDepart_del_date(Date depart_del_date) {
+		this.depart_del_date = depart_del_date;
+	}
 	public String getAddress_detail() {
 		return address_detail;
 	}
@@ -73,18 +85,7 @@ public class MemberDTO {
 	public void setDepart_master(String depart_master) {
 		this.depart_master = depart_master;
 	}
-	public Date getDepartment_date() {
-		return department_date;
-	}
-	public void setDepartment_date(Date department_date) {
-		this.department_date = department_date;
-	}
-	public Date getDepartment_del_date() {
-		return department_del_date;
-	}
-	public void setDepartment_del_date(Date department_del_date) {
-		this.department_del_date = department_del_date;
-	}
+	
 	public String getDepart_name() {
 		return depart_name;
 	}

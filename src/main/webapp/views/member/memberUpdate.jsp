@@ -41,7 +41,7 @@
 			<li>ID</li>
 			<li>${detail.member_id}</li>
 			<li>PW</li>
-			<li><input type="text" name="pw" value="${detail.pw}"/></li>
+			<li><input type="text" name="pw" value=""/></li>
 			<li>이름</li>
 			<li><input type="text" name="name" value="${detail.name}"/></li>
 			<li>성별</li>
@@ -72,25 +72,22 @@
             </li>
 			<li>부서</li>
 			<li>
-			<select name="depart_name">
-                 	<option>경영지원본부</option>
-                 	<option>마케팅본부</option>
-                 	<option>운영본부</option>
-                 	<option>임원진</option>
-             </select>
+			<select id="selectedDptno">
+            		<c:forEach items="${depart}" var="department">
+            		<c:if test="${department.depart_p_no eq 0}">
+                	<option value="${department.depart_no}">${department.depart_name}</option>
+            		</c:if>
+            		</c:forEach>
+        		</select>
 			</li>
 			<li>팀</li>
 			<li>
-			<select name="team_name">
-                 	<option>인사</option>
-                 	<option>지원</option>
-                 	<option>총무</option>
-                 	<option>광고</option>
-                 	<option>기획</option>
-                 	<option>영상/디자인</option>
-                 	<option>물류</option>
-                 	<option>저작권관리</option>
-                 	<option>계약운영관리</option>
+			 <select id="teamSelect" name="depart_name">    
+                 <c:forEach items="${depart}" var="department">
+            		<c:if test="${department.depart_p_no eq 1}">
+                	<option>${department.depart_name}</option>
+                	</c:if>  
+                	</c:forEach>
                  </select>
 			</li>
 			<li>연/월차수</li>
@@ -111,6 +108,29 @@
  
 </body>
 <script>
+var depart_no=1;
+
+$('#selectedDptno').change(function(){
+	console.log($(this).val());
+	depart_no = $(this).val();
+	
+	 $.ajax({
+	        type: "POST",
+	        url: "teamList",
+	        data: { 'depart_no': depart_no },
+	        success: function(data) {
+	        	console.log(data);
+
+	            var content =''; 
+	            data.team.forEach(function(item, idx){
+	            	content+='<option>'+item.depart_name+'</option>';	
+	            });
+	            $('#teamSelect').empty();
+	        	$('#teamSelect').append(content);
+
+	        }
+	    });
+});
 //사진 업로드&미리보기
  function previewImage(input, previewId) {
         var preview = document.getElementById(previewId);     

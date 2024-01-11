@@ -67,10 +67,14 @@
 		SELECT member_no FROM member
 			ORDER BY member_no DESC LIMIT 1
 	</select>
-	
+
 	<select id="getDepart">
+		select depart_no from member
+			where member_no = #{param1}
+	</select>
+	<select id="getDepartNo">
 		select depart_no from department
-			where depart_name = #{team_name}
+			where depart_name = #{depart_name}
 	</select>
 	
 	<insert id="join" parameterType="map">
@@ -124,10 +128,6 @@
 			WHERE member_no=#{member_no}
 	</select>
 	
-	<select id="getDepartNo" resultType="int">
-		select depart_no from member
-			where member_no = #{param1}
-	</select>
 	
 	<select id="teamName">
 		SELECT depart_name FROM department
@@ -150,15 +150,8 @@
 		 set pw=#{pw},name=#{name},gender=#{gender},birth=#{birth},phone=#{phone},
 		 				email=#{email},address=#{address},address_detail=#{address_detail},
 		 				hired=#{hired},member_position=#{member_position},total_leave=#{total_leave}
+		 				,depart_no=#{depart_no}
  			where member_no=#{member_no}
-	</update>
-	
-	<update id="updateDepart" parameterType="map">
-    	update department set depart_name=#{depart_name}
-	</update>
-	
-	<update id="updateTeam" parameterType="map">
-    	update team set team_name=#{team_name}
 	</update>
 	
 	<update id="updateProfile">
