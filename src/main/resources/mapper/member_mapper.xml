@@ -98,7 +98,7 @@
 		</if>	
 		<if test="member_position.equals('부장')">
 		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
-		,#{email},#{member_position},#{hired},0,#{birth},20)		
+		,#{email},#{member_position},#{hired},0,#{birth},20,#{depart_no})		
 		</if>
 		<if test="member_position.equals('이사')">
 		values(#{member_id},#{pw},#{name},#{gender},#{phone},#{address},#{address_detail}
