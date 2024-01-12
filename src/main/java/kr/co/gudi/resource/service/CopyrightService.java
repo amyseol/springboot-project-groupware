@@ -302,5 +302,12 @@ public class CopyrightService {
 		
 	}
 
+
+	//등록폼의 리스트뿌리기
+	public Map<String, Object> depttlist() {
+		
+		return dao.depttlist();
+	}
+
 	//--------------------------------------------------------------------------
 }

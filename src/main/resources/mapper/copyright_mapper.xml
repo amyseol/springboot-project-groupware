@@ -175,7 +175,11 @@
 	
 	</insert>
 	
+	<select id="depttlist" resultType="cr">
 	
+	SELECT m.member_no, d.depart_no, m.name, m.member_position from member m inner join department d where m.member_no = d.member_no
+	
+	</select>
 	
 
 

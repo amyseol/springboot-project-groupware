@@ -166,7 +166,7 @@
 </style>
 </head>
 <body>
-<%@ include file="/views/nav.jsp" %>
+
 	<!-- -------------------------------------------nav start------------------------------------------ -->
     <div id="nav">
         <div class="nav_inner">
@@ -421,7 +421,7 @@
                                 </svg></li>
                                 <li class="head bor_top">협조팀명</li>
                                 <li class="bor_top">
-                                    <select id="team_name" name="team_name">
+                                    <select name="team_name">
                                         <option value="0">-</option>
                                         <option value="1">광고팀</option>
                                         <option value="2">기획팀</option>
@@ -549,8 +549,28 @@
                                                 <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
                                                 <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 광고팀
                                             </span>
-                                            <ul id="" >
-                                                
+                                            <ul>
+                                                <li>
+                                                    <p>
+                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
+                                                        </svg> 손흥민 과장
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
+                                                        </svg> 한지훈 과장
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
+                                                        </svg> 황희찬 과장
+                                                    </p>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li>
@@ -1353,53 +1373,5 @@ $('#file_btn').on('click',function(event){
 	event.stopPropagation();
 	document.getElementById("input_file").click();  
 });
-
-//---------------------------------------------------my another script--------------------------------------
-
-
-
-
-/* $.ajax({
-       type : 'POST',
-       url : '/depttlist',
-       data:{
-    	   
-       },
-       dataType:'json',
-       success:function(data){
-       	alert("성공");
-       	
-       	
-           console.log(data);
-           
-           var content ='';
-
-           data.list.forEach(function(item,idx){
-        	   
-        	   
-        	   content="<li>";
-        	   content=+"<p>";
-        	   content=+'<svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">';
-        	   content=+'<path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>';
-        	   content=+'</svg>'+item.name+" "+item.member_position;
-        	   content=+"</p>";
-        	   content="</li>";
-        	   
-        	   
-           if(item.depart_no=6){
-	           $('#plann').append(content);
-           }else{
-        	   
-           }
-           
-           });
-
-       },error:function(e){
-           console.log(e);
-           alert("실패");
-       }
-   }); */
-   
-   
 </script>
 </html>

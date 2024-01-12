@@ -26,9 +26,30 @@ public class CopyrightDTO {
 	String cr_namae;
 	String per_state;
 	
-	
-	
+	int depart_no;
+	String name;
+	String member_position;
 
+	
+	
+	public int getDepart_no() {
+		return depart_no;
+	}
+	public void setDepart_no(int depart_no) {
+		this.depart_no = depart_no;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getMember_position() {
+		return member_position;
+	}
+	public void setMember_position(String member_position) {
+		this.member_position = member_position;
+	}
 	public String getPer_state() {
 		return per_state;
 	}

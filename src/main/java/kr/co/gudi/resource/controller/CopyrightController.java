@@ -83,7 +83,7 @@ public class CopyrightController {
 	
 	@GetMapping(value = "/copyrightregisterform")
 	public ModelAndView crg() {
-		ModelAndView mav = new ModelAndView("copyright/crg_2");
+		ModelAndView mav = new ModelAndView("copyright/crg_copy");
 		return mav;
 	}
 	
@@ -113,6 +113,16 @@ public class CopyrightController {
 		ModelAndView mav = new ModelAndView("redirect:/copyrightlist");
 		return mav;
 	}
+	
+	
+	//-----crgformlist---
+	
+	@PostMapping(value = "/depttlist")
+	public Map<String, Object> depttlist(){
+		
+		return service.depttlist();
+	}
+	
 	
 	//---------------------------detail---------------------------
 	
