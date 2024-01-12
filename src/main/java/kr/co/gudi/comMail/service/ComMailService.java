@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.gudi.comMail.dao.ComMailDAO;
 import kr.co.gudi.comMail.dto.ComMailDTO;
-import kr.co.gudi.member.vo.MemberVO;
 
 @Service
 public class ComMailService {
