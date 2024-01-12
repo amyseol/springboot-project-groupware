@@ -4,11 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>HoonyMusic</title>
-<link rel="stylesheet" href="resources/richtexteditor/rte_theme_default.css" />
-
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script type="text/javascript" src="resources/richtexteditor/rte.js"></script>
-<script type="text/javascript" src='resources/richtexteditor/plugins/all_plugins.js'></script>
 
 
 </head>
@@ -39,7 +35,7 @@
         li{list-style: none;}
         a{text-decoration: none;}
         img{border:none; display: block;}
-        body, header, section, footer, div, ul, li, p, a, span, input, textarea, table{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 14px;}
+        body, header, section, footer, div, ul, li, p, a, span, input, textarea{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 14px;}
         h1, h2, h3, h4, h5, h6{font-family: 'GmarketSansMedium'; color:#222;}
 
         #nav{position:fixed; width:15%; height:100%; box-shadow: 0 0 3px 0.5px rgb(228, 228, 228); background-color: #fff; overflow: auto;}
@@ -63,53 +59,41 @@
         #util .util_inner li svg{position:relative; top:15px; left:15px;}
         #util .util_inner li img{width:100%;}
 
-        #write_form {
-        	position: relative;
-            margin: 50px auto; /* 가운데 정렬을 위한 마진 설정 */
-            width: 80%;
-            left: 150px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-        }
-
-        #rich_deditor {
-            margin-top: 10px;
-            border: 1px solid #ddd;
-        }
+        #common_list_form{padding-left:15%;}
+        #common_list_form .titleWrap{display: flex; position: relative;}
+        #common_list_form .big_title{padding: 50px 50px;}
+        #common_list_form .count{position: absolute; top: 60px; left: 180px;}
+        #common_list_form .toolBarWrap{position: relative;}
+        .list_title>ul>li{float: left;  text-align: center;}
+        .list_title>ul>li:first-child{width: 5%;}
+        .list_title>ul>li:nth-child(2){width: 10%;}
+        .list_title>ul>li:nth-child(3){width: 10%;}
+        .list_title>ul>li:nth-child(4){width: 10%;}
+        .list_title>ul>li:last-child{width: 65%;}
+        #common_list_form .list_form{position:relative;}
+        #common_list_form .list_form .list_content ul{width: 100%; height: 30px;}
+        #common_list_form .list_form .list_content ul li{float:left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box; text-align: center;}
+        #common_list_form .list_form .list_content ul li:first-child{width: 5%; padding-left: 50px; }
+        #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
+        #common_list_form .list_form .list_content ul li:nth-child(3){width: 5%;}
+        #common_list_form .list_form .list_content ul li:nth-child(4){width: 50%;}
+        #common_list_form .list_form .list_content ul li:nth-child(5){width: 20%;}
+        #common_list_form .list_form .list_content ul li:last-child{width: 10%;}
+        #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
+        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
         
-        #send{
-        	float: right;
-        	padding: 5px;
-        }
-        
-        .titleWrap{
-        	position: relative;
-        	top: 40px;
-        }
-        
-        .contentWrap{
-        	margin-top: 80px;
-        }
-        
-        .del_all{
-        	border: 1px solid black;
-    		padding: 3px;
-        }
-        
+        #common_list_form .search_box{position: absolute; margin: 0px 0 10px 50px; border: 1px solid #fff; display: inline-block; left: 250px; top: -10px;}
+        #common_list_form .search_box li{float: left;}
+        #common_list_form .search_box #search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
+        #common_list_form .search_box #search_info::placeholder{color: #ccc;}
+        #common_list_form .search_box .btn_box{width: 28px; height: 28px; cursor: pointer; border: 1px solid #ccc; box-sizing: border-box; border-left: none;}
+        #common_list_form .search_box .btn_box .search_btn{position:relative; width: 14px; height: 14px; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+        #common_list_form .search_box .btn_box .search_btn img{width: 100%;}
+        #common_list_form .search_box:hover select{border: 1px solid #333; border-right: none;}
+        #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
+        #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
 
+        #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -201,88 +185,122 @@
     </div>
     <!-- -------------------------------------------util end------------------------------------------ -->
     <!-- -------------------------------------------mailWrap start------------------------------------------------- -->
-    <form action="write.do" method="POST" id="write_form" enctype="multipart/form-data">
+    <section id="common_list_form">
         <div class="titleWrap">
-	        <h2 class="big_title"> 메일 쓰기 </h2>
+            <h2 class="big_title"> 받은 메일함 </h2>
+            <span class="count">
+                    전체 메일 
+                <span class="num">
+                    <strong id="totalMail"><!-- 전체 메일 숫자 --></strong>
+                </span>
+                    / 안읽은 메일
+                <span class="num">
+                    <strong id="unreadMail"><!-- 안읽은 메일 숫자 --></strong>
+                </span>
+            </span>
         </div>
-        
-        <div class="contentWrap">
-            <table>
-                <tr>
-                    <td colspan="2"><input type="button" id="send" value="보내기" onclick="save()"/></td>
-                </tr>
-                <tr>
-                    <th>&nbsp;받는 사람 &nbsp;&nbsp;</th>
-                    <td>
-                        <div>
-                            <ul>
-                                <li>
-                                    <input type="text" name="receiver" id="inputReceiver" placeholder="받는 사람을 입력하세요.">
-                                </li>
-                                <li>
-                                    <input type="button" id="organization" value="주소록" onclick="organization()"/>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>&nbsp;제목 &nbsp;&nbsp;</th>
-                    <td><input type="text" name="note_subject" id="inputSubject" placeholder="제목을 입력하세요."></td>
-                </tr>
-                <tr>
-                    <th>&nbsp;파일첨부 &nbsp;&nbsp;</th>
-                    <td>
-                        <div>
-                            <a class="btn_file">
-                                <span>
-                                    <input type="file" id="select_file" name="files" multiple>
-                                </span>
-                            </a>
-                            <a class="del_all">
-                                <span onclick="all_del()">모두삭제</span>
-                            </a>
-                        </div>
 
-                        <div>
-                            <!-- 첨부 파일란 -->
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div id="rich_deditor"></div>
-                        <!-- 작성글은 div 에 담겨지는데, div 는 서버로 전송이 불가능하다. -->
-                        <input type="hidden" name="content" value=""/>
-                    </td>
-                </tr>
-            </table>
+
+        <div class="list_form">
+            <ul>
+                <li class="list_title">
+                    <ul>
+                        <!-- 툴바 -->
+                        <li>
+                            <input type="checkbox" id="mailListAllCheck" name="mailAllcheck" value="off">
+                        </li>
+                        <li class="btn_submenu">
+                            <a class="btn_tool" data-role="button" onclick="reply()">
+                                <span class="ic_toolbar reply"></span>
+                                <span class="txt">답장</span>
+                            </a>
+                        </li>
+                        <li class="btn_submenu">
+                            <a class="btn_tool" data-role="button" onclick="delReceive(this)">
+                                <span class="txt_caution">삭제</span>
+                            </a>
+                        </li>
+                        <li class="btn_submenu">
+                            <select id="readOption">
+                                <option value="all">전체</option>
+                                <option value="read">읽음</option>
+                                <option value="unread">안읽음</option>
+                            </select>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="list_content">
+                    <ul>
+                        <li>
+                            <h2>${reMailDetail.note_subject}</h2>
+                        </li>
+                        <li>&nbsp;보낸 사람 :&nbsp;${reMailDetail.sender}</li>
+                        <li>&nbsp;받는 사람 :&nbsp;${reMailDetail.receiver}</li>
+                        <li>&nbsp;보낸 날짜 :&nbsp;${reMailDetail.note_date}</li>
+                        <li class="get_file"></li>
+                        <li> ${reMailDetail.note_content}</li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-    </form>
+
+		<!-- 모달 -->
+		<div id="del_modal">
+			<div style="margin:30px 0; font-size:24px;">삭제 하시겠습니까?</div>
+			<button onclick="delNo()" class="modalBtnNo">아니요</button>
+			<button onclick="delYes()" class="modalBtnYes">예</button>	
+		</div>
+    </section>
     <!-- -------------------------------------------mailWrap end------------------------------------------------- -->
+    <!-- -------------------------------------------music start------------------------------------------ -->
+    <div id="bottom_music">
+        <div class="music_inner">
+
+        </div>
+    </div>
+    <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
-//--------------------------------------mail start-----------------------------------------------------
-    var config = {}
-    //config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
-    config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
-    var editor = new RichTextEditor("#rich_deditor", config);
+    //----------------------------------mail start--------------------------------------
+    $(document).ready(function(){
+        $.ajax({
+            type: "get",
+            url: "receiveMail/counts.ajax",
+            dataType: "JSON",
+            success: function(data){
+                console.log(data);
 
-    // 저장 버튼을 누르면 실행되는 함수 save
-    function save(){
-        var content = editor.getHTMLCode();
-        $('input[name="content"]').val(content);
-        console.log((content.length/1024/1024)+'MB');
-        
-        if(content.length > (2*1024*1024)){
-            alert('컨텐츠의 크기가 너무 큽니다. 이미지의 갯수나 크기를 줄여 주세요!');
-        }else{
-            $('form').submit();
-        }
-    }
+                // 전체 메일 갯수 업데이트
+                $("#totalMail").text(data.totalMail);
+                // 안 읽은 메일 갯수 업데이트
+                $("#unreadMail").text(data.unreadMail);
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    });
 	
-    
-//--------------------------------------mail end-----------------------------------------------------
+    // 받은 쪽지 삭제 모달창
+    function delModal(){
+        document.getElementById('del_modal').style.display = 'block';
+    }
+
+    // 받은 메일 '아니요 버튼 클릭
+    function delNo(){
+        document.getElementById('del_modal').style.display = 'none';
+    }
+
+    // 받은 메일 '예' 버튼 클릭(리스트에서 숨김 처리)
+    function delYes(){
+    	// 삭제 버튼을 클릭하면 메일 리스트로 이동
+        window.location.href = "/receiveMail/list.ajax";
+
+        // 삭제한 메일을 숨기기 위해 리스트 아이템을 숨김 처리
+        $(".list_content").hide();
+    }
+    //-----------------------------------mail end--------------------------------------------
 // -------------------------------- toggle start ------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
     var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');

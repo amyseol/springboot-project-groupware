@@ -209,7 +209,7 @@
 				<li>전체 스트리밍 수</li>
 				<li>${songDetail.song_streaming}</li>
                 <li>수익 분배율</li>
-                <li>${songDetail.alb_revenue}</li>
+                <li>${songDetail.song_revenue}</li>
                 <li>첨부 파일</li>
                 <li>
 					<c:forEach items="${list}" var="file">

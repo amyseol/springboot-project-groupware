@@ -1,12 +1,17 @@
 package kr.co.gudi.performance.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
+
+import kr.co.gudi.member.vo.MemberVO;
 
 @Alias("song")
 public class SongDTO {
 	private int song_no;
+	private int art_no;
+	private int member_no;
 	private String art_name;
 	private String name;
 	private String member_position;
@@ -21,12 +26,26 @@ public class SongDTO {
 	private String cr_no;
 	private int allSong_profit;
 	private int song_streaming;
+	private String file_oriname;
+	private String file_newname;
 	
 	public int getSong_no() {
 		return song_no;
 	}
 	public void setSong_no(int song_no) {
 		this.song_no = song_no;
+	}
+	public int getArt_no() {
+		return art_no;
+	}
+	public void setArt_no(int art_no) {
+		this.art_no = art_no;
+	}
+	public int getMember_no() {
+		return member_no;
+	}
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
 	}
 	public String getArt_name() {
 		return art_name;
@@ -112,4 +131,17 @@ public class SongDTO {
 	public void setSong_streaming(int song_streaming) {
 		this.song_streaming = song_streaming;
 	}
+	public String getFile_oriname() {
+		return file_oriname;
+	}
+	public void setFile_oriname(String file_oriname) {
+		this.file_oriname = file_oriname;
+	}
+	public String getFile_newname() {
+		return file_newname;
+	}
+	public void setFile_newname(String file_newname) {
+		this.file_newname = file_newname;
+	}
+	
 }
