@@ -4,4 +4,174 @@
    
 <mapper namespace="kr.co.gudi.comMail.dao.ComMailDAO">
 
+	<select id="getReTotalMail" resultType="int" parameterType="int">
+		SELECT COUNT(*) AS totalMailCounts
+		FROM note n
+		LEFT OUTER JOIN member m ON m.member_no = n.receiver_no
+		WHERE n.receiver_no = #{param1}
+	</select>
+	
+	<select id="getReUnreadMail" resultType="int" parameterType="int">
+		SELECT COUNT(*) AS UnreadReMailCounts
+        FROM note
+        WHERE receiver_no = (SELECT member_no
+                                                    FROM member
+                                                    WHERE member_no = #{param1} AND CAST(receive_state AS UNSIGNED) = "0")
+	</select>
+	
+	<select id="receiveList" resultType="mail">
+		SELECT n.*, m.name, f.file_size
+		FROM note n
+		LEFT OUTER JOIN member m ON m.member_no = n.receiver_no
+		LEFT OUTER JOIN file f ON file_location = "n"
+		WHERE n.receiver_no = #{param2}
+		ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
+	</select>
+	
+	<select id="receiveListRead" resultType="mail">
+		SELECT n.*, m.name, f.file_size
+		FROM note n
+		LEFT OUTER JOIN member m ON m.member_no = n.receiver_no
+		LEFT OUTER JOIN file f ON file_location = "n"
+		WHERE n.receiver_no = #{param2} AND n.receive_state="1"
+		GROUP BY n.note_no
+		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param1}
+	</select>
+	
+	<select id="receiveListUnread" resultType="mail"> 
+		SELECT n.*, m.name, f.file_size
+		FROM note n
+		LEFT OUTER JOIN member m ON m.member_no = n.receiver_no
+		LEFT OUTER JOIN file f ON file_location = "n"
+		WHERE n.receiver_no =  #{param2} AND n.receive_state="0"
+		GROUP BY n.note_no
+		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param1}
+	</select>
+	
+		<select id="reMailSearch" resultType="mail">
+		SELECT n.*, m.name, f.file_size
+		FROM note n
+		LEFT OUTER JOIN member m ON m.member_no = n.receiver_no
+		LEFT OUTER JOIN file f ON file_location = "n"
+		WHERE n.sender_no = (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%')
+		GROUP BY n.note_no
+		ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param2}
+	</select>
+	
+	<update id="delReceive">
+		UPDATE note SET receive_state = 2 WHERE note_no = #{param1}
+	</update>
+	
+	<select id="totalPage" resultType="int">
+		SELECT CEIL(COUNT(note_no) / 5) AS pages
+		FROM note
+	</select>
+	
+	<select id="receiveMailDetail" resultType="mail">
+		SELECT n.note_subject, n.note_content, n.note_date, f.file_newname, (SELECT name FROM member WHERE member_no = sender_no) AS sender
+		, (SELECT name FROM member WHERE member_no = receiver_no) AS receiver
+		FROM note n
+		LEFT OUTER JOIN file f ON f.file_unique_no = n.note_no
+		WHERE n.note_no = #{param1} AND f.file_location = "n"
+	</select>
+	
+	<select id="getFile" resultType="mail">
+		SELECT file_oriname, file_newname
+		FROM file
+		WHERE file_unique_no = #{param1} and file_location = "n"
+	</select>
+	
+	<select id="getSeTotalMail" resultType="int" parameterType="int">
+		SELECT COUNT(*) AS totalMailCounts
+		FROM note n
+		LEFT OUTER JOIN member m ON m.member_no = n.sender_no
+		WHERE n.sender_no = #{param1}
+	</select>
+	
+	<select id="getSeUnreadMail" resultType="int" parameterType="int">
+		SELECT COUNT(*) AS UnreadSeMailCounts
+        FROM note
+        WHERE sender_no = (SELECT member_no
+                                                    FROM member
+                                                    WHERE member_no = #{param1} AND CAST(send_state AS UNSIGNED) = "0")
+	</select>
+	
+	<select id="sendList">
+		SELECT n.*, m.name, f.file_size
+		FROM note n
+		LEFT OUTER JOIN member m ON m.member_no = n.sender_no
+		LEFT OUTER JOIN file f ON file_location = "n"
+		WHERE n.sender_no = #{param2}
+		ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
+	</select>
+	
+	<select id="sendListRead">
+		SELECT n.*, m.name, f.file_size
+		FROM note n
+		LEFT OUTER JOIN member m ON m.member_no = n.sender_no
+		LEFT OUTER JOIN file f ON file_location = "n"
+		WHERE n.sender_no = #{param2} AND n.send_state="1"
+		GROUP BY n.note_no
+		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param1}
+	</select>
+	
+	<select id="sendListUnread">
+		SELECT n.*, m.name, f.file_size
+		FROM note n
+		LEFT OUTER JOIN member m ON m.member_no = n.sender_no
+		LEFT OUTER JOIN file f ON file_location = "n"
+		WHERE n.sender_no = #{param2} AND n.send_state="0"
+		GROUP BY n.note_no
+		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param1}
+	</select>
+	
+	<select id="seMailSearch" resultType="mail">
+		SELECT n.*, m.name, f.file_size
+		FROM note n
+		LEFT OUTER JOIN member m ON m.member_no = n.sender_no
+		LEFT OUTER JOIN file f ON file_location = "n"
+		WHERE n.receiver_no = (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%')
+		GROUP BY n.note_no
+		ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param2}
+	</select>
+	
+	<update id="delSend">
+		UPDATE note SET send_state = 2 WHERE note_no = #{param1}
+	</update>
+	
+	<select id="sendMailDetail" resultType="mail">
+		SELECT n.note_subject, n.note_content, n.note_date, f.file_newname, (SELECT name FROM member WHERE member_no = sender_no) AS sender
+		, (SELECT name FROM member WHERE member_no = receiver_no) AS receiver
+		FROM note n
+		LEFT OUTER JOIN file f ON f.file_unique_no = n.note_no
+		WHERE n.note_no = #{param1} AND f.file_location = "n"
+	</select>
+	
+	<insert id="write" parameterType="map">
+		INSERT INTO note(sender_no, receiver_no, note_subject, note_content)
+		VALUES (#{sender_no}, #{receiver_no}, #{note_subject}, #{note_content})
+	</insert>
+	
+	<select id="getReceiverNo" resultType="mail">
+		SELECT member_no
+		FROM member
+		WHERE name = #{param1}
+	</select>
+	
+	<insert 
+		useGeneratedKeys="true"
+		keyColumn="note_no"
+		keyProperty="note_no"
+		id="upload">
+		INSERT INTO note (sender_no, receiver_no, note_subject, note_content)
+			VALUES (#{sender_no}, #{receiver_no}, #{note_subject}, #{note_content})
+	</insert>
+	
+	<update id="updateSeState">
+		UPDATE note SET send_state = "1" WHERE note_no = #{param1}
+	</update>
+	
+	<update id="updateReState">
+		UPDATE note SET receive_state = "1" WHERE note_no = #{param1}
+	</update>
 </mapper>

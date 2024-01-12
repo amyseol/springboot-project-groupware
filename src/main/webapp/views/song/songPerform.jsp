@@ -238,7 +238,7 @@ listCall(showPage);
 function listCall(page){	
 	$.ajax({
 		type:'get',
-		url:'list',
+		url:'songPerform/list',
 		data:{'page':page}, 
 		dataType:'JSON',
 		success: function(data){
@@ -259,11 +259,11 @@ function drawList(list){
 		content+='<li>'+item.song_name+'</li>';
 		content+='<li>'+item.song_owner+'</li>';
 		content+='<li>'+item.song_name+'</li>'; // member 테이블
-		content+='<li>'+item.allSong_profit.toLocaleString()+'</li>'; // album_sold 테이블
+		content+='<li>'+item.allSong_profit.toLocaleString()+'</li>'; // song_per 테이블
 		content+='</ul>';
 	});
-	$('#albumPerformList').empty();
-	$('#albumPerformList').append(content);
+	$('#songPerformList').empty();
+	$('#songPerformList').append(content);
 	
 	$('#pagination').twbsPagination({
 		startPage: list.currPage,

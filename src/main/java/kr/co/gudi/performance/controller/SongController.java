@@ -35,13 +35,13 @@ public class SongController {
 		return "/song/song";
 	}
 	
-	@GetMapping("/songList")
+	@GetMapping("/song/list")
 	@ResponseBody
 	public Map<String, Object> songList(String page){
 		return service.songList(page);
 	}
 	
-	@GetMapping("/songDetail")
+	@GetMapping("/song/list/detail")
 	public ModelAndView songDetail(String song_no) {
 		return service.songDetail(song_no);
 	}
@@ -55,6 +55,12 @@ public class SongController {
 	@GetMapping("/songPerform")
 	public String songPerform() {
 		return "/song/songPerform";
+	}
+	
+	@GetMapping("/songPerform/list")
+	@ResponseBody
+	public Map<String, Object> songPerformList(String page){
+		return service.songList(page);
 	}
 	
 	// 파일 업로드(return 값은 결재 페이지로 수정시 변경하기)

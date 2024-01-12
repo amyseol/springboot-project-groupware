@@ -268,7 +268,7 @@
     function listCall(page){
         $.ajax({
             type: "GET",
-            url: "songList",
+            url: "song/list",
             data: {"page": page},
             dataType: "JSON",
             success: function(data){
@@ -288,7 +288,7 @@
 
         list.list.forEach(function(item, index){
             content+='<ul>';
-            content+='<li><a href="albumDetail?alb_no='+item.song_no+'">'+item.song_name+'</a></li>';
+            content+='<li><a href="song/list/detail?song_no='+item.song_no+'">'+item.song_name+'</a></li>';
             content+='<li>'+item.song_owner+'</li>';
             var sdate = new Date(item.song_startDate);
             var startDate = sdate.toLocaleDateString("ko-KR");
