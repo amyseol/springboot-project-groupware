@@ -64,12 +64,6 @@
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .count{position: absolute; top: 60px; left: 180px;}
         #common_list_form .toolBarWrap{position: relative;}
-        .list_title>ul>li{float: left;  text-align: center;}
-        .list_title>ul>li:first-child{width: 5%;}
-        .list_title>ul>li:nth-child(2){width: 10%;}
-        .list_title>ul>li:nth-child(3){width: 10%;}
-        .list_title>ul>li:nth-child(4){width: 10%;}
-        .list_title>ul>li:last-child{width: 65%;}
         #common_list_form .list_form{position:relative; width: 90%; margin-left: 50px;}
         #common_list_form .list_form .list_content {padding-top: 60px;}
         #common_list_form .list_form .list_content ul{width: 100%; height: 30px;}
@@ -249,9 +243,9 @@
                		<h2>${seMailDetail.note_subject}</h2>
                     <ul>
                         <li>&nbsp;보낸 사람 :&nbsp;</li>
-                        <li>${seMailDetail.sender}</li>
+                        <li>${seMailDetail.sender_name}</li>
                         <li>&nbsp;받는 사람 :&nbsp;</li>
-                        <li>${seMailDetail.receiver}</li>
+                        <li>${seMailDetail.receiver_name}</li>
                         <li>&nbsp;보낸 날짜 :&nbsp;</li>
                         <li>${seMailDetail.note_date}</li>
                     </ul>

@@ -54,8 +54,8 @@ public class ComMailController {
 	// 받은 메일함 리스트 출력
 	@GetMapping("/receiveMail/list.ajax")
 	@ResponseBody
-	public Map<String, Object> receiveList(String page, @RequestParam String loginId, @RequestParam String readOption){
-		return service.receiveList(page, loginId, readOption);
+	public Map<String, Object> receiveList(String page, @RequestParam int loginNo, @RequestParam String readOption){
+		return service.receiveList(page, loginNo, readOption);
 	}
 	
 	// 받은 메일함 검색
@@ -110,8 +110,8 @@ public class ComMailController {
 	// 받은 메일함 리스트 출력
 	@GetMapping("/sendMail/list.ajax")
 	@ResponseBody
-	public Map<String, Object> sendList(String page, @RequestParam String loginId, @RequestParam String readOption){
-		return service.sendList(page, loginId, readOption);
+	public Map<String, Object> sendList(String page, @RequestParam int loginNo, @RequestParam String readOption){
+		return service.sendList(page, loginNo, readOption);
 	}
 	
 	// 보낸 메일함 검색

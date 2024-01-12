@@ -14,11 +14,11 @@ public interface ComMailDAO {
 
 	int getReUnreadMail(int member_no);
 	
-	ArrayList<ComMailDTO> receiveList(int offset, String loginId);
+	ArrayList<ComMailDTO> receiveList(int offset, int loginNo);
 
-	ArrayList<ComMailDTO> receiveListRead(int offset, String loginId);
+	ArrayList<ComMailDTO> receiveListRead(int offset, int loginNo);
 	
-	ArrayList<ComMailDTO> receiveListUnread(int offset, String loginId);
+	ArrayList<ComMailDTO> receiveListUnread(int offset, int loginNo);
 	
 	int totalPage();
 
@@ -34,11 +34,11 @@ public interface ComMailDAO {
 	
 	int getSeUnreadMail(int member_no);
 
-	ArrayList<ComMailDTO> sendList(int offset, String loginId);
+	ArrayList<ComMailDTO> sendList(int offset, int loginNo);
 	
-	ArrayList<ComMailDTO> sendListRead(int offset, String loginId);
+	ArrayList<ComMailDTO> sendListRead(int offset, int loginNo);
 	
-	ArrayList<ComMailDTO> sendListUnread(int offset, String loginId);
+	ArrayList<ComMailDTO> sendListUnread(int offset, int loginNo);
 	
 	ArrayList<ComMailDTO> seMailSearch(String search_info, int offset);
 	

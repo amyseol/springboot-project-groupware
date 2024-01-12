@@ -20,18 +20,20 @@
 	</select>
 	
 	<select id="receiveList" resultType="mail">
-		SELECT n.*, m.name, f.file_size
+		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
 		FROM note n
-		LEFT OUTER JOIN member m ON m.member_no = n.receiver_no
+		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
 		WHERE n.receiver_no = #{param2}
 		ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
 	</select>
 	
 	<select id="receiveListRead" resultType="mail">
-		SELECT n.*, m.name, f.file_size
+		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
 		FROM note n
-		LEFT OUTER JOIN member m ON m.member_no = n.receiver_no
+		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
 		WHERE n.receiver_no = #{param2} AND n.receive_state="1"
 		GROUP BY n.note_no
@@ -39,9 +41,10 @@
 	</select>
 	
 	<select id="receiveListUnread" resultType="mail"> 
-		SELECT n.*, m.name, f.file_size
+		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
 		FROM note n
-		LEFT OUTER JOIN member m ON m.member_no = n.receiver_no
+		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
 		WHERE n.receiver_no =  #{param2} AND n.receive_state="0"
 		GROUP BY n.note_no
@@ -49,9 +52,10 @@
 	</select>
 	
 		<select id="reMailSearch" resultType="mail">
-		SELECT n.*, m.name, f.file_size
+		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
 		FROM note n
-		LEFT OUTER JOIN member m ON m.member_no = n.receiver_no
+		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
 		WHERE n.sender_no = (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%')
 		GROUP BY n.note_no
@@ -68,9 +72,10 @@
 	</select>
 	
 	<select id="receiveMailDetail" resultType="mail">
-		SELECT n.note_subject, n.note_content, n.note_date, f.file_newname, (SELECT name FROM member WHERE member_no = sender_no) AS sender
-		, (SELECT name FROM member WHERE member_no = receiver_no) AS receiver
+		SELECT n.note_subject, n.note_content, n.note_date, sender.name AS sender_name, receiver.name AS receiver_name, f.file_newname
 		FROM note n
+		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no		
 		LEFT OUTER JOIN file f ON f.file_unique_no = n.note_no
 		WHERE n.note_no = #{param1} AND f.file_location = "n"
 	</select>
@@ -97,18 +102,20 @@
 	</select>
 	
 	<select id="sendList">
-		SELECT n.*, m.name, f.file_size
+		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
 		FROM note n
-		LEFT OUTER JOIN member m ON m.member_no = n.sender_no
+		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
-		WHERE n.sender_no = #{param2}
+		WHERE n.receiver_no = #{param2}
 		ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
 	</select>
 	
 	<select id="sendListRead">
-		SELECT n.*, m.name, f.file_size
+		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
 		FROM note n
-		LEFT OUTER JOIN member m ON m.member_no = n.sender_no
+		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
 		WHERE n.sender_no = #{param2} AND n.send_state="1"
 		GROUP BY n.note_no
@@ -116,9 +123,10 @@
 	</select>
 	
 	<select id="sendListUnread">
-		SELECT n.*, m.name, f.file_size
+		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
 		FROM note n
-		LEFT OUTER JOIN member m ON m.member_no = n.sender_no
+		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
 		WHERE n.sender_no = #{param2} AND n.send_state="0"
 		GROUP BY n.note_no
@@ -126,9 +134,10 @@
 	</select>
 	
 	<select id="seMailSearch" resultType="mail">
-		SELECT n.*, m.name, f.file_size
+		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
 		FROM note n
-		LEFT OUTER JOIN member m ON m.member_no = n.sender_no
+		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
 		WHERE n.receiver_no = (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%')
 		GROUP BY n.note_no
@@ -140,9 +149,10 @@
 	</update>
 	
 	<select id="sendMailDetail" resultType="mail">
-		SELECT n.note_subject, n.note_content, n.note_date, f.file_newname, (SELECT name FROM member WHERE member_no = sender_no) AS sender
-		, (SELECT name FROM member WHERE member_no = receiver_no) AS receiver
+		SELECT n.note_subject, n.note_content, n.note_date, sender.name AS sender_name, receiver.name AS receiver_name, f.file_newname
 		FROM note n
+		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no		
 		LEFT OUTER JOIN file f ON f.file_unique_no = n.note_no
 		WHERE n.note_no = #{param1} AND f.file_location = "n"
 	</select>
