@@ -9,7 +9,8 @@ public class ComMailDTO {
 	private int note_no;
 	private int receiver_no;
 	private int sender_no;
-	private String member_no;
+	private int member_no;
+	private String name;
 	private String receiver_name;
 	private String sender_name;
 	private String note_subject;
@@ -39,11 +40,17 @@ public class ComMailDTO {
 	public void setSender_no(int sender_no) {
 		this.sender_no = sender_no;
 	}
-	public String getMember_no() {
+	public int getMember_no() {
 		return member_no;
 	}
-	public void setMember_no(String member_no) {
+	public void setMember_no(int member_no) {
 		this.member_no = member_no;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getReceiver_name() {
 		return receiver_name;

@@ -64,23 +64,19 @@
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .count{position: absolute; top: 60px; left: 180px;}
         #common_list_form .toolBarWrap{position: relative;}
-        .list_title>ul>li{float: left;  text-align: center;}
-        .list_title>ul>li:first-child{width: 5%;}
-        .list_title>ul>li:nth-child(2){width: 10%;}
-        .list_title>ul>li:nth-child(3){width: 10%;}
-        .list_title>ul>li:nth-child(4){width: 10%;}
-        .list_title>ul>li:last-child{width: 65%;}
-        #common_list_form .list_form{position:relative;}
+        #common_list_form{padding-left:15%;}
+        #common_list_form .titleWrap{display: flex; position: relative;}
+        #common_list_form .big_title{padding: 50px 50px;}
+        #common_list_form .count{position: absolute; top: 60px; left: 180px;}
+        #common_list_form .toolBarWrap{position: relative;}
+        #common_list_form .list_form{position:relative; width: 90%; margin-left: 50px;}
+        #common_list_form .list_form .list_content {padding-top: 60px;}
         #common_list_form .list_form .list_content ul{width: 100%; height: 30px;}
         #common_list_form .list_form .list_content ul li{float:left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box; text-align: center;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 5%; padding-left: 50px; }
-        #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_content ul li:nth-child(3){width: 5%;}
-        #common_list_form .list_form .list_content ul li:nth-child(4){width: 50%;}
-        #common_list_form .list_form .list_content ul li:nth-child(5){width: 20%;}
-        #common_list_form .list_form .list_content ul li:last-child{width: 10%;}
+        #common_list_form .list_form .list_content ul li{width: 20%;}
+        #common_list_form .list_form .list_content ul li:nth-child(2n-1){padding-left: 50px;}
+        #common_list_form .list_form .list_content ul li:nth-child(2n){width: 80%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
         
         #common_list_form .search_box{position: absolute; margin: 0px 0 10px 50px; border: 1px solid #fff; display: inline-block; left: 250px; top: -10px;}
         #common_list_form .search_box li{float: left;}
@@ -94,6 +90,8 @@
         #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
+        
+        #del_modal{display: none;}
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -206,9 +204,6 @@
                 <li class="list_title">
                     <ul>
                         <!-- 툴바 -->
-                        <li>
-                            <input type="checkbox" id="mailListAllCheck" name="mailAllcheck" value="off">
-                        </li>
                         <li class="btn_submenu">
                             <a class="btn_tool" data-role="button" onclick="reply()">
                                 <span class="ic_toolbar reply"></span>
@@ -235,8 +230,8 @@
                         <li>
                             <h2>${reMailDetail.note_subject}</h2>
                         </li>
-                        <li>&nbsp;보낸 사람 :&nbsp;${reMailDetail.sender}</li>
-                        <li>&nbsp;받는 사람 :&nbsp;${reMailDetail.receiver}</li>
+                        <li>&nbsp;보낸 사람 :&nbsp;${reMailDetail.sender_name}</li>
+                        <li>&nbsp;받는 사람 :&nbsp;${reMailDetail.receiver_name}</li>
                         <li>&nbsp;보낸 날짜 :&nbsp;${reMailDetail.note_date}</li>
                         <li class="get_file"></li>
                         <li> ${reMailDetail.note_content}</li>

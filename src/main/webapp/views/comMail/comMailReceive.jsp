@@ -62,26 +62,16 @@
 
 #common_list_form{padding-left:15%;}
         #common_list_form .big_title{padding: 50px 50px;}
-        #common_list_form .sub_title{padding: 20px 50px;}
-        #common_list_form .content_page{position:relative;}
-        #common_list_form .content_page .list_title ul{width: 100%; height: 32px;}
-        #common_list_form .content_page .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .content_page .list_title ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .content_page .list_title ul li:nth-child(2){width: 10%;}
-        #common_list_form .content_page .list_title ul li:nth-child(3){width: 5%;}
-        #common_list_form .content_page .list_title ul li:nth-child(4){width: 50%;}
-        #common_list_form .content_page .list_title ul li:nth-child(5){width: 5%;}
-        #common_list_form .content_page .list_title ul li:last-child{width: 15%;}
-        #common_list_form .content_page .list_content ul{width:100%; height: 30px;}
-        #common_list_form .content_page .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .content_page .list_content ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .content_page .list_content ul li:nth-child(2){width: 10%;}
-        #common_list_form .content_page .list_content ul li:nth-child(3){width: 5%;}
-        #common_list_form .content_page .list_content ul li:nth-child(4){width: 50%;}
-        #common_list_form .content_page .list_content ul li:nth-child(5){width: 5%;}
-        #common_list_form .content_page .list_content ul li:last-child{width: 15%;}
-        #common_list_form .content_page .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .content_page .list_content ul:hover{background-color: #eee;}
+        #common_list_form .titleWrap{position: relative; display: flex;}
+        #common_list_form .count{position: absolute; top: 60px; left: 180px;}
+        #common_list_form .list_form{position:relative; width: 90%; margin-left: 50px;}
+        #common_list_form .list_form .list_content {padding-top: 60px;}
+        #common_list_form .list_form .list_content ul{width: 100%; height: 30px;}
+        #common_list_form .list_form .list_content ul li{float:left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box; text-align: center;}
+        #common_list_form .list_form .list_content ul li{width: 20%;}
+        #common_list_form .list_form .list_content ul li:nth-child(2n-1){padding-left: 50px;}
+        #common_list_form .list_form .list_content ul li:nth-child(2n){width: 80%;}
+        #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         
         #common_list_form .search_box{position: absolute; margin: 0px 0 10px 50px; border: 1px solid #fff; display: inline-block; left: 250px; top: -10px;}
         #common_list_form .search_box li{float: left;}
@@ -301,6 +291,173 @@
 </body>
 <script>
 
+//-------------------------------------------mailWrap start-------------------------------------------------
+// 받은 메일함 리스트 호출
+var showPage = 1;
+
+// 검색
+function handleKeyDown(event){
+    // 엔터키 keycode == 13
+    if(event.keyCode === 13){
+        search();
+    }
+}
+
+function search(){
+    console.log($("#search_info").val());
+
+    $.ajax({
+        type: "GET",
+        url: "receiveMail/search.ajax",
+        data: {"search_info": $("#search_info").val(), "page": showPage},
+        dataType: "JSON",
+        success: function(data){
+        	drawList(data);
+        },
+        error: function(e){
+            console.log(e);
+        }
+    });
+}
+
+$(document).ready(function(){
+    $.ajax({
+        type: "get",
+        url: "receiveMail/counts.ajax",
+        dataType: "JSON",
+        success: function(data){
+            console.log(data);
+
+            // 전체 메일 갯수 업데이트
+            $("#totalMail").text(data.totalMail);
+            // 안 읽은 메일 갯수 업데이트
+            $("#unreadMail").text(data.unreadMail);
+        },
+        error: function(e){
+            console.log(e);
+        }
+    });
+
+    listCall(showPage);
+});
+
+// 받은 쪽지 읽음 여부 필터링
+$('#readOption').change(function(){
+    console.log($('#readOption').val());
+    listCall(showPage);
+});
+
+function listCall(page){
+    var loginNo = "${sessionScope.loginMember.member_no}";
+
+    $.ajax({
+        type: "get",
+        url: "receiveMail/list.ajax",
+        data:{"page": page, "loginNo": loginNo, 'readOption':$('#readOption').val()},
+        dataType: "JSON",
+        success: function(data){
+            console.log("받은 메일함 리스트 호출!!");
+            drawList(data);
+        },
+        error: function(e){
+            console.log(e);
+        }
+    });
+}
+
+function drawList(list){
+    console.log("drawList 호출!!!");
+    console.log("list : "+list);
+
+    var content = "";
+
+    list.list.forEach(function(item, idx){
+        content += '<ul>';
+        content += '<li><input type="checkbox" name="receiveCheck" value="' + item.note_no + '"/></li>';
+        content +='<li>' 
+            if(item.receive_state==0){
+                content+='<img src="resources/img/unread.jpg" alt="unreadImage" width=20 height=20/>';
+            }else {
+                content+='<img src="resources/img/read.jpg" alt="readImage" width=20 height=20/>';
+            }
+        content +='</li>';
+        content += '<li><span class="name">' + item.sender_name + '</span></li>';
+        content += '<li><a href="receiveMail/list/detail?note_no='+item.note_no+'">' + item.note_subject + '</a></li>';
+        content += '<li><span class="date">' + item.note_date + '</span></li>';
+        content += '<li><span class="num">' + item.file_size + 'KB</span></li>';
+        content += '</ul>';
+    });
+    $('.list_content').empty();
+    $('.list_content').append(content);
+
+    $('#pagenation').twbsPagination({
+        startPage: list.currPage, 
+        totalPages: list.pages, 
+        visiblePages:5,
+
+        onPageClick:function(e,page){ 
+            if(showPage != page){ 
+                console.log(page);	
+                showPage=page; 
+                listCall(page);
+            }
+        }
+    });
+}
+
+// 받은 쪽지 체크 박스
+$("#mailListAllCheck").on("click", function(){
+    var $chk = $('input[name="mailAllcheck"]'); 
+    console.log($chk);
+    console.log($(this).is(":checked")); 
+    if($(this).is(":checked")){
+        $chk.prop("checked",true);
+    }else{
+        $chk.prop("checked",false);
+    }
+});
+
+// 받은 쪽지 삭제 모달창
+function delModal(){
+    document.getElementById('del_modal').style.display = 'block';
+}
+
+// 받은 메일 '아니요 버튼 클릭
+function delNo(){
+    document.getElementById('del_modal').style.display = 'none';
+}
+
+// 받은 메일 '예' 버튼 클릭(리스트에서 숨김 처리)
+function delYes(){
+    var chkArr = [];
+
+    $('input[name="mailListAllCheck"]:checked').each(function(idx,item){
+	//console.log(idx, $(item).val()); 
+	var val = $(item).val();
+        if(val != 'on'){
+            chkArr.push(val);
+        }
+    });
+    console.log(chkArr);
+
+    $.ajax({
+        type: "get",
+        url: "receiveMail/delMail.ajax",
+        data: {'delList': chkArr},
+        dataType: "JSON",
+        success: function(data){
+            console.log(data);
+
+            listCall(showPage);
+            document.getElementById('del_modal').style.display = 'none';
+        },
+        error: function(e){
+            console.log(e);
+        }
+    });
+}
+//-------------------------------------------mailWrap end-------------------------------------------------
+
 // -------------------------------- toggle start ------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
     var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
@@ -357,172 +514,5 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 //-------------------------------- toggle end ------------------------------------------
-
-//-------------------------------------------mailWrap start-------------------------------------------------
-    // 받은 메일함 리스트 호출
-    var showPage = 1;
-
-    // 검색
-    function handleKeyDown(event){
-        // 엔터키 keycode == 13
-        if(event.keyCode === 13){
-            search();
-        }
-    }
-
-    function search(){
-        console.log($("#search_info").val());
-
-        $.ajax({
-            type: "GET",
-            url: "receiveMail/search.ajax",
-            data: {"search_info": $("#search_info").val(), "page": showPage},
-            dataType: "JSON",
-            success: function(data){
-            	drawList(data);
-            },
-            error: function(e){
-                console.log(e);
-            }
-        });
-    }
-
-    $(document).ready(function(){
-        $.ajax({
-            type: "get",
-            url: "receiveMail/counts.ajax",
-            dataType: "JSON",
-            success: function(data){
-                console.log(data);
-
-                // 전체 메일 갯수 업데이트
-                $("#totalMail").text(data.totalMail);
-                // 안 읽은 메일 갯수 업데이트
-                $("#unreadMail").text(data.unreadMail);
-            },
-            error: function(e){
-                console.log(e);
-            }
-        });
-
-        listCall(showPage);
-    });
-
-    // 받은 쪽지 읽음 여부 필터링
-    $('#readOption').change(function(){
-        console.log($('#readOption').val());
-        listCall(showPage);
-    });
-
-    function listCall(page){
-        var loginId = "${sessionScope.loginMember.member_no}";
-
-        $.ajax({
-            type: "get",
-            url: "receiveMail/list.ajax",
-            data:{"page": page, "loginId": loginId, 'readOption':$('#readOption').val()},
-            dataType: "JSON",
-            success: function(data){
-                console.log("받은 메일함 리스트 호출!!");
-                drawList(data);
-            },
-            error: function(e){
-                console.log(e);
-            }
-        });
-    }
-
-    function drawList(list){
-        console.log("drawList 호출!!!");
-        console.log("list : "+list);
-
-        var content = "";
-
-        list.list.forEach(function(item, idx){
-            content += '<ul>';
-            content += '<li><input type="checkbox" name="receiveCheck" value="' + item.note_no + '"/></li>';
-            content +='<li>' 
-                if(item.receive_state==0){
-                    content+='<img src="resources/img/unread.jpg" alt="unreadImage" width=20 height=20/>';
-                }else {
-                    content+='<img src="resources/img/read.jpg" alt="readImage" width=20 height=20/>';
-                }
-            content +='</li>';
-            content += '<li><span class="name">' + item.name + '</span></li>';
-            content += '<li><a href="receiveMail/list/detail?note_no='+item.note_no+'">' + item.note_subject + '</a></li>';
-            content += '<li><span class="date">' + item.note_date + '</span></li>';
-            content += '<li><span class="num">' + item.file_size + 'KB</span></li>';
-            content += '</ul>';
-        });
-        $('.list_content').empty();
-        $('.list_content').append(content);
-
-        $('#pagenation').twbsPagination({
-            startPage: list.currPage, 
-            totalPages: list.pages, 
-            visiblePages:5,
-
-            onPageClick:function(e,page){ 
-                if(showPage != page){ 
-                    console.log(page);	
-                    showPage=page; 
-                    listCall(page);
-                }
-            }
-        });
-    }
-
-    // 받은 쪽지 체크 박스
-    $("#mailListAllCheck").on("click", function(){
-        var $chk = $('input[name="mailAllcheck"]'); 
-        console.log($chk);
-        console.log($(this).is(":checked")); 
-        if($(this).is(":checked")){
-            $chk.prop("checked",true);
-        }else{
-            $chk.prop("checked",false);
-        }
-    });
-
-    // 받은 쪽지 삭제 모달창
-    function delModal(){
-        document.getElementById('del_modal').style.display = 'block';
-    }
-
-    // 받은 메일 '아니요 버튼 클릭
-    function delNo(){
-        document.getElementById('del_modal').style.display = 'none';
-    }
-
-    // 받은 메일 '예' 버튼 클릭(리스트에서 숨김 처리)
-    function delYes(){
-        var chkArr = [];
-
-        $('input[name="mailListAllCheck"]:checked').each(function(idx,item){
-		//console.log(idx, $(item).val()); 
-		var val = $(item).val();
-            if(val != 'on'){
-                chkArr.push(val);
-            }
-        });
-        console.log(chkArr);
-
-        $.ajax({
-            type: "get",
-            url: "receiveMail/delMail.ajax",
-            data: {'delList': chkArr},
-            dataType: "JSON",
-            success: function(data){
-                console.log(data);
-
-                listCall(showPage);
-                document.getElementById('del_modal').style.display = 'none';
-            },
-            error: function(e){
-                console.log(e);
-            }
-        });
-    }
-//-------------------------------------------mailWrap end-------------------------------------------------
 </script>
 </html>

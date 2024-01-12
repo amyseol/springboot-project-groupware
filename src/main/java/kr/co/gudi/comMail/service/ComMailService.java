@@ -30,18 +30,18 @@ public class ComMailService {
 	}
 
 	
-	public Map<String, Object> receiveList(String page, String loginId, String readOption) {
+	public Map<String, Object> receiveList(String page, int loginNo, String readOption) {
 		int p = Integer.parseInt(page);
 		int offset = (p - 1) * 10;
 		
 		ArrayList<ComMailDTO> list = new ArrayList<ComMailDTO>();
 		
 		if (readOption.equals("all")) {
-			list = dao.receiveList(offset, loginId);
+			list = dao.receiveList(offset, loginNo);
 		}else if(readOption.equals("read")) {
-			list = dao.receiveListRead(offset,loginId);
+			list = dao.receiveListRead(offset,loginNo);
 		}else if(readOption.equals("unread")) {
-			list = dao.receiveListUnread(offset,loginId);
+			list = dao.receiveListUnread(offset,loginNo);
 		}
 		
 		map.put("list", list);
@@ -106,18 +106,18 @@ public class ComMailService {
 		return dao.getSeUnreadMail(member_no);
 	}
 	
-	public Map<String, Object> sendList(String page, String loginId, String readOption) {
+	public Map<String, Object> sendList(String page, int loginNo, String readOption) {
 		int p = Integer.parseInt(page);
 		int offset = (p - 1) * 10;
 		
 		ArrayList<ComMailDTO> list = new ArrayList<ComMailDTO>();
 		
 		if (readOption.equals("all")) {
-			list = dao.sendList(offset, loginId);
+			list = dao.sendList(offset, loginNo);
 		}else if(readOption.equals("read")) {
-			list = dao.sendListRead(offset,loginId);
+			list = dao.sendListRead(offset,loginNo);
 		}else if(readOption.equals("unread")) {
-			list = dao.sendListUnread(offset,loginId);
+			list = dao.sendListUnread(offset,loginNo);
 		}
 		
 		map.put("list", list);
@@ -185,7 +185,5 @@ public class ComMailService {
 		dto.setNote_content(param.get("note_content"));
 		
 		dao.upload(dto);
-		int note_no =  dto.getNote_no();
-		
 	}
 }
