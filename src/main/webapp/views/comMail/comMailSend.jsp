@@ -83,6 +83,38 @@
         #common_list_form .content_page .list_content ul:hover{background-color: #eee;}
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
+
+        #common_list_form .search_box{position: relative; margin: 0px 0 10px 50px; border: 1px solid #fff; display: inline-block; left: 700px;}
+        #common_list_form .search_box li{float: left;}
+        #common_list_form .search_box #search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
+        #common_list_form .search_box #search_info::placeholder{color: #ccc;}
+        #common_list_form .search_box .btn_box{width: 28px; height: 28px; cursor: pointer; border: 1px solid #ccc; box-sizing: border-box; border-left: none;}
+        #common_list_form .search_box .btn_box .search_btn{position:relative; width: 14px; height: 14px; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+        #common_list_form .search_box .btn_box .search_btn img{width: 100%;}
+        #common_list_form .search_box:hover select{border: 1px solid #333; border-right: none;}
+        #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
+        #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
+
+        #del_modal{
+			display: none; 
+			width:300px; 
+			height:150px; 
+			background: rgb(237, 237, 237); 
+			border:1px solid gray; 
+			text-align:center;
+			position:absolute; 
+			left:50%; 
+			bottom: 50%;
+		}
+		
+		.modalBtnNo, .modalBtnYes{
+			height: 35px;
+			width: 80px;
+			color: white;
+			border: none;
+			border-radius: 10px;
+			background-color: gray;
+		}
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -174,98 +206,85 @@
     </div>
     <!-- -------------------------------------------util end------------------------------------------ -->
     <!-- -------------------------------------------mailWrap start------------------------------------------------- -->
-    <div id="mailWrap" class="go_content">
-        <header id="mailHederWrap" class="content_top">
-            <h2 id="mail_header_msg">
-                <span class="txt"> 보낸 메일함 </span>
-                <span class="meta">
-                    " 전체 메일 "
-                    <span class="num">
-                        <strong><!-- 전체 메일 숫자 --></strong>
-                    </span>
-                    " / 안읽은 메일"
-                    <span class="num">
-                        <strong><!-- 안읽은 메일 숫자 --></strong>
-                    </span>
+    <section id="common_list_form">
+        <div class="titleWrap">
+            <h2 class="big_title"> 보낸 메일함 </h2>
+            <span class="count">
+                    전체 메일 
+                <span class="num">
+                    <strong id="totalMail"><!-- 전체 메일 숫자 --></strong>
                 </span>
-            </h2>
-
-            <section class="combine_search">
-                <div class="search_wrap">
-                    <!-- 검색 바 -->
-                    <ul class="search_box">
+                    / 안읽은 메일
+                <span class="num">
+                    <strong id="unreadMail"><!-- 안읽은 메일 숫자 --></strong>
+                </span>
+            </span>
+        </div>
+        
+        <div class="list_form">
+            <ul>
+                <li class="list_title">
+                    <ul>
+                        <!-- 툴바 -->
                         <li>
-                            <input type="text" id="search_info" onkeydown="handleKeyDown(event)" placeholder="음원명 또는 가수명을 입력해주세요.">
+                            <input type="checkbox" id="mailListAllCheck" name="mailAllcheck" value="off">
                         </li>
-                        <li class="btn_box">
-                            <div class="search_btn">
-                                <img src="./img/search.png" alt="검색 버튼" onclick="search()">
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-        </header>
-
-        <div id="mainContentWrap" class="content_page content_mail">
-            <div class="dataTables_wrapper">
-                <div id="toolbar_wrap" class="tool_bar">
-                    <div class="critical">
-                        <input type="checkbox" id="mailListAllChexk" evt-rol="list-select-all" value="off">
-                        <div class="btn_submenu">
-                            <a class="btn_tool btn_tool_multi" data-role="button" evt-rol="toolbar" evt-act="toolbar-write-reply">
-                                <span class="ic_toolbar reply"></span>
+                        <li class="btn_submenu">
+                            <a class="btn_tool" data-role="button" onclick="reply()">
                                 <span class="txt">답장</span>
                             </a>
-                        </div>
-                        <div class="btn_submenu">
-                            <a class="btn_tool btn_tool_multi" data-role="button" evt-rol="toolbar" evt-act="toolbar-message-delete">
-                                <span class="ic_toolbar del"></span>
+                        </li>
+                        <li class="btn_submenu">
+                            <a class="btn_tool" data-role="button" onclick="delModal()">
                                 <span class="txt_caution">삭제</span>
                             </a>
-                        </div>
-                        <div class="btn_submenu">
-                            <a class="btn_tool btn_tool_multi" data-role="button" evt-rol="toolbar" evt-act="change-flag-seen">
-                                <span class="ic_toolbar read"></span>
-                                <span class="txt">읽음</span>
-                            </a>
-                            <span class="btn_func_more" evt-rol="toolbar" sub="on">
-                                <span class="ic ic_arrow_type3"></span>
-                            </span>
-                            <div class="array_option read">
-                                <ul id="toolbar_seen_flag" class="array_type">
-                                    <li evt-rol="change-flag-seen"><span>읽음</span></li>
-                                    <li evt-rol="change-flag-unseen"><span>안읽음</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                        </li>
+                        <li class="btn_submenu">
+                            <select id="readOption">
+                                <option value="all">전체</option>
+                                <option value="read">읽음</option>
+                                <option value="unread">안읽음</option>
+                            </select>
+                        </li>
 
-                    <div id="write_toolbar_wrap" data-tag="write_toolbar_wrap" class="tool_bar" style="display: none;"></div>
-                </div>
+                        <li>
+                            <!-- 검색 바 -->
+                            <ul class="search_box">
+                                <li>
+                                    <input type="text" id="search_info" onkeydown="handleKeyDown(event)" placeholder="사원명 또는 제목을 입력해주세요.">
+                                </li>
+                                <li class="btn_box">
+                                    <div class="search_btn">
+                                        <img src="./img/search.png" alt="검색 버튼" onclick="search()">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
 
-                <div id="mainContent" class="column column_block">
-                    <div id="mailListArea" class="column_first" style="display: block;">
-                        <div id="mail_list_content" class="mail_list_wrap div_scroll">
-                            <table class="type_normal mail_list list_mail001">
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <li class="list_content">
+                    
+                </li>
+            </ul>
+        </div>
 
-                    <div id="messageNaviWrap"></div>
-
-                    <div id="mailReadArea" class="column_second"></div>
-
-                    <div id="mailWriteArea""></div>
-
-                    <div id="mailSendArea""></div>
-                </div>
+        <div id="paging" class="pagingBox">
+            <!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
+            <div class="container">
+                <nav aria-label="Page navigation" style="text-align: center">
+                    <ul class="pagination" id="pagenationReceive"></ul>
+                </nav>
             </div>
         </div>
-    </div>
+
+		<!-- 모달 -->
+		<div id="del_modal">
+			<div style="margin:30px 0; font-size:24px;">삭제 하시겠습니까?</div>
+			<button onclick="delNoSend()" class="modalBtnNo">아니요</button>
+			<button onclick="delYesSend()" class="modalBtnYes">예</button>	
+		</div>
+    </section>
     <!-- -------------------------------------------mailWrap end------------------------------------------------- -->
     <!-- -------------------------------------------music start------------------------------------------ -->
     <div id="bottom_music">
@@ -333,5 +352,165 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 //-------------------------------- toggle end ------------------------------------------
+//-------------------------------------------mailWrap start-------------------------------------------------
+    // 받은 메일함 리스트 호출
+    var showPage = 1;
+
+    // 검색
+    function handleKeyDown(event){
+        // 엔터키 keycode == 13
+        if(event.keyCode === 13){
+            search();
+        }
+    }
+
+    function search(){
+        console.log($("#search_info").val());
+
+        $.ajax({
+            type: "GET",
+            url: "sendMail/search.ajax",
+            data: {"search_info": $("#search_info").val(), "page": showPage},
+            dataType: "JSON",
+            success: function(data){
+                drawList(data);
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        $.ajax({
+            type: "get",
+            url: "sendMail/counts.ajax",
+            dataType: "JSON",
+            success: function(data){
+                console.log(data);
+
+                // 전체 메일 갯수 업데이트
+                $("#totalMail").text(data.totalMail);
+                // 안 읽은 메일 갯수 업데이트
+                $("#unreadMail").text(data.unreadMail);
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+
+        listCall(showPage);
+    });
+
+    function listCall(page){
+        var loginId = "${sessionScope.loginMember.member_no}";
+
+        $.ajax({
+            type: "get",
+            url: "sendMail/list.ajax",
+            data:{"page": page, "loginId": loginId, 'readOption':$('#readOption').val()},
+            dataType: "JSON",
+            success: function(data){
+                console.log("보낸 메일함 리스트 호출!!");
+                drawList(data);
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    }
+
+    function drawList(list){
+        console.log("drawList 호출!!!");
+        console.log("list : "+list);
+
+        var content = "";
+
+        list.list.forEach(function(item, index){
+            content += '<ul>';
+            content += '<li><input type="checkbox" name="receiveCheck" value="' + item.note_no + '"/></li>';
+            content +='<li>' 
+                if(item.receive_state==0){
+                    content+='<img src="resources/img/unread.jpg" alt="unreadImage" width=20 height=20/>';
+                }else {
+                    content+='<img src="resources/img/read.jpg" alt="readImage" width=20 height=20/>';
+                }
+            content +='</li>';
+            content += '<li><span class="name">' + item.name + '</span></li>';
+            content += '<li><a href="sendMail/list/detail?note_no='+item.note_no+'">' + item.note_subject + '</a></li>';
+            content += '<li><span class="date">' + item.note_date + '</span></li>';
+            content += '<li><span class="num">' + item.file_size + 'KB</span></li>';
+            content += '</ul>';
+        });
+        $('.list_content').empty();
+        $('.list_content').append(content);
+
+        $('#pagenationReceive').twbsPagination({
+            startPage: list.currPage, 
+            totalPages: list.pages, 
+            visiblePages:5,
+
+            onPageClick:function(e,page){ 
+                if(showPage != page){ 
+                    console.log(page);	
+                    showPage=page; 
+                    listCall(page);
+                }
+            }
+        });
+    }
+
+    // 보낸 쪽지 체크 박스
+    $("#mailListAllCheck").on("click", function(){
+        var $chk = $('input[name="mailAllcheck"]'); 
+        console.log($chk);
+        console.log($(this).is(":checked")); 
+        if($(this).is(":checked")){
+            $chk.prop("checked",true);
+        }else{
+            $chk.prop("checked",false);
+        }
+    });
+
+    // 보낸 쪽지 삭제 모달창
+    function delModal(){
+        document.getElementById('del_modal').style.display = 'block';
+    }
+
+    // 보낸 메일 '아니요 버튼 클릭
+    function delNo(){
+        document.getElementById('del_modal').style.display = 'none';
+    }
+
+    // 보낸 메일 '예' 버튼 클릭(리스트에서 숨김 처리)
+    function delYes(){
+        var chkArr = [];
+
+        $('input[name="mailListAllCheck"]:checked').each(function(idx,item){
+		//console.log(idx, $(item).val()); 
+		var val = $(item).val();
+            if(val != 'on'){
+                chkArr.push(val);
+            }
+        });
+        console.log(chkArr);
+
+        $.ajax({
+            type: "get",
+            url: "sendMail/delMail.ajax",
+            data: {'delList': chkArr},
+            dataType: "JSON",
+            success: function(data){
+                console.log(data);
+
+                listCall(showPage);
+                document.getElementById('del_modal').style.display = 'none';
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    }
+//-------------------------------------------mailWrap end-------------------------------------------------
 </script>
 </html>

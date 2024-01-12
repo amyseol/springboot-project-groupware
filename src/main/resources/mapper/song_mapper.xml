@@ -23,17 +23,17 @@
 		FROM song s
 			LEFT OUTER JOIN artist a ON s.art_no = a.art_no
 			LEFT OUTER JOIN member m ON s.member_no = m.member_no
-			LEFT OUTER JOIN song_per ON p.song_no = s.song_no
+			LEFT OUTER JOIN song_per p ON p.song_no = s.song_no
 		WHERE s.song_no = #{param1}
 	</select>
 	
 	<select id="getFile" resultType="song">
-		SELECT file_oriname, file_newnaame
+		SELECT file_oriname, file_newname
 		FROM file
 		WHERE file_unique_no = #{param1} and file_location = "x"
 	</select>
 	
-	<select id="songSearch">
+	<select id="songSearch" resultType="song">
 		SELECT s.*, m.name, m.member_position
 		FROM song s
 			LEFT OUTER JOIN member m ON m.member_no = s.member_no

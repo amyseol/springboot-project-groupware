@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import kr.co.gudi.comMail.dto.ComMailDTO;
 import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberAuthority;
 
@@ -39,6 +40,7 @@ public class MemberVO implements UserDetails {
 	private int depart_no;
 	private String depart_name;
 	private int depart_p_no;
+	private List<ComMailDTO> note;
 	
 
 	@Override		// 권한 판단
@@ -352,5 +354,13 @@ public class MemberVO implements UserDetails {
 
 	public void setDepart_p_no(int depart_p_no) {
 		this.depart_p_no = depart_p_no;
+	}
+
+	public List<ComMailDTO> getNote() {
+		return note;
+	}
+
+	public void setNote(List<ComMailDTO> note) {
+		this.note = note;
 	}
 }

@@ -60,29 +60,42 @@
         #util .util_inner li img{width:100%;}
 
         #common_list_form{padding-left:15%;}
+        #common_list_form .titleWrap{display: flex; position: relative;}
         #common_list_form .big_title{padding: 50px 50px;}
-        #common_list_form .sub_title{padding: 20px 50px;}
-        #common_list_form .list_form{position:relative;}
-        #common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
-        #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .list_form .list_title ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .list_form .list_title ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_title ul li:nth-child(3){width: 5%;}
-        #common_list_form .list_form .list_title ul li:nth-child(4){width: 50%;}
-        #common_list_form .list_form .list_title ul li:nth-child(5){width: 5%;}
-        #common_list_form .list_form .list_title ul li:last-child{width: 15%;}
-        #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
-        #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_content ul li:nth-child(3){width: 5%;}
-        #common_list_form .list_form .list_content ul li:nth-child(4){width: 50%;}
-        #common_list_form .list_form .list_content ul li:nth-child(5){width: 5%;}
-        #common_list_form .list_form .list_content ul li:last-child{width: 15%;}
+        #common_list_form .count{position: absolute; top: 60px; left: 180px;}
+        #common_list_form .toolBarWrap{position: relative;}
+        .list_title>ul>li{float: left;  text-align: center;}
+        .list_title>ul>li:first-child{width: 5%;}
+        .list_title>ul>li:nth-child(2){width: 10%;}
+        .list_title>ul>li:nth-child(3){width: 10%;}
+        .list_title>ul>li:nth-child(4){width: 10%;}
+        .list_title>ul>li:last-child{width: 65%;}
+        #common_list_form .list_form{position:relative; width: 90%; margin-left: 50px;}
+        #common_list_form .list_form .list_content {padding-top: 60px;}
+        #common_list_form .list_form .list_content ul{width: 100%; height: 30px;}
+        #common_list_form .list_form .list_content ul li{float:left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box; text-align: center;}
+        #common_list_form .list_form .list_content ul li{width: 20%;}
+        #common_list_form .list_form .list_content ul li:nth-child(2n-1){padding-left: 50px;}
+        #common_list_form .list_form .list_content ul li:nth-child(2n){width: 80%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
+       	/* #common_list_form .list_form .list_content ul:hover{background-color: #eee;} */
+        
+        #common_list_form .search_box{position: absolute; margin: 0px 0 10px 50px; border: 1px solid #fff; display: inline-block; left: 1000px; top: -10px;}
+        #common_list_form .search_box li{float: left;}
+        #common_list_form .search_box #search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
+        #common_list_form .search_box #search_info::placeholder{color: #ccc;}
+        #common_list_form .search_box .btn_box{width: 28px; height: 28px; cursor: pointer; border: 1px solid #ccc; box-sizing: border-box; border-left: none;}
+        #common_list_form .search_box .btn_box .search_btn{position:relative; width: 14px; height: 14px; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+        #common_list_form .search_box .btn_box .search_btn img{width: 100%;}
+        #common_list_form .search_box:hover select{border: 1px solid #333; border-right: none;}
+        #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
+        #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
 
         #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
+        
+        #del_modal{
+        	display: none;
+        }
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -173,100 +186,91 @@
         </ul>
     </div>
     <!-- -------------------------------------------util end------------------------------------------ -->
-    <!-- -------------------------------------------list_form start------------------------------------------ -->
+    <!-- -------------------------------------------mailWrap start------------------------------------------------- -->
     <section id="common_list_form">
-        <h2 class="big_title">타이틀</h2>
-        <h3 class="sub_title">리스트 폼</h3>
+        <div class="titleWrap">
+            <h2 class="big_title"> 보낸 메일함 </h2>
+            <span class="count">
+                    전체 메일 
+                <span class="num">
+                    <strong id="totalMail"><!-- 전체 메일 숫자 --></strong>
+                </span>
+                    / 안읽은 메일
+                <span class="num">
+                    <strong id="unreadMail"><!-- 안읽은 메일 숫자 --></strong>
+                </span>
+            </span>
+        </div>
+
+
         <div class="list_form">
             <ul>
                 <li class="list_title">
                     <ul>
-                        <li>기안일</li>
-                        <li>결재양식</li>
-                        <li>긴급</li>
-                        <li>제목</li>
-                        <li>첨부</li>
-                        <li>결재상태</li>
+                        <!-- 툴바 -->
+                        <li class="btn_submenu">
+                            <a class="btn_tool" data-role="button" onclick="reply()">
+                                <span class="ic_toolbar reply"></span>
+                                <span class="txt">답장</span>
+                            </a>
+                        </li>
+                        <li class="btn_submenu">
+                            <a class="btn_tool" data-role="button" onclick="delSend()">
+                                <span class="txt_caution">삭제</span>
+                            </a>
+                        </li>
+                        <li class="btn_submenu">
+                            <select id="readOption">
+                                <option value="all">전체</option>
+                                <option value="read">읽음</option>
+                                <option value="unread">안읽음</option>
+                            </select>
+                        </li>
+                        <li class="btn_submenu">
+                            
+                        </li>
+                        <li>
+                            <!-- 검색 바 -->
+                            <ul class="search_box">
+                                <li>
+                                    <input type="text" id="search_info" onkeydown="handleKeyDown(event)" placeholder="사원명 또는 제목을 입력해주세요.">
+                                </li>
+                                <li class="btn_box">
+                                    <div class="search_btn">
+                                        <img src="./img/search.png" alt="검색 버튼" onclick="search()">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
-                <li class="list_content">
+
+               <li class="list_content">
+               		<h2>${seMailDetail.note_subject}</h2>
                     <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li> </li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li> </li>
-                        <li>진행중</li>
+                        <li>&nbsp;보낸 사람 :&nbsp;</li>
+                        <li>${seMailDetail.sender}</li>
+                        <li>&nbsp;받는 사람 :&nbsp;</li>
+                        <li>${seMailDetail.receiver}</li>
+                        <li>&nbsp;보낸 날짜 :&nbsp;</li>
+                        <li>${seMailDetail.note_date}</li>
                     </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
+                    
+                    <ul id="add_file">
+                    	    
                     </ul>
                 </li>
             </ul>
         </div>
+
+		<!-- 모달 -->
+		<div id="del_modal">
+			<div style="margin:30px 0; font-size:24px;">삭제 하시겠습니까?</div>
+			<button onclick="delNo()" class="modalBtnNo">아니요</button>
+			<button onclick="delYes()" class="modalBtnYes">예</button>	
+		</div>
     </section>
-    <!-- -------------------------------------------list_form end------------------------------------------ -->
+    <!-- -------------------------------------------mailWrap end------------------------------------------------- -->
     <!-- -------------------------------------------music start------------------------------------------ -->
     <div id="bottom_music">
         <div class="music_inner">
@@ -276,7 +280,26 @@
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
+    //-----------------------------------------mail start-----------------------------------------
+    $(document).ready(function(){
+        $.ajax({
+            type: "get",
+            url: "sendMail/counts.ajax",
+            dataType: "JSON",
+            success: function(data){
+                console.log(data);
 
+                // 전체 메일 갯수 업데이트
+                $("#totalMail").text(data.totalMail);
+                // 안 읽은 메일 갯수 업데이트
+                $("#unreadMail").text(data.unreadMail);
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    });
+    //------------------------------------------mail end--------------------------------------
 // -------------------------------- toggle start ------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
     var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
