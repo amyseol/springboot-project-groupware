@@ -1,6 +1,5 @@
-// 스케줄 컨트롤러
-
 package kr.co.gudi.schedule.controller;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,7 +92,6 @@ public class ScheduleController {
 		logger.info("일정 pk 번호 : "+sch_no);
 		service.delSch(sch_no);
 		return new ModelAndView("schedule/scheduleList");
-	}
-	
+	}	
 
 }

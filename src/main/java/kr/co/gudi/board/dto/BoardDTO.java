@@ -17,10 +17,16 @@ public class BoardDTO {
 	private String board_state;
 	
 	
-	
 	private int file_no;
     private String file_location;
     private int file_unique_no;
+    
+
+	private String file_oriname;
+    private String file_newname;
+    private String file_size;
+    private String file_state;
+   
     
     public int getFile_no() {
 		return file_no;
@@ -64,12 +70,6 @@ public class BoardDTO {
 	public void setFile_state(String file_state) {
 		this.file_state = file_state;
 	}
-	private String file_oriname;
-    private String file_newname;
-    private String file_size;
-    private String file_state;
-    
-
 	public int getBoard_no() {
 		return board_no;
 	}

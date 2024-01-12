@@ -4,6 +4,7 @@
    
 <mapper namespace="kr.co.gudi.schedule.dao.ScheduleDAO">
 
+
 	<insert id="write" parameterType="Map">
       INSERT INTO schedule(content,sch_depart,title,start,end,member_no,sch_state) 
       	VALUES(#{content},#{sch_depart},#{title},#{start},#{end},#{member_no},#{sch_state})
@@ -46,4 +47,5 @@
    			set sch_state = '1'
    			where sch_no = #{param1}
    </update>
+
 </mapper>

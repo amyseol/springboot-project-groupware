@@ -55,5 +55,4 @@ public class ArchiveController {
 		logger.info("name ==="+member_name);
 		return service.archiveDel(delList,names,member_name,model);
 	}
-	
 }

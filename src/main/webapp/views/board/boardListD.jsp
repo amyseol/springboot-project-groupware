@@ -38,7 +38,7 @@
 	<h2 class="big_title">타이틀</h2>
 	<h3 class="sub_title">리스트 폼</h3>
         
-        <li><button onclick="location.href='boardWrite'">글작성</button></li>
+        <li><button onclick="location.href='boardWriteD'">글작성</button></li>
         
 
         <div class="list_form">
@@ -52,7 +52,7 @@
                         <li>조회수</li>
                     </ul>
                 </li>
-                <li class="list_content" id="list">
+                <li class="list_content" id="listD">
 
                 </li>
             </ul>
@@ -96,7 +96,7 @@ function listCall(page){
 	console.log("ajax시작");
 	$.ajax({
 		type:'get',
-		url:'list',
+		url:'listD',
 		data:{
 			 'page': page,
 			 'board_name': $('#board_name').val()
@@ -114,9 +114,9 @@ function listCall(page){
 	
 }
 
-function drawList(list){
+function drawList(listD){
 	var content = '';
-	list.list.forEach(function(item, idx){
+	listD.listD.forEach(function(item, idx){
 		content += '<ul>';
 		content += '<li>'+item.board_no+'</li>';
 		content+='<li><a href="boardDetail?board_no='+item.board_no+'">'+item.board_title+'</a></li>';
@@ -125,14 +125,14 @@ function drawList(list){
 		content += '<li>'+item.bHit+'</li>';			
 		content += '</ul>';
 	});
-	$('#list').empty(); 
-	$('#list').append(content);
+	$('#listD').empty(); 
+	$('#listD').append(content);
 	
 	
 	//페이징 처리 UI 그리기(플러그인 사용)
 	$('#pagination').twbsPagination({
-		startPage:list.currPage, // 보여줄 페이지
-		totalPages:list.pages, // 총 페이지 수(총 갯수/페이지 당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
+		startPage:listD.currPage, // 보여줄 페이지
+		totalPages:listD.pages, // 총 페이지 수(총 갯수/페이지 당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
 		visiblePages:5, // [1][2][3][4][5]
 		onPageClick:function(e, page){ // 번호 클릭 시 실행할 내용
 			//console.log(e);

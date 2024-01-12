@@ -10,8 +10,6 @@ import kr.co.gudi.board.dto.BoardDTO;
 @Mapper
 public interface BoardDAO {
 
-	//ArrayList<BoardDTO> list();
-
 	void write(BoardDTO dto);
 
 	BoardDTO detail(String board_no);
@@ -26,14 +24,17 @@ public interface BoardDAO {
 
 	ArrayList<BoardDTO> getPhoto(String board_no);
 
-	//int modifyImage(HashMap<String, String> params);
-
 	void modifyImage(String file_location, String board_no, String file_oriname, String file_newname, int size);
 
 	int totalPage();
 	
-	ArrayList<BoardDTO> list(int ppn);
+	ArrayList<BoardDTO> list(int ppn, int member_no);
+	
+	ArrayList<BoardDTO> boardSearch(String board_name, int offset, int member_no);
+	
+	ArrayList<BoardDTO> listD(int ppn, int member_no);
+	
+	ArrayList<BoardDTO> boardSearchD(String board_name, int offset, int member_no);
 
-	ArrayList<BoardDTO> boardSearch(String board_name, int offset);
-
+	void writeD(BoardDTO dto);
 }

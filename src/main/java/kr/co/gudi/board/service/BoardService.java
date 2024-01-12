@@ -33,36 +33,66 @@ public class BoardService {
 	}
 	*/
 	
-	public Map<String, Object> list(String page,String board_name) {
+	public Map<String, Object> list(String page,String board_name, int member_no) {
 		int p = Integer.parseInt(page);
 		int offset = (p - 1) * 10;
 		Map<String, Object> map = new HashMap<String, Object>();
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+
+		if(board_name!=null) {
+			list = dao.boardSearch(board_name,offset,member_no);			
+			logger.info("board_name != null");
+		}else {
+			list = dao.list(offset,member_no);	
+			logger.info("board_name == null");
+		}
 	
-			if(board_name!=null) {
-				list = dao.boardSearch(board_name,offset);						
-			}else {
-				list = dao.list(offset);				
-			}
-	
-			map.put("list", list);
+		map.put("list", list);
 		
 		
-		 int pages = dao.totalPage(); 
-		 logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
+		int pages = dao.totalPage(); 
+		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
 		 
-		  if(p>pages) { 
-			  p = pages; 
-		  } 
+		if(p>pages) { 
+			 p = pages; 
+		} 
 		  
-		  map.put("currPage", p);		 
-		  map.put("pages", pages); //만들 수 있는 총 페이지 수 map.put("list", list);
+		map.put("currPage", p);		 
+		map.put("pages", pages); //만들 수 있는 총 페이지 수 map.put("list", list);
 		
 		return map;
 	}
 
-	
 
+	public Map<String, Object> listD(String page, String board_name, int member_no) {
+		int p = Integer.parseInt(page);
+		int offset = (p - 1) * 10;
+		Map<String, Object> map = new HashMap<String, Object>();
+		ArrayList<BoardDTO> listD = new ArrayList<BoardDTO>();
+
+		if(board_name!=null) {
+			listD = dao.boardSearchD(board_name,offset,member_no);			
+			logger.info("Dboard_name != null");
+		}else {
+			listD = dao.listD(offset,member_no);	
+			logger.info("Dboard_name == null");
+		}
+	
+		map.put("listD", listD);
+		
+		
+		int pages = dao.totalPage(); 
+		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
+		 
+		if(p>pages) { 
+			 p = pages; 
+		} 
+		  
+		map.put("currPage", p);		 
+		map.put("pages", pages); //만들 수 있는 총 페이지 수 map.put("list", list);
+		
+		return map;
+	}
 
 
 	public String write(BoardDTO dto, MultipartFile[] photos) throws Exception {
@@ -83,6 +113,26 @@ public class BoardService {
 	        return "failure"; // 작업이 실패했을 경우 failure 반환 또는 예외를 던짐
 	    }
 	}
+
+
+	public String writeD(BoardDTO dto, MultipartFile[] photos) throws Exception {
+		logger.info("service writeD 함수");
+		
+		dao.writeD(dto);
+		
+		logger.info("Dboard_no>0인지 체크중");
+		int board_no = dto.getBoard_no();
+		logger.info("Dboard_no : " + dto.getBoard_no());
+		if (board_no > 0) {
+			logger.info("saveFileD 함수 실행");
+			
+	        saveFile(board_no, photos);
+	        
+	        return "success";
+	    } else {
+	        return "failure"; // 작업이 실패했을 경우 failure 반환 또는 예외를 던짐
+	    }
+	}
 	
 	private void saveFile(int board_no, MultipartFile[] photos) {
 	    for(MultipartFile file : photos) {
@@ -95,7 +145,7 @@ public class BoardService {
 	                String file_newname = System.currentTimeMillis()+ext;
 	                
 	                // 파일 사이즈
-	                long fileSize = file.getSize()/1024; // @@@@@@@@@ 소숫점 제거 --> 정수형 int 사용
+	                long fileSize = file.getSize()/1024; 
 	                
 	                if(fileSize > 0) {
 	                	// 파일 저장
@@ -126,7 +176,6 @@ public class BoardService {
 		ArrayList<BoardDTO> photos = dao.getPhoto(board_no); // 사진
 		model.addAttribute("board", board);
 		model.addAttribute("photos", photos);
-		
 		
 	}
 
@@ -180,56 +229,4 @@ public class BoardService {
 		
 	}
 
-
-
-
-/*
-	public Map<String, Object> boardSearch(String board_name, int offset) {
-		//int p = Integer.parseInt(page);
-		//int offset = (p - 1) * 10;
-		
-		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-		list = dao.boardSearch(board_name, offset);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("list", list);
-		
-		
-		  int pages = dao.totalPage(); map.put("pages", pages); // 전체 페이지가 p 값보다 작을 때
-		  if (p > pages) { p = pages; } map.put("currPage", p);
-		 
-		return map;
-	}
-	*/
-
-	
-	/*
-	public int modify(HashMap<String, String> params) {
-		// 게시글 정보 업데이트
-		int result = dao.modify(params);
-		logger.info("modify 함수 접근");
-		logger.info("params 데이터 : "+params);
-		
-		
-		/*
-		// @@@@@@@@@@@@@ 파일이 업데이트 안 됨
-		// @@@@@@@@@@@@@@@ mapper modifyImage 확인
-		// 이미지 정보가 전달된 경우에만 처리
-		if(params.containsKey("img_file")) {
-			// 이미지 파일 정보 업데이트
-			logger.info("dao.modifyImage(params)");
-			//result += dao.modifyImage(params);
-			
-			String imageFile = params.get("img_file");
-	        int board_no = Integer.parseInt(params.get("board_no"));
-			logger.info("매개변수 : "+imageFile+" / "+board_no);
-			// dao.updateImage(imageFile, board_no);
-		}
-		
-		
-		return result;
-	}
-	*/
-	
 }

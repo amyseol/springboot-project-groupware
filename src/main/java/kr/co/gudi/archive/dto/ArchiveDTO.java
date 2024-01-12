@@ -96,7 +96,4 @@ public class ArchiveDTO {
 		this.arch_date = arch_date;
 	}
 	
-
-	
-	
 }

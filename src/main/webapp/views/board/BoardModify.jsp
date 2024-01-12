@@ -6,71 +6,77 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"> </script>
+<link rel="stylesheet" href="richtexteditor/rte_theme_default.css" />
+<script type="text/javascript" src="richtexteditor/rte.js"></script>
+<script type="text/javascript" src='richtexteditor/plugins/all_plugins.js'></script>
 <style>
-table {
-      margin: 0 auto; /* 가로 가운데 정렬 */
-}
-table, th, td{
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 5px 10px;
-}
+		#common_list_form{padding-left:15%;}
+        #common_list_form .big_title{padding: 50px 50px;}
+        #common_list_form .sub_title{padding: 20px 50px;}
+        #common_list_form .list_form{position:relative;}
+        #common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
+        #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
+        #common_list_form .list_form .list_title ul li:first-child{width: 10%; padding-left: 50px; }
+        #common_list_form .list_form .list_title ul li:nth-child(2){width: 50%;}
+        #common_list_form .list_form .list_title ul li:nth-child(3){width: 15%;}
+        #common_list_form .list_form .list_title ul li:nth-child(4){width: 15%;}
+        #common_list_form .list_form .list_title ul li:last-child{width: 10%;}
+        #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
+        #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
+        #common_list_form .list_form .list_content ul li:first-child{width: 10%; padding-left: 50px; }
+        #common_list_form .list_form .list_content ul li:nth-child(2){width: 50%;}
+        #common_list_form .list_form .list_content ul li:nth-child(3){width: 15%;}
+        #common_list_form .list_form .list_content ul li:nth-child(4){width: 15%;}
+        #common_list_form .list_form .list_content ul li:last-child{width: 10%;}
+        #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
+        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
-input[type="submit"]{
-	height: 50px;
-}
 
-fieldset{
-	margin-top: 15px;
-}
-
-#notice{
-	display: none;
-	position: absolute;
-	widht: 200px;
-	height: 50px;
-	border: 1px solid black;
-	bottom: 1%;
-	right: 1%;
-}
-
-.msg{
-	width: 100%;
-	margin-top: 15px;
-	text-align: center;
-	font-size: 12px;
-}	
 </style>
 </head>
 <body>
-	<form action="modify" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="board_no" value="${board.board_no}"/>
-		<table>
-			<tr>
-				<th>제목</th>
-				<td><input type="text" name="board_title" value="${board.board_title}"/></td>
-			</tr>
-			<tr>
-				<th>작성자</th>
-				<td><input type="text" name="board_depart" value="${board.board_depart}"/></td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td><textarea name="board_content">${board.board_content}</textarea></td>
-			</tr>
-			<tr>
-				<th colspan="2">
-					<input type="button" onclick="location.href='./'" value="이전"/>
-					<button>수정</button>
-					<th>사진</th>
-					<td><input type="file" name="photos"/></td>
-				</th>
-			</tr>	
-		</table>
-	</form>
+<%@ include file="/views/nav.jsp" %>
+	<section id="common_list_form">
+    <h2 class="big_title">타이틀</h2>
+    <h3 class="sub_title">리스트 폼</h3>
+    
+    <div class="list_form">
+        <form action="modify" method="post" enctype="multipart/form-data">
+    		<input type="hidden" name="board_no" value="${board.board_no}" />
+	    <ul>
+	        <li>
+	            <label for="board_title">제목</label>
+	            <input type="text" id="board_title" name="board_title" value="${board.board_title}" />
+	        </li>
+	        <li>
+	            <label for="board_content">내용</label>
+	            <textarea id="board_content" name="board_content" value="${board.board_content}"></textarea>
+	            <!-- 
+	            <div id="rich_deditor"></div>
+				
+				<input type="hidden" name="board_content" value="${board.board_content}"/>
+				 -->
+	        </li>
+	        <li>
+	            <label for="photos">사진</label>
+	            <input type="file" id="photos" name="photos" />
+	        </li>
+	        <li>
+	            <input type="button" onclick="location.href='./'" value="이전" />
+	            <button type="submit">수정</button>
+	        </li>
+	    </ul>
+		</form>
+	</div>
+	</section>
 
 </body>
 <script>
+var config = {}
+//config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
+config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
+var editor = new RichTextEditor("#board_content", config);
+
 
 </script>
 </html>

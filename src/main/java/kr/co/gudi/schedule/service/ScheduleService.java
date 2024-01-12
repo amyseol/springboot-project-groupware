@@ -1,5 +1,6 @@
 package kr.co.gudi.schedule.service;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +63,4 @@ public class ScheduleService {
 		dao.delSch(sch_no);
 		
 	}
-	
-	
 }

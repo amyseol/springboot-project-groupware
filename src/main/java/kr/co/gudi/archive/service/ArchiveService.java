@@ -114,7 +114,6 @@ public class ArchiveService {
 		
 		map.put("del_cnt", cnt);
 		return map;
-	}
-	
+	}	
 	
 }
