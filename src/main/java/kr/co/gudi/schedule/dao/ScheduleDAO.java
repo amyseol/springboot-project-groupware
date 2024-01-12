@@ -13,8 +13,6 @@ public interface ScheduleDAO {
 
 	void write(HashMap<String, Object> param);
 
-	List<ScheduleDTO> list(int member_no);
-
 	String addForm(HashMap<String, Object> params);
 
 	ScheduleDTO detail(String sch_no);
@@ -30,5 +28,7 @@ public interface ScheduleDAO {
 	List<ScheduleDTO> allList(String sch_state);
 
 	List<ScheduleDTO> dptList(String sch_state, int sch_depart);
+
+	void dWrite(HashMap<String, Object> param);
 
 }

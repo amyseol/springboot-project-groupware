@@ -5,14 +5,20 @@
 <mapper namespace="kr.co.gudi.schedule.dao.ScheduleDAO">
 
 	<insert id="write" parameterType="Map">
-      INSERT INTO schedule(content,sch_depart,title,start,end,member_no) 
-      	VALUES(#{content},#{sch_depart},#{title},#{start},#{end},#{member_no})
+      INSERT INTO schedule(content,sch_depart,title,start,end,member_no,sch_state) 
+      	VALUES(#{content},#{sch_depart},#{title},#{start},#{end},#{member_no},#{sch_state})
    </insert>
    
    <insert id="nWrite" parameterType="map">
-   	INSERT into notification(noti_sender,noti_locate, noti_unique_no, noti_depart_no) 
-		values(#{memb_no},'s',#{sch_no},#{sch_depart})
+   	INSERT into notification(noti_sender,noti_receiver,noti_content,noti_locate) 
+		values(#{memb_no},1,5,'s')
    </insert>
+   
+   <insert id="dWrite" parameterType="map">
+   	INSERT into notification(noti_sender,noti_receiver,noti_content,noti_locate,noti_depart_no) 
+		values(#{memb_no},1,6,'s',#{sch_depart})
+   </insert>
+
    
    <select id="list"  resultType="sch">
    		select * from schedule  		
@@ -28,19 +34,8 @@
    		select * from schedule  		
    			where sch_state=#{sch_state} and sch_depart=#{sch_depart}
    </select>
-   
-   
-   <select id="listMy" resultType="sch">
-   		select * from schedule
-   			where member_no=#{param}
-   
-   </select>
-   
-   <select id="listDepart" resultType="sch">
-   		select * from schedule
-   			where sch_depart=#{param}
-   </select>
-   
+     
+
    <select id="schDetail" resultType="sch">
    		select * from schedule
    			where sch_no = #{param1}

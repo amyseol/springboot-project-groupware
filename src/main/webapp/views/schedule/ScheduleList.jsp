@@ -117,7 +117,13 @@
 		            type: "GET",
 		            url: "save",
 		            contentType: "application/json",
-		            data: $("#addData").serialize(),
+		            data: /* $("#addData").serialize() */
+		            {'title':$("#title").val(),
+		            'content':$("#content").val(),
+		            'start':$("#start").val(),
+		            'end':$("#end").val(),
+		            'sch_state':$("#end").val()
+		            },
 		            dataType: 'JSON',
 		            success: function(response) {
 		                console.log(response); // 서버에서의 응답 확인
@@ -237,14 +243,14 @@
               id="closeModalBtn"
             >X</button>
           </div>
-          <form id="addData">
+          
           <div class="modal-body">
             일정이름 : <input type="text" id="title" name="title" /><br />
             일정내용 : <input type="text"  id="content" name="content"/><br/>
             시작시간 : <input type="datetime-local" id="start"  name="start"/><br />
             종료시간 : <input type="datetime-local" id="end" name="end" />
           </div>  
-          </form>
+        
           <div class="modal-footer">
             <button
               type="button"

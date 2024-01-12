@@ -19,7 +19,13 @@ public class ScheduleService {
 	
 	public void write(HashMap<String, Object> param) {
 		 dao.write(param);
-		 dao.nWrite(param);
+		 String sch_state=(String) param.get("sch_state");
+		 if(sch_state.equals("2")) {
+			 dao.nWrite(param);			 
+		 }else if(sch_state.equals("3")){
+			 dao.dWrite(param);
+		 }
+		 
 		
 	}
 
