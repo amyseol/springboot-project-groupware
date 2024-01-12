@@ -51,8 +51,9 @@
 </style>
 </head>
 <body>
+    <!-- -------------------------------------------list_form start------------------------------------------ -->
 	<%@ include file="/views/nav.jsp" %>
-    <section id="common_list_form">
+    <section id="common_list_form">a
         <h2 class="big_title">공용자료실</h2>
         <h3 class="sub_title">
         	<input type="button" id="allList" value="전사"/>

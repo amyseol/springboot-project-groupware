@@ -29,7 +29,7 @@ public class ArchiveController {
 	
 	@GetMapping(value="/archiveAll")
 	public String archiveAll() {
-		return "archive/archiveAll";
+		return "archive/ArchiveAll";
 	}
 	
 	
