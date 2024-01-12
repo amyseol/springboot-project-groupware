@@ -27,12 +27,15 @@ public class ApprovalService {
 	
 	Logger log = LoggerFactory.getLogger(getClass());
 
+	ModelAndView mav = new ModelAndView();
+
 	public ModelAndView approvalWrite(HashMap<String, String> params, MultipartFile[] files, int member_no, String[] observer) {
-		ModelAndView mav = new ModelAndView();
 		ApprovalDTO dto = new ApprovalDTO();
 		
 		// 사진 테이블에 저장할 고유키 값 가져오기 위한 셋팅
-		dto.setMember_no(member_no);
+		dto.setDraftmember_no(member_no);
+		int first_approver=Integer.parseInt(params.get("first_approver"));
+		dto.setFirst_approver(first_approver);
 		dto.setApproval_title(params.get("title"));
 		dto.setApproval_content(params.get("content"));
 		int form_no=Integer.parseInt(params.get("form_no"));
@@ -77,6 +80,13 @@ public class ApprovalService {
 			}
 		}
 		
+		// 작성 후 이동 위치
+		if(form_no == 1) {
+			mav.setViewName("approval/draftDocDetail?approval_no="+approval_no);
+		} else if(form_no == 2) {
+			
+		}
+		
 		return mav;
 	}
 
@@ -97,6 +107,100 @@ public class ApprovalService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	// 기안함 리스트 출력
+	public HashMap<String, Object> draftListCall(int member_no) {
+		ArrayList<ApprovalDTO> dto = new ArrayList<ApprovalDTO>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		dto = apprDao.draftList(member_no);
+		
+		map.put("list", dto);
+		return map;
+	}
+
+	// 결재함 리스트 출력
+	public HashMap<String, Object> apprListCall(int member_no) {
+		ArrayList<ApprovalDTO> dto = new ArrayList<ApprovalDTO>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		dto = apprDao.apprList(member_no);
+		
+		map.put("list", dto);
+		return map;
+	}
+
+	// 참조함 리스트 출력
+	public HashMap<String, Object> refListCall(int member_no) {
+		ArrayList<ApprovalDTO> dto = new ArrayList<ApprovalDTO>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		dto = apprDao.refList(member_no);
+		
+		map.put("list", dto);
+		return map;
+	}
+
+	// 기안서 디테일 이동
+	public ModelAndView draftDocDetail(int approval_no, int member_no) {
+		int docAuth;
+		
+		ApprovalDTO info = apprDao.draftDocDetailInfo(approval_no);
+		ArrayList<ApprovalDTO> fileInfo = apprDao.fileInfo(approval_no);
+		ArrayList<ApprovalDTO> apprInfo = apprDao.apprInfo(approval_no);
+		ArrayList<ApprovalDTO> refInfo = apprDao.refInfo(approval_no);
+		
+		// 결재문서의 내 권한
+		if (apprDao.dratfVarification(approval_no, member_no) == 0) {
+			if (apprDao.apprVarification(approval_no, member_no) == 0) {
+				// 결재자 and 몇번째인지
+				docAuth = apprDao.apprOrder(approval_no, member_no);
+			}else {
+				// 참조자
+				docAuth = 4;
+			}
+		} else {
+			// 기안자
+			docAuth = 0;
+		}
+		log.info("docAuth : "+docAuth);
+		
+		mav.addObject("info",info);
+		mav.addObject("fileInfo",fileInfo);
+		mav.addObject("apprInfo",apprInfo);
+		mav.addObject("refInfo",refInfo);
+		mav.addObject("docAuth",docAuth);
+		mav.setViewName("approval/draftDocDetail");
+		
+		return mav;
+	}
+
+	public ModelAndView approve(String reason, int approval_no, int member_no) {
+		
+		// 결재자 번호 구하기
+		int approverNo = apprDao.getapproverNo(member_no, approval_no);
+		
+		// 결재 히스토리 추가
+		apprDao.commApprove(approverNo, reason);
+		
+		// 해당 결재자가 몇명인지?
+		int apprCnt = apprDao.getApprCnt(approval_no);
+		log.info("결재자가 몇 명? "+apprCnt);
+		
+		// 나는 몇번째 결재자인지?
+		int myApprNum = apprDao.getMyApprNum(member_no, approval_no);
+		log.info("나는 몇번째 결재자? "+myApprNum);
+		
+		// 해당 결재의 결재자 수보다 내 결재순서가 낮으면
+		if(apprCnt > myApprNum) {
+			log.info(apprCnt+">"+myApprNum);
+			
+			
+			// 해당 결재의 결재자 수랑 내 결재순서가 같으면
+		} else if(apprCnt == myApprNum) {
+			log.info(apprCnt+"=="+myApprNum);
+			
+		}
+		
+		return mav;
 	}
 	
 	
