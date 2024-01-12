@@ -41,6 +41,8 @@ public interface CopyrightDAO {
 
 	void resourceCopyrightdelete(String cr_no, String per_price);
 
+	Map<String, Object> depttlist();
+
 
 
 }

@@ -320,39 +320,6 @@
 				
 				</td>
 			</tr>
-			<tr>
-				<td>
-				
-		<h3 class="sub_title">이벤트</h3>
-         <div class="list_form">
-            <ul>
-                <li class="list_title3" id="list3">
-                    <ul>
-                        <li>no.</li>
-                        <li>아티스트이름</li>
-                        <li>소속사이름</li>
-                    </ul>
-                </li>
-				
-				<li class="list_title" id="list_3">
-				
-				</li>
-
-             </ul>
-             
-
-        </div>
-		<div id="paging" class="pagingBox">
-			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
-			<div class="container">
-				<nav aria-label="Page navigation" style="text-align: center">
-					<ul class="pagination" id="getpagination3"></ul>
-				</nav>
-			</div>
-		</div>
-				
-				</td>
-			</tr>
 			</table>
 		</div>
 
