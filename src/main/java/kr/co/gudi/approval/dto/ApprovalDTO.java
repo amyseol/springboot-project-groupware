@@ -9,7 +9,8 @@ public class ApprovalDTO {
 	
 	// approval
 	private int approval_no;
-	private int member_no;
+	private int draftmember_no;
+	private int currmember_no;
 	private String approval_title;
 	private String approval_content;
 	private Date approval_start;
@@ -17,6 +18,7 @@ public class ApprovalDTO {
 	private int approval_state;
 	private int document_state;
 	private int form_no;
+	private int first_approver;
 	
 	// approver
 	private int approver_no;
@@ -37,17 +39,36 @@ public class ApprovalDTO {
 	private int vac_type;
 	private int vac_starttime;
 	
+	// member
+	private String name;
+	private String member_position;
+	
+	// department
+	private String depart_name;
+	
+	// file
+	private String file_location;
+	private int file_unique_no;
+	private String file_oriname;
+	private String file_newname;
+	
 	public int getApproval_no() {
 		return approval_no;
 	}
 	public void setApproval_no(int approval_no) {
 		this.approval_no = approval_no;
 	}
-	public int getMember_no() {
-		return member_no;
+	public int getDraftmember_no() {
+		return draftmember_no;
 	}
-	public void setMember_no(int member_no) {
-		this.member_no = member_no;
+	public void setDraftmember_no(int draftmember_no) {
+		this.draftmember_no = draftmember_no;
+	}
+	public int getCurrmember_no() {
+		return currmember_no;
+	}
+	public void setCurrmember_no(int currmember_no) {
+		this.currmember_no = currmember_no;
 	}
 	public String getApproval_title() {
 		return approval_title;
@@ -90,6 +111,12 @@ public class ApprovalDTO {
 	}
 	public void setForm_no(int form_no) {
 		this.form_no = form_no;
+	}
+	public int getFirst_approver() {
+		return first_approver;
+	}
+	public void setFirst_approver(int first_approver) {
+		this.first_approver = first_approver;
 	}
 	public int getApprover_no() {
 		return approver_no;
@@ -168,5 +195,47 @@ public class ApprovalDTO {
 	}
 	public void setVac_starttime(int vac_starttime) {
 		this.vac_starttime = vac_starttime;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getMember_position() {
+		return member_position;
+	}
+	public void setMember_position(String member_position) {
+		this.member_position = member_position;
+	}
+	public String getDepart_name() {
+		return depart_name;
+	}
+	public void setDepart_name(String depart_name) {
+		this.depart_name = depart_name;
+	}
+	public String getFile_location() {
+		return file_location;
+	}
+	public void setFile_location(String file_location) {
+		this.file_location = file_location;
+	}
+	public int getFile_unique_no() {
+		return file_unique_no;
+	}
+	public void setFile_unique_no(int file_unique_no) {
+		this.file_unique_no = file_unique_no;
+	}
+	public String getFile_oriname() {
+		return file_oriname;
+	}
+	public void setFile_oriname(String file_oriname) {
+		this.file_oriname = file_oriname;
+	}
+	public String getFile_newname() {
+		return file_newname;
+	}
+	public void setFile_newname(String file_newname) {
+		this.file_newname = file_newname;
 	}
 }

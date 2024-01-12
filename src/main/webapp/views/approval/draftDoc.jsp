@@ -350,7 +350,7 @@
                 </div>
             </div>
             <div class="right_area">
-                <form id="form_info" class="doc_form" action="approvalWrite" method="post" enctype="multipart/form-data">
+                <form id="form_info" class="doc_form" action="approvalWrite.do" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="form_no">
                 <input type="hidden" name="observer" class="observer1">
                 <input type="hidden" name="observer" class="observer2">
@@ -896,11 +896,11 @@
 </body>
 <script>
 
-var firstIdx = 1;
-var secondIdx = 2;
-var thirdIdx = 3;
-var firstOb = 4;
-var secondOb = 5;
+var firstIdx = 26;
+var secondIdx = 27;
+var thirdIdx = 28;
+var firstOb = 29;
+var secondOb = 30;
 
 $('input[name="first_approver"]').val(firstIdx);
 $('input[name="second_approver"]').val(secondIdx);
@@ -1131,7 +1131,7 @@ $('#form_go').on('click',function(){
     if(dataIndexValue == 0){
         alert("양식을 선택해 주세요.");
     } else if(dataIndexValue == 1){
-        window.location.href = '/approval/draftDocForm?form_no='+encodeURIComponent(dataIndexValue);
+        window.location.href = '/approval/draftDoc?form_no='+encodeURIComponent(dataIndexValue);
     } else if(dataIndexValue == 2){
         window.location.href = 'javascript:';
     } else if(dataIndexValue == 3){
