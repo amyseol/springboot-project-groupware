@@ -50,9 +50,12 @@
 	        </li>
 	        <li>
 	            <label for="board_content">내용</label>
+	            <textarea id="board_content" name="board_content" value="${board.board_content}"></textarea>
+	            <!-- 
 	            <div id="rich_deditor"></div>
-	            <input type="hidden" name="board_content" value="${board.board_content}"/>
-
+				
+				<input type="hidden" name="board_content" value="${board.board_content}"/>
+				 -->
 	        </li>
 	        <li>
 	            <label for="photos">사진</label>
