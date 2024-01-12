@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"> </script>
-<link rel="stylesheet" href="richtexteditor/rte_theme_default.css" />
-<script type="text/javascript" src="richtexteditor/rte.js"></script>
-<script type="text/javascript" src='richtexteditor/plugins/all_plugins.js'></script>
+<link rel="stylesheet" href="/resources/richtexteditor/rte_theme_default.css" />
+<script type="text/javascript" src="/resources/richtexteditor/rte.js"></script>
+<script type="text/javascript" src='/resources/richtexteditor/plugins/all_plugins.js'></script>
 
 <style>
         #common_list_form{padding-left:15%;}
