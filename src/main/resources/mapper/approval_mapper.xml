@@ -45,7 +45,7 @@
 		SELECT a.*, m.name
 			FROM approval a
 			JOIN member m ON a.currmember_no = m.member_no
-				WHERE a.document_state != 4
+				WHERE a.document_state != 3
 				AND a.draftmember_no = #{param1}
 	</select>
 	
@@ -54,7 +54,7 @@
 			FROM approval a
 			JOIN member m ON a.draftmember_no = m.member_no
 			JOIN approver ap ON a.approval_no = ap.approval_no
-				WHERE a.document_state != 4 AND ap.sortation = 0 AND ap.member_no = #{param1}
+				WHERE a.document_state != 3 AND ap.sortation = 0 AND ap.member_no = #{param1}
 	</select>
 	
 	<select id="refList" resultType="approval">
@@ -62,7 +62,7 @@
 			FROM approval a
 			JOIN member m ON a.draftmember_no = m.member_no
 			JOIN approver ap ON a.approval_no = ap.approval_no
-				WHERE a.document_state != 4 AND ap.sortation = 1 AND ap.member_no = #{param1}
+				WHERE a.document_state != 3 AND ap.sortation = 1 AND ap.member_no = #{param1}
 	</select>
 	
 	<select id="draftDocDetailInfo" resultType="approval">
