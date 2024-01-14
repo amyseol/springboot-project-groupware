@@ -232,7 +232,7 @@ function openAddModal(){
     }
 	
 	yesBtn.onclick = function(){
-		//location.href = "/결재 페이지"; 
+		location.href = "/approval/draftDoc"; 
 	}
 }
 
@@ -247,7 +247,7 @@ function openCancelModal(){
     }
 	
 	yesBtn.onclick = function(){
-		//location.href = "/결재 페이지"; 
+		location.href = "approval/draftDoc";
 	}
 }
 //-------------------------------- 모달 창 end ------------------------------------------

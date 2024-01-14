@@ -33,8 +33,8 @@ public class NotiService {
 		return map;
 	}
 
-	public void stateUpdate(String unique_no, String locate) {
-		dao.stateUpdate(unique_no, locate);
+	public void stateUpdate(String noti_no, String locate) {
+		dao.stateUpdate(noti_no, locate);
 	}
 
 }

@@ -31,9 +31,9 @@ public class NotiController {
 	}
 	
 	@GetMapping(value="/notiStateUpdate")
-	public String notiStateUpdate(String unique_no, String locate){
-		logger.info("unique_no / locate === " + unique_no + " / " + locate);
-		service.stateUpdate(unique_no, locate);
+	public String notiStateUpdate(String noti_no, String locate){
+		logger.info("unique_no / locate === " + noti_no + " / " + locate);
+		service.stateUpdate(noti_no, locate);
 		return "redirect:/noti";
 	}
 }

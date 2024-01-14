@@ -61,9 +61,10 @@
 //-------------------------------- list start ------------------------------------------
 listCall();
 var notiCount = 0;
+
 function listCall(){	
 	var member_no = ${sessionScope.loginMember.member_no};
-	console.log(member_no);
+	//console.log(member_no);
 	
 	$.ajax({
 		type:'get',
@@ -71,20 +72,20 @@ function listCall(){
 		data:{'member_no':member_no}, 
 		dataType:'JSON',
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			drawList(data);	
 			// 읽음 표시 - noti_state 에 따른 css 변경 
  			data.list.forEach(function(item,idx){
-				console.log(item.noti_state);
+				//console.log(item.noti_state);
 				if(item.noti_state==0){
 					$('#blinking'+item.noti_no).addClass('blink');
-					console.log($('#blinking'+item.noti_no));
+					//console.log($('#blinking'+item.noti_no));
 				}
 			}); 
- 			// 새로운 알림 개수 
+  			// 새로운 알림 개수
  			notiCount = data.noti_count || 0;
-			console.log(notiCount);
-            $('#notiCnt').text(notiCount); 
+			//console.log(notiCount);
+            $('#notiCnt').text(notiCount);  
 		},
 		error:function(e){
 			console.log(e);
@@ -96,7 +97,7 @@ function drawList(list){
 	console.log(list);
 	var content='';
 	list.list.forEach(function(item,idx){ 
-		content+='<div class="notiBox" id="blinking'+item.noti_no+'" onclick="boxClick('+item.noti_unique_no+','+item.noti_no+','+item.noti_state+',\'' + item.noti_locate + '\')">';
+		content+='<div class="notiBox" id="blinking'+item.noti_no+'" onclick="boxClick('+item.noti_no+','+item.noti_state+',\'' + item.noti_locate + '\')">';
 		content+='<ul class="notiContent">';
 		if(item.noti_locate=='p'){
 			content+='<li>[회의실/공연장]</li>'; // artist 테이블
@@ -131,12 +132,13 @@ function drawList(list){
 //-------------------------------- list end ------------------------------------------
 
 //-------------------------------- click event start ------------------------------------------
-function boxClick(unique, num, state, locate){
+function boxClick(num, state, locate){
 	// ajax 통신으로 가져온 noti_unique_no 의 noti_state 를 1로 변경하기
+	console.log(num, state, locate);
 	$.ajax({
 		type:'get',
 		url:'notiStateUpdate',
-		data:{'unique_no':unique, 'locate':locate}, 
+		data:{'noti_no':num, 'locate':locate}, 
 		dataType:'JSON',
 		success: function(data){
 		},

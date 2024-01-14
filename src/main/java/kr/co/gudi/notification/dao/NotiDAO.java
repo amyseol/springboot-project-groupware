@@ -12,7 +12,7 @@ public interface NotiDAO {
 
 	ArrayList<NotiDTO> notiList(String member_no);
 
-	void stateUpdate(String unique_no, String locate);
+	void stateUpdate(String noti_no, String locate);
 
 	int notiCount(String member_no);
 

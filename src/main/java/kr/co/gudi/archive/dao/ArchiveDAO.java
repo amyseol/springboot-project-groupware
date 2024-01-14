@@ -22,5 +22,9 @@ public interface ArchiveDAO {
 
 	int archiveDel(String arch_no);
 
+	ArrayList<ArchiveDTO> archDepartList(int offset, String departName);
+
+	int totalDepartPage(String departName);
+
 	
 }
