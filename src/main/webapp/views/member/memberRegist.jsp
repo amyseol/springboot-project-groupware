@@ -327,7 +327,7 @@ function isValidPhoneNumber(number) {
     return /^\d{4}$/.test(number);
 }
 function isValidEmail(email) {
-    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+    return /^[a-zA-Z0-9]+$/.test(email);
 }
 </script>
 </html>

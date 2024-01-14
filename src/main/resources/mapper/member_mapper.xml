@@ -154,15 +154,23 @@
  			where member_no=#{member_no}
 	</update>
 	
+	<select id="findFileName">
+		select file_newname FROM file
+	where file_unique_no =#{param1} and file_location ='p'
+	</select>
+	
 	<update id="updateProfile">
 		update file set file_oriname=#{oriFileName},file_newname=#{newFileName},file_size=#{size}
 			where file_location=#{file_location} and file_unique_no=#{member_no}
 	</update>
 	
 	<select id="departList" resultType="member">
-		select * from department
-			where depart_state=#{param1}
+		SELECT department.*, member.name FROM department
+			LEFT JOIN member ON department.member_no = member.member_no
+			WHERE depart_state=#{param1} AND depart_p_no=0
+	
 	</select>
+	
 	
 	<update id="formattedDate">
 		<![CDATA[
@@ -180,4 +188,31 @@
             END
         ]]>
 	</update>
+	
+	<update id="updateTotalMember">
+		UPDATE department d SET total_member = 
+		(SELECT COUNT(*) FROM member m 
+    		WHERE m.depart_no = d.depart_no)
+	</update>
+	
+	<select id="departTotal" resultType="member">
+		 SELECT depart_no FROM department where depart_p_no =0
+	</select>
+	
+	<update id="updateParrentDepart">
+		UPDATE department set total_member = 
+		(SELECT sum(total_member) FROM department where depart_p_no = #{param1}) 
+		where depart_no =#{param1}
+	</update>
+	
+	<select id="detailDepart" resultType="member">
+		  SELECT department.*, member.name FROM department
+			LEFT JOIN member ON department.member_no = member.member_no
+			WHERE department.depart_no =#{param1}
+	</select>
+	
+	<select id="getTeam" resultType="member">
+		SELECT * FROM department 
+			where depart_p_no = #{param1}
+	</select>
 </mapper>

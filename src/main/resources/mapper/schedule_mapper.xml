@@ -12,12 +12,12 @@
    
    <insert id="nWrite" parameterType="map">
    	INSERT into notification(noti_sender,noti_receiver,noti_content,noti_locate) 
-		values(#{memb_no},1,5,'s')
+		values(#{member_no},1,5,'s')
    </insert>
    
    <insert id="dWrite" parameterType="map">
    	INSERT into notification(noti_sender,noti_receiver,noti_content,noti_locate,noti_depart_no) 
-		values(#{memb_no},1,6,'s',#{sch_depart})
+		values(#{member_no},1,6,'s',#{sch_depart})
    </insert>
 
    

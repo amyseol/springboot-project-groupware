@@ -122,7 +122,7 @@
 		            'content':$("#content").val(),
 		            'start':$("#start").val(),
 		            'end':$("#end").val(),
-		            'sch_state':$("#end").val()
+		            'sch_state':$('#depart_select').val()
 		            },
 		            dataType: 'JSON',
 		            success: function(response) {
