@@ -48,7 +48,7 @@ public class BoardService {
 		}
 	
 		
-		logger.info("부서 / 만들 수 있는 총 페이지 갯수 : "+pages);
+		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
 		 
 		if(p>=pages) { 
 			 p = pages; 
@@ -77,7 +77,7 @@ public class BoardService {
 		}
 		
 		int pages = dao.totalPageD(); 
-		logger.info("전사 / 만들 수 있는 총 페이지 갯수 : "+pages);
+		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
 		
 		if(p>=pages) { 
 			 p = pages; 

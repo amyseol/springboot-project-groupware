@@ -124,6 +124,10 @@
 			<button onclick="delYes()" class="modalBtnYes">예</button>	
 		</div>
     </section>
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 </body>
 <script>
 //----------------------- all depart list start ----------------------------------

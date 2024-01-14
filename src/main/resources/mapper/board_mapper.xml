@@ -31,7 +31,7 @@
 		SELECT CEIL(COUNT(board_no)/10) AS pages FROM board
 			WHERE board_depart = '전사' 
 	</select>
-	
+	 
 	<!-- 
 	<select id="list" resultType="bbs">
   		SELECT * FROM board
