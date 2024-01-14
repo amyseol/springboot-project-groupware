@@ -34,9 +34,16 @@ public class MemberDTO {
 	private Date depart_date;
 	private Date depart_del_date;
 	private int depart_p_no;
+	private int total_member;
 	
 	
 	
+	public int getTotal_member() {
+		return total_member;
+	}
+	public void setTotal_member(int total_member) {
+		this.total_member = total_member;
+	}
 	public Date getDepart_date() {
 		return depart_date;
 	}

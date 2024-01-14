@@ -26,7 +26,7 @@ public interface BoardDAO {
 
 	void modifyImage(String file_location, String board_no, String file_oriname, String file_newname, int size);
 
-	int totalPage();
+	int totalPage(int member_no);
 	
 	ArrayList<BoardDTO> list(int ppn, int member_no);
 	
@@ -37,4 +37,6 @@ public interface BoardDAO {
 	ArrayList<BoardDTO> boardSearchD(String board_name, int offset, int member_no);
 
 	void writeD(BoardDTO dto);
+
+	int totalPageAll();
 }

@@ -95,7 +95,6 @@ public class MemberService implements UserDetailsService{
 		logger.info("암호화 : "+enc_pw);
 		params.put("pw", enc_pw);
 		dao.join(params);
-		
 		String oriFileName = uploadFile.getOriginalFilename(); // 파일명 추출
 		String ext = oriFileName.substring(oriFileName.lastIndexOf(".")); // 확장자 추출 
 		String newFileName = System.currentTimeMillis()+ext; // 새파일명생성+확장자
@@ -115,6 +114,7 @@ public class MemberService implements UserDetailsService{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		updateTotalMember();
 
 	}
 
@@ -168,13 +168,20 @@ public class MemberService implements UserDetailsService{
 		String depart_no=dao.getDepartNo(params);
 		logger.info("depart_no : "+depart_no);
 		params.put("depart_no", depart_no);
+		String pain_pw =params.get("pw");
+		String enc_pw = encoder.encode(pain_pw);
+		logger.info("비밀번호 수정 암호화 : "+enc_pw);
+		params.put("pw", enc_pw);
 		dao.updateDo(params);		
+		if(!uploadFile.isEmpty()) {
 		logger.info("사진 : "+uploadFile);
 		String oriFileName = uploadFile.getOriginalFilename(); // 파일명 추출
 		String ext = oriFileName.substring(oriFileName.lastIndexOf(".")); // 확장자 추출 
 		String newFileName = System.currentTimeMillis()+ext; // 새파일명생성+확장자
 		String file_location = "p";
-
+		String existingNewFileName = dao.findFileName(member_no);
+		logger.info("기존의 파일 이름 : "+existingNewFileName);
+		if(newFileName!=existingNewFileName) {
 		try {
 			byte[] bytes= uploadFile.getBytes();
 			double fileSizeInKB = bytes.length / 1024.0;  // 바이트에서 킬로바이트로 변환
@@ -187,6 +194,9 @@ public class MemberService implements UserDetailsService{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		}
+		}
+		updateTotalMember();
 	}
 
 
@@ -223,5 +233,24 @@ public class MemberService implements UserDetailsService{
 	public void updateLeave(String formattedDate) {
 		dao.updateLeave(formattedDate);
 		
+	}
+	
+	public void updateTotalMember() {
+		dao.updateTotalMember();
+		ArrayList<MemberDTO> dto=dao.departTotal();
+		for (MemberDTO memberDTO : dto) {
+			dao.updateParrentDepart(memberDTO.getDepart_no());
+			logger.info("가져온 디파트 넘버 : "+memberDTO.getDepart_no());
+		}		
+	}
+
+	public HashMap<String, Object> detailDepart(String depart_no) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<MemberDTO>dto =dao.detailDepart(depart_no);
+		map.put("detail", dto);
+		ArrayList<MemberDTO>dtoTeam =dao.getTeam(depart_no);
+		map.put("team", dtoTeam);
+		
+		return map;
 	}
 }

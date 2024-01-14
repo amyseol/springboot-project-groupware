@@ -52,8 +52,9 @@ public class ScheduleController {
 
 	@GetMapping(value = "/save")
 	@ResponseBody
-	public void scheduleAdd(@RequestParam HashMap<String, Object> param,HttpSession session) {
-
+	public ModelAndView scheduleAdd(@RequestParam HashMap<String, Object> param,
+			HttpSession session) {
+		//logger.info("현재 일정작성 위치 : "+sch_state);
 		int member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
 		int sch_depart=((MemberVO)session.getAttribute("loginMember")).getDepart_p_no();
 		logger.info("직원번호 : "+member_no+"/ 부서명 : "+sch_depart);
@@ -61,9 +62,8 @@ public class ScheduleController {
 		param.put("sch_depart", sch_depart);
 		logger.info("일정:"+param);
 	
-
 		service.write(param);
-
+		return new ModelAndView("schedule/scheduleList");
 	}
 	
 
