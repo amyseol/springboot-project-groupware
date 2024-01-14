@@ -33,8 +33,8 @@
 <body>
 <%@ include file="/views/nav.jsp" %>
 	<section id="common_list_form">
-        <h2 class="big_title">타이틀</h2>
-        <h3 class="sub_title">리스트 폼</h3>
+        <h2 class="big_title">공지사항</h2>
+        <h3 class="sub_title">부서 게시판</h3>
         
 		<ul>
 	    <li>
@@ -66,7 +66,7 @@
     	</c:if>
 	
 		<li>
-        	<input type="button" onclick="location.href='./'" value="리스트" />
+        	<input type="button" onclick="location.href='/board'" value="리스트" />
 	    </li>
 	    <li>
 	        <input type="button" onclick="location.href='./del?board_no=${board.board_no}'" value="삭제" />

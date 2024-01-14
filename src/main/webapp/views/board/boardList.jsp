@@ -35,8 +35,8 @@
   <!-- -------------------------------------------list_form start------------------------------------------ -->
   
     <section id="common_list_form">
-	<h2 class="big_title">타이틀</h2>
-	<h3 class="sub_title">리스트 폼</h3>
+	<h2 class="big_title">공지사항</h2>
+	<h3 class="sub_title">부서 게시판</h3>
         
         <li><button onclick="location.href='boardWrite'">글작성</button></li>
         

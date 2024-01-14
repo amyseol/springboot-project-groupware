@@ -40,11 +40,11 @@
 <body>
 <%@ include file="/views/nav.jsp" %>
 	<section id="common_list_form">
-    <h2 class="big_title">타이틀</h2>
-    <h3 class="sub_title">리스트 폼</h3>
+    <h2 class="big_title">공지사항</h2>
+    <h3 class="sub_title">전사 게시판</h3>
 
     <div class="list_form">
-        <form action="writeD" method="post" enctype="multipart/form-data">
+        <form action="writeD" method="post" enctype="multipart/form-data" onsubmit="return val()">
 	    <ul>
 	        <li>
 	            <label for="board_title">제목</label>
@@ -61,26 +61,12 @@
 	            <input type="file" id="photos" name="photos" multiple="multiple" />
 	        </li>
 	        <li>
-	            <button type="button" onclick="location.href='./'">리스트</button>
+	            <button type="button" onclick="location.href='/boardD'">취소</button>
 	            <button type="submit">저장</button>
 	        </li>
 	    </ul>
 		</form>
 
-        <ul>
-            <li class="list_title">
-                <ul>
-                    <li>글번호</li>
-                    <li>제목</li>
-                    <li>작성자</li>
-                    <li>작성일자</li>
-                    <li>조회수</li>
-                </ul>
-            </li>
-            <li class="list_content" id="list">
-                <!-- 동적으로 생성되는 리스트 내용이 여기에 들어갑니다 -->
-            </li>
-        </ul>
     </div>
     </section>
 </body>
@@ -91,6 +77,16 @@
 	config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
 	var editor = new RichTextEditor("#board_content", config);
 	
+
+	function val(){
+	var board_title = $('#board_title').val();
+	var board_content=$('#board_content').val();
+	if (board_title === "" || board_content === "") {
+	    alert("입력하지 않은 값이 있습니다.");
+	    return false;
+		}
+		return true;
+	}
 	//alert("접근이 거부되었습니다! 권한이 없습니다.");
 </script>
 </html>

@@ -7,8 +7,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"> </script>
 <style>
-
-		#common_list_form{padding-left:15%;}
+#common_list_form{padding-left:15%;}
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .sub_title{padding: 20px 50px;}
         #common_list_form .list_form{position:relative;}
@@ -28,65 +27,57 @@
         #common_list_form .list_form .list_content ul li:last-child{width: 10%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
-
-
+        
 </style>
 </head>
 <body>
 <%@ include file="/views/nav.jsp" %>
 	<section id="common_list_form">
-    <h2 class="big_title">공지사항</h2>
-    <!-- <h3 class="sub_title">리스트 폼</h3> -->
+        <h2 class="big_title">공지사항</h2>
+        <h3 class="sub_title">전사 게시판</h3>
+        
+		<ul>
+	    <li>
+	        <label for="board_title">제목</label>
+	        <span id="board_title">${board.board_title}</span>
+	    </li>
+	    <li>
+	        <label for="bHit">조회수</label>
+	        <span id="bHit">${board.bHit}</span>
+	    </li>
+	    <li>
+	        <label for="board_depart">작성자</label>
+	        <span id="board_depart">${board.board_depart}</span>
+	    </li>
+	    <li>
+	        <label for="board_content">내용</label>
+	        <span id="board_content">${board.board_content}</span>
+	    </li>
     
-    <div class="list_form">
-        <form action="modify" method="post" enctype="multipart/form-data" onsubmit="return val()">
-    		<input type="hidden" name="board_no" value="${board.board_no}" />
-	    <ul>
+    	<c:if test="${photos.size() > 0}">
 	        <li>
-	            <label for="board_title">제목</label>
-	            <input type="text" id="board_title" name="board_title" value="${board.board_title}" />
+	            <label for="board_photos">사진</label>
+	            <span id="board_photos">
+	                <c:forEach items="${photos}" var="file">
+	                    <img src="/photo/${file.file_newname}" width="500" alt="${file.file_oriname}" />
+	                </c:forEach>
+	            </span>
 	        </li>
-	        <li>
-	            <label for="board_content">내용</label>
-	            <textarea id="board_content" name="board_content">${board.board_content}</textarea>
-	            <!-- 
-	            <div id="rich_deditor"></div>
-				
-				<input type="hidden" name="board_content" value="${board.board_content}"/>
-				 -->
-	        </li>
-	        <li>
-	            <label for="photos">사진</label>
-	            <input type="file" id="photos" name="photos" />
-	        </li>
-	        <li>
-	            <input type="button" onclick="location.href='/board'" value="이전" />
-	            <button type="submit" onclick="location.href='/board'">수정</button>
-	        </li>
-	    </ul>
-		</form>
-	</div>
+    	</c:if>
+	
+		<li>
+        	<input type="button" onclick="location.href='/boardD'" value="리스트" />
+	    </li>
+	    <li>
+	        <input type="button" onclick="location.href='./del?board_no=${board.board_no}'" value="삭제" />
+	    </li>
+	    <li>
+	        <input type="button" onclick="location.href='./boardModifyD?board_no=${board.board_no}'" value="수정" />
+	    </li>
+	</ul>
 	</section>
-
 </body>
 <script>
-var config = {}
-config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
-config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
-var editor = new RichTextEditor("#board_content", config);
 
-function goBack() {
-    window.history.back();
-  }
-  
-function val(){
-var board_title = $('#board_title').val();
-var board_content=$('#board_content').val();
-if (board_title === "" || board_content === "") {
-    alert("입력하지 않은 값이 있습니다.");
-    return false;
-	}
-	return true;
-}
 </script>
 </html>

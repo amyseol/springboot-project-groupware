@@ -10,19 +10,27 @@
     (SELECT depart_name FROM department
     WHERE depart_no = (SELECT depart_no FROM member
        WHERE member_no = #{param2}))
-		ORDER BY board_no ASC LIMIT 10 OFFSET #{param1}
+		ORDER BY board_no DESC LIMIT 10 OFFSET #{param1}
 	</select>
 	
 	<select id="listD" resultType="bbs">
 		SELECT * FROM board 
 		WHERE board_depart = '전사' 
-			ORDER BY board_no ASC LIMIT 10 OFFSET #{param1}
+			ORDER BY board_no DESC LIMIT 10 OFFSET #{param1}
 	</select>
 	
 	<select id="totalPage" resultType="int">
 		SELECT CEIL(COUNT(board_no)/10) AS pages FROM board
+		WHERE board_depart = 
+			 (SELECT depart_name FROM department
+    			WHERE depart_no = (SELECT depart_no FROM member
+       				WHERE member_no = #{param1}))
 	</select>
 	 
+	<select id="totalPageD" resultType="int">
+		SELECT CEIL(COUNT(board_no)/10) AS pages FROM board
+			WHERE board_depart = '전사' 
+	</select>
 	
 	<!-- 
 	<select id="list" resultType="bbs">
@@ -76,6 +84,11 @@
   		SELECT * FROM board 
   			WHERE board_no=#{param1}
   	</select>
+  	
+  	<select id="detailD">
+  		SELECT * FROM board 
+  			WHERE board_no=#{param1}
+  	</select>
    
    <update id="bHit">
    		UPDATE board SET bHit=bHit+1 WHERE board_no=#{param1}
@@ -92,7 +105,11 @@
    				WHERE board_no=#{board_no} 
    	</update>
    	
-   	
+   	<update id="modifyD">
+   		UPDATE board SET 
+   			board_title=#{board_title}, board_content=#{board_content}, bHit=bHit-1 
+   				WHERE board_no=#{board_no} 
+   	</update>
    	
    
    	<select id="boardSearch" resultType="bbs">
@@ -104,7 +121,7 @@
    			(board_title LIKE CONCAT('%',#{param1},'%') 
    			OR
    			board_depart LIKE CONCAT('%',#{param1},'%'))
-   			ORDER BY board_no ASC LIMIT 10 OFFSET #{param2}
+   			ORDER BY board_no DESC LIMIT 10 OFFSET #{param2}
    	</select>
    	
    	 <select id="boardSearchD" resultType="bbs">
@@ -113,7 +130,7 @@
    			(board_title LIKE CONCAT('%',#{param1},'%') 
    			OR
    			board_depart LIKE CONCAT('%',#{param1},'%'))
-   			ORDER BY board_no ASC LIMIT 10 OFFSET #{param2}
+   			ORDER BY board_no DESC LIMIT 10 OFFSET #{param2}
    	</select>
    	 
 </mapper>
