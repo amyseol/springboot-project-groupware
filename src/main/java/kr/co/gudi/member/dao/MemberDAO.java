@@ -72,4 +72,16 @@ public interface MemberDAO {
 	int getDepart(String member_no);
 
 	void updateDo(HashMap<String, String> params);
+
+	String findFileName(String member_no);
+
+	void updateTotalMember();
+
+	ArrayList<MemberDTO> departTotal();
+
+	void updateParrentDepart(int depart_no);
+
+	ArrayList<MemberDTO> detailDepart(String depart_no);
+
+	ArrayList<MemberDTO> getTeam(String depart_no);
 }

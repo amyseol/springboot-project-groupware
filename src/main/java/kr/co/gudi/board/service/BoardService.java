@@ -50,7 +50,7 @@ public class BoardService {
 		map.put("list", list);
 		
 		
-		int pages = dao.totalPage(); 
+		int pages = dao.totalPage(member_no); 
 		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
 		 
 		if(p>pages) { 
@@ -81,8 +81,8 @@ public class BoardService {
 		map.put("listD", listD);
 		
 		
-		int pages = dao.totalPage(); 
-		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
+		int pages = dao.totalPageAll(); 
+		logger.info("만들 수 있는(전사용) 총 페이지 갯수 : "+pages);
 		 
 		if(p>pages) { 
 			 p = pages; 
