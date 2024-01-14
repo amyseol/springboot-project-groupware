@@ -40,6 +40,56 @@
             </ul>
         </div>
     </section>
+    
+        <!-- 모달 창 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">부서 상세 정보</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              
+                <div class="form-group">
+                    <label for="depart_name">부서명:</label>
+                    <span id="depart_name"></span>
+                </div>
+
+           
+                <div class="form-group">
+                    <label for="dpt_oner">책임자:</label>
+                    <span id="dpt_oner"></span>
+                </div>
+
+          
+                <div class="form-group">
+                    <label for="total_member">인원:</label>
+                    <span id="total_member"></span>
+                </div>
+
+          
+                <div class="form-group">
+                    <label for="depart_date">생성일:</label>
+                    <span id="depart_date"></span>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="depart_teamN">하위팀</label>
+                    <span id="depart_teamN"></span>
+                </div>
+            </div>
+            
+            <div class="modal-footer">                     
+                <input type="hidden" id="depart_no" name="depart_no"/>
+                <button type="submit" class="btn btn-danger" id="updateDpt">수정</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script>
 
@@ -84,11 +134,11 @@ function drawDepartmentList(departmentList){
 
 	var content='';
 	departmentList.list.forEach(function(item, idx){ 
-		content+='<ul onclick="approver_select('+item.depart_no+')">';
+		content+='<ul onclick="openModal('+item.depart_no+')">';
 		content+='<li>'+item.depart_no+'</li>';
 		content+='<li>'+item.depart_name+'</li>';
-		content+='<li>'+item.depart_master+'</li>';
-		content+='<li>'+item.total+'</li>';
+		content+='<li>'+item.name+'</li>';
+		content+='<li>'+item.total_member+'</li>';
 		content+='<li>'+item.depart_date+'</li>';
 		content+='</ul>';
 	});
@@ -104,6 +154,47 @@ $('.cancel_box').on('click',function(){
     $('#approver_light_box').fadeOut(500);
 });
 
+function openModal(depart_no) {
+	$('#myModal').modal('show');
+	$.ajax({
+		type:'get',
+		url:'detailDepart',
+		data:{'depart_no':depart_no}, 
+		dataType:'JSON',
+		success: function(data){	
+			console.log(data);
+			$('#depart_name').empty();
+	        $('#dpt_oner').empty();
+	        $('#total_member').empty();
+	        $('#depart_date').empty();
+			 data.detail.forEach(function(item) {
+			        $('#depart_name').append(item.depart_name);
+			        $('#dpt_oner').append(item.name);
+			        $('#total_member').append(item.total_member);
+			        $('#depart_date').append(item.depart_date);
+			    });
+			 var content='';
+			 data.team.forEach(function(item) {
+				 content+='<li>'+item.depart_name+'</li>';
+			    });
+			 $('#depart_teamN').empty();
+			$('#depart_teamN').append(content);
+			 
+		},
+		error:function(e){
+			console.log(e)
+		}
+	}); 
+}
 
+// 수정 버튼을 눌렀을 때 실행되는 함수
+document.getElementById('updateDpt').addEventListener('click', function() {
+    // 각 데이터 요소에 contenteditable 속성 추가
+    document.getElementById('depart_name').contentEditable = true;
+    document.getElementById('dpt_oner').contentEditable = true;
+    document.getElementById('total_member').contentEditable = true;
+    document.getElementById('depart_date').contentEditable = true;
+    document.getElementById('depart_teamN').contentEditable = true;
+});
 </script>
 </html>

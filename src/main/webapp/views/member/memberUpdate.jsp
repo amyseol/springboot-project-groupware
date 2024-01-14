@@ -143,5 +143,70 @@ $('#selectedDptno').change(function(){
         // 파일 읽기 시작
         reader.readAsDataURL(input.files[0]);
     }
+    
+ function validateForm() {
+	    // 폼 요소들을 가져옵니다.
+	    var uploadFile = document.getElementsByName("uploadFile")[0];
+	    var pw = document.getElementsByName("pw")[0];
+	    var name = document.getElementsByName("name")[0];
+	    var phone2 = document.getElementsByName("phone2")[0];
+	    var phone3 = document.getElementsByName("phone3")[0];
+	    var email1 = document.getElementsByName("email1")[0];
+	    var address = document.getElementsByName("address")[0];
+	    var addressDetail = document.getElementsByName("address_detail")[0];
+
+	    // 값이 비어있는지 확인합니다.
+	    if (!uploadFile.files[0]) {
+	        alert("이미지를 업로드해주세요.");
+	        return false;
+	    }
+	    if (pw.value === "") {
+            alert("비밀번호를 입력해주세요.");
+            return false;
+        }
+	    if (name.value === "") {
+	        alert("이름을 입력해주세요.");
+	        return false;
+	    }
+	    if (!isValidString(name.value)) {
+	        alert("올바른 이름을 입력해주세요.");
+	        return false;
+	    }
+	    if (phone2.value === "" || phone3.value === "") {
+	        alert("전화번호를 모두 입력해주세요.");
+	        return false;
+	    }
+	    if (!isValidPhoneNumber(phone2.value) || !isValidPhoneNumber(phone3.value)) {
+	        alert("올바른 전화번호를 입력해주세요. (숫자 4자리씩)");
+	        return false;
+	    }
+	    if (email1.value === "") {
+	        alert("이메일 주소를 입력해주세요.");
+	        return false;
+	    }
+	    if (!isValidEmail(email1.value)) {
+	        alert("올바른 이메일 주소를 입력해주세요. (특수문자와 한글 불가)");
+	        return false;
+	    }
+	    if (address.value === "") {
+	        alert("주소를 입력해주세요.");
+	        return false;
+	    }
+	    if (addressDetail.value === "") {
+	        alert("상세 주소를 입력해주세요.");
+	        return false;
+	    }
+	    return true;
+	}
+	// 문자열이 유효한지 확인하는 함수
+	function isValidString(str) {
+	    return /^[가-힣a-zA-Z]+$/.test(str);
+	}
+	function isValidPhoneNumber(number) {
+	    return /^\d{4}$/.test(number);
+	}
+	function isValidEmail(email) {
+	    return /^[a-zA-Z0-9]+$/.test(email);
+	}
 </script>
 </html>

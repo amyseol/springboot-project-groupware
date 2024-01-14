@@ -4,6 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <title>HoonyMusic</title>
+<<<<<<< HEAD
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+
+
+=======
+>>>>>>> origin/master
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"> </script>
 <style>
         #common_list_form{padding-left:15%;}
@@ -49,9 +57,20 @@
 		#del_modal{background: rgba(0, 0, 0, 0.8);display: none; width:300px; height:150px; background: rgb(237, 237, 237); border:1px solid gray; text-align:center;position:absolute; left:58%; top:27%; }
 		#delBtn{margin-right: 10px;padding: 2px 5px 2px 5px;}
 </style>
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 </head>
 <body>
     <!-- -------------------------------------------list_form start------------------------------------------ -->
+<<<<<<< HEAD
+    <section id="common_list_form">
+        <h2 class="big_title">타이틀</h2>
+        <h3 class="sub_title">리스트 폼</h3>
+
+=======
+>>>>>>> origin/master
 	<%@ include file="/views/nav.jsp" %>
     <section id="common_list_form">
         <h2 class="big_title">공용자료실</h2>
@@ -92,10 +111,112 @@
         </ul>
         <!------- 파일 등록 ------->
 		<!------- 리스트 ------->
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
         <div class="list_form">
             <ul>
                 <li class="list_title">
                     <ul>
+<<<<<<< HEAD
+
+                        <li>기안일</li>
+                        <li>결재양식</li>
+                        <li>긴급</li>
+                        <li>제목</li>
+                        <li>첨부</li>
+                        <li>결재상태</li>
+                    </ul>
+                </li>
+                <li class="list_content">
+                    <ul>
+                        <li>2023-12-19</li>
+                        <li>휴가신청서</li>
+                        <li> </li>
+                        <li><a href="javascript:">휴가신청서</a></li>
+                        <li> </li>
+                        <li>진행중</li>
+                    </ul>
+                    <ul>
+                        <li>2023-12-19</li>
+                        <li>휴가신청서</li>
+                        <li></li>
+                        <li><a href="javascript:">휴가신청서</a></li>
+                        <li></li>
+                        <li>진행중</li>
+                    </ul>
+                    <ul>
+                        <li>2023-12-19</li>
+                        <li>휴가신청서</li>
+                        <li></li>
+                        <li><a href="javascript:">휴가신청서</a></li>
+                        <li></li>
+                        <li>진행중</li>
+                    </ul>
+                    <ul>
+                        <li>2023-12-19</li>
+                        <li>휴가신청서</li>
+                        <li></li>
+                        <li><a href="javascript:">휴가신청서</a></li>
+                        <li></li>
+                        <li>진행중</li>
+                    </ul>
+                    <ul>
+                        <li>2023-12-19</li>
+                        <li>휴가신청서</li>
+                        <li></li>
+                        <li><a href="javascript:">휴가신청서</a></li>
+                        <li></li>
+                        <li>진행중</li>
+                    </ul>
+                    <ul>
+                        <li>2023-12-19</li>
+                        <li>휴가신청서</li>
+                        <li></li>
+                        <li><a href="javascript:">휴가신청서</a></li>
+                        <li></li>
+                        <li>진행중</li>
+                    </ul>
+                    <ul>
+                        <li>2023-12-19</li>
+                        <li>휴가신청서</li>
+                        <li></li>
+                        <li><a href="javascript:">휴가신청서</a></li>
+                        <li></li>
+                        <li>진행중</li>
+                    </ul>
+                    <ul>
+                        <li>2023-12-19</li>
+                        <li>휴가신청서</li>
+                        <li></li>
+                        <li><a href="javascript:">휴가신청서</a></li>
+                        <li></li>
+                        <li>진행중</li>
+                    </ul>
+                    <ul>
+                        <li>2023-12-19</li>
+                        <li>휴가신청서</li>
+                        <li></li>
+                        <li><a href="javascript:">휴가신청서</a></li>
+                        <li></li>
+                        <li>진행중</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!-- -------------------------------------------list_form end------------------------------------------ -->
+    <!-- -------------------------------------------music start------------------------------------------ -->
+    <div id="bottom_music">
+        <div class="music_inner">
+
+        </div>
+    </div>
+    <!-- -------------------------------------------music end------------------------------------------ -->
+
+=======
+>>>>>>> origin/master
                     	<li><input type="checkbox" id="checkAll"/></li>
                         <li>파일명</li>
                         <li>다운로드</li>
@@ -124,7 +245,7 @@
 			<button onclick="delYes()" class="modalBtnYes">예</button>	
 		</div>
     </section>
->>>>>>> origin/master
+
 </body>
 <script>
 //----------------------- all depart list start ----------------------------------

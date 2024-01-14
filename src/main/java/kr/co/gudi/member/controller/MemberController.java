@@ -251,4 +251,12 @@ public class MemberController {
         list=service.departList(departState);
         return list;
     }
+    
+    @GetMapping(value="/detailDepart")
+    @ResponseBody
+    public HashMap<String, Object> detailDepart(@RequestParam String depart_no){
+    	logger.info("부서 상세보기 번호 : "+depart_no);
+    	return service.detailDepart(depart_no);
+    }
+    
 }
