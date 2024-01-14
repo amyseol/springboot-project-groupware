@@ -72,4 +72,6 @@ public interface MemberDAO {
 	int getDepart(String member_no);
 
 	void updateDo(HashMap<String, String> params);
+
+	Map<String, Object> getMemberInfo(int member_no);
 }

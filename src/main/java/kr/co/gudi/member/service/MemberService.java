@@ -101,7 +101,6 @@ public class MemberService implements UserDetailsService{
 		String newFileName = System.currentTimeMillis()+ext; // 새파일명생성+확장자
 		String file_location = "p";
 		int file_unique_no=dao.getMember_id();
-		int member_no=dao.getMember_id();
 
 		try {
 			byte[] bytes= uploadFile.getBytes();
@@ -223,5 +222,9 @@ public class MemberService implements UserDetailsService{
 	public void updateLeave(String formattedDate) {
 		dao.updateLeave(formattedDate);
 		
+	}
+
+	public Map<String, Object> getMemberInfo(int member_no) {
+		return dao.getMemberInfo(member_no);
 	}
 }

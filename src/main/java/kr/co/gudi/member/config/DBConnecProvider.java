@@ -39,7 +39,11 @@ public class DBConnecProvider implements AuthenticationProvider {
 		if (loginMember == null || !encoder().matches(pw, loginMember.getPassword())) {	// 로그인 실패시
 			throw new BadCredentialsException("로그인에 실패하였습니다!!");
 		} else {
+			if (loginMember.isCredentialsNonExpired()) {	// 퇴사자 라면
 				return new UsernamePasswordAuthenticationToken(loginMember, pw, loginMember.getAuthorities());	// 인증된 객체
+			} else {
+				throw new BadCredentialsException("인증에 실패했습니다.");
+			}
 		}
 	}
 
