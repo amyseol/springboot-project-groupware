@@ -8,12 +8,13 @@
 		SELECT n.*, m.name, m.member_position
 			FROM notification n 
 				LEFT OUTER JOIN member m ON n.noti_sender = m.member_no
-			WHERE n.noti_receiver = #{param1} 			
+			WHERE n.noti_receiver IN (#{param1},'1')		
+				ORDER BY noti_no DESC
 	</select>
 	
 	<select id="notiCount" resultType="int">
 		SELECT count(*) AS noti_count FROM notification 
-			WHERE cast(noti_state as UNSIGNED) = '0' AND noti_receiver=#{param1}
+			WHERE cast(noti_state as UNSIGNED) = '0' AND noti_receiver IN (#{param1},'1')
 	</select>
 		
 	<update id="stateUpdate">
