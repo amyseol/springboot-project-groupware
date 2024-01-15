@@ -94,7 +94,7 @@
  			
  			</td>
  			<td>
- 			시작날짜<input type="date" id="start"/>
+ 			시작날짜<input type="date" id="start"  />
  			</td>
  		</tr>
  		 		<tr>
@@ -110,7 +110,7 @@
  		
  			<td colspan="2">
  			
- 				<textarea rows="" cols="2" style="width: 250px; height: 350px; resize: none;" id="content"></textarea>
+ 				<textarea rows="" cols="2" style="width: 250px; height: 350px; resize: none;" id="content" placeholder="예약 사유를 적어주세요."></textarea>
  			
  			</td>
  		</tr>
@@ -126,7 +126,7 @@
  		
  		<div class="list_form">
  		<section id="common_list_form">
- 		<h3 class="sub_title">예약중</h3>
+ 		<h3 class="sub_title">승인대기중</h3>
             <ul>
                 <li class="list_title" id="list1">
                     <ul>
@@ -235,7 +235,7 @@
  	</div>
  	
  	
- 	<div id="pop">
+ 	<div id="pop" style="z-index: 999;">
  		<div>
  		
  			<div id="popname"></div>
@@ -251,7 +251,7 @@
  		</div>
  	</div>
  	
- 	<div id="popno">
+ 	<div id="popno" style="z-index: 999;">
  		<div>
  		
  			<textarea rows="" cols="" id="popcontent" style="width: 250px; height: 350px;">
@@ -262,7 +262,7 @@
  		
  		
  		</div>
- 		<button id="register" >반려</button>
+ 		<button id="register" style="z-index: 999;">반려</button>
  		<div>
  			<div id="closeno" style="width: 100px; margin: auto;">close</div>
  		</div>
@@ -341,17 +341,7 @@ var showPage2=1;
 var showPage3=1;
 var searchtag ="";
 
-$("#enter").on("click", function(){
-	
-	var start = $("#start").val();
-	var end = $("#end").val();
-	var text = $("#content").val();
-	var rv = $("#rv option:selected").val();
-	console.log($("#rv option:selected").val());
-	
-	location.href="reserveget?start="+start+"&end="+end+"&text="+text+"&rv="+rv;
-	
-});
+
 
 //--------------------------------ajax list------------------------------------------
 
@@ -626,40 +616,160 @@ function reservNo(res_no){
 				$('#popno').show();
 		});
 	   
-	   $("#register").on("click", function(){
-		   
-		   var content = $('#popcontent').val();
-		   console.log(content);
-		   
-		   $.ajax({
-		        type : 'POST',
-		        url : '/reservNo',
-		        data:{
-		        	"res_no" : res_no
-		        	,"res_content" : content
-		        },
-		        dataType:'json',
-		        success:function(data){
-		        	var content = "";
-		        	
-		        	//alert("성공");
-		        	location.href="reserve";
-					
-		        },error:function(e){
-		            console.log(e);
-		            alert("실패");
+		$("#register").on("click", function(){
+		var content = $('#popcontent').val();
+			console.log(content);
+	   var con = $("#popcontent").val().length;
+	   
+	   if(con<2){
+			   if (!confirm("반려 사유가 적혀있지 않습니다. 정말로 반려하시겠습니까?")) {
+		            alert("취소되었습니다.");
+		        } else {
+		            alert("반려되었습니다.");
+				   $.ajax({
+				        type : 'POST',
+				        url : '/reservNo',
+				        data:{
+				        	"res_no" : res_no
+				        	,"res_content" : content
+				        },
+				        dataType:'text',
+				        success:function(data){
+				        	var content = "";
+				        	
+				        	alert("성공");
+				        	location.href="/reserve";
+							
+				        },error:function(e){
+				            console.log(e);
+				            alert("실패");
+				        }
+				    });
 		        }
-		    });
 		   
-	   });
+	   }else{
+	   
+		   if (!confirm("정말로 반려하시겠습니까?")) {
+	            alert("취소되었습니다.");
+	        } else {
+	            alert("반려되었습니다.");
+			   $.ajax({
+			        type : 'POST',
+			        url : '/reservNo',
+			        data:{
+			        	"res_no" : res_no
+			        	,"res_content" : content
+			        },
+			        dataType:'text',
+			        success:function(data){
+			        	var content = "";
+			        	
+			        	//alert("성공");
+			        	location.href="/reserve";
+						
+			        },error:function(e){
+			            console.log(e);
+			            alert("실패");
+			        }
+			    });
+	        
+	        
+	        }
+		   
+		   
+	   
+		   
+	   }
+	   
 	   
 	   $(document).ready(function(){
 			$('#closeno').click(function(){
 				$('#popno').hide();
 			});
 		});
-   }
-   
-   
+	   
+		});
+}
+
+
+	
+
+$("#enter").on("click", function(){
+	
+	start = $("#start").val();
+	
+	var start = $("#start").val().length;
+	var end = $("#end").val().length;
+	var content = $("#content").val().length;
+	if(start < 2 ){
+		alert("시작날짜를 지정해주세요");
+	    $("#start").focus();
+	}else if(end < 2 ){
+		alert("시작날짜를 지정해주세요");
+	    $("#end").focus();
+	}else if(content <2){
+		
+		
+	        if (!confirm("예약사유가 안적혀있습니다. 정말로 시설을 예약하시겠습니까?")) {
+	        	
+	            alert("취소되었습니다.");
+	            
+	        } else {
+	        	
+	            alert("예약되었습니다.");
+	            
+	            var start = $("#start").val();
+				var end = $("#end").val();
+				var text = $("#content").val();
+				var rv = $("#rv option:selected").val();
+				console.log($("#rv option:selected").val());
+				location.href="reserveget?start="+start+"&end="+end+"&text="+text+"&rv="+rv;
+				
+	        }
+	    
+			
+	}else{
+		
+		if (!confirm("정말로 시설을 예약하시겠습니까?")) {
+        	
+            alert("취소되었습니다.");
+            
+        } else {
+        	
+            alert("예약되었습니다.");
+            
+            var start = $("#start").val();
+			var end = $("#end").val();
+			var text = $("#content").val();
+			var rv = $("#rv option:selected").val();
+			console.log($("#rv option:selected").val());
+			location.href="reserveget?start="+start+"&end="+end+"&text="+text+"&rv="+rv;
+			
+        }
+		
+	}
+	
+	console.log(search);
+	
+});
+
+
+
+
+//--------------예약날짜 제한----------------
+
+
+
+// 시작날짜(min 속성)
+var sDate = new Date();
+// 종료날짜(max 속성)
+var eDate = new Date();
+
+sDate.setDate(sDate.getDate());     // 시작날짜의 날짜를 +1일 한다.
+let minStr = sDate.toISOString().split('T')[0];
+$("#start").prop("min", minStr);
+
+$("#end").prop("max", sDate+30);
+//결과 (현재날짜 : 2023-02-14)
 
 </script>

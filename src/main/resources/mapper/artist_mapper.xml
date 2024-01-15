@@ -50,7 +50,7 @@
 	
 	<insert id="artistget" parameterType="String">
 	
-	insert into artist (art_name,art_agency)values(#{name},#{agency})
+	insert into artist (art_name,art_agency,art_state)values(#{name},#{agency},"0")
 	
 	</insert>
 	
@@ -62,11 +62,11 @@
 	
 	<select id="artistdetail_1" resultType="artist">
 	
-	select * from album a Inner join artist b on a.art_no = #{num} and b.art_no = #{num} ORDER BY alb_no DESC LIMIT 5 OFFSET 0
+	select * from album a Inner join artist b on a.art_no = #{num} and b.art_no = #{num} ORDER BY alb_no DESC LIMIT 5 OFFSET #{offset}
 	
 	</select>
 	
-	<select id="artistmaxpage_1" resultType="int">
+	<select id="artistmaxpage_1" resultType="float">
 		
 	SELECT (count(alb_no)/#{pagePerNum}) from album a Inner join artist b on a.art_no = #{num} and b.art_no = #{num}
 		
@@ -78,9 +78,9 @@
 	
 	</select>
 	
-	<select id="artistmaxpage_2" resultType="int">
+	<select id="artistmaxpage_2" resultType="float">
 		
-	SELECT (count(perSong_no)/#{pagePerNum}) from song_per Inner join song on art_no = #{num}
+	SELECT (count(perSong_no)/#{pagePerNum}) from song_per c inner join (SELECT song_no, song_name from song a inner join artist b on a.art_no = #{num} and b.art_no = #{num} ) d on c.song_no = d.song_no
 		
 	</select>	
 	
