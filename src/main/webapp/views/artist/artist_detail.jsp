@@ -256,7 +256,7 @@
 			<tr>
 				<td>
 				
-		<h3 class="sub_title">음반명</h3>
+		<h3 class="sub_title">음반실적</h3>
          <div class="list_form">
             <ul>
                 <li class="list_title1" id="list1">
@@ -290,7 +290,7 @@
 			<tr>
 				<td>
 				
-		<h3 class="sub_title">음원명</h3>
+		<h3 class="sub_title">음원실적</h3>
          <div class="list_form">
             <ul>
                 <li class="list_title2" id="list2">
@@ -326,11 +326,7 @@
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
     <!-- -------------------------------------------music start------------------------------------------ -->
-    <div id="bottom_music">
-        <div class="music_inner">
 
-        </div>
-    </div>
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
@@ -424,7 +420,7 @@ function call1(showPage){
         success:function(data){
         	//alert("성공");
         	
-        	paging(data.list);
+        	paging(data);
         	
             console.log(data);
             var content ='';
@@ -465,7 +461,7 @@ function call1(showPage){
 						console.log("con1 : "+page);
 						showPage = page;//클릭해서 다른 페이지를 보여주게 되면 현재 보고있는 페이지 번호도 변경해준다.
 						
-						call(page);
+						call1(page);
 						
 			}
 
@@ -491,7 +487,7 @@ function call1(showPage){
         success:function(data){
         	//alert("성공");
         	
-        	paging2(data.list);
+        	paging2(data);
         	
             console.log(data);
             var content ='';
@@ -500,7 +496,7 @@ function call1(showPage){
                 //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
                 content += '<ul>';
                 content += '<li id="'+item.perSong_no+'">'+item.perSong_no+'</li>';
-                content += '<li id="'+item.song_name+'">'+"<a href = '/songDetail?song_no="+item.song_no+"'>"+item.song_name+"</a>"+'</li>';
+                content += '<li id="'+item.song_name+'">'+"<a href = '/song/list/detail?song_no="+item.song_no+"'>"+item.song_name+"</a>"+'</li>';
                 content += '<li id="'+item.allSong_profit+'">'+item.allSong_profit+'</li>';
                 content += '</ul>';
             });
@@ -532,7 +528,7 @@ function call1(showPage){
 						console.log("con1 : "+page);
 						showPage = page;//클릭해서 다른 페이지를 보여주게 되면 현재 보고있는 페이지 번호도 변경해준다.
 						
-						call(page);
+						call2(page);
 						
 			}
 
