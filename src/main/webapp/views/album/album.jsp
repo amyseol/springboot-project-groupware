@@ -143,7 +143,14 @@ function drawList(list){
 	$('#albumList').empty();
 	$('#albumList').append(content);
 	
-	$('#pagination').twbsPagination({
+
+}
+
+
+// 페이징 처리
+var paginationInstance;
+function initializePagination() {
+	paginationInstance = $('#pagination').twbsPagination({
 		startPage: list.currPage,
 		totalPages: list.pages, 
 		visiblePages: 5, 
@@ -153,12 +160,23 @@ function drawList(list){
 			if(showPage != page){ 
 				//console.log(page);	
 				showPage=page;
-				listCall(showPage);
+				listCall(page);
 			}
 		}
 	});
 }
+//페이지 초기화
+function resetPagination() {
+  if (paginationInstance) {
+    paginationInstance.twbsPagination('destroy');
+    initializePagination();
+  }
+}
+//초기화 호출
+initializePagination();
 
+// 페이지를 재설정해야 하는 경우
+resetPagination();
 //-------------------------------- list end ------------------------------------------
 
 
