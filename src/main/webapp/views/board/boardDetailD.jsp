@@ -67,13 +67,9 @@
 	
 		<li>
         	<input type="button" onclick="location.href='/boardD'" value="리스트" />
-	    </li>
-	    <li>
-	        <input type="button" onclick="location.href='./delD?board_no=${board.board_no}'" value="삭제" />
-	    </li>
-	    <li>
-	        <input type="button" onclick="location.href='./boardModifyD?board_no=${board.board_no}'" value="수정" />
-	    </li>
+		    <input type="button" onclick="location.href='./delD?board_no=${board.board_no}'" value="삭제" />
+		    <input type="button" onclick="location.href='./boardModifyD?board_no=${board.board_no}'" value="수정" />
+		</li>
 	</ul>
 	</section>
 </body>

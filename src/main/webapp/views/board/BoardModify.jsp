@@ -43,11 +43,11 @@
     		<input type="hidden" name="board_no" value="${board.board_no}" />
 	    <ul>
 	        <li>
-	            <label for="board_title">제목</label>
+	            <h5><label for="board_title">제목</label></h5>
 	            <input type="text" id="board_title" name="board_title" value="${board.board_title}" />
 	        </li>
 	        <li>
-	            <label for="board_content">내용</label>
+	            <h5><label for="board_content">내용</label></h5>
 	            <textarea id="board_content" name="board_content">${board.board_content}</textarea>
 	            <!-- 
 	            <div id="rich_deditor"></div>
@@ -56,7 +56,7 @@
 				 -->
 	        </li>
 	        <li>
-	            <label for="photos">사진</label>
+	            <h5><label for="photos">사진</label></h5>
 	            <input type="file" id="photos" name="photos" />
 	        </li>
 	        <li>

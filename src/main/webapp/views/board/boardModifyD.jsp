@@ -29,7 +29,41 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
+.list_form textarea {
+    width: 90%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-family: 'Arial', sans-serif; /* 원하는 폰트로 변경 가능 */
+}
 
+.list_form textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.list_form input[type="file"] {
+    margin-top: 5px;
+}
+
+.list_form input[type="button"],
+.list_form button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.list_form input[type="button"]:hover,
+.list_form button:hover {
+    background-color: #45a049;
+}
 </style>
 </head>
 <body>
@@ -43,11 +77,11 @@
     		<input type="hidden" name="board_no" value="${board.board_no}" />
 	    <ul>
 	        <li>
-	            <label for="board_title">제목</label>
+	            <h5><label for="board_title">제목</label></h5>
 	            <input type="text" id="board_title" name="board_title" value="${board.board_title}" />
 	        </li>
 	        <li>
-	            <label for="board_content">내용</label>
+	            <h5><label for="board_content">내용</label></h5>
 	            <textarea id="board_content" name="board_content">${board.board_content}</textarea>
 	            <!-- 
 	            <div id="rich_deditor"></div>
@@ -56,7 +90,7 @@
 				 -->
 	        </li>
 	        <li>
-	            <label for="photos">사진</label>
+	            <h5><label for="photos">사진</label></h5>
 	            <input type="file" id="photos" name="photos" />
 	        </li>
 	        <li>

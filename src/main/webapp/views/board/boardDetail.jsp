@@ -28,7 +28,7 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
         
-        #tt li {width:100%; boarder:10px solid #pink;}
+		
 </style>
 </head>
 <body>
@@ -68,12 +68,8 @@
 	
 		<li>
         	<input type="button" onclick="location.href='/board'" value="리스트" />
-	    </li>
-	    <li>
-	        <input type="button" onclick="location.href='./del?board_no=${board.board_no}'" value="삭제" />
-	    </li>
-	    <li>
-	        <input type="button" onclick="location.href='./boardModify?board_no=${board.board_no}'" value="수정" />
+		    <input type="button" onclick="location.href='./del?board_no=${board.board_no}'" value="삭제" />
+		    <input type="button" onclick="location.href='./boardModify?board_no=${board.board_no}'" value="수정" />
 	    </li>
 	</ul>
 	</section>

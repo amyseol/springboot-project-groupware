@@ -63,11 +63,11 @@
         
         
         
-        
+        <br/>
         <!------- 검색 ------->
         <div class="searchbox" >
-			<div> 작성자/제목으로 검색하기 : <input type="text" id="board_name" onkeydown="handleKeyDown(event)"/>
-			<input type="button" value="검색" onclick="listCall('1')"/></div>
+			<div><h5> 작성자/제목으로 검색하기 :  <input type="text" id="board_name" onkeydown="handleKeyDown(event)"/>
+			<input type="button" value="검색" onclick="listCall('1')"/></h5></div>
 		</div>
         
         
