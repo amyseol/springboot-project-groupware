@@ -78,7 +78,7 @@ public class ArtistService {
 		logger.info("list : "+list);
 		//만들수 있는 총 페이지수
 		logger.info("filter : "+Integer.parseInt(data.get("pagePerNum")));
-		int max = dao.artistmaxpage_1(Integer.parseInt(data.get("pagePerNum")),Integer.parseInt(data.get("num")));
+		float max = dao.artistmaxpage_1(Integer.parseInt(data.get("pagePerNum")),Integer.parseInt(data.get("num")));
 		logger.info("만들 수 있는 총 페이지수 : "+max);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -86,12 +86,20 @@ public class ArtistService {
 		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
 		if(p>max+1) {
 			
-			p = max;
+			p = (int) max;
 		}
 		
 		map.put("currPage", p);
-		
-		map.put("pages", max+1);
+		int rm;
+		if(max>(int)max) {
+			rm = (int) (max+1);
+			logger.info("1보다 크면 : "+rm);
+			map.put("pages", rm);
+		}else {
+			rm = (int) (max);
+			logger.info("1보다 작으면 : "+rm);
+			map.put("pages", rm);
+		}
 		logger.info("list : "+list);
 		map.put("list", list);
 		
@@ -115,7 +123,7 @@ public class ArtistService {
 		
 		
 		logger.info("filter : "+Integer.parseInt(data.get("pagePerNum")));
-		int max = dao.artistmaxpage_2(Integer.parseInt(data.get("pagePerNum")),Integer.parseInt(data.get("num")));
+		float max = dao.artistmaxpage_2(Integer.parseInt(data.get("pagePerNum")),Integer.parseInt(data.get("num")));
 		logger.info("만들 수 있는 총 페이지수 : "+max);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -123,11 +131,20 @@ public class ArtistService {
 		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
 		if(p>max+1) {
 			
-			p = max;
+			p = (int) max;
 		}
 		
 		map.put("currPage", p);
-		map.put("pages", max+1);
+		int rm;
+		if(max>(int)max) {
+			rm = (int) (max+1);
+			logger.info("1보다 크면 : "+rm);
+			map.put("pages", rm);
+		}else {
+			rm = (int) (max);
+			logger.info("1보다 작으면 : "+rm);
+			map.put("pages", rm);
+		}
 		logger.info("list : "+list);
 		map.put("list", list);
 		
