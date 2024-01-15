@@ -26,7 +26,7 @@ public class ArchiveService {
 	@Value("${spring.servlet.multipart.location}") private String root;
 
 	// 전사 리스트 출력 
-	public Map<String, Object> archAllList(String page, String member_no, String state) {
+	public Map<String, Object> archAllList(String page, String member_no, String state, String a_name) {
 		int p = Integer.parseInt(page);
 		int offset = (p - 1) * 20;
 		String departName = dao.getDepartName(member_no);
@@ -39,6 +39,9 @@ public class ArchiveService {
 			list = dao.archDepartList(offset, departName);
 			pages = dao.totalDepartPage(departName);
 		}
+		
+		// 검색 리스트 호출
+		
 		map.put("list", list);
 		map.put("pages", pages);
 		// 전체 페이지가 p 값보다 작을 때 
