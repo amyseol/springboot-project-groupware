@@ -29,15 +29,22 @@ public class ArchiveController {
 	
 	@GetMapping(value="/archiveAll")
 	public String archiveAll() {
-		return "archive/ArchiveAll";
+		return "archive/archiveAll";
 	}
 	
-	
+	// 전사 리스트 출력
 	@GetMapping(value="/archAllList")
 	@ResponseBody
-	public Map<String, Object> archAllList(String page, String member_no){
-		return service.archAllList(page, member_no);
+	public Map<String, Object> archAllList(String page, String member_no, String state){
+		return service.archAllList(page, member_no, state);
 	}
+	
+	// 부서별 리스트 출력
+//	@GetMapping(value="/archDepartList")
+//	@ResponseBody
+//	public Map<String, Object> archDepartList(String page, String member_no){
+//		return service.archDepartList(page, member_no);
+//	}
 	
 	// 부서 파일 업로드 
 	@PostMapping(value="/departFileUpload.do")
