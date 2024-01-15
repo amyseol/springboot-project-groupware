@@ -13,9 +13,17 @@ public class NotiDTO {
 	private Date noti_date;
 	private String noti_content;
 	private String noti_locate;
-	private String noti_unique_no;
 	private String noti_state;
+	private String noti_depart_no;
 	
+	
+	
+	public String getNoti_depart_no() {
+		return noti_depart_no;
+	}
+	public void setNoti_depart_no(String noti_depart_no) {
+		this.noti_depart_no = noti_depart_no;
+	}
 	private int noti_count;
 	
 	public int getNoti_count() {
@@ -76,12 +84,6 @@ public class NotiDTO {
 	}
 	public void setNoti_locate(String noti_locate) {
 		this.noti_locate = noti_locate;
-	}
-	public String getNoti_unique_no() {
-		return noti_unique_no;
-	}
-	public void setNoti_unique_no(String noti_unique_no) {
-		this.noti_unique_no = noti_unique_no;
 	}
 	public String getNoti_state() {
 		return noti_state;

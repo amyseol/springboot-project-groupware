@@ -28,6 +28,7 @@ public class AlbumDTO {
 	private int albsold_stock;
 	private int total_albsold_stock;
 	private int albsold_amount;
+	private int albsold_profit;
 	private Date albsold_date;
 	
 	private String file_location;
@@ -85,10 +86,6 @@ public class AlbumDTO {
 	public void setAlbsold_profit(int albsold_profit) {
 		this.albsold_profit = albsold_profit;
 	}
-	private int albsold_profit;
-	
-	
-	
 	public int getAlbsold_amount() {
 		return albsold_amount;
 	}

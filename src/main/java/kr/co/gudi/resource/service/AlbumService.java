@@ -26,21 +26,23 @@ public class AlbumService {
 	@Value("${spring.servlet.multipart.location}") private String root;
 	
 	public Map<String, Object> list(String page, String a_name) {
-		int p = Integer.parseInt(page);
-		int offset = (p - 1) * 20;
-		
 		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
+		
+		int p = Integer.parseInt(page);
+		int offset= (p - 1) * 20;
+		int pages = dao.totalPage();
+		
 		logger.info("검색 값이 있던지 말던지 리스트 그리기!");
 		list = dao.list(offset);
-		int pages = dao.totalPage();
+		
 		// 검색 값이 있을 때 
-		if(a_name!=null) {
+		if(!a_name.isEmpty()) {
 			logger.info("검색중!");
 			list = dao.searchList(a_name,offset);
 			pages = dao.totalSearchPage(a_name);
-		}
+		} 
 		
-		if (p >= pages) {
+		if (p > pages) {
 			p = pages;
 			logger.info("검색 p=="+p);
 		}
