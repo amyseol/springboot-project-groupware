@@ -215,4 +215,10 @@
 		SELECT * FROM department 
 			where depart_p_no = #{param1}
 	</select>
+	
+	<select id="detailTeam">
+			SELECT department.*, member.name FROM department
+			LEFT JOIN member ON department.member_no = member.member_no
+			WHERE department.depart_name =#{param1}
+	</select>
 </mapper>

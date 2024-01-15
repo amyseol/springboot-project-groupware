@@ -84,4 +84,8 @@ public interface MemberDAO {
 	ArrayList<MemberDTO> detailDepart(String depart_no);
 
 	ArrayList<MemberDTO> getTeam(String depart_no);
+
+	void updateDpt(HashMap<String, String> param);
+
+	ArrayList<MemberDTO> detailTeam(String depart_name);
 }

@@ -263,4 +263,25 @@ public class MemberController {
     	return service.detailDepart(depart_no);
     }
     
+    @PostMapping(value="/updateDpt")
+    public ModelAndView updateDpt(@RequestParam HashMap<String, String> param){
+    	logger.info("부서수정정보 : "+param);
+    	service.updateDpt(param);
+    	return new ModelAndView("member/departList");
+    }
+    
+    @PostMapping(value="/createDpt")
+    public ModelAndView createDpt(@RequestParam HashMap<String, String> param){
+    	logger.info("부서 등록 정보 : "+param);
+    	
+    	return new ModelAndView("member/departList");
+    }
+    
+    @GetMapping(value="/detailTeam")
+    @ResponseBody
+    public HashMap<String, Object> detailTeam(@RequestParam String depart_name){
+    	logger.info("팀 상세보기 이름 : "+depart_name);
+    	return service.detailTeam(depart_name);
+    }
+    
 }

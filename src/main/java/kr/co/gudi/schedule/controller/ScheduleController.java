@@ -60,6 +60,8 @@ public class ScheduleController {
 		logger.info("직원번호 : "+member_no+"/ 부서명 : "+sch_depart);
 		param.put("member_no", member_no);
 		param.put("sch_depart", sch_depart);
+		int depart_no=((MemberVO)session.getAttribute("loginMember")).getDepart_no();
+		param.put("depart_no", depart_no);
 		logger.info("일정:"+param);
 	
 		service.write(param);

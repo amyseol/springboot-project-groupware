@@ -253,4 +253,16 @@ public class MemberService implements UserDetailsService{
 		
 		return map;
 	}
+
+	public void updateDpt(HashMap<String, String> param) {
+		dao.updateDpt(param);
+		
+	}
+
+	public HashMap<String, Object> detailTeam(String depart_name) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<MemberDTO>dto =dao.detailTeam(depart_name);
+		map.put("detail", dto);
+		return map;
+	}
 }
