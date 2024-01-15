@@ -4,11 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.gudi.approval.dto.ApprovalDTO;
 
 @Mapper
 public interface ApprovalDAO {
+	
+	ApprovalDTO draftsmanInfo(int member_no);
+
+	ArrayList<ApprovalDTO> departmentsInfo();
+
+	ArrayList<ApprovalDTO> membersInfo();
+	
+	ApprovalDTO setApprover(int member_no);
 	
 	void commWrite(ApprovalDTO dto);
 
@@ -46,10 +55,25 @@ public interface ApprovalDAO {
 
 	int getapproverNo(int member_no, int approval_no);
 
-	void commApprove(int approverNo, String reason);
+	void commApprove(int approverNo, String approveReason);
 
 	int getApprCnt(int approval_no);
 
 	int getMyApprNum(int member_no, int approval_no);
+	
+	void apprToss(int approval_no);
+	
+	void apprFinish(int approval_no);
+
+	void apprReturn(int approverNo, String returnReason);
+
+	void ReturnFinish(int approval_no);
+
+	void withdrawl(int approval_no);
+
+	
+
+	
+
 
 }

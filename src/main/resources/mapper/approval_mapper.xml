@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC	"-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.gudi.approval.dao.ApprovalDAO">
+
+	<select id="draftsmanInfo" resultType="approval">
+		SELECT m.name, m.member_position, d.depart_name, f.file_newname FROM member m
+			JOIN department d ON m.depart_no = d.depart_no
+			LEFT JOIN file f ON m.member_no = f.file_unique_no
+				WHERE f.file_location = "p" AND m.member_no = #{param1}
+	</select>
+
+	<select id="departmentsInfo" resultType="approval">
+		SELECT depart_no, depart_p_no, depart_name FROM department
+			WHERE depart_state = 0;
+	</select>
+	
+	<select id="membersInfo" resultType="approval">
+		SELECT m.member_no, m.name, m.member_position, d.depart_name, d.depart_no FROM member m
+			JOIN department d ON m.depart_no = d.depart_no
+				WHERE m.member_state = '재직';
+	</select>
+	
+	<select id="setApprover" resultType="approval">
+		SELECT m.member_no, m.name, m.member_position, d.depart_name, f.file_newname FROM member m
+			JOIN department d ON m.depart_no = d.depart_no
+			LEFT JOIN file f ON m.member_no = f.file_unique_no
+				WHERE f.file_location = "p" AND m.member_no = #{param1}
+	</select>
 	
 	<insert 
 		useGeneratedKeys="true"
@@ -45,7 +70,7 @@
 		SELECT a.*, m.name
 			FROM approval a
 			JOIN member m ON a.currmember_no = m.member_no
-				WHERE a.document_state != 4
+				WHERE a.document_state != 3
 				AND a.draftmember_no = #{param1}
 	</select>
 	
@@ -54,7 +79,7 @@
 			FROM approval a
 			JOIN member m ON a.draftmember_no = m.member_no
 			JOIN approver ap ON a.approval_no = ap.approval_no
-				WHERE a.document_state != 4 AND ap.sortation = 0 AND ap.member_no = #{param1}
+				WHERE a.document_state != 3 AND ap.sortation = 0 AND ap.member_no = #{param1}
 	</select>
 	
 	<select id="refList" resultType="approval">
@@ -62,7 +87,7 @@
 			FROM approval a
 			JOIN member m ON a.draftmember_no = m.member_no
 			JOIN approver ap ON a.approval_no = ap.approval_no
-				WHERE a.document_state != 4 AND ap.sortation = 1 AND ap.member_no = #{param1}
+				WHERE a.document_state != 3 AND ap.sortation = 1 AND ap.member_no = #{param1}
 	</select>
 	
 	<select id="draftDocDetailInfo" resultType="approval">
@@ -139,4 +164,29 @@
 		SELECT approval_order FROM approver
 			WHERE member_no = #{param1} AND approval_no = #{param2}
 	</select>
+	
+	<update id="apprToss">
+		UPDATE approval SET approval_state = approval_state + 1
+			WHERE approval_no = #{param1}
+	</update>
+	
+	<update id="apprFinish">
+		UPDATE approval SET approval_state = approval_state + 1, document_state = 1, approval_end = CURRENT_DATE()
+			WHERE approval_no = #{param1};
+	</update>
+	
+	<insert id="apprReturn">
+		INSERT INTO approval_history(approver_no, processing_result, reason)
+			VALUES(#{param1}, 2, #{param2})
+	</insert>
+	
+	<update id="ReturnFinish">
+		UPDATE approval SET approval_state = 4, document_state = 2, approval_end = CURRENT_DATE()
+			WHERE approval_no = #{param1};
+	</update>
+	
+	<update id="withdrawl">
+		UPDATE approval SET document_state = 3
+			WHERE approval_no = #{param1}
+	</update>
 </mapper>

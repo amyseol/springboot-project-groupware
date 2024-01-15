@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,6 +39,7 @@
         #approval_write .bottom_area .left_area .sortation_box .list_box{border-top: 1px solid #ccc; height: 500px;}
         #approval_write .bottom_area .left_area .sortation_box .list_box>li{height: 100px;}
         #approval_write .bottom_area .left_area .sortation_box .list_box>li.on{background-color: rgba(248, 174, 226, 0.2); border-left: 3px solid #eb568e;}
+        #approval_write .bottom_area .left_area .sortation_box .list_box>li>ul>li{height: 100px;}
         #approval_write .bottom_area .left_area .sortation_box .list_box .info_box{padding: 20px 50px;}
         #approval_write .bottom_area .left_area .sortation_box .list_box .info_box>div{float: left;}
         #approval_write .bottom_area .left_area .sortation_box .list_box .info_box .left_box{width:30%;}
@@ -279,7 +281,7 @@
                         <li class="on">결재선</li>
                         <li>참조자</li>
                     </ul>
-                    <ul class="list_box approver">
+                    <ul class="list_box approver sor_box">
                         <li class="on">
                             <div class="info_box">
                                 <div class="left_box">
@@ -289,63 +291,21 @@
                                 </div>
                                 <div class="right_box">
                                     <ul class="approver_info">
-                                        <li class="member_name"><a href="javascript:">강태오 사원</a></li>
-                                        <li class="depart_name">지원팀</li>
+                                        <li class="member_name"><a href="javascript:">${info.name}&nbsp;${info.member_position}</a></li>
+                                        <li class="depart_name">${info.depart_name}</li>
                                         <li class="sortation">기안</li>
                                     </ul>
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="info_box">
-                                <div class="left_box">
-                                    <div class="img_box">
-                                        <a href="javascript:"><img src="/resources/img/common/kang.jpg" alt="231217_강태오"></a>
-                                    </div>
-                                </div>
-                                <div class="right_box">
-                                    <ul class="approver_info">
-                                        <li class="member_name"><a href="javascript:">강태오 사원</a></li>
-                                        <li class="depart_name">지원팀</li>
-                                        <li class="sortation">결재</li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <li class="list_box">
+                        	<ul class="vertical_appr">
+	                        	
+	                        </ul>
                         </li>
                     </ul>
-                    <ul class="list_box observer">
-                        <li>
-                            <div class="info_box">
-                                <div class="left_box">
-                                    <div class="img_box">
-                                        <a href="javascript:"><img src="/resources/img/common/kang.jpg" alt="231217_강태오"></a>
-                                    </div>
-                                </div>
-                                <div class="right_box">
-                                    <ul class="approver_info">
-                                        <li class="member_name"><a href="javascript:">강태오 사원</a></li>
-                                        <li class="depart_name">지원팀</li>
-                                        <li class="sortation">기안</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="info_box">
-                                <div class="left_box">
-                                    <div class="img_box">
-                                        <a href="javascript:"><img src="/resources/img/common/kang.jpg" alt="231217_강태오"></a>
-                                    </div>
-                                </div>
-                                <div class="right_box">
-                                    <ul class="approver_info">
-                                        <li class="member_name"><a href="javascript:">강태오 사원</a></li>
-                                        <li class="depart_name">지원팀</li>
-                                        <li class="sortation">결재</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
+                    <ul class="list_box observer sor_box vertical_obser">
+                        
                     </ul>
                 </div>
             </div>
@@ -359,11 +319,11 @@
                         <div class="top_left">
                             <ul>
                                 <li class="head">기안자</li>
-                                <li><input type="text" value="강태오" readonly/></li>
+                                <li><input type="text" value="${info.name}" readonly/></li>
                                 <li class="head">소속</li>
-                                <li><input type="text" value="지원팀" readonly/></li>
+                                <li><input type="text" value="${info.member_position}" readonly/></li>
                                 <li class="head">기안일</li>
-                                <li><input type="text" value="2023-12-27(수)" readonly/></li>
+                                <li><input type="text" value="" class="doc_date" readonly/></li>
                                 <li class="head">문서번호</li>
                                 <li><input type="text" value="" readonly/></li>
                             </ul>
@@ -375,9 +335,9 @@
                                         <p>신<br>청</p>
                                     </div>
                                     <div class="right_wrap">
-                                        <div class="sign_rank">사원</div>
-                                        <div class="sign_name">강태오</div>
-                                        <div class="sign_date">2023/12/27</div>
+                                        <div class="sign_rank">${info.member_position}</div>
+                                        <div class="sign_name">${info.name}</div>
+                                        <div class="sign_date doc_date"></div>
                                     </div>
                                 </div>
                                 <div class="approver sign_wrap">
@@ -537,291 +497,41 @@
                         <h5>조직도</h5>
                         <div class="org_chart">
                             <ul>
-                                <li>
-                                    <span>
-                                        <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                        <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 마케팅 본부
-                                    </span>
-                                    <ul>
-                                        <li>
-                                            <span>
-                                                <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                                <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 광고팀
-                                            </span>
-                                            <ul>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 한지훈 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 황희찬 과장
-                                                    </p>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                                <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 기획팀
-                                            </span>
-                                            <ul>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 황용하 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 설유린 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                                <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 영상/디자인팀
-                                            </span>
-                                            <ul>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <span>
-                                        <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                        <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 운영 본부
-                                    </span>
-                                    <ul>
-                                        <li>
-                                            <span>
-                                                <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                                <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 물류팀
-                                            </span>
-                                            <ul>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 김민지 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 조영웅 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                                <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 저작권 관리팀
-                                            </span>
-                                            <ul>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 정성우 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                                <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 계약운영 관리팀
-                                            </span>
-                                            <ul>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <span>
-                                        <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                        <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 경영지원 본부
-                                    </span>
-                                    <ul>
-                                        <li>
-                                            <span>
-                                                <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                                <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 지원팀
-                                            </span>
-                                            <ul>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 홍길동 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 차재호 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                                <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 총무팀
-                                            </span>
-                                            <ul>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 최치언 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-                                                <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 인사팀
-                                            </span>
-                                            <ul>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
+                            	<c:forEach items="${departments}" var="depart">
+                            		<c:if test="${depart.depart_p_no eq 0}">
+                            			<li>
+	                            			<span>
+		                                        <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
+		                                        <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> ${depart.depart_name}
+		                                    </span>
+		                                    <ul>
+		                                    	<c:forEach items="${teams}" var="team">
+			                                    	<c:if test="${depart.depart_no eq team.depart_p_no}">
+			                                    		<li>
+			                                    			<span>
+				                                                <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
+				                                                <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> ${team.depart_name}
+				                                            </span>
+				                                            <ul>
+				                                            	<c:forEach items="${members}" var="member">
+				                                            		<c:if test="${team.depart_no eq member.depart_no}">
+				                                            			<li>
+						                                                    <p data-member-no="${member.member_no}">
+						                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
+						                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
+						                                                        </svg> ${member.name} ${member.member_position}
+						                                                    </p>
+						                                                </li>
+				                                            		</c:if>
+				                                            	</c:forEach>
+				                                            </ul>
+			                                    		</li>
+			                                    	</c:if>
+			                                    </c:forEach>
+		                                    </ul>
+	                                    </li>
+                            		</c:if>
+                            	</c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -875,7 +585,7 @@
                     </div>
                     <div class="btn_area">
                         <div class="btn_inner">
-                            <button onclick="selected_form_go()" id="">확인</button>
+                            <button onclick="setApprover()" id="">확인</button>
                             <button class="cancel_btn">취소</button>
                         </div>
                     </div>
@@ -940,6 +650,7 @@ var splite_text = "";
 var member_name = "";
 var member_position = "";
 var member_team = "";
+var member_no = "";
 
 function approver_select_go(){
     $('#approver_light_box').fadeIn(500);
@@ -963,9 +674,7 @@ $('p.orgMember').on('click', function() {
     member_name = splite_text[0];
     member_position = splite_text[1];
     member_team = $('.org_chart p.on').closest('ul').siblings('span').text().trim();
-    console.log(member_name);
-    console.log(member_position);
-    console.log(member_team);
+    member_no = $(this).data('memberNo');
 });
 
 $('.org_chart>ul>li>span').on('click',function(){
@@ -999,6 +708,13 @@ var approver_count = 0;
 var observer_count = 0;
 var approver_class_num = 0;
 var observer_class_num = 0;
+var approver_arr = [];
+var observer_arr = [];
+
+// 중복 체크
+function isDuplicate(arr, value) {
+    return arr.indexOf(value.toString()) !== -1;
+}
 
 function approver_select(){
     if(approver_count > 2){
@@ -1014,14 +730,20 @@ function approver_select(){
         alert('결재할 직원을 클릭해주세요.');
         return;
     } else{
-        approver_count++;
-        approver_class_num++;
-        var content = "";
-        content += '<li class="name appr_list'+approver_class_num+'">'+member_name+'</li>';
-        content += '<li class="position appr_list'+approver_class_num+'">'+member_position+'</li>';
-        content += '<li class="team appr_list'+approver_class_num+'">'+member_team+'</li>';
-        content += '<li class="del appr_list'+approver_class_num+'"><a href="javascript:" onclick="approver_selected_del(this)" class="appr_list'+approver_class_num+'"><svg width="14" height="14" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg"><path fill="#555" d="M11.5-.031c-1.958 0-3.531 1.627-3.531 3.594V4H4c-.551 0-1 .449-1 1v1H2v2h2v15c0 1.645 1.355 3 3 3h12c1.645 0 3-1.355 3-3V8h2V6h-1V5c0-.551-.449-1-1-1h-3.969v-.438c0-1.966-1.573-3.593-3.531-3.593zm0 2.062h3c.804 0 1.469.656 1.469 1.531V4H10.03v-.438c0-.875.665-1.53 1.469-1.53zM6 8h5.125c.124.013.247.031.375.031h3c.128 0 .25-.018.375-.031H20v15c0 .563-.437 1-1 1H7c-.563 0-1-.437-1-1zm2 2v12h2V10zm4 0v12h2V10zm4 0v12h2V10z"/></svg></a></li>';
-        $('.approver_box>ul').append(content);
+        if (isDuplicate(approver_arr, member_no)) {
+            alert("중복된 대상입니다.");
+        } else {
+            // 중복이 아니면 배열에 추가
+            approver_arr.push(member_no.toString());
+            approver_count++;
+            approver_class_num++;
+            var content = "";
+            content += '<li class="name appr_list'+approver_class_num+'">'+member_name+'</li>';
+            content += '<li class="position appr_list'+approver_class_num+'">'+member_position+'</li>';
+            content += '<li class="team appr_list'+approver_class_num+'">'+member_team+'</li>';
+            content += '<li class="del appr_list'+approver_class_num+'"><a href="javascript:" onclick="approver_selected_del(this)" id='+member_no+' class="appr_list'+approver_class_num+'"><svg width="14" height="14" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg"><path fill="#555" d="M11.5-.031c-1.958 0-3.531 1.627-3.531 3.594V4H4c-.551 0-1 .449-1 1v1H2v2h2v15c0 1.645 1.355 3 3 3h12c1.645 0 3-1.355 3-3V8h2V6h-1V5c0-.551-.449-1-1-1h-3.969v-.438c0-1.966-1.573-3.593-3.531-3.593zm0 2.062h3c.804 0 1.469.656 1.469 1.531V4H10.03v-.438c0-.875.665-1.53 1.469-1.53zM6 8h5.125c.124.013.247.031.375.031h3c.128 0 .25-.018.375-.031H20v15c0 .563-.437 1-1 1H7c-.563 0-1-.437-1-1zm2 2v12h2V10zm4 0v12h2V10zm4 0v12h2V10z"/></svg></a></li>';
+            $('.approver_box>ul').append(content);
+        }
         
         $('.approver_box>ul>li.name').each(function(index){
             $(this).attr('data-index',index+1);
@@ -1043,14 +765,21 @@ function observer_select(){
         alert('참조할 직원을 클릭해주세요.');
         return;
     } else{
-        observer_count++;
-        observer_class_num++;
-        var content = "";
-        content += '<li class="name appr_list'+observer_class_num+'">'+member_name+'</li>';
-        content += '<li class="position appr_list'+observer_class_num+'">'+member_position+'</li>';
-        content += '<li class="team appr_list$'+observer_class_num+'">'+member_team+'</li>';
-        content += '<li class="del appr_list'+observer_class_num+'"><a href="javascript:" onclick="approver_selected_del(this)" class="appr_list'+observer_class_num+'"><svg width="14" height="14" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg"><path fill="#555" d="M11.5-.031c-1.958 0-3.531 1.627-3.531 3.594V4H4c-.551 0-1 .449-1 1v1H2v2h2v15c0 1.645 1.355 3 3 3h12c1.645 0 3-1.355 3-3V8h2V6h-1V5c0-.551-.449-1-1-1h-3.969v-.438c0-1.966-1.573-3.593-3.531-3.593zm0 2.062h3c.804 0 1.469.656 1.469 1.531V4H10.03v-.438c0-.875.665-1.53 1.469-1.53zM6 8h5.125c.124.013.247.031.375.031h3c.128 0 .25-.018.375-.031H20v15c0 .563-.437 1-1 1H7c-.563 0-1-.437-1-1zm2 2v12h2V10zm4 0v12h2V10zm4 0v12h2V10z"/></svg></a></li>';
-        $('.observer_box>ul').append(content);
+    	if (isDuplicate(observer_arr, member_no)) {
+            alert("중복된 대상입니다.");
+        } else {
+            // 중복이 아니면 배열에 추가
+            observer_arr.push(member_no.toString());
+        	observer_count++;
+            observer_class_num++;
+            var content = "";
+            content += '<li class="name obser_list'+observer_class_num+'">'+member_name+'</li>';
+            content += '<li class="position obser_list'+observer_class_num+'">'+member_position+'</li>';
+            content += '<li class="team obser_list'+observer_class_num+'">'+member_team+'</li>';
+            content += '<li class="del obser_list'+observer_class_num+'"><a href="javascript:" onclick="observer_selected_del(this)" id='+member_no+' class="obser_list'+observer_class_num+'"><svg width="14" height="14" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg"><path fill="#555" d="M11.5-.031c-1.958 0-3.531 1.627-3.531 3.594V4H4c-.551 0-1 .449-1 1v1H2v2h2v15c0 1.645 1.355 3 3 3h12c1.645 0 3-1.355 3-3V8h2V6h-1V5c0-.551-.449-1-1-1h-3.969v-.438c0-1.966-1.573-3.593-3.531-3.593zm0 2.062h3c.804 0 1.469.656 1.469 1.531V4H10.03v-.438c0-.875.665-1.53 1.469-1.53zM6 8h5.125c.124.013.247.031.375.031h3c.128 0 .25-.018.375-.031H20v15c0 .563-.437 1-1 1H7c-.563 0-1-.437-1-1zm2 2v12h2V10zm4 0v12h2V10zm4 0v12h2V10z"/></svg></a></li>';
+            $('.observer_box>ul').append(content);
+            console.log("observer : "+observer_arr);
+        }
         
         $('.observer_box>ul>li.name').each(function(index){
             $(this).attr('data-index',index+1);
@@ -1060,6 +789,10 @@ function observer_select(){
 
 function approver_selected_del(element){
     var class_value = $(element).attr('class');
+    var remove_no = $(element).attr('id').toString();
+    approver_arr = approver_arr.filter(function (item) {
+        return item !== remove_no;
+    });
     $('li.' + class_value).remove();
     approver_count--;
     $('.approver_box>ul>li.name').each(function(index){
@@ -1069,19 +802,90 @@ function approver_selected_del(element){
 
 function observer_selected_del(element){
     var class_value = $(element).attr('class');
+    var remove_no = $(element).attr('id').toString();
+    observer_arr = observer_arr.filter(function (item) {
+        return item !== remove_no;
+    });
     $('li.' + class_value).remove();
+    console.log("observer : "+observer_arr);
     observer_count--;
     $('.observer_box>ul>li.name').each(function(index){
         $(this).attr('data-index',index+1);
     });
 }
 
-function selected_form_go(){
-
+function setApprover(){
+	$('#approver_light_box').fadeOut(50);
+	
+	$.ajax({
+	    url: 'setApprover.ajax',
+	    type: 'POST',
+	    dataType:'JSON',
+	    contentType: 'application/json',
+	    data: JSON.stringify({
+	        approver: approver_arr,
+	        observer: observer_arr
+	    }),
+	    success: function(data) {
+	        console.log("setApprover.ajax 성공");
+	        drawApprover(data);
+	        if(data.observer != 0){
+	        	drawObserver(data);
+	        } else{
+	        	$('.vertical_obser').empty();
+	        }
+	    },
+	    error: function(error) {
+	        console.error("setApprover.ajax 실패");
+	    }
+	});
 }
 
+function drawApprover(apprList){
+	console.log(apprList);
+	
+	var content = "";
+	
+	if(apprList.approver != 0){
+		apprList.approver.forEach(function(item, idx){
+			content += '<li>';
+			content += '<div class="info_box"><div class="left_box"> <div class="img_box">';
+			content += '<a href="javascript:"><img src="/resources/img/common/'+item.file_newname+'" alt="'+item.member_no+'_'+item.name+'"></a></div></div>';
+			content += '<div class="right_box"><ul class="approver_info">';
+			content += '<li class="member_name"><a href="javascript:">'+item.name+' '+item.member_position+'</a></li>';
+			content += '<li class="depart_name">'+item.depart_name+'</li>';
+			content += '<li class="sortation">결재</li>';
+			content += '</ul></div></div></li>';
+			
+			$('.vertical_appr').empty();
+			$('.vertical_appr').append(content);
+		});
+	} else{
+		$('.vertical_appr').empty();
+	}
+	
+}
 
-
+function drawObserver(apprList){
+	console.log(apprList);
+	
+	var content = "";
+	apprList.observer.forEach(function(item, idx){
+		console.log("observer 이름 : "+item.name);
+		content += '<li>';
+		content += '<div class="info_box"><div class="left_box"> <div class="img_box">';
+		content += '<a href="javascript:"><img src="/resources/img/common/'+item.file_newname+'" alt="'+item.member_no+'_'+item.name+'"></a></div></div>';
+		content += '<div class="right_box"><ul class="approver_info">';
+		content += '<li class="member_name"><a href="javascript:">'+item.name+' '+item.member_position+'</a></li>';
+		content += '<li class="depart_name">'+item.depart_name+'</li>';
+		content += '<li class="sortation">결재</li>';
+		content += '</ul></div></div></li>';
+			
+		$('.vertical_obser').empty();
+		$('.vertical_obser').append(content);
+	});
+	
+}
 
 
 
@@ -1169,6 +973,8 @@ return formattedDate;
 
 // 가져온 날짜를 특정 태그에 넣기
 $('.cur_date').text(getCurrentDate());
+$('.doc_date').val(getCurrentDate());
+$('.doc_date').text(getCurrentDate());
 
 // ------------------------------------ approval_select_box end ------------------------------------
 
@@ -1255,11 +1061,11 @@ $( "#testDatepicker" ).datepicker({
 function tabs(index){
             $('.list_btn>li[data-index='+index+']').addClass('on');
             $('.list_btn>li[data-index!='+index+']').removeClass('on');
-            $('.list_box[data-index='+index+']').stop().fadeIn(1000);
-            $('.list_box[data-index!='+index+']').css('display','none');
+            $('.sor_box[data-index='+index+']').stop().fadeIn(1000);
+            $('.sor_box[data-index!='+index+']').css('display','none');
         }
 
-        $('.list_box').each(function(index){
+        $('.sor_box').each(function(index){
             $(this).attr('data-index',index)
         })
 

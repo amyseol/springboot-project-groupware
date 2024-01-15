@@ -257,16 +257,16 @@
             <ul class="approval_btn">
                 <c:choose>
 					<c:when test="${(info.document_state eq 0 && info.approval_state eq 0 && docAuth eq 1) || (info.document_state eq 0 && info.approval_state eq 1 && docAuth eq 2) || (info.document_state eq 0 && info.approval_state eq 2 && docAuth eq 3)}">
-						<li><a href="javascript:" onclick="approve_box_go()"><svg width="15" height="15" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 9l-3 .54L5 6.5L10.73.79a1 1 0 0 1 1.42 0l1.06 1.06a1 1 0 0 1 0 1.42Z"/><path d="M12 9.5v3a1 1 0 0 1-1 1H1.5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3"/></g></svg> 결재</a></li>
-                		<li><a href="javascript:" onclick="return_box_go()"><svg width="18" height="18" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M754.752 480H160a32 32 0 1 0 0 64h594.752L521.344 777.344a32 32 0 0 0 45.312 45.312l288-288a32 32 0 0 0 0-45.312l-288-288a32 32 0 1 0-45.312 45.312z"/></svg> 반려</a></li>
-                		<li><a href="javascript:" onclick="list_box_go()"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg> 목록</a></li>
+						<li><a href="javascript:" onclick="approve_box_go(${info.approval_no})"><svg width="15" height="15" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 9l-3 .54L5 6.5L10.73.79a1 1 0 0 1 1.42 0l1.06 1.06a1 1 0 0 1 0 1.42Z"/><path d="M12 9.5v3a1 1 0 0 1-1 1H1.5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3"/></g></svg> 결재</a></li>
+                		<li><a href="javascript:" onclick="return_box_go(${info.approval_no})"><svg width="18" height="18" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M754.752 480H160a32 32 0 1 0 0 64h594.752L521.344 777.344a32 32 0 0 0 45.312 45.312l288-288a32 32 0 0 0 0-45.312l-288-288a32 32 0 1 0-45.312 45.312z"/></svg> 반려</a></li>
+                		<li><a href="javascript:" onclick="list_go()"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg> 목록</a></li>
 					</c:when>
 					<c:when test="${info.approval_state eq 0 && docAuth eq 0}">
-						<li><a href="javascript:" onclick="withdrawl_box_go()"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.95 11a8 8 0 1 0-.5 4m.5 5v-5h-5"/></svg> 회수</a></li>
-						<li><a href="javascript:" onclick="list_box_go()"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg> 목록</a></li>
+						<li><a href="javascript:" onclick="withdrawl_box_go(${info.approval_no})"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.95 11a8 8 0 1 0-.5 4m.5 5v-5h-5"/></svg> 회수</a></li>
+						<li><a href="javascript:" onclick="list_go()"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg> 목록</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="javascript:" onclick="list_box_go()"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg> 목록</a></li>
+						<li><a href="javascript:" onclick="list_go()"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg> 목록</a></li>
 					</c:otherwise>
 				</c:choose>
             </ul>
@@ -297,13 +297,13 @@
                      </li>
                      <c:forEach items="${apprInfo}" var="appr" >
                      	<c:choose>
-							<c:when test="${appr.approval_order eq 1 && appr.approval_state eq 0}">
+							<c:when test="${(appr.approval_order eq 1 && appr.approval_state eq 0)}">
 								 <li class="on">
 							</c:when>
-							<c:when test="${appr.approval_order eq 2 && appr.approval_state eq 1}">
+							<c:when test="${(appr.approval_order eq 2 && appr.approval_state eq 1)}">
 								 <li class="on">
 							</c:when>
-							<c:when test="${appr.approval_order eq 3 && appr.approval_state eq 2}">
+							<c:when test="${(appr.approval_order eq 3 && appr.approval_state eq 2)}">
 								 <li class="on">
 							</c:when>
 							<c:otherwise>
@@ -420,7 +420,7 @@
 											    </c:otherwise>
 											</c:choose>
 	                                        <c:choose>
-											    <c:when test="${appr.processing_date}">
+											    <c:when test="${appr.processing_date ne null}">
 											        <div class="sign_date">${appr.processing_date}</div>
 											    </c:when>
 											    <c:otherwise>
@@ -542,13 +542,14 @@
                 <div class="inner_wrap">
                     <div class="info_box">
                         <form id="approve_do" action="approve.do" method="post">
+                        	<input type="hidden" name="approval_no">
                             <ul class="info_title">
                                 <li>결재문서명</li>
                                 <li>결재의견</li>
                             </ul>
                             <ul class="info_content">
                                 <li>asdasd</li>
-                                <li><textarea placeholder="의견을 작성해 주세요." name="reason"></textarea></li>
+                                <li><textarea placeholder="의견을 작성해 주세요." name="approveReason"></textarea></li>
                             </ul>
                         </form>
                     </div>
@@ -575,13 +576,14 @@
                 <div class="inner_wrap">
                     <div class="info_box">
                         <form id="return_do" action="return.do" method="post">
+                        	<input type="hidden" name="approval_no">
                             <ul class="info_title">
                                 <li>결재문서명</li>
                                 <li>반려결재의견</li>
                             </ul>
                             <ul class="info_content">
                                 <li>asdasd</li>
-                                <li><textarea placeholder="의견을 작성해 주세요." name="reason"></textarea></li>
+                                <li><textarea placeholder="의견을 작성해 주세요." name="returnReason"></textarea></li>
                             </ul>
                         </form>
                     </div>
@@ -609,6 +611,7 @@
                 <div class="inner_wrap">
                     <div class="info_box">
                         <form id="withdrawl_do" action="withdrawl.do" method="post">
+                        	<input type="hidden" name="approval_no">
                             <ul class="info_title">
                                 <li>결재문서명</li>
                                 <li>결재자</li>
@@ -617,8 +620,9 @@
                                 <li>asdasd</li>
                                 <li>
                                     <ul class="appr_list">
-                                        <li>한지훈 사원<br>지원팀</li>
-                                        <li>황희찬 과장<br>물류팀</li>
+                                    	<c:forEach items="${apprInfo}" var="appr">
+                                    		<li>${appr.name}&nbsp;${appr.member_position}<br/>${appr.depart_name}</li>
+                                    	</c:forEach>
                                     </ul>
                                 </li>
                             </ul>
@@ -650,40 +654,43 @@
 
 // ------------------------------------ approval_detail start ------------------------------------
 
-function approve_box_go(){
+function approve_box_go(num){
     $('#approve').fadeIn(500);
+    $('input[name="approval_no"]').val(num);
 }
 
 function approve_go(){
-    if($('textarea[name="reason"]').val().length == 0){
+    if($('textarea[name="approveReason"]').val().length == 0){
         alert("의견을 작성해 주세요.");
     }else{
         $('#approve_do').submit();
     }
 }
 
-function return_box_go(){
+function return_box_go(num){
     $('#return').fadeIn(500);
+    $('input[name="approval_no"]').val(num);
 }
 
 function return_go(){
-    if($('textarea[name="reason"]').val().length == 0){
+    if($('textarea[name="returnReason"]').val().length == 0){
         alert("의견을 작성해 주세요.");
     }else{
         $('#return_do').submit();
     }
 }
 
-function withdrawl_box_go(){
+function withdrawl_box_go(num){
     $('#withdrawl').fadeIn(500);
+    $('input[name="approval_no"]').val(num);
 }
 
 function withdrawl_go(){
     $('#withdrawl_do').submit();
 }
 
-function list_box_go(){
-    
+function list_go(){
+	window.history.back();
 }
 
 $('.cancel_box').on('click',function(){

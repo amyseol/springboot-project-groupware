@@ -40,11 +40,15 @@ public class ApprovalDTO {
 	private int vac_starttime;
 	
 	// member
+	private int member_no;
 	private String name;
 	private String member_position;
 	
 	// department
+	private int depart_no;
+	private int depart_p_no;
 	private String depart_name;
+	
 	
 	// file
 	private String file_location;
@@ -196,6 +200,12 @@ public class ApprovalDTO {
 	public void setVac_starttime(int vac_starttime) {
 		this.vac_starttime = vac_starttime;
 	}
+	public int getMember_no() {
+		return member_no;
+	}
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
+	}
 	public String getName() {
 		return name;
 	}
@@ -207,6 +217,18 @@ public class ApprovalDTO {
 	}
 	public void setMember_position(String member_position) {
 		this.member_position = member_position;
+	}
+	public int getDepart_no() {
+		return depart_no;
+	}
+	public void setDepart_no(int depart_no) {
+		this.depart_no = depart_no;
+	}
+	public int getDepart_p_no() {
+		return depart_p_no;
+	}
+	public void setDepart_p_no(int depart_p_no) {
+		this.depart_p_no = depart_p_no;
 	}
 	public String getDepart_name() {
 		return depart_name;
