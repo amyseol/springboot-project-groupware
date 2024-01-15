@@ -4,15 +4,28 @@
    
 <mapper namespace="kr.co.gudi.archive.dao.ArchiveDAO">
 	<select id="totalPage" resultType="int">
-		SELECT CEIL(COUNT(arch_no)/20) AS pages FROM archive
+		SELECT CEIL(COUNT(arch_no)/20) AS pages FROM archive WHERE arch_depart='전사'
 	</select>
 	
-	<!-- WHERE a.arch_depart='전사' 추가하기 -->
+	<!-- 전사 리스트 출력 -->
 	<select id="archAllList" resultType="archive">
 		SELECT a.*, m.name, f.file_oriname, f.file_newname, f.file_size FROM archive a
 			LEFT OUTER JOIN member m ON a.member_no = m.member_no
 			LEFT OUTER JOIN file f ON f.file_location ='s' AND f.file_unique_no = a.arch_no
-		WHERE a.arch_state = '0'
+		WHERE a.arch_state = '0' AND a.arch_depart = '전사' 
+				ORDER BY a.arch_no DESC LIMIT 20 OFFSET #{param1}
+	</select> 
+	
+ 	<select id="totalDepartPage" resultType="int">
+		SELECT CEIL(COUNT(arch_no)/20) AS pages FROM archive WHERE arch_depart = #{param1}
+	</select> 
+	
+	<!-- 부서별 리스트 출력 -->
+	<select id="archDepartList" resultType="archive">
+		SELECT a.*, m.name, f.file_oriname, f.file_newname, f.file_size FROM archive a
+			LEFT OUTER JOIN member m ON a.member_no = m.member_no
+			LEFT OUTER JOIN file f ON f.file_location ='s' AND f.file_unique_no = a.arch_no
+		WHERE a.arch_state = '0' AND a.arch_depart= #{param2}
 				ORDER BY a.arch_no DESC LIMIT 20 OFFSET #{param1}
 	</select> 
 	
@@ -37,7 +50,7 @@
 	</insert> 
 	
 	<update id="archiveDel">
-		UPDATE archive SET arch_state=1 WHERE arch_no=#{param1}
+		UPDATE archive SET arch_state='1' WHERE arch_no=#{param1}
 	</update>
 	
 </mapper>
