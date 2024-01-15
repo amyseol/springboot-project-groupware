@@ -32,15 +32,6 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
-
-		#common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
-        #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .list_form .list_title ul li:first-child{width: 10%; padding-left: 50px; }
-        #common_list_form .list_form .list_title ul li:nth-child(2){width: 50%;}
-        #common_list_form .list_form .list_title ul li:nth-child(3){width: 15%;}
-        #common_list_form .list_form .list_title ul li:nth-child(4){width: 15%;}
-        #common_list_form .list_form .list_title ul li:last-child{width: 10%;}
- 
 </style>
 </head>
 <body>
@@ -55,11 +46,11 @@
             <li class="list_list">
 	    <ul>
 	        <li>
-	            <label for="board_title">제목</label>
+	            <h5><label for="board_title">제목</label></h5>
 	            <input type="text" id="board_title" name="board_title" placeholder="제목을 입력해주세요."/>
 	        </li>
 	        <li>
-	        내용
+	        <h5>내용</h5>
 	       <!-- <div id="editor"></div>-->
 	          
 	        	<div id="rich_deditor"></div>
@@ -68,7 +59,7 @@
 	            <!-- <textarea id="board_content" name="board_content"></textarea> -->
 	        </li>
 	        <li>
-	            <label for="photos">사진</label>
+	            <h5><label for="photos">사진</label></h5>
 	            <input type="file" id="photos" name="photos" multiple="multiple" />
 	        </li>
 	        <li>

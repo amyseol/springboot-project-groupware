@@ -47,17 +47,18 @@
         <form action="writeD" method="post" enctype="multipart/form-data" onsubmit="return val()">
 	    <ul>
 	        <li>
-	            <label for="board_title">제목</label>
+	            <h5><label for="board_title">제목</label></h5>
 	            <input type="text" id="board_title" name="board_title" />
 	        </li>
 	        <li>
+	        <h5>내용</h5>
 	            <div id="rich_deditor"></div>
 				
 				<input type="hidden" id="board_content" name="board_content" value=""/>
 	            <!-- <textarea id="board_content" name="board_content"></textarea> -->
 	        </li>
 	        <li>
-	            <label for="photos">사진</label>_
+	            <h5><label for="photos">사진</label></h5>
 	            <input type="file" id="photos" name="photos" multiple="multiple" />
 	        </li>
 	        <li>

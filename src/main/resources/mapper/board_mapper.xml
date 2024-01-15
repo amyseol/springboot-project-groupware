@@ -98,6 +98,11 @@
   		DELETE FROM board
   			WHERE board_no=#{param1}
   	</delete>
+  	
+  	<delete id="delD">
+  		DELETE FROM board
+  			WHERE board_no=#{param1}
+  	</delete>
   
   	<update id="modify">
    		UPDATE board SET 

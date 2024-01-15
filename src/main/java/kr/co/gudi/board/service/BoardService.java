@@ -272,4 +272,25 @@ public class BoardService {
 		model.addAttribute("photos", photos);
 		
 	}
+
+
+	public void delD(String board_no) {
+		logger.info("board_no : " + board_no);
+		// board_no에 해당하는 이미지 가져옴
+		ArrayList<BoardDTO> photos = dao.getPhoto(board_no);
+		logger.info("지워야 할 파일 : "+photos);
+		// board_no에 해당하는 글 삭제 -> ON DELETE CASCADE로 photo삭제
+		
+		int row = dao.delD(board_no);
+		
+		if(row>0){
+			// 가져온 이미지의 이름으로 이미지 삭제
+			for(BoardDTO dto : photos) {
+				File file = new File(root+dto.getFile_newname());
+				if(file.exists()) {
+					logger.info(dto.getFile_newname()+" 삭제 결과 : "+file.delete());
+				}
+			}
+		}
+	}
 }

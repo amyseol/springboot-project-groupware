@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"> </script>
 <style>
-#common_list_form{padding-left:15%;}
+		#common_list_form{padding-left:15%;}
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .sub_title{padding: 20px 50px;}
         #common_list_form .list_form{position:relative;}
@@ -28,6 +28,7 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
         
+        #tt li {width:100%; boarder:10px solid #pink;}
 </style>
 </head>
 <body>
@@ -37,26 +38,26 @@
         <h3 class="sub_title">부서 게시판</h3>
         
 		<ul>
-	    <li>
-	        <label for="board_title">제목</label>
+	    <li id="tt">
+	        <h5><label for="board_title">제목</label></h5>
 	        <span id="board_title">${board.board_title}</span>
 	    </li>
 	    <li>
-	        <label for="bHit">조회수</label>
+	        <h5><label for="bHit">조회수</label></h5>
 	        <span id="bHit">${board.bHit}</span>
 	    </li>
 	    <li>
-	        <label for="board_depart">작성자</label>
+	        <h5><label for="board_depart">작성자</label></h5>
 	        <span id="board_depart">${board.board_depart}</span>
 	    </li>
 	    <li>
-	        <label for="board_content">내용</label>
+	        <h5><label for="board_content">내용</label></h5>
 	        <span id="board_content">${board.board_content}</span>
 	    </li>
     
     	<c:if test="${photos.size() > 0}">
 	        <li>
-	            <label for="board_photos">사진</label>
+	            <h5><label for="board_photos">사진</label></h5>
 	            <span id="board_photos">
 	                <c:forEach items="${photos}" var="file">
 	                    <img src="/photo/${file.file_newname}" width="500" alt="${file.file_oriname}" />

@@ -153,7 +153,14 @@ public class BoardController {
 	public String del(@RequestParam String board_no) {
 		logger.info("===del 함수===");
 		service.del(board_no);
-		return "redirect:./";
+		return "board/boardList";
+	}
+	
+	@GetMapping(value = "/delD")
+	public String delD(@RequestParam String board_no) {
+		logger.info("===D del 함수===");
+		service.delD(board_no);
+		return "board/boardListD";
 	}
 	
 	@GetMapping(value = "/boardModify")
