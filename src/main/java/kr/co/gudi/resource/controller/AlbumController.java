@@ -36,11 +36,13 @@ public class AlbumController {
 	// root 를 application.properties에 설정하면 일일이 변경하지 않아도 된다. 
 	@Value("${spring.servlet.multipart.location}") private String root;
 	
+	// 음반 계약 현황 페이지 이동
 	@GetMapping(value="/album")
 	public String album() {
 		return "/album/album";
 	}
 	
+	// 음반 계약 현황 리스트 호출 
 	@GetMapping(value="/albumList")
 	@ResponseBody
 	public Map<String, Object> albumList(String page, String a_name) {
@@ -53,23 +55,25 @@ public class AlbumController {
 		return service.detail(alb_no);
 	}	
 	
-//	@GetMapping(value="/albumSearch")
-//	@ResponseBody
-//	public Map<String, Object> albumSearch(String a_name, String page){
-//	return service.searchList(a_name, page);
-//	}
-	
 	@GetMapping(value="/albumChartData")
 	@ResponseBody
 	public Map<String, Object> albumChartData(String num, String optionVal){
 		return service.chartData(num, optionVal);
 	}
 	
-	
+	// 음반 실적 페이지 이동
 	@GetMapping(value="/albumPerform")
 	public String albumPerform() {
 		return "/album/albumPerform";
 	}
+//	
+//	// 음반 실적 리스트 호출
+//	@GetMapping(value="/albumPerformList")
+//	@ResponseBody
+//	public Map<String, Object> albumPerformList(String page, String a_name) {
+//		logger.info("a_name ==== " +a_name);
+//		return service.list(page, a_name);
+//	} 
 	
 	// 파일 업로드 (return 값은 기능을 결재 페이지로 옮길 때 변경하기) 
 	@PostMapping(value="/albumFile.do")

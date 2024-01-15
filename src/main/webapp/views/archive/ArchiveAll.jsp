@@ -4,14 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <title>HoonyMusic</title>
-<<<<<<< HEAD
-
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-
-
-
-=======
->>>>>>> origin/master
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"> </script>
 <style>
         #common_list_form{padding-left:15%;}
@@ -57,26 +49,15 @@
 		#del_modal{background: rgba(0, 0, 0, 0.8);display: none; width:300px; height:150px; background: rgb(237, 237, 237); border:1px solid gray; text-align:center;position:absolute; left:58%; top:27%; }
 		#delBtn{margin-right: 10px;padding: 2px 5px 2px 5px;}
 </style>
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 </head>
 <body>
-    <!-- -------------------------------------------list_form start------------------------------------------ -->
-<<<<<<< HEAD
-    <section id="common_list_form">
-        <h2 class="big_title">타이틀</h2>
-        <h3 class="sub_title">리스트 폼</h3>
-
-=======
->>>>>>> origin/master
 	<%@ include file="/views/nav.jsp" %>
+    <!-- -------------------------------------------list_form start------------------------------------------ -->
     <section id="common_list_form">
         <h2 class="big_title">공용자료실</h2>
         <h3 class="sub_title">
-        	<input type="button" id="allList" value="전사"/>
-        	<input type="button" id="departList" value="부서"/>
+        	<span id="allList" onclick="selectDepart('전사')">전사</span>
+        	<span id="departList" onclick="selectDepart('부서')">부서</span>
         </h3>
         <!------- 검색 ------->
         <ul class="search_box">
@@ -91,132 +72,29 @@
         </ul>
         <!------- 검색 ------->
         <!------- 파일 등록 ------->
-        <
         <ul class="fileBox">
         	<li><input type="button" id="delBtn" value="삭제" onclick="delBtnClick()"/></li>
             <li id="departFileBox">
-				<form action="departFileUpload.do" method="post" enctype="multipart/form-data">
-				    <input type="file" id="file" name="files" multiple/>
+				<form action="departFileUpload.do" id="departUploadForm" method="post" enctype="multipart/form-data">
+				    <input type="file" id="departFile" name="files" multiple/>
 			        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
-			        <input type="submit" value="부서 파일 등록">
+			        <input type="button" value="부서 파일 등록" id="departUploadBtn">
 			    </form>
             </li>
             <li id="allFileBox">
-				<form action="allFileUpload.do" method="post" enctype="multipart/form-data">
-				    <input type="file" id="file" name="files" multiple/>
+				<form action="allFileUpload.do" id="allUploadForm" method="post" enctype="multipart/form-data">
+				    <input type="file" id="allFile" name="files" multiple/>
 			        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
-			        <input type="submit" value="전사 파일 등록">
+			        <input type="button" value="전사 파일 등록" id="allUploadBtn">
 			    </form>
             </li>
         </ul>
         <!------- 파일 등록 ------->
 		<!------- 리스트 ------->
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
         <div class="list_form">
             <ul>
                 <li class="list_title">
                     <ul>
-<<<<<<< HEAD
-
-                        <li>기안일</li>
-                        <li>결재양식</li>
-                        <li>긴급</li>
-                        <li>제목</li>
-                        <li>첨부</li>
-                        <li>결재상태</li>
-                    </ul>
-                </li>
-                <li class="list_content">
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li> </li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li> </li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                    <ul>
-                        <li>2023-12-19</li>
-                        <li>휴가신청서</li>
-                        <li></li>
-                        <li><a href="javascript:">휴가신청서</a></li>
-                        <li></li>
-                        <li>진행중</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </section>
-    <!-- -------------------------------------------list_form end------------------------------------------ -->
-    <!-- -------------------------------------------music start------------------------------------------ -->
-    <div id="bottom_music">
-        <div class="music_inner">
-
-        </div>
-    </div>
-    <!-- -------------------------------------------music end------------------------------------------ -->
-
-=======
->>>>>>> origin/master
                     	<li><input type="checkbox" id="checkAll"/></li>
                         <li>파일명</li>
                         <li>다운로드</li>
@@ -245,24 +123,41 @@
 			<button onclick="delYes()" class="modalBtnYes">예</button>	
 		</div>
     </section>
-
 </body>
 <script>
 //----------------------- all depart list start ----------------------------------
+var selectedState = '전사';
 var showPage=1;
 listCall(showPage);
-
 var member_no = ${sessionScope.loginMember.member_no};
+
+//페이지 로딩 시 초기값에 해당하는 라벨에 스타일 적용
+document.getElementById('allList').style.fontWeight = 'bold';
+document.getElementById('departList').style.fontWeight = 'normal';
+
+function selectDepart(state){
+	selectedState = state;
+	console.log(selectedState);
+	
+	document.getElementById('allList').style.fontWeight = (selectedState === '전사') ? 'bold' : 'normal';
+    document.getElementById('departList').style.fontWeight = (selectedState === '부서') ? 'bold' : 'normal';
+    listCall(showPage);	
+}
+
 // 파일 리스트 
 function listCall(page){
 	$.ajax({
 		type:'get',
 		url:'archAllList',
-		data:{'page':page, 'member_no':member_no}, 
+		data:{
+			'page':page, 
+			'member_no':member_no, 
+			'state':selectedState
+		}, 
 		dataType:'JSON',
 		success: function(data){
 			console.log(data);
-			drawList(data);	
+			drawAllList(data);	
 		},
 		error:function(e){
 			console.log(e);
@@ -270,7 +165,65 @@ function listCall(page){
 	});
 }
 
-function drawList(list){
+function drawAllList(list){
+	var content='';
+	list.list.forEach(function(item,idx){ 
+		content+='<ul>';
+		content+='<li><input type="checkbox" name="checkEach" value="'+item.arch_no+'"/></li>'
+		content+='<li>'+item.file_oriname+'</li>';
+		content+='<li><button onclick="location.href=\'download.do?newName='+item.file_newname+'&oriName='+item.file_oriname+'\'">다운로드</button></li>';
+		
+		content+='<li>'+item.name+'</li>'; 
+		content+='<li>'+item.file_size+'KB</li>'; 
+		
+		var date = new Date(item.arch_date);
+		var uploadDate = date.toLocaleDateString("ko-KR");
+		content+='<li>'+uploadDate+'</li>';
+		content+='</ul>';
+	});
+	$('#fileList').empty();
+	$('#fileList').append(content);
+	
+	$('#pagination').twbsPagination({
+		startPage: list.currPage,
+		totalPages: list.pages, 
+		visiblePages:5, 
+		onPageClick:function(e,page){ 
+			if(showPage != page){ 
+				showPage=page; 
+				listCall(page);
+			}
+		}
+	});
+}
+//----------------------- all depart list end ---------------------------------------
+
+
+//----------------------- each depart list start ----------------------------------
+// 로그인한 사람의 depart_name 이 archive 의 arch_depart 랑 동일한 데이터만 출력 
+/* function listDepartCall(showPage){
+	$.ajax({
+		type:'get',
+		url:'archDepartList',
+		data:{'page':showPage, 'member_no':member_no}, 
+		dataType:'JSON',
+		success: function(data){
+			console.log(data);
+			drawDepartList(data);	
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+}
+
+
+$('#departList').on('click',function(){
+	listDepartCall(showPage);
+});
+
+
+function drawDepartList(list){
 	var content='';
 	list.list.forEach(function(item,idx){ 
 		content+='<ul>';
@@ -297,12 +250,13 @@ function drawList(list){
 			if(showPage != page){ 
 				//console.log(page);	
 				showPage=page; 
-				listCall(page);
+				listDepartCall(page);
 			}
 		}
 	});
-}
-//----------------------- all depart list end ---------------------------------------
+} */
+//----------------------- each depart list end ----------------------------------
+
 
 //----------------------- delete start ---------------------------------------
 // 모든 리스트 체크 
@@ -375,7 +329,8 @@ function delYes(){
 
 //----------------------- delete end ---------------------------------------
 
-//----------------------- 전사 파일 등록 보여주기 start----------------------------------
+//----------------------- 전사 파일 등록 버튼 처리 start----------------------------------
+// depart_no가 3, 4인 직원 로그인시 버튼 보여주기 
 var allFileBox = document.getElementById('allFileBox');
 var member_depart = ${sessionScope.loginMember.depart_no};
 
@@ -385,65 +340,38 @@ $(document).ready(function() {
 		allFileBox.style.display='block';
 	}
 });
-//----------------------- 전사 파일 등록 보여주기 end ----------------------------------
+// 파일 선택 안하고 등록 버튼 클릭시 처리 
+document.getElementById('allUploadBtn').addEventListener('click', function() {
+    // 파일이 선택되었는지 확인
+    var fileInput = document.getElementById('allFile');
+    if (fileInput.files.length > 0) {
+        // 파일이 선택되었으면 submit 이벤트 실행
+        document.getElementById('allUploadForm').submit();
+    } else {
+        // 파일이 선택되지 않았을 경우에 대한 처리
+        alert('파일을 선택하세요.');
+        location.href='/archiveAll';
+    }
+});
+//----------------------- 전사 파일 등록 버튼 처리 end ----------------------------------
 
 
+//----------------------- 부서 파일 등록 버튼 start ----------------------------------
+// 파일 선택 안하고 등록 버튼 클릭시 처리 
+document.getElementById('departUploadBtn').addEventListener('click', function() {
+    // 파일이 선택되었는지 확인
+    var fileInput = document.getElementById('departFile');
+    if (fileInput.files.length > 0) {
+        // 파일이 선택되었으면 submit 이벤트 실행
+        document.getElementById('departUploadForm').submit();
+    } else {
+        // 파일이 선택되지 않았을 경우에 대한 처리
+        alert('파일을 선택하세요.');
+        location.href='/archiveAll';
+    }
+});
+//----------------------- 부서 파일 등록 버튼 end ----------------------------------
 
-// -------------------------------- toggle start ------------------------------------------
-document.addEventListener('DOMContentLoaded', function () {
-    var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
-    var dep2Items = document.querySelectorAll('.gnb .dep2[data-index]');
 
-    dep1Items.forEach(function (item) {
-      item.addEventListener('click', function () {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-
-    dep2Items.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-  });
-//-------------------------------- toggle end ------------------------------------------
 </script>
 </html>

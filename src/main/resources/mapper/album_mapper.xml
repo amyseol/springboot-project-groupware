@@ -35,13 +35,15 @@
 	</select>
 	
 	<select id="searchList" resultType="album">
-		SELECT a.*, t.art_name, m.member_id, m.name, m.member_position, COALESCE(SUM(s.albsold_stock), 0) AS total_albsold_stock FROM album a
-    		LEFT OUTER JOIN artist t ON t.art_no = a.art_no 
-    		LEFT OUTER JOIN member m ON m.member_no = a.member_no
-    		LEFT OUTER JOIN album_sold s ON s.alb_no = a.alb_no 
-    			WHERE t.art_name LIKE CONCAT('%',#{param1},'%') OR a.alb_name LIKE CONCAT('%',#{param1},'%')
-			GROUP BY a.alb_no
-			ORDER BY a.alb_no DESC LIMIT 20 OFFSET #{param2}
+		SELECT 
+		a.*, t.art_name, m.member_id, m.name, m.member_position, s.albsold_profit, s.albsold_date, 
+			COALESCE(SUM(s.albsold_stock), 0) AS total_albsold_stock FROM album a
+	    		LEFT OUTER JOIN artist t ON t.art_no = a.art_no 
+	    		LEFT OUTER JOIN member m ON m.member_no = a.member_no
+	    		LEFT OUTER JOIN album_sold s ON s.alb_no = a.alb_no 
+    		WHERE t.art_name LIKE CONCAT('%',#{param1},'%') OR a.alb_name LIKE CONCAT('%',#{param1},'%')
+				GROUP BY a.alb_no
+				ORDER BY a.alb_no DESC LIMIT 20 OFFSET #{param2}
 	</select>
 	
 	<select id="chartData">

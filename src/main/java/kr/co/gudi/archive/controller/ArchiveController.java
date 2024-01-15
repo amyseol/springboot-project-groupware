@@ -29,20 +29,34 @@ public class ArchiveController {
 	
 	@GetMapping(value="/archiveAll")
 	public String archiveAll() {
-		return "archive/ArchiveAll";
+		return "archive/archiveAll";
 	}
 	
-	
+	// 전사 리스트 출력
 	@GetMapping(value="/archAllList")
 	@ResponseBody
-	public Map<String, Object> archAllList(String page, String member_no){
-		return service.archAllList(page, member_no);
+	public Map<String, Object> archAllList(String page, String member_no, String state){
+		return service.archAllList(page, member_no, state);
 	}
+	
+	// 부서별 리스트 출력
+//	@GetMapping(value="/archDepartList")
+//	@ResponseBody
+//	public Map<String, Object> archDepartList(String page, String member_no){
+//		return service.archDepartList(page, member_no);
+//	}
 	
 	// 부서 파일 업로드 
 	@PostMapping(value="/departFileUpload.do")
 	public String departFileUpload(MultipartFile[] files, String member_no) throws Exception {
 		service.departFileUpload(files,member_no);
+		return "redirect:/archiveAll";
+	}
+	
+	// 전사 파일 업로드 (dto 저장 값이 달라서 부서 파일 업로드와 다르게 처리한다)
+	@PostMapping(value="/allFileUpload.do")
+	public String allFileUpload(MultipartFile[] files, String member_no) throws Exception {
+		service.allFileUpload(files,member_no);
 		return "redirect:/archiveAll";
 	}
 	
