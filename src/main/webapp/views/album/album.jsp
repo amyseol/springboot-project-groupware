@@ -104,13 +104,12 @@
 var showPage=1;
 listCall(showPage);
 
-
 function listCall(page){	
 	console.log('검색값==='+$('#search_info').val());
 	$.ajax({
 		type:'get',
 		url:'albumList',
-		data:{'page':page, "a_name": $('#search_info').val()}, 
+		data:{'page':page, 'a_name': $('#search_info').val()}, 
 		dataType:'JSON',
 		success: function(data){
 			console.log(data);
@@ -149,11 +148,12 @@ function drawList(list){
 		totalPages: list.pages, 
 		visiblePages: 5, 
 		onPageClick:function(e,page){ 
-			console.log('showPage==',showPage);
+			console.log('page == ', page);
+			console.log('showPage == ', showPage);
 			if(showPage != page){ 
-				console.log(page);	
-				showPage=page; 
-				listCall(page);
+				//console.log(page);	
+				showPage=page;
+				listCall(showPage);
 			}
 		}
 	});
@@ -167,13 +167,9 @@ function handleKeyDown(event) {
     // 엔터 키의 keyCode는 13
     if (event.keyCode === 13) {
         // 엔터 키를 눌렀을 때 실행할 검색 함수 호출
-        search();
+        showPage=1;
+        listCall(showPage);
     }
-}
-
-function search(){
-    showPage = 1; // 검색 시 페이지를 1로 초기화
-    listCall(showPage);
 }
 //-------------------------------- 검색 end ------------------------------------------
 

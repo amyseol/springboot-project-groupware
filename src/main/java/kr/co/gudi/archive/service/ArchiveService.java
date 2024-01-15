@@ -1,6 +1,5 @@
 package kr.co.gudi.archive.service;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.gudi.archive.dao.ArchiveDAO;
 import kr.co.gudi.archive.dto.ArchiveDTO;
-import kr.co.gudi.resource.dto.AlbumDTO;
 
 @Service
 public class ArchiveService {
@@ -27,24 +25,54 @@ public class ArchiveService {
 	Map<String, Object> map = new HashMap<String, Object>();
 	@Value("${spring.servlet.multipart.location}") private String root;
 
-	public Map<String, Object> archAllList(String page, String member_no) {
+	// 전사 리스트 출력 
+	public Map<String, Object> archAllList(String page, String member_no, String state) {
 		int p = Integer.parseInt(page);
 		int offset = (p - 1) * 20;
+		String departName = dao.getDepartName(member_no);
+		int pages = dao.totalPage();
+		
 		
 		ArrayList<ArchiveDTO> list = new ArrayList<ArchiveDTO>();
 		list = dao.archAllList(offset);
+		if(state.equals("부서")) {
+			list = dao.archDepartList(offset, departName);
+			pages = dao.totalDepartPage(departName);
+		}
 		map.put("list", list);
-
-		int pages = dao.totalPage();
 		map.put("pages", pages);
 		// 전체 페이지가 p 값보다 작을 때 
 		if (p > pages) {
 			p = pages;
 		}
+		
 		map.put("currPage", p);
 
 		return map;
 	}
+	
+//	// 부서별 리스트 출력 
+//	public Map<String, Object> archDepartList(String page, String member_no) {
+//		int p = Integer.parseInt(page);
+//		int offset = (p - 1) * 20;
+//		
+//		String departName = dao.getDepartName(member_no);
+//		logger.info("departName === "+departName);
+//		
+//		ArrayList<ArchiveDTO> list = new ArrayList<ArchiveDTO>();
+//		list = dao.archDepartList(offset, departName);
+//		map.put("list", list);
+//
+//		int pages = dao.totalDepartPage(departName);
+//		map.put("pages", pages);
+//		// 전체 페이지가 p 값보다 작을 때 
+//		if (p > pages) {
+//			p = pages;
+//		}
+//		map.put("currPage", p);
+//
+//		return map;
+//	}
 
 	// 부서 파일 업로드 
 	public void departFileUpload(MultipartFile[] files, String member_no) 
@@ -64,6 +92,23 @@ public class ArchiveService {
 			saveDepartFile(files, arch_no);
 		}
 	}
+	
+	// 전사 파일 업로드 
+	public void allFileUpload(MultipartFile[] files, String member_no) throws Exception {
+		// archive 테이블 저장 (dto에 저장하지 않으면 keyColumn, keyProperty를 못 찾음)
+		ArchiveDTO dto = new ArchiveDTO();
+		int memberNo = Integer.parseInt(member_no);
+		dto.setMember_no(memberNo);
+		dto.setArch_depart("전사");
+		dao.saveDepartArchive(dto);
+		
+		// 방금 저장된 arch_no 가져오기
+		int arch_no = dto.getArch_no();
+		// file 테이블 저장 메서드 실행
+		if(arch_no>0) {
+			saveDepartFile(files, arch_no);
+		}
+	}	
 	
 	// file 테이블 저장 메서드
 	private void saveDepartFile(MultipartFile[] files, int arch_no) 
@@ -114,6 +159,10 @@ public class ArchiveService {
 		
 		map.put("del_cnt", cnt);
 		return map;
-	}	
+	}
+
+
+
+
 	
 }
