@@ -34,28 +34,17 @@
         /* list form 스타일 */
         #common_list_form .list_form .first_list{width: 50%; float: left;}
         #common_list_form .list_form .first_list:last-child li{width: 100%;}
-        #common_list_form .list_form .first_list li{float: left; width: 50%; border-bottom: 1px solid #333; box-sizing: border-box;}
+        #common_list_form .list_form .first_list li{float: left; width: 50%; /* border-bottom: 1px solid #333;  */box-sizing: border-box;margin-bottom: 6px;}
         #common_list_form .list_form .first_list:first-child li:nth-child(2n-1){font-weight: 500; text-align: center;}
 
-        #add_modal, #cancel_modal{
-			display: none; 
-			width:300px; 
-			height:150px; 
-			background: rgb(237, 237, 237); 
-			border:1px solid gray; 
-			text-align:center;
-			position:absolute; 
-			left:50%; 
-			bottom: 50%;
-		}
+        #add_modal, #cancel_modal{display: none; width:300px; height:150px; background: rgb(237, 237, 237); border:1px solid gray; text-align:center;
+			position:absolute; left:50%; bottom: 60%;}
 		
-		.modalBtnNo, .modalBtnYes{
-			height: 35px;
-			width: 80px;
-			color: white;
-			border: none;
-			border-radius: 10px;
-			background-color: gray;
+		.modalBtnNo, .modalBtnYes{height: 30px;width: 70px;color: white;border: none;border-radius: 10px;background-color: gray;}
+    	.fileName {
+		  white-space: nowrap;
+		  overflow: hidden;
+		  text-overflow: ellipsis;
 		}
     </style>
 <body>
@@ -94,26 +83,27 @@
                 <li>첨부 파일</li>
                 <li>
 					<c:forEach items="${list}" var="file">
-						<p>
+						<p class="fileName">
 							${file.file_oriname}
-							<button onclick="location.href='download.do?newName=${file.file_newname}&oriName=${file.file_oriname}'">download</button>
-							<img src="/photo/${file.file_newname}" width="300" height="300"/>
+							<%-- <img src="/photo/${file.file_newname}" width="300" height="300"/> --%>
 						</p>
+						<button onclick="location.href='download.do?newName=${file.file_newname}&oriName=${file.file_oriname}'">download</button>
 					</c:forEach>
                 </li>
             </ul>
             <ul class="first_list">
-                <li>생산 회차별 판매량과 재고량 <select id="option"></select></li>
+                <li>생산 회차별 판매량과 재고량 <select id="option"></select>
+                <input type="button" value="추가 생산" onclick="openAddModal()"/>
+                </li>
                 <li>
                 	<div><canvas id="doughnut" style="width: 300px; height:300px;"></canvas></div>
-                	<input type="button" value="추가 생산" onclick="openAddModal()"/>
                 </li>
             </ul>
         </div>
        	
        	<!------ 추가 생산 모달 ------>
 		<div id="add_modal">
-			<div style="margin:30px 0; font-size:22px;">추가 생산을 하시겠습니까? 결재 페이지로 이동합니다.</div>
+			<div style="margin:30px 0; font-size:22px;height:30%;">추가 생산을 하시겠습니까? 결재 페이지로 이동합니다.</div>
 			<button id="addNo" class="modalBtnNo">아니요</button>
 			<button id="addYes" class="modalBtnYes">예</button>	
 		</div>
