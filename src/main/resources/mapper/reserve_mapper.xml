@@ -16,7 +16,7 @@
 		ORDER BY res_no DESC LIMIT 5 OFFSET #{offset};
 	</select>
 	
-	<select id="reservnomaxpage" resultType="int">
+	<select id="reservnomaxpage" resultType="float">
 		SELECT (count(res_no)/#{pagePerNum}) from reserv 
 		where (res_state = "2"and res_memberno = #{myno}) or (res_state="3"and res_memberno = #{myno})
 	</select>
@@ -44,12 +44,13 @@
 	
 	<select id="reservAdmin" resultType="reserv">
 
-		SELECT * from reserv where res_state = "2" or res_state="3"
+		SELECT * from reserv 
+		where (res_state = "2"and res_memberno = #{myno}) or (res_state="3"and res_memberno = #{myno})
 		ORDER BY res_no DESC LIMIT 5 OFFSET #{offset};
 	</select>
 	
-	<select id="reservAdminmaxpage" resultType="int">
-		SELECT (count(res_no)/#{pagePerNum}) from reserv where res_state = "2" or res_state="3"
+	<select id="reservAdminmaxpage" resultType="float">
+		SELECT (count(res_no)/#{pagePerNum}) from reserv where (res_state = "2"and res_memberno = #{myno}) or (res_state="3"and res_memberno = #{myno})
 	</select>
 	
 	<update id="reservOk" parameterType="int">
