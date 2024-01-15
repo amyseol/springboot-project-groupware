@@ -29,6 +29,8 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
+
+		
     </style>
 <body>
 <%@ include file="/views/nav.jsp" %>
