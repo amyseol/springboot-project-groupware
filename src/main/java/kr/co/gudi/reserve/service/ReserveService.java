@@ -49,7 +49,7 @@ public class ReserveService {
 		logger.info("list : "+list);
 		//만들수 있는 총 페이지수
 		logger.info("filter : "+Integer.parseInt(pagePerNum));
-		int max = dao.reservnomaxpage(Integer.parseInt(pagePerNum),myno);
+		float max = dao.reservnomaxpage(Integer.parseInt(pagePerNum),myno);
 		logger.info("만들 수 있는 총 페이지수 : "+max);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -57,14 +57,18 @@ public class ReserveService {
 		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
 		if(p>max+1) {
 			
-			p = max;
+			p = (int) max;
 		}
-		
 		map.put("currPage", p);
-		if(max<1) {
-		map.put("pages", max+1);
+		int rm;
+		if(max>(int)max) {
+			rm = (int) (max+1);
+			logger.info("1보다 크면 : "+rm);
+			map.put("pages", rm);
 		}else {
-			map.put("pages", max);
+			rm = (int) (max);
+			logger.info("1보다 작으면 : "+rm);
+			map.put("pages", rm);
 		}
 		logger.info("list : "+list);
 		map.put("list", list);
@@ -118,19 +122,24 @@ public class ReserveService {
 		return dao.reservdetail(Integer.parseInt(res_no));
 	}
 
-	public Map<String, Object> reservAdmin(String page,String pagePerNum) {
+	public Map<String, Object> reservAdmin(String page,String pagePerNum, HttpSession session) {
 		// pagePerNum 과 page 를 가지고 offset 을 계산해 내자
 
-		
+		logger.info("pagePerNum"+pagePerNum);
+		int member_no = ((MemberVO)session.getAttribute("loginMember")).getMember_no();
+		String myno = String.valueOf(member_no);
+		logger.info("세션값 : "+member_no);
 		int offset = 0;
 		int p =Integer.parseInt(page);
 		logger.info("page : "+p);
 		offset = (int) (Integer.parseInt(pagePerNum)*(p-1));
-		ArrayList<CopyrightDTO> list = dao.reservAdmin(offset);
+		ArrayList<CopyrightDTO> list = dao.reservAdmin(offset,myno);
 		logger.info("list : "+list);
 		//만들수 있는 총 페이지수
 		logger.info("filter : "+Integer.parseInt(pagePerNum));
-		int max = dao.reservAdminmaxpage(Integer.parseInt(pagePerNum));
+		
+		float max = dao.reservAdminmaxpage(Integer.parseInt(pagePerNum),myno);
+		
 		logger.info("만들 수 있는 총 페이지수 : "+max);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -138,14 +147,19 @@ public class ReserveService {
 		// 만약 현재 보고있는 페이지가, 총 페이지수 보다 크면 현재페이지를 총 페이지수로 변경한다.
 		if(p>max+1) {
 			
-			p = max;
+			p = (int) max;
 		}
 		
 		map.put("currPage", p);
-		if(max<1) {
-		map.put("pages", max+1);
+		int rm;
+		if(max>(int)max) {
+			rm = (int) (max+1);
+			logger.info("1보다 크면 : "+rm);
+			map.put("pages", rm);
 		}else {
-			map.put("pages", max);
+			rm = (int) (max);
+			logger.info("1보다 작으면 : "+rm);
+			map.put("pages", rm);
 		}
 		logger.info("list : "+list);
 		map.put("list", list);

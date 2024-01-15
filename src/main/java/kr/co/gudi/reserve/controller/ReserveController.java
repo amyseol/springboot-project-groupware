@@ -88,7 +88,7 @@ public class ReserveController {
 	public Map<String, Object> reservAdmin(@RequestParam String pagePerNum,@RequestParam String page, HttpSession session){
 		logger.info("/"+"pagePerNum"+pagePerNum+"page"+page);
 		
-		Map<String, Object> data = service.reservAdmin(page,pagePerNum);
+		Map<String, Object> data = service.reservAdmin(page,pagePerNum,session);
 		logger.info("data : "+data);
 		
 		return data;
@@ -105,13 +105,13 @@ public class ReserveController {
 	}
 	
 	@PostMapping(value = "/reservNo")
-	public ModelAndView reservNo(@RequestParam String res_no, @RequestParam String res_content, HttpSession session) {
+	public String reservNo(@RequestParam String res_no, @RequestParam String res_content, HttpSession session) {
 		
 		service.reservNo(res_no,res_content,session);
-		ModelAndView mav = new ModelAndView("redirect:/reserve");
+		String data="성공";
 		
 		
-		return mav ;
+		return data ;
 	}
 
 }

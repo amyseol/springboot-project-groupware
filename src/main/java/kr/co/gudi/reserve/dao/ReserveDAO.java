@@ -15,7 +15,7 @@ public interface ReserveDAO {
 
 	ArrayList<CopyrightDTO> reservnogetlist(int offset, String myno);
 
-	int reservnomaxpage(int pagePerNum, String myno);
+	float reservnomaxpage(int pagePerNum, String myno);
 
 	ArrayList<CopyrightDTO> reservlist(int offset, String myno);
 
@@ -23,9 +23,9 @@ public interface ReserveDAO {
 
 	ArrayList<ReserveDTO> reservdetail(int res_no);
 
-	ArrayList<CopyrightDTO> reservAdmin(int offset);
+	ArrayList<CopyrightDTO> reservAdmin(int offset, String myno);
 
-	int reservAdminmaxpage(int pagePerNum);
+	float reservAdminmaxpage(int pagePerNum, String myno);
 
 	void reservOk(int res_no);
 

@@ -20,15 +20,13 @@ public interface ArtistDAO {
 
 	void artistdelete(String art_no);
 
-	ArrayList<MemberDTO> artistdetail_1(HashMap<String, String> data);
-
 	ArrayList<CopyrightDTO> artistdetail_1(int offset, int num);
 
-	int artistmaxpage_1(int pagePerNum, int num);
+	float artistmaxpage_1(int pagePerNum, int num);
 	
 	ArrayList<CopyrightDTO> artistdetail_2(int offset, int num);
 
-	int artistmaxpage_2(int pagePerNum, int num);
+	float artistmaxpage_2(int pagePerNum, int num);
 	
 	ArrayList<CopyrightDTO> artistdetail_3(int offset, int num);
 
