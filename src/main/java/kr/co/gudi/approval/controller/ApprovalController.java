@@ -2,6 +2,7 @@ package kr.co.gudi.approval.controller;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,8 +36,24 @@ public class ApprovalController {
 	
 	// 기안서 작성 이동
 	@GetMapping("/draftDoc")
-	public String draftDocForm() {
-		return "approval/draftDoc";
+	public ModelAndView draftDocForm(HttpSession session) {
+		log.info("----------------- start draftDocForm --------------------");
+		member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
+		log.info("----------------- end draftDocForm --------------------");
+		return apprService.draftDoc(member_no);
+	}
+	
+	// 결재선 지정
+	@PostMapping("/setApprover.ajax")
+	@ResponseBody
+	public HashMap<String, Object> setApprover(@RequestBody Map<String, String[]> params){
+		log.info("----------------- start setApprover --------------------");
+		String[] approver = params.get("approver");
+	    String[] observer = params.get("observer");
+		log.info("approverNo : "+Arrays.toString(approver));
+		log.info("obsersverNo : "+Arrays.toString(observer));
+		log.info("----------------- end setApprover --------------------");
+		return apprService.setApprover(approver, observer);
 	}
 	
 	// 기안함 리스트 이동
@@ -83,13 +100,33 @@ public class ApprovalController {
 	
 	// 결재승인
 	@PostMapping("/approve.do")
-	public ModelAndView approve(String reason, int approval_no, HttpSession session) {
+	public ModelAndView approve(String approveReason, int approval_no, HttpSession session) {
 		log.info("----------------- start approve --------------------");
 		log.info("approval_no : "+approval_no);
-		log.info("apprReason : "+reason);
+		log.info("apprReason : "+approveReason);
 		member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
 		log.info("----------------- start approve --------------------");
-		return apprService.approve(reason, approval_no, member_no);
+		return apprService.approve(approveReason, approval_no, member_no);
+	}
+	
+	// 반려
+	@PostMapping("/return.do")
+	public ModelAndView apprReturn(String returnReason, int approval_no, HttpSession session) {
+		log.info("----------------- start apprReturn --------------------");
+		log.info("approval_no : "+approval_no);
+		log.info("apprReason : "+returnReason);
+		member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
+		log.info("----------------- start apprReturn --------------------");
+		return apprService.apprReturn(returnReason, approval_no, member_no);
+	}
+	
+	// 회수
+	@PostMapping("/withdrawl.do")
+	public ModelAndView withdrawl(int approval_no) {
+		log.info("----------------- start withdrawl --------------------");
+		log.info("approval_no : "+approval_no);
+		log.info("----------------- start withdrawl --------------------");
+		return apprService.withdrawl(approval_no);
 	}
 	
 	// 기안함 리스트 출력

@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,54 @@ public class ApprovalService {
 	Logger log = LoggerFactory.getLogger(getClass());
 
 	ModelAndView mav = new ModelAndView();
+	HashMap<String, Object> map = new HashMap<String, Object>();
 
+	// 기안서 작성 이동
+	public ModelAndView draftDoc(int member_no) {
+		
+		// 공통 조직도 내용
+		commApprOrganization();
+		
+		// 기안자 정보
+		ApprovalDTO info = apprDao.draftsmanInfo(member_no);
+		
+		mav.addObject("info",info);
+		mav.setViewName("approval/draftDoc");
+		return mav;
+	}
+	
+	// 결재선 지정
+	public HashMap<String, Object> setApprover(String[] approver, String[] observer) {
+		List<ApprovalDTO> approverArr = new ArrayList<ApprovalDTO>();
+		List<ApprovalDTO> observerArr = new ArrayList<ApprovalDTO>();
+		
+		for (String appr : approver) {
+			approverArr.add(apprDao.setApprover(Integer.parseInt(appr)));
+		}
+		
+		if(observer != null) {
+			for (String obser : observer) {
+				observerArr.add(apprDao.setApprover(Integer.parseInt(obser)));
+			}
+			map.put("observer", observerArr);
+		}
+		
+		map.put("approver", approverArr);
+		return map;
+	}
+	
+	// 공통 조직도 내용
+	private void commApprOrganization() {
+		ArrayList<ApprovalDTO> departments =  apprDao.departmentsInfo();
+		ArrayList<ApprovalDTO> teams = apprDao.departmentsInfo();
+		ArrayList<ApprovalDTO> members = apprDao.membersInfo();
+		
+		mav.addObject("departments", departments);
+		mav.addObject("teams", teams);
+		mav.addObject("members", members);
+	}
+	
+	// 결재요청
 	public ModelAndView approvalWrite(HashMap<String, String> params, MultipartFile[] files, int member_no, String[] observer) {
 		ApprovalDTO dto = new ApprovalDTO();
 		
@@ -86,7 +134,6 @@ public class ApprovalService {
 		} else if(form_no == 2) {
 			
 		}
-		
 		return mav;
 	}
 
@@ -112,7 +159,6 @@ public class ApprovalService {
 	// 기안함 리스트 출력
 	public HashMap<String, Object> draftListCall(int member_no) {
 		ArrayList<ApprovalDTO> dto = new ArrayList<ApprovalDTO>();
-		HashMap<String, Object> map = new HashMap<String, Object>();
 		dto = apprDao.draftList(member_no);
 		
 		map.put("list", dto);
@@ -122,7 +168,6 @@ public class ApprovalService {
 	// 결재함 리스트 출력
 	public HashMap<String, Object> apprListCall(int member_no) {
 		ArrayList<ApprovalDTO> dto = new ArrayList<ApprovalDTO>();
-		HashMap<String, Object> map = new HashMap<String, Object>();
 		dto = apprDao.apprList(member_no);
 		
 		map.put("list", dto);
@@ -132,7 +177,6 @@ public class ApprovalService {
 	// 참조함 리스트 출력
 	public HashMap<String, Object> refListCall(int member_no) {
 		ArrayList<ApprovalDTO> dto = new ArrayList<ApprovalDTO>();
-		HashMap<String, Object> map = new HashMap<String, Object>();
 		dto = apprDao.refList(member_no);
 		
 		map.put("list", dto);
@@ -169,17 +213,17 @@ public class ApprovalService {
 		mav.addObject("refInfo",refInfo);
 		mav.addObject("docAuth",docAuth);
 		mav.setViewName("approval/draftDocDetail");
-		
 		return mav;
 	}
 
-	public ModelAndView approve(String reason, int approval_no, int member_no) {
+	// 결재 승인
+	public ModelAndView approve(String approveReason, int approval_no, int member_no) {
 		
 		// 결재자 번호 구하기
 		int approverNo = apprDao.getapproverNo(member_no, approval_no);
 		
 		// 결재 히스토리 추가
-		apprDao.commApprove(approverNo, reason);
+		apprDao.commApprove(approverNo, approveReason);
 		
 		// 해당 결재자가 몇명인지?
 		int apprCnt = apprDao.getApprCnt(approval_no);
@@ -192,16 +236,41 @@ public class ApprovalService {
 		// 해당 결재의 결재자 수보다 내 결재순서가 낮으면
 		if(apprCnt > myApprNum) {
 			log.info(apprCnt+">"+myApprNum);
-			
+			apprDao.apprToss(approval_no);
 			
 			// 해당 결재의 결재자 수랑 내 결재순서가 같으면
 		} else if(apprCnt == myApprNum) {
 			log.info(apprCnt+"=="+myApprNum);
-			
+			apprDao.apprFinish(approval_no);
 		}
 		
+		mav.setViewName("approval/apprBox");
+		return mav;
+	}
+
+	// 반려
+	public ModelAndView apprReturn(String returnReason, int approval_no, int member_no) {
+
+		// 결재자 번호 구하기
+		int approverNo = apprDao.getapproverNo(member_no, approval_no);
+		
+		// 결재 히스토리 추가
+		apprDao.apprReturn(approverNo, returnReason);
+		apprDao.ReturnFinish(approval_no);
+		
+		mav.setViewName("approval/apprBox");
 		return mav;
 	}
 	
-	
+	// 회수
+	public ModelAndView withdrawl(int approval_no) {
+
+		// 결재문서 상태 업데이트
+		apprDao.withdrawl(approval_no);
+		
+		mav.setViewName("approval/draftBox");
+		return mav;
+	}
+
+
 }
