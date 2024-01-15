@@ -374,11 +374,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		  
 		
 		  content += '<li>'+item.name+'</li>';
-		  if(item.document_state == '0' || item.document_state == '1'){
+		  if(item.document_state == '0'){
 			  content += '<li><div class="green">진행중</div></li>';
-		  }else if(item.document_state == '2'){
+		  }else if(item.document_state == '1'){
 			  content += '<li><div class="gray">완료</div></li>';
-		  }else if(item.document_state == '3'){
+		  }else if(item.document_state == '2'){
 			  content += '<li><div class="red">반려</div></li>';
 		  }
 		  content +='</ul>';
