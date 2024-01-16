@@ -15,8 +15,9 @@
         #common_list_form .list_form{position:relative; width: 90%; margin-left: 50px;}
         #common_list_form .list_form .list_title ul{width: 100%;}
         #common_list_form .list_form .list_title ul li{float: left;}
+        #common_list_form .list_form .list_title #readOption{cursor: pointer;}
         #common_list_form .list_form .list_title #mailListAllCheck{width: 20px; height: 50px;}
-        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 50px; height: 30px; text-align: center;}
+        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 50px; height: 30px; text-align: center; cursor: pointer;}
         #common_list_form .list_form .list_title .btn_submenu .btn_tool{position: relative; top: 5px;}
         #common_list_form .list_form .list_content {padding-top: 60px;}
         #common_list_form .list_form .list_content ul{width: 100%; height: 30px;}
@@ -178,6 +179,7 @@
 	    listCall(showPage, searchInfo, readOption);
 	});
 	
+	
 	// 검색
 	function handleKeyDown(event){
 	    // 엔터키 keycode == 13
@@ -244,9 +246,9 @@
 	        content += '<li><input type="checkbox" name="receiveCheck" value="' + item.note_no + '"/></li>';
 	        content +='<li>' 
 	            if(item.receive_state=== "0"){
-	                content+='<img src="resources/img/unread.jpg" alt="unreadImage" width=20 height=20/>';
+	                content+='<img src="./img/unread.png" alt="unreadImage" width=20 height=20/>';
 	            }else if(item.receive_state=== "1"){
-	                content+='<img src="resources/img/read.jpg" alt="readImage" width=20 height=20/>';
+	                content+='<img src="./img/read.png" alt="readImage" width=20 height=20/>';
 	            }
 	        content +='</li>';
 	        content += '<li><span class="name">' + item.sender_name + '</span></li>';
@@ -326,6 +328,31 @@
 	            console.log(e);
 	        }
 	    });
+	}
+	
+	// 답장하기
+	function reply() {
+		console.log("답장하기 클릭!");
+		
+		var selectInfo = getSelectMailInfo();
+		
+		console.log("선택한 메일의 정보 : "+selectInfo);
+		
+		// 선택된 메일의 정보를 세션에 저장
+	    sessionStorage.setItem('selectInfo', JSON.stringify(selectInfo));
+	
+		console.log("저장된 세션 데이터 : "+sessionStorage);
+	    // 메일쓰기 페이지로 이동
+	   window.location.href = '/writeMail';
+	}
+	
+	// 선택된 메일의 정보를 가져오는 함수
+	function getSelectMailInfo() {
+		var selectInfo = {};
+		
+		selectInfo.sender = $('.list_content input[name="receiveCheck"]:checked').closest('ul').find('.name').text();
+
+	    return selectInfo;
 	}
 //-------------------------------------------mailWrap end-------------------------------------------------
 </script>

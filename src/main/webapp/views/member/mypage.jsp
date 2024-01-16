@@ -12,7 +12,7 @@
 	        #common_list_form .big_title{padding: 50px 50px;}
 	        #common_list_form .list_form{position:relative;}
 	        
-	        
+	        #profile-input{display: none;}
 	        
 	        /*
 	        #common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
