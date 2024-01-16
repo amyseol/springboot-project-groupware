@@ -108,7 +108,7 @@
 	</select>
 	
 	<select id="receiveMailDetail" resultType="mail">
-		SELECT n.note_subject, n.note_content, n.note_date, sender.name AS sender_name, receiver.name AS receiver_name, f.file_newname
+		SELECT n.note_subject, n.note_content, n.note_date, n.note_no, sender.name AS sender_name, receiver.name AS receiver_name, f.file_newname
 		FROM note n
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no		
@@ -204,6 +204,10 @@
 		INSERT INTO note(sender_no, receiver_no, note_subject, note_content)
 		VALUES (#{sender_no}, #{receiver_no}, #{note_subject}, #{note_content})
 	</insert>
+	
+	<select id="getSender" resultType="String">
+		SELECT name FROM member WHERE member_no = (SELECT sender_no FROM note WHERE note_no=#{param1})
+	</select>
 	
 	<select id="getReceiverNo" resultType="mail">
 		SELECT member_no

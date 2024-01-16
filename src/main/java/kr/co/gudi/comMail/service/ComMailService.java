@@ -177,5 +177,18 @@ public class ComMailService {
 		dto.setNote_content(param.get("note_content"));
 		
 		dao.upload(dto);
+		
+		int note_no = dto.getNote_no();
+		fileUpload(note_no, files);
+		
+	}
+
+	private void fileUpload(int note_no, MultipartFile[] files) {
+		
+	}
+
+	// 메일 답장시 보낸 사람의 이름을 가져온다 
+	public String getSender(String note_no) {
+		return dao.getSender(note_no);
 	}
 }

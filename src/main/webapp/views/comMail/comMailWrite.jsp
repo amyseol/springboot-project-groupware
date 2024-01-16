@@ -201,7 +201,7 @@
     </div>
     <!-- -------------------------------------------util end------------------------------------------ -->
     <!-- -------------------------------------------mailWrap start------------------------------------------------- -->
-    <form action="write.do" method="POST" id="write_form" enctype="multipart/form-data">
+    <form action="writeMail.do" method="POST" id="write_form" enctype="multipart/form-data">
         <div class="titleWrap">
 	        <h2 class="big_title"> 메일 쓰기 </h2>
         </div>
@@ -217,7 +217,12 @@
                         <div>
                             <ul>
                                 <li>
-                                    <input type="text" name="receiver" id="inputReceiver" placeholder="받는 사람을 입력하세요.">
+                                	<c:if test="${not empty sender}">
+                                   		<input type="text" name="receiver" id="inputReceiver" value="${sender}" readonly>
+                                	</c:if>
+                                	<c:if test="${empty sender}">
+                                   		<input type="text" name="receiver" id="inputReceiver" placeholder="받는 사람을 입력하세요.">
+                                	</c:if>
                                 </li>
                                 <li>
                                     <input type="button" id="organization" value="주소록" onclick="organization()"/>

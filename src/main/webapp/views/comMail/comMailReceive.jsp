@@ -107,11 +107,6 @@
                             <input type="checkbox" id="mailListAllCheck" name="mailAllcheck" value="off">
                         </li>
                         <li class="btn_submenu">
-                            <a class="btn_tool" data-role="button" onclick="reply()">
-                                <span class="txt">답장</span>
-                            </a>
-                        </li>
-                        <li class="btn_submenu">
                             <a class="btn_tool" data-role="button" onclick="delModal()">
                                 <span class="txt_caution">삭제</span>
                             </a>
