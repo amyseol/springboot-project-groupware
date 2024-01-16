@@ -15,14 +15,16 @@ public interface ComMailDAO {
 	int getReUnreadMail(int member_no);
 	
 	ArrayList<ComMailDTO> receiveList(int offset, int loginNo);
-
-	ArrayList<ComMailDTO> receiveListRead(int offset, int loginNo);
 	
-	ArrayList<ComMailDTO> receiveListUnread(int offset, int loginNo);
-	
-	int totalPage();
+	ArrayList<ComMailDTO> receiveListSearch(String search_info, int offset, int loginNo);
 
-	ArrayList<ComMailDTO> reMailSearch(String search_info, int offset);
+	ArrayList<ComMailDTO> receiveListRead(String search_info, int offset, int loginNo);
+	
+	ArrayList<ComMailDTO> receiveListUnread(String search_info, int offset, int loginNo);
+	
+	int reTotalCnt(String search_info, int loginNo, String readOption);
+	
+	int seTotalCnt(String search_info);
 
 	void delReceive(String idx);
 
@@ -36,11 +38,11 @@ public interface ComMailDAO {
 
 	ArrayList<ComMailDTO> sendList(int offset, int loginNo);
 	
-	ArrayList<ComMailDTO> sendListRead(int offset, int loginNo);
+	ArrayList<ComMailDTO> sendListRead(String search_info, int offset, int loginNo);
 	
-	ArrayList<ComMailDTO> sendListUnread(int offset, int loginNo);
+	ArrayList<ComMailDTO> sendListUnread(String search_info, int offset, int loginNo);
 	
-	ArrayList<ComMailDTO> seMailSearch(String search_info, int offset);
+	ArrayList<ComMailDTO> sendListSearch(String search_info, int offset, int loginNo);
 	
 	void delSend(String idx);
 	
@@ -55,4 +57,5 @@ public interface ComMailDAO {
 	void updateSeState(String note_no);
 
 	void updateReState(String note_no);
+	
 }

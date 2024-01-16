@@ -2,9 +2,7 @@ package kr.co.gudi.member.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -88,13 +86,11 @@ public class MemberController {
 	@GetMapping("/mypage")
 	public String enrollView(Model model, HttpSession session) {
 		
-		String member_id = ((MemberVO)session.getAttribute("loginMember")).getMember_id();
-		model.addAttribute("loginMember", member_id);
-		/*
-		MemberVO vo = service.getMember();
-		 session.setAttribute("loginMember", vo);
-		 model.addAttribute("loginMember", vo);
-		 */
+		int member_no = ((MemberVO) session.getAttribute("loginMember")).getMember_no();
+		
+		Map<String, Object> loginMember = service.getMemberInfo(member_no);
+		
+		model.addAttribute("loginMember", loginMember);
 		return "member/mypage";
 	}
 	

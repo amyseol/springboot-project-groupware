@@ -74,6 +74,8 @@ public interface MemberDAO {
 
 	void updateDo(HashMap<String, String> params);
 
+	Map<String, Object> getMemberInfo(int member_no);
+	
 	String findFileName(String member_no);
 
 	void updateTotalMember();

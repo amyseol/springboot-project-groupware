@@ -86,6 +86,10 @@ public class MemberService implements UserDetailsService{
 		return dao.getMemberDetail(member_no);
 	}
 	
+	public Map<String, Object> getMemberInfo(int member_no) {
+		return dao.getMemberInfo(member_no);
+	}
+	
 	public void join(HashMap<String, String> params, MultipartFile uploadFile) {
 		logger.info("팀명 : "+params.get("depart_name"));
 		String depart_no=dao.getDepartNo(params);
@@ -101,7 +105,6 @@ public class MemberService implements UserDetailsService{
 		String newFileName = System.currentTimeMillis()+ext; // 새파일명생성+확장자
 		String file_location = "p";
 		int file_unique_no=dao.getMember_id();
-		int member_no=dao.getMember_id();
 
 		try {
 			byte[] bytes= uploadFile.getBytes();

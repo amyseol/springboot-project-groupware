@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -53,11 +55,29 @@
         #nav .gnb a li .arrow svg{width:100%; transition:0.3s;}
 
         #util{position:fixed; right:0; height: 80px;}
-        #util .util_inner{position:relative; top:30px; right:50px; width:195px; height: 55px;}
+        #util .util_inner{position:relative; top:30px; right:50px; width:300px; height: 55px;}
         #util .util_inner li{width: 55px; height: 55px; border-radius: 25px; background-color: #fff; float:left; margin-right:15px; cursor: pointer; overflow: hidden; box-shadow: 1px 1px 3px 1px #ddd;}
         #util .util_inner li:last-child{margin-right:0;}
         #util .util_inner li svg{position:relative; top:15px; left:15px;}
         #util .util_inner li img{width:100%;}
+        
+        #departModal{ display: none; position: fixed; top: 60%; left: 10%; transform: translate(-50%, -50%); padding: 20px; border: 1px solid black; background-color: lightgray; z-index: 1; width: 200px; height: auto; overflow: hidden;}
+
+        #departModal li{ cursor: pointer; margin-bottom: 10px;}
+
+        .teamList, .memberList{ /* display: none; */ margin-top: 10px;}
+        
+         /* 모달 스타일 */
+        #memberModal {display: none; position: fixed; z-index: 1; left: 10%; top: 50%; width: 60%; height: auto; overflow: hidden;}
+
+        /* 모달 내용 스타일 */
+        #memberInfo {background-color: #fefefe; margin: 1% auto; padding: 20px; border: 1px solid #888; width: 80%;}
+
+        /* 닫기 버튼 스타일 */
+        .close {display: none; color: #aaa; float: right; font-size: 28px; font-weight: bold;}
+
+        .close:hover,
+        .close:focus {color: black; text-decoration: none; cursor: pointer;}
 
       /*   #common_list_form{padding-left:15%;}
         #common_list_form .big_title{padding: 50px 50px;}
@@ -82,7 +102,6 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;} */
 
-        #bottom_music{position:fixed; width:100%; height:80px; bottom:0; background-color: #eb568e;}
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -97,10 +116,9 @@
                     </svg></div>
                 </li></a>
                 <ul data-index="1">
-                    <a href="javascript:"><li class="dep2">쪽지 쓰기</li></a>
-                    <a href="javascript:"><li class="dep2">받은 쪽지함</li></a>
-                    <a href="javascript:"><li class="dep2">보낸 쪽지함</li></a>
-                    <a href="javascript:"><li class="dep2">휴지통</li></a>
+                    <a href="/writeMail"><li class="dep2">쪽지 쓰기</li></a>
+                    <a href="/receiveMail"><li class="dep2">받은 쪽지함</li></a>
+                    <a href="/sendMail"><li class="dep2">보낸 쪽지함</li></a>
                 </ul>
                 <a href="javascript:"><li class="dep1" data-index="2">전자결재
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
@@ -188,6 +206,25 @@
                 </ul> 
             </ul>
         </div>
+        
+        <div>
+	        <button onclick="showDepartModal()">조직도</button>
+	    </div>
+	
+	    <!-- 부서 모달 팝업 -->
+	    <div id="departModal">
+	        <ul id="departments">
+	            <!-- 부서 목록이 들어갈 공간 -->
+	        </ul>
+	    </div>
+		
+	    <!-- 직원 정보 모달 팝업 -->
+	    <div id="memberModal">
+	        <div id="memberInfo">
+	        <span class="close" onclick="closeModal()">&times;</span>
+	        <!-- 직원 정보 -->
+	        </div>
+	    </div>
     </div>
     <!-- -------------------------------------------nav end------------------------------------------ -->
     <!-- -------------------------------------------util start------------------------------------------ -->
@@ -206,7 +243,14 @@
                 </a>
                 <span id="notiCnt" style="position:absolute;left:10;top:8;color:red;"></span>
             </li>
-            <li class="profile"><img src="./img/kang.jpg" alt="231217_강태오"></li>
+            <li class="profile">
+            	<a href="/mypage">
+            		<img src="./img/kang.jpg" alt="사용자_마이페이지">            	
+            	</a>
+            </li>
+            <li class="logout">
+            		<img alt="로그아웃" src="./img/logout.png" onclick="fn_logout()">
+            </li>
         </ul>
     </div>
     <!-- -------------------------------------------util end------------------------------------------ -->
@@ -221,7 +265,7 @@
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
-
+//------------------------------------util start--------------------------------------------------
 var member_no = ${sessionScope.loginMember.member_no};
 console.log(member_no);
 
@@ -242,7 +286,14 @@ $.ajax({
 	}
 });
 
-
+function fn_logout() {
+	var logout = confirm("로그아웃 하시겠습니까?");
+	
+	if (logout) {
+		location.replace("${path}/logout");
+	}
+}
+// --------------------------------util end-----------------------------------------------
 // -------------------------------- toggle start ------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
     var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
@@ -299,5 +350,179 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 //-------------------------------- toggle end ------------------------------------------
+//-------------------------------- organization start----------------------------------------
+var selecEl = null;
+        
+        // 부서 모달 팝업
+        function showDepartModal(){
+            var departModal = $("#departModal");
+            
+            if (departModal.css("display") == "none") {
+            	departModal.show();
+            	
+            	getDepartmentList();
+			} else {
+				departModal.hide();
+			}
+        }
+        
+        // 멤버 팝업 띄우기
+        function showMemberModal(content){
+        	var memberModal = $("#memberModal");
+        	var memberInfo = $("#memberInfo");
+        	var close = $(".close");
+        	
+        	if (memberModal.is(":visible")) {
+        		memberInfo.empty().append(content);
+			} else {
+				memberInfo.append(content);
+                memberModal.show();
+			}
+        	
+        	close.show();
+        }
+        
+        function getDepartmentList(){
+        	// 부서 리스트를 가져오는 AJAX
+            $.ajax({
+                type: "GET",
+                url: "/organization/departments",
+                dataType: "JSON",
+                success: function(departments){
+                    // 부서 목록
+                    var departmentList = $("#departments");
+                    departmentList.empty();
+                    
+                    departments.forEach(function(department){
+                        var li = $('<li class="departList"><span onclick="toggleDepart(' + department.depart_no + ')">' + department.depart_name + '</span></li>');
+                        departmentList.append(li);
+                    });
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        }
+        
+
+        // 팀 리스트를 가져오는 AJAX
+        function toggleDepart(depart_no){
+            // 팀 리스트
+            var teamList = $("#teamListUl" + depart_no);
+            // 해당 부서의 팀 리스트가 표시될 위치
+            var teamLocation = $(".departList").eq(depart_no - 1);
+
+            if(teamList.length){
+                teamList.toggle();
+            } else{
+                $.ajax({
+                    type: "GET",
+                    url: "/organization/teams/" + depart_no,
+                    dataType: "JSON",
+                    success: function(departments){
+                        teamList = $('<ul id="teamListUl'+depart_no+'" class="teamListUl"></ul>');
+
+                        departments.forEach(function(department){
+                            var teamItem = $('<li class="teamList"><span onclick="toggleTeam(' + department.depart_no + ')">' + department.depart_name + '</span></li>');
+                            teamList.append(teamItem);
+                        });
+                        
+                        teamLocation.append(teamList);
+                        teamLocation.slideDown(300);
+    
+                        $(".memberList").eq(depart_no - 1).slideUp(300);
+                    },
+                    error: function(e){
+                        console.log(e);
+                    }
+                });
+            }
+
+            toggleElement(teamLocation);
+
+        }
+
+        // 해당 팀의 직원 목록을 가져오는 AJAX 
+        function toggleTeam(depart_no){
+            // 직원 리스트
+            var memberList = $("#memberListUl" + depart_no);
+            // 해당 팀의 직원 리스트가 표시될 위치
+            var memberLocation  = $(".teamList").eq(depart_no - 5);
+
+            if(memberList.length){
+                memberList.toggle();
+            } else{
+                $.ajax({
+                    type: "GET",
+                    url: "/organization/members/" + depart_no,
+                    dataType: "JSON",
+                    success: function(members){
+                        memberList = $('<ul id="memberListUl'+ depart_no +'" class="memberListUl"></ul>');
+                        members.forEach(function(member){
+                            var memberItem = $('<li class="memberList"><p data-member-no="'+ member.member_no  +'" onclick="getMemberDetail(' + member.member_no + ')">' + member.name + '</p></li>');
+                            memberList.append(memberItem);
+                        });
+                        
+                        memberLocation.append(memberList);
+                        memberLocation.slideDown(300);
+                    },
+                    error: function(e){
+                        console.log(e);
+                    }
+                });
+            }
+
+            toggleElement(memberLocation);
+        }
+
+        function toggleElement(element){
+            // 클릭한 요소에 토글 스타일 적용 및 이전에 선택된 요소의 스타일 제거
+            if(selecEl){
+                selecEl.removeClass("active");
+            }
+            selecEl = element;
+            element.addClass("active");
+        }
+        
+        // 직원 정보 표시 팝업
+        function getMemberDetail(member_no){
+        	$.ajax({
+                type: "GET",
+                url: "/organization/detail/" + member_no,
+                success: function(member) {
+                	var popupContent = '<div style="display: flex;">';
+                	
+                	member.forEach(function(item){
+	                    // 팝업의 내용을 생성
+	                    popupContent += 
+	                        '<div style="flex: 1;">' +
+	                        '<img src="' + item.profileImg + '" alt="프로필 사진" style="max-width: 100%;">' +
+	                        '<p>' + item.name + ' ' + item.member_position + '</p>' +
+	                        '</div>' +
+	                        '<div style="flex: 1; padding-left: 10px;">' +
+	                        '<p><strong>직급:</strong> ' + item.member_position + '</p>' +
+	                        '<p><strong>연락처:</strong> ' + item.phone + '</p>' +
+	                        '<p><strong>이메일:</strong> ' + item.email + '</p>' +
+	                        '</div>' +
+	                        '</div>';
+                	});
+
+                    // 팝업 생성 및 표시
+                    showMemberModal(popupContent);
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+        	});
+        }
+        
+     	// 팝업 닫기 함수
+        function closeModal() {
+            var modal = $("#memberModal");
+            var close = $(".close");
+            modal.hide();
+            close.hide();
+        }
+//-------------------------------- organization end-----------------------------------------
 </script>
 </html>
