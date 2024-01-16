@@ -37,7 +37,9 @@ public interface ApprovalDAO {
 
 	ArrayList<ApprovalDTO> apprList(int member_no);
 
-	ArrayList<ApprovalDTO> refList(int member_no);
+	ArrayList<ApprovalDTO> refList(int member_no, int vpn, int offset);
+	
+	int refTotalPage(int member_no, int vpn);
 
 	ApprovalDTO draftDocDetailInfo(int approval_no);
 
@@ -70,6 +72,8 @@ public interface ApprovalDAO {
 	void ReturnFinish(int approval_no);
 
 	void withdrawl(int approval_no);
+
+	
 
 	
 

@@ -36,7 +36,7 @@
         #approval_write .bottom_area .left_area .sortation_box .list_btn li{float: left; margin-left: 15px; text-align: center; cursor: pointer; padding: 0 7px 10px 7px;}
         #approval_write .bottom_area .left_area .sortation_box .list_btn li.on{border-bottom: 2px solid #eb568e; font-weight: 700;}
         #approval_write .bottom_area .left_area .sortation_box .list_btn li:first-child{margin-left: 0;}
-        #approval_write .bottom_area .left_area .sortation_box .list_box{border-top: 1px solid #ccc; height: 500px;}
+        #approval_write .bottom_area .left_area .sortation_box>.list_box{border-top: 1px solid #ccc; width: 300px;  height: 640px; box-sizing: border-box; overflow: auto;}
         #approval_write .bottom_area .left_area .sortation_box .list_box>li{height: 100px;}
         #approval_write .bottom_area .left_area .sortation_box .list_box>li.on{background-color: rgba(248, 174, 226, 0.2); border-left: 3px solid #eb568e;}
         #approval_write .bottom_area .left_area .sortation_box .list_box>li>ul>li{height: 100px;}
@@ -312,8 +312,9 @@
             <div class="right_area">
                 <form id="form_info" class="doc_form" action="approvalWrite.do" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="form_no">
-                <input type="hidden" name="observer" class="observer1">
-                <input type="hidden" name="observer" class="observer2">
+                <ul class="horizontal_obser">
+                	
+                </ul>
                     <div class="form_top">
                         <h4 class="form_name">업 무 기 안</h4>
                         <div class="top_left">
@@ -340,28 +341,8 @@
                                         <div class="sign_date doc_date"></div>
                                     </div>
                                 </div>
-                                <div class="approver sign_wrap">
-                                    <div class="left_wrap">
-                                        <p>승<br>인</p>
-                                    </div>
-                                    <div class="right_wrap">
-                                        <div class="sign_rank">사원</div>
-                                        <div class="sign_name">강태오</div>
-                                        <div class="sign_date"></div>
-                                        <input type="hidden" name="first_approver">
-                                    </div>
-                                    <div class="right_wrap">
-                                        <div class="sign_rank">사원</div>
-                                        <div class="sign_name">강태오</div>
-                                        <div class="sign_date"></div>
-                                        <input type="hidden" name="second_approver">
-                                    </div>
-                                    <div class="right_wrap">
-                                        <div class="sign_rank">사원</div>
-                                        <div class="sign_name">강태오</div>
-                                        <div class="sign_date"></div>
-                                        <input type="hidden" name="third_approver">
-                                    </div>
+                                <div class="horizontal_appr sign_wrap">
+                                	
                                 </div>
                             </div>
                         </div>
@@ -833,6 +814,7 @@ function setApprover(){
 	        	drawObserver(data);
 	        } else{
 	        	$('.vertical_obser').empty();
+	        	$('.horizontal_obser').empty();
 	        }
 	    },
 	    error: function(error) {
@@ -842,47 +824,63 @@ function setApprover(){
 }
 
 function drawApprover(apprList){
-	console.log(apprList);
 	
-	var content = "";
+	var verContent = "";
+	var horContent = '<div class="left_wrap"><p>승<br>인</p></div>';
 	
 	if(apprList.approver != 0){
 		apprList.approver.forEach(function(item, idx){
-			content += '<li>';
-			content += '<div class="info_box"><div class="left_box"> <div class="img_box">';
-			content += '<a href="javascript:"><img src="/resources/img/common/'+item.file_newname+'" alt="'+item.member_no+'_'+item.name+'"></a></div></div>';
-			content += '<div class="right_box"><ul class="approver_info">';
-			content += '<li class="member_name"><a href="javascript:">'+item.name+' '+item.member_position+'</a></li>';
-			content += '<li class="depart_name">'+item.depart_name+'</li>';
-			content += '<li class="sortation">결재</li>';
-			content += '</ul></div></div></li>';
+			verContent += '<li>';
+			verContent += '<div class="info_box"><div class="left_box"> <div class="img_box">';
+			verContent += '<a href="javascript:"><img src="/resources/img/common/'+item.file_newname+'" alt="'+item.member_no+'_'+item.name+'"></a></div></div>';
+			verContent += '<div class="right_box"><ul class="approver_info">';
+			verContent += '<li class="member_name"><a href="javascript:">'+item.name+' '+item.member_position+'</a></li>';
+			verContent += '<li class="depart_name">'+item.depart_name+'</li>';
+			verContent += '<li class="sortation">결재</li>';
+			verContent += '</ul></div></div></li>';
+			
+			horContent += '<div class="right_wrap">';
+			horContent += '<div class="sign_rank">'+item.member_position+'</div>';
+			horContent += '<div class="sign_name">'+item.name+'</div>';
+			horContent += '<div class="sign_date"></div>';
+			horContent += '<input type="hidden" name="approver'+(idx+1)+'">';
+			horContent += '</div>';
 			
 			$('.vertical_appr').empty();
-			$('.vertical_appr').append(content);
+			$('.vertical_appr').append(verContent);
+			$('.horizontal_appr').empty();
+			$('.horizontal_appr').append(horContent);
+			$('input[name="approver'+(idx+1)+'"]').val(item.member_no);
 		});
 	} else{
 		$('.vertical_appr').empty();
+		$('.horizontal_appr').empty();
 	}
 	
 }
 
 function drawObserver(apprList){
-	console.log(apprList);
 	
-	var content = "";
+	var verContent = "";
+	var horContent = "";
+	
 	apprList.observer.forEach(function(item, idx){
-		console.log("observer 이름 : "+item.name);
-		content += '<li>';
-		content += '<div class="info_box"><div class="left_box"> <div class="img_box">';
-		content += '<a href="javascript:"><img src="/resources/img/common/'+item.file_newname+'" alt="'+item.member_no+'_'+item.name+'"></a></div></div>';
-		content += '<div class="right_box"><ul class="approver_info">';
-		content += '<li class="member_name"><a href="javascript:">'+item.name+' '+item.member_position+'</a></li>';
-		content += '<li class="depart_name">'+item.depart_name+'</li>';
-		content += '<li class="sortation">결재</li>';
-		content += '</ul></div></div></li>';
+		verContent += '<li>';
+		verContent += '<div class="info_box"><div class="left_box"> <div class="img_box">';
+		verContent += '<a href="javascript:"><img src="/resources/img/common/'+item.file_newname+'" alt="'+item.member_no+'_'+item.name+'"></a></div></div>';
+		verContent += '<div class="right_box"><ul class="approver_info">';
+		verContent += '<li class="member_name"><a href="javascript:">'+item.name+' '+item.member_position+'</a></li>';
+		verContent += '<li class="depart_name">'+item.depart_name+'</li>';
+		verContent += '<li class="sortation">결재</li>';
+		verContent += '</ul></div></div></li>';
+		
+		horContent += '<li><input type="hidden" name="observer" class="observer'+(idx+1)+'"></li>';
 			
 		$('.vertical_obser').empty();
-		$('.vertical_obser').append(content);
+		$('.vertical_obser').append(verContent);
+		$('.horizontal_obser').empty();
+		$('.horizontal_obser').append(horContent);
+		$('input[class="observer'+(idx+1)+'"]').val(item.member_no);
 	});
 	
 }

@@ -48,17 +48,17 @@
 	
 	<insert id="firstApprover" parameterType="map">
 		INSERT INTO approver(member_no, approval_no, approval_order, sortation)
-			VALUES(#{first_approver}, #{approval_no}, 1, 0)
+			VALUES(#{approver1}, #{approval_no}, 1, 0)
 	</insert>
 	
 	<insert id="secondApprover" parameterType="map">
 		INSERT INTO approver(member_no, approval_no, approval_order, sortation)
-			VALUES(#{second_approver}, #{approval_no}, 2, 0)
+			VALUES(#{approver2}, #{approval_no}, 2, 0)
 	</insert>
 	
 	<insert id="thirdApprover" parameterType="map">
 		INSERT INTO approver(member_no, approval_no, approval_order, sortation)
-			VALUES(#{third_approver}, #{approval_no}, 3, 0)
+			VALUES(#{approver3}, #{approval_no}, 3, 0)
 	</insert>
 	
 	<insert id="observer">
@@ -83,8 +83,16 @@
 	</select>
 	
 	<select id="refList" resultType="approval">
-		SELECT a.*, m.name
+		SELECT a.approval_start, a.approval_title, a.approval_end, a.approval_state, a.document_state, a.form_no, m.name
 			FROM approval a
+			JOIN member m ON a.draftmember_no = m.member_no
+			JOIN approver ap ON a.approval_no = ap.approval_no
+				WHERE a.document_state != 3 AND ap.sortation = 1 AND ap.member_no = #{param1}
+					ORDER BY ap.approver_no DESC LIMIT #{param2} OFFSET #{param3}
+	</select>
+	
+	<select id="refTotalPage" resultType="int">
+		SELECT CEIL(COUNT(a.approval_no)/#{param2}) AS pages FROM approval a
 			JOIN member m ON a.draftmember_no = m.member_no
 			JOIN approver ap ON a.approval_no = ap.approval_no
 				WHERE a.document_state != 3 AND ap.sortation = 1 AND ap.member_no = #{param1}

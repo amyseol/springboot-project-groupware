@@ -5,6 +5,9 @@
 <meta charset="UTF-8">
 <title>Hoony Music</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+<script src="/resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
@@ -83,15 +86,17 @@
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
         #common_list_form .search_box{position: relative; margin: 0 0 10px 50px; border: 1px solid #fff; display: inline-block;}
         #common_list_form .search_box li{float: left;}
-        #common_list_form .search_box select{width: 70px; height: 28px; border: 1px solid #ccc; border-right: none;}
+        #common_list_form .search_box #search_type{width: 70px; height: 28px; border: 1px solid #ccc; border-right: none;}
         #common_list_form .search_box #search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
         #common_list_form .search_box #search_info::placeholder{color: #ccc;}
         #common_list_form .search_box .btn_box{width: 28px; height: 28px; cursor: pointer; border: 1px solid #ccc; box-sizing: border-box; border-left: none;}
         #common_list_form .search_box .btn_box .search_btn{position:relative; width: 14px; height: 14px; left: 50%; top: 50%; transform: translate(-50%, -50%);}
         #common_list_form .search_box .btn_box .search_btn img{width: 100%;}
-        #common_list_form .search_box:hover select{border: 1px solid #333; border-right: none;}
+        #common_list_form .search_box:hover #search_type{border: 1px solid #333; border-right: none;}
         #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
         #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
+        #common_list_form .pageNum{float: right; margin-right: 50px;}
+        #common_list_form .pageNum #viewPageNum{width: 50px; height: 28px; border: 1px solid #ccc;}
         
 
 
@@ -191,11 +196,11 @@
     <!-- -------------------------------------------list_form start------------------------------------------ -->
     <section id="common_list_form">
         <h2 class="big_title">참조함</h2>
-        <ul class="search_box">
+        <ul class="search_box">	
             <li>
-                <select>
-                    <option>기안자</option>
-                    <option>제목</option>
+                <select id="search_type">
+                    <option value="0">기안자</option>
+                    <option value="1">제목</option>
                 </select>
             </li>
             <li>
@@ -207,6 +212,14 @@
                 </div>
             </li>
         </ul>
+        <div class="pageNum">
+        	<select id="viewPageNum">
+        		<option value="5">5</option>
+        		<option value="10">10</option>
+        		<option value="15">15</option>
+        		<option value="20">20</option>
+        	</select>
+        </div>
         
         <div class="list_form">
             <ul>
@@ -225,6 +238,14 @@
                 </li>
             </ul>
         </div>
+        <div id="paging" class="pagingBox">
+			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
+			<div class="container">
+				<nav aria-label="Page navigation" style="text-align: center">
+					<ul class="pagination" id="pagination"></ul>
+				</nav>
+			</div>
+		</div>
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
     <!-- -------------------------------------------music start------------------------------------------ -->
@@ -236,7 +257,8 @@
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
-refListCall();
+var showPage=1;
+refListCall(showPage);
 
 document.addEventListener('DOMContentLoaded', function () {
     var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
@@ -295,12 +317,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   
+	$('#viewPageNum').change(function(){
+		// 페이지당 보여줄 게시물 갯수가 변경되면 페이징 처리 UI 를 지우고 다시 그려 준다.
+		// 안그럼 처음에 계산한 페이지 값을 그대로 들고 있게 된다.
+		$('#pagination').twbsPagination('destroy');
+		refListCall(showPage);
+	});
   
   
-  function refListCall(){
+  function refListCall(page){
 	  $.ajax({
 			type:'get',
 			url:'refListCall.ajax',
+			data:{'viewPageNum':$('#viewPageNum').val(), 'page':page, 'searchType':$('.search_type').val(), 'searchInfo':$('#search_info').val()},
 			dataType:'JSON',
 			success: function(data){
 				console.log("refListCall data 가져옴");
@@ -386,6 +415,18 @@ document.addEventListener('DOMContentLoaded', function () {
 	  $('.list_content').empty();
 	  $('.list_content').append(content);
 	  
+	  //$('#pagination').twbsPagination('destroy');
+	 	$('#pagination').twbsPagination({
+			startPage: refList.currPage,
+			totalPages: refList.pages,
+			visiblePages: 5, 
+			onPageClick:function(e,page){ 
+				if(showPage != page){ 
+					showPage=page;
+					refListCall(page);
+				}
+			}
+		}); 
   }
 </script>
 </html>
