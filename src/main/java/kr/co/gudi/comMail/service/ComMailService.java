@@ -124,15 +124,22 @@ public class ComMailService {
 		
 		map.put("list", list);
 		
-		int seTotalCnt = dao.seTotalCnt(search_info);
+		int seTotalCnt = dao.seTotalCnt(search_info, loginNo, readOption);
 		int pages = (int) Math.ceil((double) seTotalCnt / 10);
 		
-		map.put("pages", pages);
 		
-		if (p > pages) {
-			p = pages;
-		}
+		// 현재 페이지가 전체 페이지 수보다 크다면 마지막 페이지로 설정
+	    if (p > pages && pages > 0) {
+	        p = pages;
+	        offset = (p - 1) * 10; // 오프셋 값도 재계산
+	        list = dao.sendList(offset, loginNo); // 마지막 페이지 데이터로 재조회
+	        map.put("list", list); // 재조회한 데이터를 다시 설정
+	    }
+	    
+	    map.put("pages", pages);
 		map.put("currPage", p);
+		map.put("search_info", search_info);
+		map.put("readOption", readOption);
 		
 		return map;
 	}

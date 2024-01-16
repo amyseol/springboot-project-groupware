@@ -54,7 +54,7 @@
         #nav .gnb a li .arrow{position:absolute; right:30px; top:12px;}
         #nav .gnb a li .arrow svg{width:100%; transition:0.3s;}
 
-        #util{position:fixed; right:0; height: 80px;}
+        #util{position:fixed; right:0; height: 80px; z-index: 9999;}
         #util .util_inner{position:relative; top:30px; right:50px; width:300px; height: 55px;}
         #util .util_inner li{width: 55px; height: 55px; border-radius: 25px; background-color: #fff; float:left; margin-right:15px; cursor: pointer; overflow: hidden; box-shadow: 1px 1px 3px 1px #ddd;}
         #util .util_inner li:last-child{margin-right:0;}
@@ -74,7 +74,7 @@
         #memberInfo {background-color: #fefefe; margin: 1% auto; padding: 20px; border: 1px solid #888; width: 80%;}
 
         /* 닫기 버튼 스타일 */
-        .close {display: none; color: #aaa; float: right; font-size: 28px; font-weight: bold;}
+        .close {display: none; color: #aaa; float: right; font-size: 28px; font-weight: bold; display: revert;}
 
         .close:hover,
         .close:focus {color: black; text-decoration: none; cursor: pointer;}
@@ -110,15 +110,15 @@
             <h1 class="logo"><a href="/main">Hoony Music</a></h1>
             <ul class="gnb">
                 <a href="/board"><li class="dep1">게시판</li></a>
-                <a href="javascript:"><li class="dep1" data-index="1">쪽지
+                <a href="javascript:"><li class="dep1" data-index="1">메일
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
                     </svg></div>
                 </li></a>
                 <ul data-index="1">
-                    <a href="/writeMail"><li class="dep2">쪽지 쓰기</li></a>
-                    <a href="/receiveMail"><li class="dep2">받은 쪽지함</li></a>
-                    <a href="/sendMail"><li class="dep2">보낸 쪽지함</li></a>
+                    <a href="/writeMail"><li class="dep2">메일 쓰기</li></a>
+                    <a href="/receiveMail"><li class="dep2">받은 메일함</li></a>
+                    <a href="/sendMail"><li class="dep2">보낸 메일함</li></a>
                 </ul>
                 <a href="javascript:"><li class="dep1" data-index="2">전자결재
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
@@ -221,7 +221,6 @@
 	    <!-- 직원 정보 모달 팝업 -->
 	    <div id="memberModal">
 	        <div id="memberInfo">
-	        <span class="close" onclick="closeModal()">&times;</span>
 	        <!-- 직원 정보 -->
 	        </div>
 	    </div>
@@ -491,12 +490,12 @@ var selecEl = null;
                 url: "/organization/detail/" + member_no,
                 success: function(member) {
                 	var popupContent = '<div style="display: flex;">';
-                	
-                	member.forEach(function(item){
+                	console.log(member);
+                	member.list.forEach(function(item){
 	                    // 팝업의 내용을 생성
-	                    popupContent += 
+	                    popupContent +=
 	                        '<div style="flex: 1;">' +
-	                        '<img src="' + item.profileImg + '" alt="프로필 사진" style="max-width: 100%;">' +
+	                        '<img src="/photo/' + member.file_newname + '" alt="프로필 사진" style="max-width: 100%;">' +
 	                        '<p>' + item.name + ' ' + item.member_position + '</p>' +
 	                        '</div>' +
 	                        '<div style="flex: 1; padding-left: 10px;">' +
@@ -504,6 +503,7 @@ var selecEl = null;
 	                        '<p><strong>연락처:</strong> ' + item.phone + '</p>' +
 	                        '<p><strong>이메일:</strong> ' + item.email + '</p>' +
 	                        '</div>' +
+	                        '<span class="close" onclick="closeModal()"> X </span>' +
 	                        '</div>';
                 	});
 

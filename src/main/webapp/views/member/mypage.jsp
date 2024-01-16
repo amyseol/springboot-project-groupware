@@ -6,6 +6,8 @@
 		<meta charset="UTF-8">
 		<title>HoonyMusic</title>
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f7f33f996b442a5d86588bc9173489c3&libraries=services" type="text/javascript"></script>
 	</head>
 	<style>
 	        #common_list_form{padding-left:15%;}
@@ -54,7 +56,7 @@
 									<button onclick="fn_profileSubmit()">수정</button>
 								</div>
 							</form>
-							<p><span id="mypage-name">${loginMember.name}</span> 님</p>
+							<span><strong id="mypage-name">${loginMember.name}</strong> 님</span>
 						</div>
 					</div>
 	

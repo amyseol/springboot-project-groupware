@@ -24,7 +24,7 @@ public interface ComMailDAO {
 	
 	int reTotalCnt(String search_info, int loginNo, String readOption);
 	
-	int seTotalCnt(String search_info);
+	int seTotalCnt(String search_info, int loginNo, String readOption);
 
 	void delReceive(String idx);
 
