@@ -143,7 +143,7 @@ function selectDepart(state){
     document.getElementById('departList').style.fontWeight = (selectedState === '부서') ? 'bold' : 'normal';
     listCall(showPage);	
 }
-// 파일 리스트 출력 
+
 // 파일 리스트 
 function listCall(page){
 	$.ajax({

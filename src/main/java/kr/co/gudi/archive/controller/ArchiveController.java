@@ -51,7 +51,7 @@ public class ArchiveController {
 	public String departFileUpload(MultipartFile[] files, String member_no) throws Exception {
 		service.departFileUpload(files,member_no);
 		return "redirect:/archiveAll";
-	}
+	}  
 	
 	// 전사 파일 업로드 (dto 저장 값이 달라서 부서 파일 업로드와 다르게 처리한다)
 	@PostMapping(value="/allFileUpload.do")
