@@ -21,12 +21,26 @@
 	
 	<select id="receiveList" resultType="mail">
 		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
-		FROM note n
-		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
-		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-		LEFT OUTER JOIN file f ON file_location = "n"
-		WHERE n.receiver_no = #{param2}
-		ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
+	    FROM note n
+	    LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+	    LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
+	    LEFT OUTER JOIN file f ON file_location = "n"
+	    WHERE n.receiver_no = #{param2}
+	    ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
+	</select>
+	
+	<select id="receiveListSearch" resultType="mail">
+		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
+	    FROM note n
+	    LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+	    LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
+	    LEFT OUTER JOIN file f ON file_location = "n"
+	    WHERE n.receiver_no = #{loginNo}
+	        AND (#{search_info} = ''
+	        OR LENGTH(#{search_info}) = 1
+	        OR n.sender_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{search_info}, '%'))
+	        OR n.note_subject LIKE CONCAT('%', #{search_info}, '%'))
+	    ORDER BY n.note_date DESC LIMIT 10 OFFSET #{offset}
 	</select>
 	
 	<select id="receiveListRead" resultType="mail">
@@ -35,9 +49,11 @@
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
-		WHERE n.receiver_no = #{param2} AND n.receive_state="1"
+		WHERE n.receiver_no = #{param3} AND n.receive_state="1" 
+  			AND (#{param1} = '' 
+  			OR n.sender_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%'))
 		GROUP BY n.note_no
-		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param1}
+		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param2}
 	</select>
 	
 	<select id="receiveListUnread" resultType="mail"> 
@@ -46,29 +62,49 @@
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
-		WHERE n.receiver_no =  #{param2} AND n.receive_state="0"
+		WHERE n.receiver_no = #{param3} AND n.receive_state="0" 
+  			AND (#{param1} = '' 
+  			OR n.sender_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%'))
 		GROUP BY n.note_no
-		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param1}
-	</select>
-	
-		<select id="reMailSearch" resultType="mail">
-		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
-		FROM note n
-		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
-		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-		LEFT OUTER JOIN file f ON file_location = "n"
-		WHERE n.sender_no = (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%')
-		GROUP BY n.note_no
-		ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param2}
+		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param2}
 	</select>
 	
 	<update id="delReceive">
 		UPDATE note SET receive_state = 2 WHERE note_no = #{param1}
 	</update>
 	
-	<select id="totalPage" resultType="int">
-		SELECT CEIL(COUNT(note_no) / 5) AS pages
-		FROM note
+	<select id="reTotalCnt" resultType="int">
+		SELECT COUNT(note_no) AS reTotalCnt
+	    FROM note n
+	    WHERE n.receiver_no = #{loginNo}
+	    AND (
+	        (#{search_info} = '' 
+	        OR n.sender_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{search_info}, '%')) 
+	        OR n.note_subject LIKE CONCAT('%', #{search_info}, '%'))
+	    )
+	    <if test="readOption != null and readOption.equals('read')">
+	        AND n.receive_state = '1'
+	    </if>
+	    <if test="readOption != null and readOption.equals('unread')">
+	        AND n.receive_state = '0'
+	    </if>
+	</select>
+	
+	<select id="seTotalCnt" resultType="int">
+		SELECT COUNT(note_no) AS seTotalCnt
+	    FROM note n
+	    WHERE n.sender_no = #{loginNo}
+	    AND (
+	        (#{search_info} = '' 
+	        OR n.receiver_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{search_info}, '%')) 
+	        OR n.note_subject LIKE CONCAT('%', #{search_info}, '%'))
+	    )
+	    <if test="readOption != null and readOption.equals('read')">
+	        AND n.send_state = '1'
+	    </if>
+	    <if test="readOption != null and readOption.equals('unread')">
+	        AND n.send_state = '0'
+	    </if>
 	</select>
 	
 	<select id="receiveMailDetail" resultType="mail">
@@ -101,47 +137,54 @@
                                                     WHERE member_no = #{param1} AND CAST(send_state AS UNSIGNED) = "0")
 	</select>
 	
-	<select id="sendList">
+	<select id="sendList" resultType="mail">
 		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
-		FROM note n
-		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
-		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-		LEFT OUTER JOIN file f ON file_location = "n"
-		WHERE n.receiver_no = #{param2}
-		ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
+	    FROM note n
+	    LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+	    LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
+	    LEFT OUTER JOIN file f ON file_location = "n"
+	    WHERE n.sender_no = #{param2}
+	    ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
 	</select>
 	
-	<select id="sendListRead">
+	<select id="sendListRead" resultType="mail">
 		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
 		FROM note n
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
-		WHERE n.sender_no = #{param2} AND n.send_state="1"
+		WHERE n.sender_no = #{param3} AND n.send_state="1"
+  			AND (#{param1} = '' 
+  			OR n.receiver_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%'))
 		GROUP BY n.note_no
-		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param1}
+		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param2}
 	</select>
 	
-	<select id="sendListUnread">
+	<select id="sendListUnread" resultType="mail">
 		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
 		FROM note n
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 		LEFT OUTER JOIN file f ON file_location = "n"
-		WHERE n.sender_no = #{param2} AND n.send_state="0"
+		WHERE n.sender_no = #{param3} AND n.send_state="0"
+  			AND (#{param1} = '' 
+  			OR n.receiver_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%'))
 		GROUP BY n.note_no
-		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param1}
+		ORDER BY n.note_no DESC LIMIT 10 OFFSET #{param2}
 	</select>
 	
-	<select id="seMailSearch" resultType="mail">
+	<select id="sendListSearch" resultType="mail">
 		SELECT n.*, sender.name AS sender_name, receiver.name AS receiver_name, f.file_size
-		FROM note n
-		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
-		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-		LEFT OUTER JOIN file f ON file_location = "n"
-		WHERE n.receiver_no = (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%')
-		GROUP BY n.note_no
-		ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param2}
+	    FROM note n
+	    LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
+	    LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
+	    LEFT OUTER JOIN file f ON file_location = "n"
+	    WHERE n.sender_no = #{loginNo}
+	        AND (#{search_info} = ''
+	        OR LENGTH(#{search_info}) = 1
+	        OR n.receiver_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{search_info}, '%'))
+	        OR n.note_subject LIKE CONCAT('%', #{search_info}, '%'))
+	    ORDER BY n.note_date DESC LIMIT 10 OFFSET #{offset}	
 	</select>
 	
 	<update id="delSend">

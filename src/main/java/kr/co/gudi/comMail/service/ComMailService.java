@@ -30,48 +30,43 @@ public class ComMailService {
 	}
 
 	
-	public Map<String, Object> receiveList(String page, int loginNo, String readOption) {
+	public Map<String, Object> receiveList(String search_info, String page, int loginNo, String readOption) {
 		int p = Integer.parseInt(page);
 		int offset = (p - 1) * 10;
 		
 		ArrayList<ComMailDTO> list = new ArrayList<ComMailDTO>();
 		
 		if (readOption.equals("all")) {
-			list = dao.receiveList(offset, loginNo);
+			if (search_info == null || search_info.trim().isEmpty()) {
+	            // 검색어가 없는 경우 전체 메일 목록을 가져옴
+	            list = dao.receiveList(offset, loginNo);
+	        } else {
+	            // 검색어가 있는 경우 검색 결과를 가져옴
+	            list = dao.receiveListSearch(search_info, offset, loginNo);
+	        }
 		}else if(readOption.equals("read")) {
-			list = dao.receiveListRead(offset,loginNo);
+			list = dao.receiveListRead(search_info, offset, loginNo);
 		}else if(readOption.equals("unread")) {
-			list = dao.receiveListUnread(offset,loginNo);
+			list = dao.receiveListUnread(search_info, offset, loginNo);
 		}
 		
 		map.put("list", list);
 		
-		int pages = dao.totalPage();
+		int reTotalCnt = dao.reTotalCnt(search_info, loginNo, readOption);
+		int pages = (int) Math.ceil((double) reTotalCnt / 10);
+		
+		// 현재 페이지가 전체 페이지 수보다 크다면 마지막 페이지로 설정
+	    if (p > pages && pages > 0) {
+	        p = pages;
+	        offset = (p - 1) * 10; // 오프셋 값도 재계산
+	        list = dao.receiveList(offset, loginNo); // 마지막 페이지 데이터로 재조회
+	        map.put("list", list); // 재조회한 데이터를 다시 설정
+	    }
 		map.put("pages", pages);
 		
-		if (p > pages) {
-			p = pages;
-		}
 		map.put("currPage", p);
-		
-		return map;
-	}
-
-	public Map<String, Object> reMailSearch(String search_info, String page) {
-		int p = Integer.parseInt(page);
-		int offset = (p - 1) * 10;
-		
-		ArrayList<ComMailDTO> list = new ArrayList<>();
-		list = dao.reMailSearch(search_info, offset);
-		map.put("list", list);
-		
-		int pages = dao.totalPage();
-		map.put("pages", pages);
-		
-		if (p > pages) {
-			p = pages;
-		}
-		map.put("currPage", p);
+		map.put("search_info", search_info);
+		map.put("readOption", readOption);
 		
 		return map;
 	}
@@ -106,42 +101,32 @@ public class ComMailService {
 		return dao.getSeUnreadMail(member_no);
 	}
 	
-	public Map<String, Object> sendList(String page, int loginNo, String readOption) {
+	public Map<String, Object> sendList(String search_info, String page, int loginNo, String readOption) {
 		int p = Integer.parseInt(page);
 		int offset = (p - 1) * 10;
 		
 		ArrayList<ComMailDTO> list = new ArrayList<ComMailDTO>();
 		
 		if (readOption.equals("all")) {
-			list = dao.sendList(offset, loginNo);
+			if (search_info == null || search_info.trim().isEmpty()) {
+	            // 검색어가 없는 경우 전체 메일 목록을 가져옴
+				list = dao.sendList(offset, loginNo);
+	        } else {
+	            // 검색어가 있는 경우 검색 결과를 가져옴
+	            list = dao.sendListSearch(search_info, offset, loginNo);
+	        }
+			
 		}else if(readOption.equals("read")) {
-			list = dao.sendListRead(offset,loginNo);
+			list = dao.sendListRead(search_info, offset,loginNo);
 		}else if(readOption.equals("unread")) {
-			list = dao.sendListUnread(offset,loginNo);
+			list = dao.sendListUnread(search_info, offset,loginNo);
 		}
 		
 		map.put("list", list);
 		
-		int pages = dao.totalPage();
-		map.put("pages", pages);
+		int seTotalCnt = dao.seTotalCnt(search_info);
+		int pages = (int) Math.ceil((double) seTotalCnt / 10);
 		
-		if (p > pages) {
-			p = pages;
-		}
-		map.put("currPage", p);
-		
-		return map;
-	}
-	
-	public Map<String, Object> seMailSearch(String search_info, String page) {
-		int p = Integer.parseInt(page);
-		int offset = (p - 1) * 10;
-		
-		ArrayList<ComMailDTO> list = new ArrayList<>();
-		list = dao.seMailSearch(search_info, offset);
-		map.put("list", list);
-		
-		int pages = dao.totalPage();
 		map.put("pages", pages);
 		
 		if (p > pages) {
