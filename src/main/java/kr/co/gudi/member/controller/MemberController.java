@@ -273,10 +273,10 @@ public class MemberController {
     }
     
     @PostMapping(value="/createDpt")
-    public ModelAndView createDpt(@RequestParam HashMap<String, String> param){
+    public String createDpt(@RequestParam HashMap<String, String> param){
     	logger.info("부서 등록 정보 : "+param);
-    	
-    	return new ModelAndView("member/departList");
+    	service.createDpt(param);
+    	return "redirect:/departmentList";
     }
     
     @GetMapping(value="/detailTeam")
@@ -286,5 +286,18 @@ public class MemberController {
     	return service.detailTeam(depart_name);
     }
     
+    @PostMapping(value="/delDpt")
+    public String delDpt(@RequestParam String depart_no) {
+    	logger.info("삭제할 부서번호 : "+depart_no);
+    	service.delDpt(depart_no);
+    	return "redirect:/departmentList";
+    }
    
+    @GetMapping(value="/delMember")
+    public String delMember(@RequestParam String member_no) {
+    	logger.info("삭제할 직원 : "+member_no);
+    	service.delMember(member_no);
+    	return "redirect:/memberList";
+    }
+    
 }

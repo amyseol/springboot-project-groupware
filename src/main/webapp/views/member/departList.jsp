@@ -73,14 +73,14 @@
                     <label for="depart_name">부서명:</label>
                     <span id="depart_name" data-name="depart_name"></span>
                 </div>
-
-           
+				        
                 <div class="form-group">
                     <label for="dpt_oner">책임자:</label>
                     <button id="addOner" type="button" style="display: none;" onclick="onerModal()">
   					  <i class="fas fa-plus"></i> <!-- Font Awesome 플러스 아이콘 -->
 				</button>                   
                     <span id="dpt_oner" data-name="dpt_oner"></span>
+                 	<input type="hidden" name="oner_no" />
                 </div>
               
 
@@ -98,7 +98,7 @@
                 
                  <div class="form-group">
                     <label for="depart_teamN">하위팀</label>
-                   <button id="openModalBtn" onclick=>
+                   <button id="openModalBtn" type="button" onclick="createModal()">
   					  <i class="fas fa-plus"></i> <!-- Font Awesome 플러스 아이콘 -->
 				</button>
                     <span id="depart_teamN"></span>
@@ -106,7 +106,11 @@
                 </div>
             </div>          
             </form>
-            <div class="modal-footer">                               	
+            <div class="modal-footer">
+            <form id="delDptForm" action="delDpt" method="post">
+            	<input type="hidden" id="del_no" name="depart_no"/>
+           	    <button type="button" class="btn btn-danger" id="delDpt">삭제</button>                               	
+            </form>
                 <button type="button" class="btn btn-danger" id="updateDpt">수정</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
             </div>
@@ -133,7 +137,11 @@
            
                 <div class="form-group">
                     <label for="dpt_oner">책임자:</label>
+                      <button  type="button" onclick="onerModal()">
+  					  <i class="fas fa-plus"></i> <!-- Font Awesome 플러스 아이콘 -->
+					</button>           
                     <input type="text" name="dpt_oner" />
+                    <input type="hidden" name="oner_no" />
                 </div>              
             </div>          
             <div class="modal-footer">                               	
@@ -268,6 +276,22 @@
     </div>
 </div>
 <script>
+//삭제
+document.getElementById('delDpt').addEventListener('click', function() {
+	 var departNo = $('#depart_no').val();
+	 $('#del_no').val(departNo);
+	 console.log(departNo);
+	 var depart_name=$('#depart_name').val();
+	    var confirmMessage = "삭제할 부서 : " + depart_name + "\n정말로 삭제하시겠습니까?";
+
+	    if (confirm(confirmMessage)) {
+	        // 사용자가 '예'를 선택한 경우에만 폼을 제출
+	        document.getElementById('delDptForm').submit();
+	    } else {
+	        // 사용자가 '아니오'를 선택한 경우 또는 취소한 경우
+	        console.log("삭제 취소됨");
+	    }
+});
 //조직도
 function onerModal(){
 		$('#orgChartModal').modal('show');
@@ -279,6 +303,7 @@ $(document).on('click', 'p', function() {
     var memberName = $(this).data('name'); 
     console.log("Member No:", memberNo);
     $('input[name="dpt_oner"]').val(memberName);
+    $('input[name="oner_no"]').val(memberNo);
     $('#orgChartModal').modal('hide');
 
 });

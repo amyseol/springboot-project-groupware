@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -205,6 +207,7 @@ public class MemberService implements UserDetailsService{
 
 
 	public HashMap<String, Object> departList(String departState) {
+		updateTotalMember();
 		String depart_state="";
 		ArrayList<MemberDTO> dto = new ArrayList<MemberDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -220,7 +223,7 @@ public class MemberService implements UserDetailsService{
 
 
 	public List<MemberDTO> getDepartList() {
-		
+		updateTotalMember();
 		return dao.getDepartList();
 	}
 
@@ -257,7 +260,7 @@ public class MemberService implements UserDetailsService{
 		return map;
 	}
 
-<<<<<<< HEAD
+
 	public void updateDpt(HashMap<String, String> param) {
 		dao.updateDpt(param);
 		
@@ -287,9 +290,31 @@ public class MemberService implements UserDetailsService{
 		mav.addObject("teams", teams);
 		mav.addObject("members", members);
 		return mav;
-=======
+	}
+
 	public String getFileName(int member_no) {
 		return dao.getFileName(member_no);
->>>>>>> origin/master
 	}
+
+	public void createDpt(HashMap<String, String> param) {
+		dao.createDpt(param);
+		
+	}
+
+	public void delDpt(String depart_no) {
+		dao.delDpt(depart_no);
+		
+	}
+
+	public void delMember(String member_no) {
+		 // 현재 날짜를 가져오기
+        LocalDate currentDate = LocalDate.now();
+
+        // 형식 지정하여 출력 (선택사항)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String resign_date = currentDate.format(formatter);
+        dao.delMember(member_no,resign_date);
+		
+	}
+
 }

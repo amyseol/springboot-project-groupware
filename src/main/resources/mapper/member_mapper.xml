@@ -235,4 +235,24 @@
 			JOIN department d ON m.depart_no = d.depart_no
 				WHERE m.member_state = '재직';
 	</select>
+	
+	<update id="updateDpt">
+		update department set depart_name=#{depart_name},
+			member_no=#{oner_no} where depart_no=#{depart_no}
+	</update>
+	
+	<insert id="createDpt">
+		insert into department(member_no,depart_name,depart_p_no)
+			values(#{oner_no},#{depart_name},0) 
+	</insert>
+	
+	<update id="delDpt">
+		UPDATE department set depart_state ='1'
+			where depart_no =#{param1}
+	</update>
+	
+	<update id="delMember">
+		update member set member_state='퇴사', resign_date=#{param2}
+			where member_no=#{param1}
+	</update>
 </mapper>
