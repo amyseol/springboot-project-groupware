@@ -36,6 +36,7 @@ public class BoardController {
 	 
 	@RequestMapping(value = "/boardD")
 	public String homeD() {
+		logger.info("전사게시판 이동");
 		return "board/boardListD"; 
 		
 	}
@@ -46,7 +47,7 @@ public class BoardController {
 		
 		int member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
 	    logger.info("@@ list @@ 세션 로그인 아이디 체크 : "+member_no);
-		logger.info("보여줄 페이지 : "+page);
+		logger.info("부서 보여줄 페이지 : "+page);
 		
 		return service.list(page,board_name,member_no);
 	}
@@ -58,7 +59,7 @@ public class BoardController {
 		
 		int member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
 	    logger.info("@@ listD @@ 세션 로그인 아이디 체크 : "+member_no);
-		logger.info("보여줄 페이지 : "+page);
+		logger.info("전사 보여줄 페이지 : "+page);
 		
 		return service.listD(page,board_name,member_no);
 	}
@@ -79,7 +80,7 @@ public class BoardController {
 	    if(member_no == 20) {
 	    	return "board/boardWriteD";
 	    }
-	    return "redirect:./";
+	    return "board/boardListD";
 	}
 	
 	@PostMapping(value = "/write")
@@ -100,7 +101,7 @@ public class BoardController {
 		logger.info("file 갯수 : "+photos.length);
 		service.write(dto, photos);
 		}
-		return "redirect:./";
+		return "board/boardList";
 	}
 	
 	@PostMapping(value = "/writeD")
@@ -121,7 +122,7 @@ public class BoardController {
 		logger.info("file 갯수 : "+photos.length);
 		service.writeD(dto, photos);
 		}
-		return "redirect:./";
+		return "board/boardListD";
 	}
 	
 	@GetMapping(value = "/boardDetail")
@@ -136,11 +137,30 @@ public class BoardController {
 		return "board/boardDetail";
 	}
 
+	@GetMapping(value = "/boardDetailD")
+	public String detailD(@RequestParam String board_no, Model model, HttpSession session) {
+		logger.info("===D detail 함수===");
+		
+		int member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
+	    logger.info("@@detail@@ 세션 로그인 아이디 체크 : "+member_no);
+	    
+		service.detailD(board_no,model);
+		
+		return "board/boardDetailD";
+	}
+	
 	@GetMapping(value = "/del")
 	public String del(@RequestParam String board_no) {
 		logger.info("===del 함수===");
 		service.del(board_no);
-		return "redirect:./";
+		return "board/boardList";
+	}
+	
+	@GetMapping(value = "/delD")
+	public String delD(@RequestParam String board_no) {
+		logger.info("===D del 함수===");
+		service.delD(board_no);
+		return "board/boardListD";
 	}
 	
 	@GetMapping(value = "/boardModify")
@@ -153,12 +173,27 @@ public class BoardController {
 	@PostMapping(value = "/modify")
 	public ModelAndView modify(@RequestParam HashMap<String, String> params, @RequestParam("photos") MultipartFile file) {
 		String board_no = (String) params.get("board_no");
-		ModelAndView mav = new ModelAndView("board/boardModify");
+		ModelAndView mav = new ModelAndView("board/boardList");
 		logger.info("수정 내용 {} : "+params);
 		service.modify(board_no, params, file);
 		
 		return mav;
 	}
 	
+	@GetMapping(value = "/boardModifyD")
+	public String boardModifyD(@RequestParam String board_no, Model model) {
+		logger.info("===boardModifyD 함수===");
+		model.addAttribute("board", service.boardModifyD(board_no));
+		return "board/boardModifyD";
+	}
 	
+	@PostMapping(value = "/modifyD")
+	public ModelAndView modifyD(@RequestParam HashMap<String, String> params, @RequestParam("photos") MultipartFile file) {
+		String board_no = (String) params.get("board_no");
+		ModelAndView mav = new ModelAndView("board/boardListD");
+		logger.info("D 수정 내용 {} : "+params);
+		service.modifyD(board_no, params, file);
+		
+		return mav;
+	}
 }

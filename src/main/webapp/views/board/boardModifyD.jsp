@@ -27,16 +27,16 @@
         #common_list_form .list_form .list_content ul li:nth-child(4){width: 15%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 10%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}	
-		
+        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
+
 		#board_title {
-	    width: 50%;
-	    padding: 10px;
-	    box-sizing: border-box;
-	    border: 1px solid #ccc;
-	    border-radius: 5px;
-	    margin-top: 5px;
-	    font-family: 'Arial', sans-serif; 
+		    width: 50%;
+		    padding: 10px;
+		    box-sizing: border-box;
+		    border: 1px solid #ccc;
+		    border-radius: 5px;
+		    margin-top: 5px;
+		    font-family: 'Arial', sans-serif; 
 		}
 		
 		#board_title:focus {
@@ -69,7 +69,7 @@
 		    cursor: pointer;
 		    margin-right: 5px;
 		}
-		
+
 </style>
 </head>
 <body>
@@ -79,7 +79,7 @@
     <!-- <h3 class="sub_title">리스트 폼</h3> -->
     <div class="allpadding" style="padding-left: 50px;">
 	    <div class="list_form">
-	        <form id="sendModify" action="modify" method="post" enctype="multipart/form-data" onsubmit="return val()">
+	        <form id="sendModifyD" action="modifyD" method="post" enctype="multipart/form-data" onsubmit="return val()">
 	    		<input type="hidden" name="board_no" value="${board.board_no}" />
 		    <ul>
 		        <li>
@@ -101,7 +101,7 @@
 		        </li>
 		        <br/>
 		        <li>
-		            <input type="button" onclick="location.href='/board'" value="이전" />
+		            <input type="button" onclisck="location.href='/boardD'" value="이전" />
 		            <button type="button" onclick="confirmModify()">수정</button>
 		        </li>
 		    </ul>
@@ -112,15 +112,12 @@
 
 </body>
 <script>
+
 	var config = {}
 	config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
 	config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
 	var editor = new RichTextEditor("#board_content", config);
-	
-	function goBack() {
-	    window.history.back();
-	  }
-	  
+
 	function val(){
 	var board_title = $('#board_title').val();
 	var board_content=$('#board_content').val();
@@ -134,7 +131,7 @@
 	function confirmModify() {
 	    var userConfirmed = confirm("수정하시겠습니까?");
 	    if (userConfirmed) {
-	    	document.getElementById('sendModify').submit();
+	    	document.getElementById('sendModifyD').submit();
 	    
 	    }
 	    
