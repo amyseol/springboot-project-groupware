@@ -614,12 +614,13 @@
                 url: "/organization/detail/" + member_no,
                 success: function(member) {
                 	var popupContent = '<div style="display: flex;">';
+                	console.log(member);
                 	
-                	member.forEach(function(item){
+                	member.list.forEach(function(item){
 	                    // 팝업의 내용을 생성
 	                    popupContent += 
 	                        '<div style="flex: 1;">' +
-	                        '<img src="' + item.profileImg + '" alt="프로필 사진" style="max-width: 100%;">' +
+	                        '<img src="' + item.file_newname + '" alt="프로필 사진" style="max-width: 100%;">' +
 	                        '<p>' + item.name + ' ' + item.member_position + '</p>' +
 	                        '</div>' +
 	                        '<div style="flex: 1; padding-left: 10px;">' +

@@ -12,14 +12,19 @@
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .titleWrap{position: relative; display: flex;}
         #common_list_form .count{position: absolute; top: 80px; left: 220px;}
+        #common_list_form #mailListAllCheck{width: 20px; height: 50px;}
+        #common_list_form #toolbar{display:flex;}
+        #common_list_form #toolbar li{margin-right: 18px;}
+        #common_list_form #toolbar #readOption{width:100%; height:100%;}
+        
+        
         #common_list_form .list_form{position:relative; width: 90%; margin-left: 50px;}
         #common_list_form .list_form .list_title ul{width: 100%;}
         #common_list_form .list_form .list_title ul li{float: left;}
-        #common_list_form .list_form .list_title #mailListAllCheck{width: 20px; height: 50px;}
         #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 50px; height: 30px; text-align: center;}
         #common_list_form .list_form .list_title .btn_submenu .btn_tool{position: relative; top: 5px;}
-        #common_list_form .list_form .list_content {padding-top: 60px;}
-        #common_list_form .list_form .list_content ul{width: 100%; height: 30px;}
+        #common_list_form .list_form .list_content {}
+        #common_list_form .list_form .list_content ul{width: 100%; height: 40px;}
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box; text-align: center;}
         #common_list_form .list_form .list_content ul li:first-child{width: 5%; padding-left: 50px;}
         #common_list_form .list_form .list_content ul li:nth-child(2){width: 5%;}
@@ -30,7 +35,7 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
         
-        #common_list_form .search_box{position: relative; margin: 0px 0 10px 50px; border: 1px solid #fff; display: inline-block; right: -800px;}
+        #common_list_form .search_box{position: relative; margin: 0px 0 10px 50px; border: 1px solid #fff; display: flex;}
         #common_list_form .search_box #search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
         #common_list_form .search_box #search_info::placeholder{color: #ccc;}
         #common_list_form .search_box .btn_box{width: 28px; height: 28px; cursor: pointer; border: 1px solid #ccc; box-sizing: border-box; border-left: none;}
@@ -61,7 +66,7 @@
 			background-color: gray;
 		}
 
-
+		.pagingBox .container{width:100%;}
     </style>
 <body>
 	<%@ include file="/views/nav.jsp" %>
@@ -83,9 +88,20 @@
 
 
         <div class="list_form">
+			<!-- 검색 바 -->
+            <ul class="search_box">
+            	<li>
+            		<input type="text" id="search_info" onkeydown="handleKeyDown(event)" placeholder="사원명 또는 제목을 입력해주세요.">
+                </li>
+                <li class="btn_box">
+                     <div class="search_btn">
+                     	<img src="./img/search.png" alt="검색 버튼" onclick="search()">
+                     </div>
+               	</li>
+			</ul>
             <ul>
                 <li class="list_title">
-                    <ul>
+                    <ul id="toolbar">
                         <!-- 툴바 -->
                         <li>
                             <input type="checkbox" id="mailListAllCheck" name="mailAllcheck" value="off">
@@ -100,26 +116,12 @@
                                 <span class="txt_caution">삭제</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="btn_submenu">
                             <select id="readOption">
                                 <option value="all">전체</option>
                                 <option value="read">읽음</option>
                                 <option value="unread">안읽음</option>
                             </select>
-                        </li>
-
-                        <li>
-                            <!-- 검색 바 -->
-                            <ul class="search_box">
-                                <li>
-                                    <input type="text" id="search_info" onkeydown="handleKeyDown(event)" placeholder="사원명 또는 제목을 입력해주세요.">
-                                </li>
-                                <li class="btn_box">
-                                    <div class="search_btn">
-                                        <img src="./img/search.png" alt="검색 버튼" onclick="search()">
-                                    </div>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </li>
@@ -134,7 +136,7 @@
             <!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
             <div class="container">
                 <nav aria-label="Page navigation" style="text-align: center">
-                    <ul class="pagination" id="pagenation"></ul>
+                    <ul class="pagination" id="pagination"></ul>
                 </nav>
             </div>
         </div>
@@ -260,9 +262,9 @@
 	}
 	
 	function updatePagination(totalPages) {
-		$(".pagination").twbsPagination('destroy'); // 기존 페이징 제거
+		$("#pagination").twbsPagination('destroy'); // 기존 페이징 제거
 		
-		 $("#pagenation").twbsPagination({
+		 $("#pagination").twbsPagination({
 		        startPage: showPage, 
 		        totalPages: totalPages, 
 		        visiblePages:5,

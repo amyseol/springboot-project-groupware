@@ -74,7 +74,7 @@
         #memberInfo {background-color: #fefefe; margin: 1% auto; padding: 20px; border: 1px solid #888; width: 80%;}
 
         /* 닫기 버튼 스타일 */
-        .close {display: none; color: #aaa; float: right; font-size: 28px; font-weight: bold;}
+        .close {display: none; color: #aaa; float: right; font-size: 28px; font-weight: bold; display: revert;}
 
         .close:hover,
         .close:focus {color: black; text-decoration: none; cursor: pointer;}
@@ -229,7 +229,6 @@
 	    <!-- 직원 정보 모달 팝업 -->
 	    <div id="memberModal">
 	        <div id="memberInfo">
-	        <span class="close" onclick="closeModal()">&times;</span>
 	        <!-- 직원 정보 -->
 	        </div>
 	    </div>
@@ -499,12 +498,12 @@ var selecEl = null;
                 url: "/organization/detail/" + member_no,
                 success: function(member) {
                 	var popupContent = '<div style="display: flex;">';
-                	
-                	member.forEach(function(item){
+                	console.log(member);
+                	member.list.forEach(function(item){
 	                    // 팝업의 내용을 생성
-	                    popupContent += 
+	                    popupContent +=
 	                        '<div style="flex: 1;">' +
-	                        '<img src="' + item.profileImg + '" alt="프로필 사진" style="max-width: 100%;">' +
+	                        '<img src="/photo/' + member.file_newname + '" alt="프로필 사진" style="max-width: 100%;">' +
 	                        '<p>' + item.name + ' ' + item.member_position + '</p>' +
 	                        '</div>' +
 	                        '<div style="flex: 1; padding-left: 10px;">' +
@@ -512,6 +511,7 @@ var selecEl = null;
 	                        '<p><strong>연락처:</strong> ' + item.phone + '</p>' +
 	                        '<p><strong>이메일:</strong> ' + item.email + '</p>' +
 	                        '</div>' +
+	                        '<span class="close" onclick="closeModal()"> X </span>' +
 	                        '</div>';
                 	});
 
