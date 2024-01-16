@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.gudi.approval.dto.ApprovalDTO;
 import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.vo.MemberVO;
@@ -73,8 +74,6 @@ public interface MemberDAO {
 
 	Map<String, Object> getMemberInfo(int member_no);
 	
-	String findFileName(String member_no);
-
 	void updateTotalMember();
 
 	ArrayList<MemberDTO> departTotal();
@@ -85,5 +84,23 @@ public interface MemberDAO {
 
 	ArrayList<MemberDTO> getTeam(String depart_no);
 
+
+	void updateDpt(HashMap<String, String> param);
+
+	ArrayList<MemberDTO> detailTeam(String depart_name);
+
+	ArrayList<MemberDTO> getOrgChartData();
+
+	ArrayList<ApprovalDTO> dptInfo();
+
+	ArrayList<ApprovalDTO> memberInfo();
 	String getFileName(int member_no);
+
+	String findFileName(String member_no);
+
+	void createDpt(HashMap<String, String> param);
+
+	void delDpt(String depart_no);
+
+	void delMember(String member_no, String resign_date);
 }

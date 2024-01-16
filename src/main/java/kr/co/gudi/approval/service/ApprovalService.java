@@ -66,7 +66,7 @@ public class ApprovalService {
 	}
 	
 	// 공통 조직도 내용
-	private void commApprOrganization() {
+	public void commApprOrganization() {
 		ArrayList<ApprovalDTO> departments =  apprDao.departmentsInfo();
 		ArrayList<ApprovalDTO> teams = apprDao.departmentsInfo();
 		ArrayList<ApprovalDTO> members = apprDao.membersInfo();
@@ -75,6 +75,7 @@ public class ApprovalService {
 		mav.addObject("teams", teams);
 		mav.addObject("members", members);
 	}
+	
 	
 	// 결재요청
 	public ModelAndView approvalWrite(HashMap<String, String> params, MultipartFile[] files, int member_no, String[] observer) {
