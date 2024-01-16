@@ -62,4 +62,8 @@ public class NotiService {
 		return map;
 	}
 
+	public void deleteNoti() {
+		dao.deleteNoti();
+	}
+
 }

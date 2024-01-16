@@ -70,4 +70,5 @@
 		SELECT file_oriname, file_newname FROM file 
 			WHERE file_unique_no=#{param1} and file_location = "l"
 	</select>
+
 </mapper>
