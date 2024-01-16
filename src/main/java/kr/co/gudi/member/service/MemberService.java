@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.gudi.approval.dto.ApprovalDTO;
 import kr.co.gudi.member.dao.MemberDAO;
 import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberDTO;
@@ -204,6 +207,7 @@ public class MemberService implements UserDetailsService{
 
 
 	public HashMap<String, Object> departList(String departState) {
+		updateTotalMember();
 		String depart_state="";
 		ArrayList<MemberDTO> dto = new ArrayList<MemberDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -219,7 +223,7 @@ public class MemberService implements UserDetailsService{
 
 
 	public List<MemberDTO> getDepartList() {
-		
+		updateTotalMember();
 		return dao.getDepartList();
 	}
 
@@ -256,7 +260,61 @@ public class MemberService implements UserDetailsService{
 		return map;
 	}
 
+
+	public void updateDpt(HashMap<String, String> param) {
+		dao.updateDpt(param);
+		
+	}
+
+	public HashMap<String, Object> detailTeam(String depart_name) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<MemberDTO>dto =dao.detailTeam(depart_name);
+		map.put("detail", dto);
+		return map;
+	}
+
+	public HashMap<String, Object> getOrgChartData() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<MemberDTO>dto =dao.getOrgChartData();
+		map.put("dto", dto);
+		return map;
+	}
+
+	// 공통 조직도 내용(부서용)
+	public ModelAndView organizationList() {
+		ArrayList<ApprovalDTO> departments =  dao.dptInfo();
+		ArrayList<ApprovalDTO> teams = dao.dptInfo();
+		ArrayList<ApprovalDTO> members = dao.memberInfo();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("departments", departments);
+		mav.addObject("teams", teams);
+		mav.addObject("members", members);
+		return mav;
+	}
+
 	public String getFileName(int member_no) {
 		return dao.getFileName(member_no);
 	}
+
+	public void createDpt(HashMap<String, String> param) {
+		dao.createDpt(param);
+		
+	}
+
+	public void delDpt(String depart_no) {
+		dao.delDpt(depart_no);
+		
+	}
+
+	public void delMember(String member_no) {
+		 // 현재 날짜를 가져오기
+        LocalDate currentDate = LocalDate.now();
+
+        // 형식 지정하여 출력 (선택사항)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String resign_date = currentDate.format(formatter);
+        dao.delMember(member_no,resign_date);
+		
+	}
+
 }

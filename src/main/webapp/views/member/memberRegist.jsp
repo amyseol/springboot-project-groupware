@@ -8,37 +8,124 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f7f33f996b442a5d86588bc9173489c3&libraries=services" type="text/javascript"></script>
 <style>
-    table, th, td{
-        border: 1px solid black;
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #2d6a4f;
+        margin: 0;
+        padding: 0;
+    }
+
+    #memberBox {
+    	margin-left:400px;
+    	padding-top:120px;
+    	padding-bottom:60px;
+        max-width: 700px;
+        height:800px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        position:relative;
+    }
+
+    .registTable{
+        width: 100%;
         border-collapse: collapse;
-        padding: 5px 10px;
+        
     }
-    .phoneBox{
-    	width:50px;
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+        background: #899857;
+
     }
+
+    input[type="file"] {
+        display: none;
+        margin-left:250px;
+    }
+
+    .phoneBox, .emailBox {
+        width: 80px;
+    }
+
+    .registBtn {
+        padding: 3px;
+        background-color: #FEB72B;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .registBtn:hover {
+        background-color: #45a049;
+    }
+
+    input[type="submit"] {
+        padding: 10px;
+        background-color: #008CBA;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0073aa;
+    }
+
+    .registInput {
+        width: 50%;
+        padding: 8px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        border-radius: 4px;
+    }
+
+    input[type="radio"] {
+        margin-right: 5px;
+    }
+
+    .phoneBox{width:50px;}
+   
+    .selDate{width:150px;}
+	
+	.registImg{height:220px;}
+	
+	img{margin-left:250px;}
+
 </style>
 </head>
 <body>
+<%@ include file="/views/nav.jsp" %>
+<div id="memberBox">
 <form action="join" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-     <table>
+     <table class="registTable">
      	<tr>
-             <th>
-        		 <img id="idImage" src="#" alt="ID Image Preview" style="max-width: 70px; max-height: 100px;"/>
+             <th class="registImg" colspan="2">
+        		 <img id="idImage" src="#" alt="ID Image Preview" style="max-width: 140px; max-height: 200px;"/>
    			 </th>   
-   			 <th>
+     	</tr>
+   		<tr>
+   			<th colspan="2" class="fileBtn">
        			 <input type="file" name="uploadFile" accept="image/*" onchange="previewImage(this, 'idImage')"/>
    			 </th>  	
-     	</tr>
+   		</tr>
          <tr>
              <th>PW</th>
              <th>
-                 <input type="password" name="pw" readonly value="1111"/>
+                 <input type="password" class="registInput" name="pw" readonly value="1111"/>
              </th>
          </tr>
          <tr>
              <th>이&nbsp;&nbsp;&nbsp;&nbsp;름</th>
              <th>
-                 <input type="text" name="name"/>
+                 <input type="text" class="registInput" name="name"/>
              </th>
          </tr>
          <tr>
@@ -52,11 +139,11 @@
          <tr>
              <th>생년월일</th>
              <th>
-                 <select id="birthYearSelect" name="birthY">
+                 <select id="birthYearSelect" class="selDate" name="birthY">
                  </select>년
-                 <select id="birthMonthSelect" name="birthM">
+                 <select id="birthMonthSelect" class="selDate" name="birthM">
                  </select>월
-                 <select id="birthDaySelect" name="birthD">
+                 <select id="birthDaySelect" class="selDate" name="birthD">
                  </select>일
              </th>
          </tr>
@@ -72,7 +159,7 @@
              <th>이메일</th>
              <th>
                  <input type="text" class="emailBox" name="email1"/>@
-                 <select name="email2">
+                 <select name="email2" class="selDate">
                  	<option>gmail.com</option>
                  	<option>naver.com</option>
                  	<option>hanmail.com</option>
@@ -83,28 +170,28 @@
 			<th>주소</th>
 			<th>
 					<input type="text" class="radio-value-detail" id="addr_kakao" name="address" readonly>
-					<button id="addr" onclick="showMap(event)">주소찾기</button>	
+					<button id="addr" class="registBtn" onclick="showMap(event)">주소찾기</button>	
 			</th>		
 		</tr>
 			<tr>
 				<th>상세 주소</th>
-				<th><input type="text" class="radio-value-detail" name="address_detail" placeholder="상세주소를 입력해 주세요."></th>
+				<th><input type="text" class="registInput" name="address_detail" placeholder="상세주소를 입력해 주세요."></th>
 			</tr>
          <tr>
              <th>입사일</th>
              <th>
-                 <select id="yearSelect" name="hiredY">
+                 <select id="yearSelect" name="hiredY" class="selDate">
                  </select>년
-                 <select id="monthSelect" name="hiredM">
+                 <select id="monthSelect" name="hiredM" class="selDate">
                  </select>월
-                 <select id="daySelect" name="hiredD">
+                 <select id="daySelect" name="hiredD" class="selDate">
                  </select>일
              </th>
          </tr>
          <tr>
           <th>직급</th>
              <th>
-                 <select name="member_position">
+                 <select name="member_position" class="selDate">
                  	<option>사원</option>
                  	<option>대리</option>
                  	<option>과장</option>
@@ -118,7 +205,7 @@
          <tr>
           <th>부서</th>
              <th>
-                 <select id="selectedDptno">
+                 <select id="selectedDptno" class="selDate">
             		<c:forEach items="${depart}" var="department">
             		<c:if test="${department.depart_p_no eq 0}">
                 	<option value="${department.depart_no}">${department.depart_name}</option>
@@ -130,7 +217,7 @@
          <tr>
           <th>팀</th>
              <th>
-                 <select id="teamSelect" name="depart_name">    
+                 <select id="teamSelect" name="depart_name" class="selDate">    
                  <c:forEach items="${depart}" var="department">
             		<c:if test="${department.depart_p_no eq 1}">
                 	<option>${department.depart_name}</option>
@@ -141,12 +228,13 @@
          </tr>
          <tr>
              <th colspan="2">
-             	 <button type="button" onclick="cancelForm()">취소</button>
+             	 <button type="button" class="registBtn" onclick="cancelForm()">취소</button>
                  <input type="submit" value="생성"/>
              </th>
          </tr>
      </table>
  </form>
+ </div>
 </body>
 <script>
 var depart_no=1;

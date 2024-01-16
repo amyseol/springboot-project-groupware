@@ -7,20 +7,39 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
 <style>
-    table, th, td{
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px 10px;
-    }
-    .phoneBox{
-    	width:50px;
-    }
+
     #memberDetail{margin-left: 15%; height: 100px;}
     #memberDetail .detailInner{position: relative; width: 800px; height:300px; padding:100px 0 0 15%;}
     #memberDetail .detailInner .detailBox{position: relative;}
-    #memberDetail .detailInner .detailBox li{float: left; background-color: #d34; width:70%; height: 30px; border: 1px solid #222; box-sizing: border-box;}
-    #memberDetail .detailInner .detailBox li:nth-child(2n){width: 30%; background-color: yellow;}
-    #memberDetail .detailInner .detailBox li:first-child{width: 100%; height: 200px;}
+    #memberDetail .detailInner .detailBox li{float: left; background-color: #351C4D; color:white; width:70%; height: 30px; border: 1px solid #FF725F; box-sizing: border-box;
+    text-align: center;}
+    #memberDetail .detailInner .detailBox li:nth-child(2n){width: 30%; background-color: #351C4D; color:white;}
+    #memberDetail .detailInner .detailBox li:first-child{width: 100%; height: 220px;}
+    #memberDetail .detailInner .detailBox li:last-child{width: 100%; height: 50px; padding:5px;}
+    
+    img{
+    margin-left: 250px;
+    margin-top:10px;
+    border: 1px solid #FF725F;
+    }
+    
+    .button-orange {
+    background-color: #FF725F; /* 주황색 */
+    color: #fff; /* 흰색 텍스트 */
+    padding: 10px 20px; /* 적절한 패딩 값 */
+    border: none;
+    border-radius: 4px; /* 둥근 모서리를 위한 값 */
+    cursor: pointer;
+}
+
+.button-orange:hover {
+    background-color: #FF8C00; /* 버튼에 호버될 때 변경될 색상 */
+}
+
+body{
+	background-color: #FEB47B;
+	font-family: 'Arial', sans-serif;
+}
 </style>
 </head>
 <body>
@@ -30,7 +49,7 @@
 		<ul class="detailBox">
 			<li class="memberImg">
 			<div class="imgBox">			
-    			<img src="/photo/${file}" width="300" height="300"/>				
+    			<img src="/photo/${file}" width="140" height="200"/>				
 			</div>
 			</li>
 			<c:forEach items="${dto}" var="detail">
@@ -61,13 +80,10 @@
 			<li>팀</li>
 			<li>${team_name}</li>
 			<li>연/월차수</li>
-			<li>${detail.total_leave}</li>
-			<li>차량등록번호</li>
-			<li>${detail.member_car_no}</li>
-			<li></li>
+			<li>${detail.total_leave}</li>		
 			<li>
-			<button onclick="memberUpdate(${detail.member_no})">수정</button>
-			<button onclick="location.href='memberList'">확인</button>
+			<button class="button-orange" onclick="memberUpdate(${detail.member_no})">수정</button>
+			<button class="button-orange" onclick="location.href='memberList'">확인</button>
 			</li>
 			</c:forEach>
 		</ul>
@@ -78,7 +94,14 @@
 </body>
 <script>
 function memberUpdate(member_no){
-	window.location.href = '/update?member_no=' + member_no;
+	var confirmMessage = "직원정보를 수정하시겠습니까?";
+	if (confirm(confirmMessage)) {
+		window.location.href = '/update?member_no=' + member_no;
+        document.getElementById('delDptForm').submit();
+    } else {
+        console.log("수정 취소됨");
+    }
+
 }
 </script>
 </html>
