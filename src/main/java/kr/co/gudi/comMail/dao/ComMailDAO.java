@@ -57,5 +57,10 @@ public interface ComMailDAO {
 	void updateSeState(String note_no);
 
 	void updateReState(String note_no);
+
+	// 메일 답장시 보낸 사람의 이름을 가져온다 
+	String getSender(String note_no);
+
+	void mailFileUpload(String oriFileName, String newFileName, int note_no, String size);
 	
 }
