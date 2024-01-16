@@ -54,7 +54,7 @@
         #nav .gnb a li .arrow{position:absolute; right:30px; top:12px;}
         #nav .gnb a li .arrow svg{width:100%; transition:0.3s;}
 
-        #util{position:fixed; right:0; height: 80px;}
+        #util{position:fixed; right:0; height: 80px; z-index: 9999;}
         #util .util_inner{position:relative; top:30px; right:50px; width:300px; height: 55px;}
         #util .util_inner li{width: 55px; height: 55px; border-radius: 25px; background-color: #fff; float:left; margin-right:15px; cursor: pointer; overflow: hidden; box-shadow: 1px 1px 3px 1px #ddd;}
         #util .util_inner li:last-child{margin-right:0;}
@@ -110,15 +110,15 @@
             <h1 class="logo"><a href="/main">Hoony Music</a></h1>
             <ul class="gnb">
                 <a href="/board"><li class="dep1">게시판</li></a>
-                <a href="javascript:"><li class="dep1" data-index="1">쪽지
+                <a href="javascript:"><li class="dep1" data-index="1">메일
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
                     </svg></div>
                 </li></a>
                 <ul data-index="1">
-                    <a href="/writeMail"><li class="dep2">쪽지 쓰기</li></a>
-                    <a href="/receiveMail"><li class="dep2">받은 쪽지함</li></a>
-                    <a href="/sendMail"><li class="dep2">보낸 쪽지함</li></a>
+                    <a href="/writeMail"><li class="dep2">메일 쓰기</li></a>
+                    <a href="/receiveMail"><li class="dep2">받은 메일함</li></a>
+                    <a href="/sendMail"><li class="dep2">보낸 메일함</li></a>
                 </ul>
                 <a href="javascript:"><li class="dep1" data-index="2">전자결재
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
