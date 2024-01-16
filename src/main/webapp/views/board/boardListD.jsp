@@ -29,48 +29,66 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
+		li button, input[type="button"] {
+		    background-color: #ccc;
+		    padding: 5px 10px;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+	    color: #fff; 
+		}
 		
+		
+		.searchbox {
+	        text-align: center; 
+	        margin-top: 20px; 
+	    }
+	
+	    .searchbox h5 {
+	        margin-bottom: 0; 
+	    }
+	
+	    #board_name {
+	        width: 400px;
+	    }
+	    
+	    
     </style>
 <body>
 <%@ include file="/views/nav.jsp" %>
   <!-- -------------------------------------------list_form start------------------------------------------ -->
-  
+  	
     <section id="common_list_form">
 	<h2 class="big_title">공지사항</h2>
 	<h3 class="sub_title">전사 게시판</h3>
-        
-        <li><button onclick="location.href='boardWriteD'">글작성</button></li>
-        
-
-        <div class="list_form">
-            <ul>
-                <li class="list_title">
-                    <ul>
-                        <li>글번호</li>
-                        <li>제목</li>
-                        <li>작성자</li>
-                        <li>작성일자</li>
-                        <li>조회수</li>
-                    </ul>
-                </li>
-                <li class="list_content" id="listD">
-
-                </li>
-            </ul>
-        </div>
-        
-        
-        
-        
+        <div class="allpadding" style="padding-left: 50px;">
+	        <li><button onclick="location.href='boardWriteD'">글작성</button></li>
+	        <br/>
+	
+	        <div class="list_form">
+	            <ul>
+	                <li class="list_title">
+	                    <ul>
+	                        <li>글번호</li>
+	                        <li>제목</li>
+	                        <li>작성자</li>
+	                        <li>작성일자</li>
+	                        <li>조회수</li>
+	                    </ul>
+	                </li>
+	                <li class="list_content" id="listD">
+	
+	                </li>
+	            </ul>
+	        </div>
+	     </div>   
+	        
         <br/>
         <!------- 검색 ------->
         <div class="searchbox" >
 			<div> <h5>작성자/제목으로 검색하기 :  <input type="text" id="board_name" onkeydown="handleKeyDown(event)"/>
-			<input type="button" value="검색" onclick="listCall('1')"/></h5></div> 
+		<input type="button" value="검색" onclick="listCall('1')"/></h5></div> 
 		</div>
-        
-        
-        
         
         <div id="paging" class="pagingBox">
 			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
@@ -80,6 +98,7 @@
 				</nav>
 			</div>
 		</div>
+		
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
 </body>

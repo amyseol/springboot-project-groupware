@@ -30,13 +30,13 @@
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
 		#board_title {
-	    width: 50%;
-	    padding: 10px;
-	    box-sizing: border-box;
-	    border: 1px solid #ccc;
-	    border-radius: 5px;
-	    margin-top: 5px;
-	    font-family: 'Arial', sans-serif; 
+		    width: 50%;
+		    padding: 10px;
+		    box-sizing: border-box;
+		    border: 1px solid #ccc;
+		    border-radius: 5px;
+		    margin-top: 5px;
+		    font-family: 'Arial', sans-serif; 
 		}
 		
 		#board_title:focus {
@@ -77,43 +77,47 @@
 	<section id="common_list_form">
     <h2 class="big_title">공지사항</h2>
     <!-- <h3 class="sub_title">리스트 폼</h3> -->
-    
-    <div class="list_form">
-        <form action="modifyD" method="post" enctype="multipart/form-data" onsubmit="return val()">
-    		<input type="hidden" name="board_no" value="${board.board_no}" />
-	    <ul>
-	        <li>
-	            <h5><label for="board_title">제목</label></h5>
-	            <input type="text" id="board_title" name="board_title" value="${board.board_title}" />
-	        </li>
-	        <li>
-	            <h5><label for="board_content">내용</label></h5>
-	            <textarea id="board_content" name="board_content">${board.board_content}</textarea>
-	            <!-- 
-	            <div id="rich_deditor"></div>
-				
-				<input type="hidden" name="board_content" value="${board.board_content}"/>
-				 -->
-	        </li>
-	        <li>
-	            <h5><label for="photos">사진</label></h5>
-	            <input type="file" id="photos" name="photos" />
-	        </li>
-	        <li>
-	            <input type="button" onclick="location.href='/boardD'" value="이전" />
-	            <button type="submit" onclick="location.href='/boardD'">수정</button>
-	        </li>
-	    </ul>
-		</form>
+    <div class="allpadding" style="padding-left: 50px;">
+	    <div class="list_form">
+	        <form id="sendModifyD" action="modifyD" method="post" enctype="multipart/form-data" onsubmit="return val()">
+	    		<input type="hidden" name="board_no" value="${board.board_no}" />
+		    <ul>
+		        <li>
+		            <h5><label for="board_title">제목</label></h5>
+		            <input type="text" id="board_title" name="board_title" value="${board.board_title}" />
+		        </li>
+		        <li>
+		            <h5><label for="board_content">내용</label></h5>
+		            <textarea id="board_content" name="board_content">${board.board_content}</textarea>
+		            <!-- 
+		            <div id="rich_deditor"></div>
+					
+					<input type="hidden" name="board_content" value="${board.board_content}"/>
+					 -->
+		        </li>
+		        <li>
+		            <h5><label for="photos">사진</label></h5>
+		            <input type="file" id="photos" name="photos" />
+		        </li>
+		        <br/>
+		        <li>
+		            <input type="button" onclick="location.href='/boardD'" value="이전" />
+		            <button type="button" onclick="confirmModify()">수정</button>
+		        </li>
+		    </ul>
+			</form>
+		</div>
 	</div>
 	</section>
 
 </body>
 <script>
+/*
 var config = {}
 config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
 config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
 var editor = new RichTextEditor("#board_content", config);
+*/
 
 function goBack() {
     window.history.back();
@@ -127,6 +131,15 @@ if (board_title === "" || board_content === "") {
     return false;
 	}
 	return true;
+}
+
+function confirmModify() {
+    var userConfirmed = confirm("수정하시겠습니까?");
+    if (userConfirmed) {
+    	document.getElementById('sendModifyD').submit();
+    
+    }
+    
 }
 </script>
 </html>

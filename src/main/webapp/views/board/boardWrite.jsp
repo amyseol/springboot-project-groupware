@@ -34,13 +34,22 @@
 
 
 		#board_title {
-	    width: 80%;
-	    padding: 10px;
-	    box-sizing: border-box;
-	    border: 1px solid #ccc;
-	    border-radius: 5px;
-	    margin-top: 5px;
-	    font-family: 'Arial', sans-serif; /* 원하는 폰트로 변경 가능 */
+		    width: 80%;
+		    padding: 10px;
+		    box-sizing: border-box;
+		    border: 1px solid #ccc;
+		    border-radius: 5px;
+		    margin-top: 5px;
+		    font-family: 'Arial', sans-serif;
+		}
+		
+		li button, input[type="button"] {
+		    background-color: #ccc;
+		    padding: 5px 10px;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    color: #fff; 
 		}
 		
 </style>
@@ -50,37 +59,37 @@
 	<section id="common_list_form">
     <h2 class="big_title">공지사항</h2>
     <h3 class="sub_title">부서 게시판</h3>
-
-    <div class="list_form">
-        <form action="write" method="post" enctype="multipart/form-data" onsubmit="return val()">
-        <ul>
-            <li class="list_list">
-	    <ul>
-	        <li>
-	            <h5><label for="board_title">제목</label></h5>
-	            <input type="text" id="board_title" name="board_title" placeholder="제목을 입력해주세요."/>
-	        </li>
-	        <li>
-	        <h5>내용</h5>
-	        	<div id="rich_deditor"></div>
-				
-				<input type="hidden" id="board_content" name="board_content" value=""/>
-	            <!-- <textarea id="board_content" name="board_content"></textarea> -->
-	        </li>
-	        <li>
-	            <h5><label for="photos">사진</label></h5>
-	            <input type="file" id="photos" name="photos" multiple="multiple" />
-	        </li>
-	        <li>
-	            <button type="button" onclick="location.href='/board'">취소</button>
-	            <button type="submit">저장</button>
-	        </li>
-	    </ul>
-	    </li>
-	    </ul>
-		</form>
-
-        
+	<div class="allpadding" style="padding-left: 50px;">
+    	<div class="list_form">
+	        <form action="write" method="post" enctype="multipart/form-data" onsubmit="return val()">
+	        <ul>
+	            <li class="list_list">
+		    <ul>
+		        <li>
+		            <h5><label for="board_title">제목</label></h5>
+		            <input type="text" id="board_title" name="board_title" placeholder="제목을 입력해주세요."/>
+		        </li>
+		        <li>
+		        <h5>내용</h5>
+		        	<div id="rich_deditor"></div>
+					
+					<input type="hidden" id="board_content" name="board_content" value=""/>
+		            <!-- <textarea id="board_content" name="board_content"></textarea> -->
+		        </li>
+		        <li>
+		            <h5><label for="photos">사진</label></h5>
+		            <input type="file" id="photos" name="photos" multiple="multiple" />
+		        </li>
+		        <br/>
+		        <li>
+		            <button type="button" onclick="confirmCancel()">취소</button>
+		            <button type="submit">저장</button>
+		        </li>
+		    </ul>
+		    </li>
+		    </ul>
+			</form>
+		</div>
     </div>
     </section>
 </body>
@@ -100,10 +109,13 @@ if (board_title === "" || board_content === "") {
 	}
 	return true;
 }
-//ClassicEditor
-//.create( document.querySelector( '#editor' ) )
-//.catch( error => {
-//  console.error( error );
-//} );
+
+function confirmCancel() {
+    var userConfirmed = confirm("취소하시겠습니까?");
+    if (userConfirmed) {
+        location.href = '/board'; 
+    }
+    
+}
 </script>
 </html>

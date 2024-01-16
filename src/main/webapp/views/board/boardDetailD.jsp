@@ -28,6 +28,26 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
         
+        li button, input[type="button"] {
+		    background-color: #ccc;
+		    padding: 5px 10px;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    color: #fff; 
+		}
+		
+		.buttonlist {
+		    text-align: center;
+		}
+		
+		.buttonlist li {
+		    display: inline-block;
+		    margin-left: 10px; 
+		}
+		
+		
+		
 </style>
 </head>
 <body>
@@ -35,45 +55,62 @@
 	<section id="common_list_form">
         <h2 class="big_title">공지사항</h2>
         <h3 class="sub_title">전사 게시판</h3>
-        
-		<ul>
-	    <li>
-	        <label for="board_title">제목</label>
-	        <span id="board_title">${board.board_title}</span>
-	    </li>
-	    <li>
-	        <label for="bHit">조회수</label>
-	        <span id="bHit">${board.bHit}</span>
-	    </li>
-	    <li>
-	        <label for="board_depart">작성자</label>
-	        <span id="board_depart">${board.board_depart}</span>
-	    </li>
-	    <li>
-	        <label for="board_content">내용</label>
-	        <span id="board_content">${board.board_content}</span>
-	    </li>
-    
-    	<c:if test="${photos.size() > 0}">
-	        <li>
-	            <label for="board_photos">사진</label>
-	            <span id="board_photos">
-	                <c:forEach items="${photos}" var="file">
-	                    <img src="/photo/${file.file_newname}" width="500" alt="${file.file_oriname}" />
-	                </c:forEach>
-	            </span>
-	        </li>
-    	</c:if>
-	
-		<li>
-        	<input type="button" onclick="location.href='/boardD'" value="리스트" />
-		    <input type="button" onclick="location.href='./delD?board_no=${board.board_no}'" value="삭제" />
-		    <input type="button" onclick="location.href='./boardModifyD?board_no=${board.board_no}'" value="수정" />
-		</li>
-	</ul>
+        <div class="allpadding" style="padding-left: 50px;">
+			<ul>
+		    <li>
+		        <h5></h5><label for="board_title">제목</label></h5>
+		        <span id="board_title">${board.board_title}</span>
+		    </li>
+		    <li>
+		        <h5><label for="bHit">조회수</label></h5>
+		        <span id="bHit">${board.bHit}</span>
+		    </li>
+		    <li>
+		        <h5><label for="board_depart">작성자</label></h5>
+		        <span id="board_depart">${board.board_depart}</span>
+		    </li>
+		    <li>
+		        <h5><label for="board_content">내용</label></h5>
+		        <span id="board_content">${board.board_content}</span>
+		    </li>
+	    
+	    	<c:if test="${photos.size() > 0}">
+		        <li>
+		            <label for="board_photos">사진</label>
+		            <span id="board_photos">
+		                <c:forEach items="${photos}" var="file">
+		                    <img src="/photo/${file.file_newname}" width="500" alt="${file.file_oriname}" />
+		                </c:forEach>
+		            </span>
+		        </li>
+	    	</c:if>
+			<br/>
+			<div class="buttonlist">
+				<li>
+		        	<input type="button" onclick="location.href='/boardD'" value="리스트" />
+				    <input type="button" onclick="confirmDelete()" value="삭제" />
+				    <input type="button" onclick="confirmModify()" value="수정" />
+				</li>
+			</div>
+		</ul>
+	</div>
 	</section>
 </body>
 <script>
+function confirmDelete() {
+    var userConfirmed = confirm("삭제하시겠습니까?");
+    if (userConfirmed) {
+        // 사용자가 '예'를 선택한 경우
+        location.href = './delD?board_no=${board.board_no}';
+    }
+}
 
+function confirmModify() {
+    var userConfirmed = confirm("수정하시겠습니까?");
+    if (userConfirmed) {
+        // 사용자가 '예'를 선택한 경우
+        location.href = './boardModifyD?board_no=${board.board_no}';
+    }
+}
 </script>
 </html>

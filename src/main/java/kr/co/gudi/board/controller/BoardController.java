@@ -183,7 +183,7 @@ public class BoardController {
 	@GetMapping(value = "/boardModifyD")
 	public String boardModifyD(@RequestParam String board_no, Model model) {
 		logger.info("===boardModifyD 함수===");
-		model.addAttribute("boardD", service.boardModifyD(board_no));
+		model.addAttribute("board", service.boardModifyD(board_no));
 		return "board/boardModifyD";
 	}
 	
