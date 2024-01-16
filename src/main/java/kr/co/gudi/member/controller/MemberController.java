@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.gudi.approval.service.ApprovalService;
 import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.service.MemberService;
@@ -41,6 +42,7 @@ public class MemberController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired MemberService service;
+
 	
 	
 	// 로그인 페이지 이동
@@ -249,7 +251,10 @@ public class MemberController {
     }
     @GetMapping(value="/departmentList")
     public ModelAndView departmentList() {
-        return  new ModelAndView("member/departList");
+    	ModelAndView mav = service.organizationList();
+    	mav.addObject(root, mav);
+    	mav.setViewName("member/departList");
+        return  mav;
     }
     @GetMapping(value="/departmentListCall")
     @ResponseBody
@@ -265,6 +270,41 @@ public class MemberController {
     public HashMap<String, Object> detailDepart(@RequestParam String depart_no){
     	logger.info("부서 상세보기 번호 : "+depart_no);
     	return service.detailDepart(depart_no);
+    }
+    
+    @PostMapping(value="/updateDpt")
+    public ModelAndView updateDpt(@RequestParam HashMap<String, String> param){
+    	logger.info("부서수정정보 : "+param);
+    	service.updateDpt(param);
+    	return new ModelAndView("member/departList");
+    }
+    
+    @PostMapping(value="/createDpt")
+    public String createDpt(@RequestParam HashMap<String, String> param){
+    	logger.info("부서 등록 정보 : "+param);
+    	service.createDpt(param);
+    	return "redirect:/departmentList";
+    }
+    
+    @GetMapping(value="/detailTeam")
+    @ResponseBody
+    public HashMap<String, Object> detailTeam(@RequestParam String depart_name){
+    	logger.info("팀 상세보기 이름 : "+depart_name);
+    	return service.detailTeam(depart_name);
+    }
+    
+    @PostMapping(value="/delDpt")
+    public String delDpt(@RequestParam String depart_no) {
+    	logger.info("삭제할 부서번호 : "+depart_no);
+    	service.delDpt(depart_no);
+    	return "redirect:/departmentList";
+    }
+   
+    @GetMapping(value="/delMember")
+    public String delMember(@RequestParam String member_no) {
+    	logger.info("삭제할 직원 : "+member_no);
+    	service.delMember(member_no);
+    	return "redirect:/memberList";
     }
     
 }

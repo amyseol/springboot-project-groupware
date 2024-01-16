@@ -11,13 +11,16 @@
    </insert>
    
    <insert id="nWrite" parameterType="map">
-   	INSERT into notification(noti_sender,noti_receiver,noti_content,noti_locate) 
-		values(#{member_no},1,5,'s')
+	INSERT INTO notification (noti_sender, noti_receiver, noti_content, noti_locate)
+		SELECT #{member_no}, member_no, '5', 's'
+			FROM member where member_state='재직'			
    </insert>
    
    <insert id="dWrite" parameterType="map">
-   	INSERT into notification(noti_sender,noti_receiver,noti_content,noti_locate,noti_depart_no) 
-		values(#{member_no},1,6,'s',#{sch_depart})
+	INSERT INTO notification (noti_sender, noti_receiver, noti_content, noti_locate,noti_depart_no)
+		SELECT #{member_no}, m.member_no, '6', 's',  #{sch_depart}
+		FROM member m left outer join department d on d.depart_no = m.depart_no 
+			where d.depart_p_no = #{sch_depart}	
    </insert>
 
    
@@ -47,5 +50,7 @@
    			set sch_state = '1'
    			where sch_no = #{param1}
    </update>
+   
+  
 
 </mapper>

@@ -7,33 +7,50 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
 <style>
-    table, th, td{
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px 10px;
+ img{
+    margin-left: 250px;
+    margin-top:10px;
+    border: 1px solid #FF725F;
     }
-    .phoneBox{
-    	width:50px;
-    }
+    
+    .button-member {
+    background-color:  #007aff;
+    color: #fff; /* 흰색 텍스트 */
+    padding: 10px 20px; /* 적절한 패딩 값 */
+    border: none;
+    border-radius: 4px; /* 둥근 모서리를 위한 값 */
+    cursor: pointer;
+}
+
+.button-orange:hover {
+    background-color: #FF8C00; /* 버튼에 호버될 때 변경될 색상 */
+}
+
+body{
+	
+	font-family: 'Arial', sans-serif;
+}
     #memberDetail{margin-left: 15%; height: 100px;}
     #memberDetail .detailInner{position: relative; width: 800px; height:300px; padding:100px 0 0 15%;}
     #memberDetail .detailInner .detailBox{position: relative;}
-    #memberDetail .detailInner .detailBox li{float: left; background-color: #d34; width:70%; height: 30px; border: 1px solid #222; box-sizing: border-box;}
-    #memberDetail .detailInner .detailBox li:nth-child(2n){width: 30%; background-color: yellow;}
-    #memberDetail .detailInner .detailBox li:first-child{width: 100%; height: 200px;}
+    #memberDetail .detailInner .detailBox li{float: left;  width:70%; height: 30px; border: 1px solid rgb(4, 11, 80); box-sizing: border-box;
+    text-align: center;}
+    #memberDetail .detailInner .detailBox li:nth-child(2n){width: 30%;}
+    #memberDetail .detailInner .detailBox li:first-child{width: 100%; height: 250px;}
+    #memberDetail .detailInner .detailBox li:last-child{width: 100%; height: 50px; padding:5px;}
 </style>
 </head>
 <body>
 <%@ include file="/views/nav.jsp" %>
 <section id="memberDetail">
-	<form action="updateDo" method="post" enctype="multipart/form-data">
+	<form action="updateDo" id="updateDoForm"  method="post" enctype="multipart/form-data">
 	<div class="detailInner">
 		<ul class="detailBox">
 			<li class="memberImg">
 			<div class="imgBox">
 			<c:forEach items="${file}" var="photo">
+   			    <img id="previewImage${photo}" src="/photo/${photo}" width="140" height="200"/>	
     			<input type="file" name="uploadFile" accept="image/*" onchange="previewImage(this, 'previewImage${photo}')" />
-   			    <img id="previewImage${photo}" src="/photo/${photo}" />	
 			</c:forEach>			
 			</div>
 			</li>
@@ -43,7 +60,7 @@
 			<li>PW</li>
 			<li><input type="text" name="pw" value=""/></li>
 			<li>이름</li>
-			<li><input type="text" name="name" value="${detail.name}"/></li>
+			<li><input type="text" id="member_name" name="name" value="${detail.name}"/></li>
 			<li>성별</li>
 			<li><input type="text" name="gender" value="${detail.gender}"/></li>
 			<li>생년월일</li>
@@ -92,12 +109,11 @@
 			</li>
 			<li>연/월차수</li>
 			<li><input type="text" name="total_leave" value="${detail.total_leave}"/></li>
-			<li>차량등록번호</li>
-			<li><input type="text" value="${detail.member_car_no}"/></li>
-			<li><input type="hidden" name="member_no" value="${detail.member_no}" /></li>
+			<input type="hidden" id="member_no" name="member_no" value="${detail.member_no}" />
 			<li>
-			<button onclick="location.href='memberList'">취소</button>
-			<button type="submit">수정</button>
+			<button class="button-member" onclick="location.href='memberList'">취소</button>
+			<button class="button-member" type="button" id="updateBtn">수정</button>
+			<button class="button-member" type="button" id="resign">퇴사</button>
 			</li>
 			</c:forEach>
 		</ul>
@@ -208,5 +224,29 @@ $('#selectedDptno').change(function(){
 	function isValidEmail(email) {
 	    return /^[a-zA-Z0-9]+$/.test(email);
 	}
+	
+	document.getElementById('updateBtn').addEventListener('click', function() {
+		    var confirmMessage = "수정된 정보를 저장하시겠습니까?";
+
+		    if (confirm(confirmMessage)) {
+	
+		        document.getElementById('updateDoForm').submit();
+		    } else {
+
+		        console.log("수정 취소됨");
+		    }
+	});
+	
+	document.getElementById('resign').addEventListener('click', function() {
+		 var member_no = $('#member_no').val();		 
+		 var name =$('#member_name').val();
+		    var confirmMessage = name + "을 정말로 퇴사처리 하시겠습니까?";
+
+		    if (confirm(confirmMessage)) {
+		    	window.location.href = '/delMember?member_no=' + member_no;
+		    } else {
+		        console.log("퇴사 취소됨");
+		    }
+	});
 </script>
 </html>
