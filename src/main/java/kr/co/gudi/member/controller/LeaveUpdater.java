@@ -11,11 +11,13 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import kr.co.gudi.member.service.MemberService;
 
+@EnableScheduling
 @Controller
 public class LeaveUpdater {
 	    private final MemberService service;
@@ -25,7 +27,7 @@ public class LeaveUpdater {
 	        this.service = service;
 	    }
 
-	    @Scheduled(cron = "0 0 6 * * *") // 매일 오후 3시에 실행
+	    @Scheduled(cron = "0 0 6 * * *") 
 	    public void updateLeave() {
 	    	LocalDate currentDate = LocalDate.now();
 	    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd");

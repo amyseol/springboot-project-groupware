@@ -218,4 +218,41 @@
 		SELECT * FROM department 
 			where depart_p_no = #{param1}
 	</select>
+	
+	<select id="detailTeam">
+			SELECT department.*, member.name FROM department
+			LEFT JOIN member ON department.member_no = member.member_no
+			WHERE department.depart_name =#{param1}
+	</select>
+		
+	<select id="dptInfo" resultType="member">
+		SELECT depart_no, depart_p_no, depart_name FROM department
+			WHERE depart_state = 0;
+	</select>
+	
+	<select id="memberInfo" resultType="member">
+		SELECT m.member_no, m.name, m.member_position, d.depart_name, d.depart_no FROM member m
+			JOIN department d ON m.depart_no = d.depart_no
+				WHERE m.member_state = '재직';
+	</select>
+	
+	<update id="updateDpt">
+		update department set depart_name=#{depart_name},
+			member_no=#{oner_no} where depart_no=#{depart_no}
+	</update>
+	
+	<insert id="createDpt">
+		insert into department(member_no,depart_name,depart_p_no)
+			values(#{oner_no},#{depart_name},0) 
+	</insert>
+	
+	<update id="delDpt">
+		UPDATE department set depart_state ='1'
+			where depart_no =#{param1}
+	</update>
+	
+	<update id="delMember">
+		update member set member_state='퇴사', resign_date=#{param2}
+			where member_no=#{param1}
+	</update>
 </mapper>
