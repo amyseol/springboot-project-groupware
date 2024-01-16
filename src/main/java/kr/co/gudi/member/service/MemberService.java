@@ -61,7 +61,6 @@ public class MemberService implements UserDetailsService{
 		int file_no =  dao.searchFileNo(member_no);
 		param.put("file_no", file_no);
 		dao.updateProfileImg(param);
-		//String new_name = dao.findPhoto(file_no);
 		logger.info(path);
 		model.addAttribute("photo", path);
 	}
@@ -258,6 +257,7 @@ public class MemberService implements UserDetailsService{
 		return map;
 	}
 
+<<<<<<< HEAD
 	public void updateDpt(HashMap<String, String> param) {
 		dao.updateDpt(param);
 		
@@ -287,5 +287,9 @@ public class MemberService implements UserDetailsService{
 		mav.addObject("teams", teams);
 		mav.addObject("members", members);
 		return mav;
+=======
+	public String getFileName(int member_no) {
+		return dao.getFileName(member_no);
+>>>>>>> origin/master
 	}
 }

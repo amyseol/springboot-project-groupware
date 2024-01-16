@@ -25,8 +25,6 @@ public interface MemberDAO {
 	int searchFileNo(int member_no);
 	
 	MemberVO getMember();
-
-	String findPhoto(int file_no);
 	
 	List<Department> getAllDepartments();
 
@@ -88,6 +86,7 @@ public interface MemberDAO {
 
 	ArrayList<MemberDTO> getTeam(String depart_no);
 
+<<<<<<< HEAD
 	void updateDpt(HashMap<String, String> param);
 
 	ArrayList<MemberDTO> detailTeam(String depart_name);
@@ -97,4 +96,7 @@ public interface MemberDAO {
 	ArrayList<ApprovalDTO> dptInfo();
 
 	ArrayList<ApprovalDTO> memberInfo();
+=======
+	String getFileName(int member_no);
+>>>>>>> origin/master
 }

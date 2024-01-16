@@ -143,22 +143,20 @@ function drawList(list){
 	$('#albumList').empty();
 	$('#albumList').append(content);
 	
-	$('#pagination').twbsPagination({
+	$('#pagination').twbsPagination('destroy');
+ 	$('#pagination').twbsPagination({
 		startPage: list.currPage,
 		totalPages: list.pages, 
 		visiblePages: 5, 
 		onPageClick:function(e,page){ 
-			console.log('page == ', page);
-			console.log('showPage == ', showPage);
 			if(showPage != page){ 
 				//console.log(page);	
 				showPage=page;
-				listCall(showPage);
+				listCall(page);
 			}
 		}
-	});
+	}); 
 }
-
 //-------------------------------- list end ------------------------------------------
 
 

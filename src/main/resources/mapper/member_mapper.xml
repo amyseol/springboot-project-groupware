@@ -19,20 +19,19 @@
         WHERE m.member_no = #{param1};
 	</select>
 	
+	<select id="getFileName">
+		SELECT file_newname FROM file WHERE file_unique_no=#{param1} AND file_location='p'
+	</select>
+	
 	<select id="searchFileNo" resultType="int">
 		SELECT file_no FROM file
-		WHERE file_unique_no = 4 and file_location = 'p'
+		WHERE file_unique_no = #{param1} and file_location = 'p'
 	</select>
 	
 	<update id="updateProfileImg" >
 		UPDATE file SET file_newname = #{file_newname}
-			WHERE file_no = #{file_no}
+			WHERE file_no = #{file_no} AND file_location='p'
 	</update>
-	
-	<select id="findPhoto" resultType="String">
-		SELECT file_newname FROM file
-			WHERE file_unique_no = 4 and file_location = 'p'
-	</select>
 	
 	<select id="getAllDepartments" resultType="member">
         SELECT depart_no, depart_name

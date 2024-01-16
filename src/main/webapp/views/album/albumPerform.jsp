@@ -142,6 +142,7 @@ function drawList(list){
 	$('#albumPerformList').empty();
 	$('#albumPerformList').append(content);
 	
+	$('#pagination').twbsPagination('destroy');
 	$('#pagination').twbsPagination({
 		startPage: list.currPage,
 		totalPages: list.pages, 

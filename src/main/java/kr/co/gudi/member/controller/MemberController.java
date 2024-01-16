@@ -89,7 +89,8 @@ public class MemberController {
 		int member_no = ((MemberVO) session.getAttribute("loginMember")).getMember_no();
 		
 		Map<String, Object> loginMember = service.getMemberInfo(member_no);
-		
+		String file_newname = service.getFileName(member_no);
+		loginMember.put("file_newname", file_newname);
 		model.addAttribute("loginMember", loginMember);
 		return "member/mypage";
 	}

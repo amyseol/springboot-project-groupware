@@ -35,8 +35,8 @@ public class ArchiveController {
 	// 전사 리스트 출력
 	@GetMapping(value="/archAllList")
 	@ResponseBody
-	public Map<String, Object> archAllList(String page, String member_no, String state){
-		return service.archAllList(page, member_no, state);
+	public Map<String, Object> archAllList(String page, String member_no, String state, String a_name){
+		return service.archAllList(page, member_no, state, a_name);
 	}
 	
 	// 부서별 리스트 출력
