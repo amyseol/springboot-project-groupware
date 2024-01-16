@@ -54,15 +54,15 @@ public class ComMailController {
 	// 받은 메일함 리스트 출력
 	@GetMapping("/receiveMail/list.ajax")
 	@ResponseBody
-	public Map<String, Object> receiveList(String page, @RequestParam int loginNo, @RequestParam String readOption){
-		return service.receiveList(page, loginNo, readOption);
+	public Map<String, Object> receiveList(String search_info, String page, int loginNo, String readOption){
+		return service.receiveList(search_info, page, loginNo, readOption);
 	}
 	
 	// 받은 메일함 검색
 	@GetMapping("/receiveMail/search.ajax")
 	@ResponseBody
-	public Map<String, Object> reMailSearch(String search_info, String page){
-		return service.reMailSearch(search_info, page);
+	public Map<String, Object> reMailSearch(String search_info, String page, int loginNo, String readOption){
+		return service.receiveList(search_info, page, loginNo, readOption);
 	}
 	
 	// 받은 메일함 삭제
@@ -110,15 +110,15 @@ public class ComMailController {
 	// 받은 메일함 리스트 출력
 	@GetMapping("/sendMail/list.ajax")
 	@ResponseBody
-	public Map<String, Object> sendList(String page, @RequestParam int loginNo, @RequestParam String readOption){
-		return service.sendList(page, loginNo, readOption);
+	public Map<String, Object> sendList(String search_info, String page, int loginNo, String readOption){
+		return service.sendList(search_info, page, loginNo, readOption);
 	}
 	
 	// 보낸 메일함 검색
 	@GetMapping("/sendMail/search.ajax")
 	@ResponseBody
-	public Map<String, Object> seMailSearch(String search_info, String page){
-		return service.seMailSearch(search_info, page);
+	public Map<String, Object> seMailSearch(String search_info, String page, int loginNo, String readOption){
+		return service.sendList(search_info, page, loginNo, readOption);
 	}
 	
 	// 보낸 메일함 삭제

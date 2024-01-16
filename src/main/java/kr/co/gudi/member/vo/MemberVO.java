@@ -2,7 +2,7 @@ package kr.co.gudi.member.vo;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import kr.co.gudi.comMail.dto.ComMailDTO;
-import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberAuthority;
 
 
@@ -40,6 +39,7 @@ public class MemberVO implements UserDetails {
 	private int depart_no;
 	private String depart_name;
 	private int depart_p_no;
+	private String depart_p_name;
 	private List<ComMailDTO> note;
 	
 
@@ -143,9 +143,9 @@ public class MemberVO implements UserDetails {
 	}
 
 
-	@Override		// 비밀번호 만료 여부 반환, 퇴사 기간이 지났거나 입사 전이면 권한 없음
+	@Override		// 퇴사자 권한 없음
 	public boolean isCredentialsNonExpired() {
-		return true;
+		return resign_date == null;
 	}
 
 
@@ -354,6 +354,14 @@ public class MemberVO implements UserDetails {
 
 	public void setDepart_p_no(int depart_p_no) {
 		this.depart_p_no = depart_p_no;
+	}
+
+	public String getDepart_p_name() {
+		return depart_p_name;
+	}
+
+	public void setDepart_p_name(String depart_p_name) {
+		this.depart_p_name = depart_p_name;
 	}
 
 	public List<ComMailDTO> getNote() {

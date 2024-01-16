@@ -1,11 +1,9 @@
 package kr.co.gudi.performance.dto;
 
 import java.sql.Date;
-import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
-import kr.co.gudi.member.vo.MemberVO;
 
 @Alias("song")
 public class SongDTO {
