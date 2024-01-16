@@ -1,15 +1,19 @@
 package kr.co.gudi.comMail.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +27,8 @@ import kr.co.gudi.member.vo.MemberVO;
 @Controller
 public class ComMailController {
 	@Autowired ComMailService service;
+	
+	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@GetMapping("/receiveMail")
 	public String receiveMailHome() {
@@ -136,16 +142,24 @@ public class ComMailController {
 	}
 	
 	@GetMapping("/writeMail")
-	public String writeMail() {
+	public String writeMail(String note_no, Model model) {
+		logger.info("note_no === "+note_no);
+		if(note_no!=null) {
+			// 메일 답장시 보낸 사람의 이름을 가져온다 
+			String sender = service.getSender(note_no);
+			model.addAttribute("sender",sender);
+		}
 		return "/comMail/comMailWrite";
 	}
 	
 	// 메일 쓰기
 	@PostMapping("/writeMail.do")
-	public String write(MultipartFile[] files, @RequestParam HashMap<String, String>param,  HttpSession session) {
+	public String write(MultipartFile[] files, @RequestParam HashMap<String, String>param,  
+			Model model, HttpSession session) throws IOException {
 		int sender_no = ((MemberVO)session.getAttribute("loginMember")).getMember_no();
 		service.write(files, param, sender_no);
-		
+		model.addAttribute("msg","전송이 완료되었습니다.");
+		model.addAttribute("url","/sendMail");
 		return "common/msg";
 	}
 }

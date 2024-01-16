@@ -187,7 +187,15 @@ public class ApprovalService {
 			p = pages;
 		}
 		
-		dto = apprDao.refList(member_no, vpn, offset);
+		if(searchInfo == null || searchInfo.trim().isEmpty()) {
+			if(searchType.equals("0")) { // 기안자
+				
+			} else { // 제목
+				
+			}
+		}else {
+			dto = apprDao.refList(member_no, vpn, offset);
+		}
 		
 		map.put("currPage", p);
 		map.put("pages", pages); // 만들 수 있는 총 페이지 수

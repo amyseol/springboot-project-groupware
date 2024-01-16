@@ -108,7 +108,7 @@
 	</select>
 	
 	<select id="receiveMailDetail" resultType="mail">
-		SELECT n.note_subject, n.note_content, n.note_date, sender.name AS sender_name, receiver.name AS receiver_name, f.file_newname
+		SELECT n.note_subject, n.note_content, n.note_date, n.note_no, sender.name AS sender_name, receiver.name AS receiver_name, f.file_newname
 		FROM note n
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no		
@@ -205,7 +205,11 @@
 		VALUES (#{sender_no}, #{receiver_no}, #{note_subject}, #{note_content})
 	</insert>
 	
-	<select id="getReceiverNo" resultType="mail">
+	<select id="getSender" resultType="String">
+		SELECT name FROM member WHERE member_no = (SELECT sender_no FROM note WHERE note_no=#{param1})
+	</select>
+	
+	<select id="getReceiverNo" resultType="int">
 		SELECT member_no
 		FROM member
 		WHERE name = #{param1}
@@ -227,4 +231,9 @@
 	<update id="updateReState">
 		UPDATE note SET receive_state = "1" WHERE note_no = #{param1}
 	</update>
+	
+	<insert id="mailFileUpload">
+		INSERT INTO file(file_location, file_unique_no, file_oriname, file_newname, file_size, file_state) 
+			VALUES("n", #{param3}, #{param1},#{param2},#{param4},"0")
+	</insert>
 </mapper>
