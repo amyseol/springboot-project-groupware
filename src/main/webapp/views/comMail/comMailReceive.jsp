@@ -326,9 +326,9 @@
 	        data: {'delList': chkArr},
 	        dataType: "JSON",
 	        success: function(data){
-	            console.log(data);
+	            console.log("success".data);
 	
-	            document.getElementById('del_modal').style.display = 'none';
+	            $('#del_modal').modal('hide');
 	            listCall(showPage, searchInfo, $('#readOption').val());
 	        },
 	        error: function(e){

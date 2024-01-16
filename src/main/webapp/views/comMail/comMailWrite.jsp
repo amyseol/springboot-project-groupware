@@ -107,12 +107,12 @@
                                     <input type="file" id="select_file" name="files" multiple>
                                 </span>
                             </a>
-                            <a class="del_all">
+                            <a class="all_del">
                                 <span onclick="all_del()">모두삭제</span>
                             </a>
                         </div>
 
-                        <div>
+                        <div class="file_list">
                             <!-- 첨부 파일란 -->
                         </div>
                     </td>
@@ -150,6 +150,62 @@
     //config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
     config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
     var editor = new RichTextEditor("#rich_deditor", config);
+    
+	var fileList = [];
+    
+    // 파일이 선택될 때마다 파일 리스트에 추가
+    $("#select_file").on("change", function(){
+    	var file = $(this)[0].files;
+    	
+    	for (var i = 0; i < files.length; i++) {
+			fileList.push(files[i]);
+			addFileToUI(files[i]);
+		}
+    });
+    
+    // 파일 리스트
+    function addFileToUI(list) {
+		var content = "";
+		
+		list.list.foreach(function(item, idx) {
+			content += '<ul>';
+			content += '<li><span class="file_name">' + item.file_oriname + '</span></li>';
+			content += '<li><span class="file_size">' + formatFileSize(item.file_size) + '</span></li>';
+			content += '<li><span class="file_delete" onclick="deleteFile(\'' + item.file_no +'\')">X</span></li>';
+			content += '</ul>';
+		});
+		
+		$(".file_list").empty();
+		$(".file_list").append(content);
+	}
+    
+    // 파일 크기 포맷
+    function formatFileSize(size) {
+    	if (size < 1024) {
+            return size + ' B';
+        } else if (size < 1024 * 1024) {
+            return (size / 1024).toFixed(2) + ' KB';
+        } else {
+            return (size / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+	}
+    
+    // 모두 삭제 버튼 - 파일 리스트 초기화 및 UI에서 삭제
+    function all_del() {
+		fileList = [];
+		$(".file_list").empty();
+	}
+    
+ 	// 개별 파일 삭제 함수
+    function deleteFile(file_no) {
+        fileList = fileList.filter(function(file) {
+            return file.file_no !== fileNo;
+        });
+        $('.file_list').empty();
+        fileList.forEach(function(file) {
+            addFileToUI(file);
+        });
+    }
 
     // 저장 버튼을 누르면 실행되는 함수 save
     function save(){
