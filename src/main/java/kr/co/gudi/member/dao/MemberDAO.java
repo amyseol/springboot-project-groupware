@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.gudi.approval.dto.ApprovalDTO;
 import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.vo.MemberVO;
@@ -88,4 +89,10 @@ public interface MemberDAO {
 	void updateDpt(HashMap<String, String> param);
 
 	ArrayList<MemberDTO> detailTeam(String depart_name);
+
+	ArrayList<MemberDTO> getOrgChartData();
+
+	ArrayList<ApprovalDTO> dptInfo();
+
+	ArrayList<ApprovalDTO> memberInfo();
 }

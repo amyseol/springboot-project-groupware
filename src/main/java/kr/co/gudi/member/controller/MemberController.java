@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.gudi.approval.service.ApprovalService;
 import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.service.MemberService;
@@ -42,6 +43,7 @@ public class MemberController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired MemberService service;
+
 	
 	
 	// 로그인 페이지 이동
@@ -245,7 +247,10 @@ public class MemberController {
     }
     @GetMapping(value="/departmentList")
     public ModelAndView departmentList() {
-        return  new ModelAndView("member/departList");
+    	ModelAndView mav = service.organizationList();
+    	mav.addObject(root, mav);
+    	mav.setViewName("member/departList");
+        return  mav;
     }
     @GetMapping(value="/departmentListCall")
     @ResponseBody
@@ -284,4 +289,5 @@ public class MemberController {
     	return service.detailTeam(depart_name);
     }
     
+   
 }

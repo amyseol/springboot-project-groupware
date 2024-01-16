@@ -25,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.gudi.approval.dto.ApprovalDTO;
 import kr.co.gudi.member.dao.MemberDAO;
 import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberDTO;
@@ -264,5 +265,24 @@ public class MemberService implements UserDetailsService{
 		ArrayList<MemberDTO>dto =dao.detailTeam(depart_name);
 		map.put("detail", dto);
 		return map;
+	}
+
+	public HashMap<String, Object> getOrgChartData() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<MemberDTO>dto =dao.getOrgChartData();
+		map.put("dto", dto);
+		return map;
+	}
+
+	// 공통 조직도 내용(부서용)
+	public ModelAndView organizationList() {
+		ArrayList<ApprovalDTO> departments =  dao.dptInfo();
+		ArrayList<ApprovalDTO> teams = dao.dptInfo();
+		ArrayList<ApprovalDTO> members = dao.memberInfo();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("departments", departments);
+		mav.addObject("teams", teams);
+		mav.addObject("members", members);
+		return mav;
 	}
 }

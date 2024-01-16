@@ -221,4 +221,15 @@
 			LEFT JOIN member ON department.member_no = member.member_no
 			WHERE department.depart_name =#{param1}
 	</select>
+		
+	<select id="dptInfo" resultType="member">
+		SELECT depart_no, depart_p_no, depart_name FROM department
+			WHERE depart_state = 0;
+	</select>
+	
+	<select id="memberInfo" resultType="member">
+		SELECT m.member_no, m.name, m.member_position, d.depart_name, d.depart_no FROM member m
+			JOIN department d ON m.depart_no = d.depart_no
+				WHERE m.member_state = '재직';
+	</select>
 </mapper>
