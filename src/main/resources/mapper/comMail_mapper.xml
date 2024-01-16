@@ -24,8 +24,8 @@
 	    FROM note n
 	    LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 	    LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-	    LEFT OUTER JOIN file f ON file_location = "n"
-	    WHERE n.receiver_no = #{param2}
+	    LEFT OUTER JOIN file f ON file_location = "n" AND f.file_unique_no = n.note_no
+	    WHERE n.receiver_no = #{param2} AND n.receive_state IN ("0", "1")
 	    ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
 	</select>
 	
@@ -34,8 +34,8 @@
 	    FROM note n
 	    LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 	    LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-	    LEFT OUTER JOIN file f ON file_location = "n"
-	    WHERE n.receiver_no = #{loginNo}
+	    LEFT OUTER JOIN file f ON file_location = "n" AND f.file_unique_no = n.note_no
+	    WHERE n.receiver_no = #{loginNo} AND n.receive_state IN ("0", "1")
 	        AND (#{search_info} = ''
 	        OR LENGTH(#{search_info}) = 1
 	        OR n.sender_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{search_info}, '%'))
@@ -48,7 +48,7 @@
 		FROM note n
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-		LEFT OUTER JOIN file f ON file_location = "n"
+		LEFT OUTER JOIN file f ON file_location = "n" AND f.file_unique_no = n.note_no
 		WHERE n.receiver_no = #{param3} AND n.receive_state="1" 
   			AND (#{param1} = '' 
   			OR n.sender_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%'))
@@ -61,7 +61,7 @@
 		FROM note n
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-		LEFT OUTER JOIN file f ON file_location = "n"
+		LEFT OUTER JOIN file f ON file_location = "n" AND f.file_unique_no = n.note_no
 		WHERE n.receiver_no = #{param3} AND n.receive_state="0" 
   			AND (#{param1} = '' 
   			OR n.sender_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%'))
@@ -142,8 +142,8 @@
 	    FROM note n
 	    LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 	    LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-	    LEFT OUTER JOIN file f ON file_location = "n"
-	    WHERE n.sender_no = #{param2}
+	    LEFT OUTER JOIN file f ON file_location = "n" AND f.file_unique_no = n.note_no
+	    WHERE n.sender_no = #{param2} AND n.send_state IN ("0", "1")
 	    ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
 	</select>
 	
@@ -152,7 +152,7 @@
 		FROM note n
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-		LEFT OUTER JOIN file f ON file_location = "n"
+		LEFT OUTER JOIN file f ON file_location = "n" AND f.file_unique_no = n.note_no
 		WHERE n.sender_no = #{param3} AND n.send_state="1"
   			AND (#{param1} = '' 
   			OR n.receiver_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%'))
@@ -165,7 +165,7 @@
 		FROM note n
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-		LEFT OUTER JOIN file f ON file_location = "n"
+		LEFT OUTER JOIN file f ON file_location = "n" AND f.file_unique_no = n.note_no
 		WHERE n.sender_no = #{param3} AND n.send_state="0"
   			AND (#{param1} = '' 
   			OR n.receiver_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{param1}, '%')) OR n.note_subject LIKE CONCAT('%', #{param1}, '%'))
@@ -178,8 +178,8 @@
 	    FROM note n
 	    LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 	    LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
-	    LEFT OUTER JOIN file f ON file_location = "n"
-	    WHERE n.sender_no = #{loginNo}
+	    LEFT OUTER JOIN file f ON file_location = "n" AND f.file_unique_no = n.note_no
+	    WHERE n.sender_no = #{loginNo} AND n.send_state IN ("0", "1")
 	        AND (#{search_info} = ''
 	        OR LENGTH(#{search_info}) = 1
 	        OR n.receiver_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{search_info}, '%'))
