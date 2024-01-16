@@ -116,10 +116,9 @@
                     </svg></div>
                 </li></a>
                 <ul data-index="1">
-                    <a href="javascript:"><li class="dep2">쪽지 쓰기</li></a>
-                    <a href="javascript:"><li class="dep2">받은 쪽지함</li></a>
-                    <a href="javascript:"><li class="dep2">보낸 쪽지함</li></a>
-                    <a href="javascript:"><li class="dep2">휴지통</li></a>
+                    <a href="/writeMail"><li class="dep2">쪽지 쓰기</li></a>
+                    <a href="/receiveMail"><li class="dep2">받은 쪽지함</li></a>
+                    <a href="/sendMail"><li class="dep2">보낸 쪽지함</li></a>
                 </ul>
                 <a href="javascript:"><li class="dep1" data-index="2">전자결재
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">

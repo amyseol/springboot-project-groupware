@@ -27,26 +27,27 @@ public class SongService {
 	
 	@Value("${spring.servlet.multipart.location}") private String root;
 
-	public Map<String, Object> songList(String page) {
+	public Map<String, Object> songList(String search_info, String page) {
 		int p = Integer.parseInt(page);
 		int offset = (p - 1) * 10;
 		
-		ArrayList<SongDTO> list = new ArrayList<>();
-		list = dao.list(offset);
+		ArrayList<SongDTO> list = dao.list(search_info, offset);
+		
 		map.put("list", list);
 		
-		int pages = dao.totalPage();
+		int totalCnt = dao.totalCnt(search_info);
+		int pages = (int) Math.ceil((double) totalCnt / 10);
 		
 		map.put("pages", pages);
 		
-		// 전체 페이지가 p 값보다 작을 때
-		if(p > pages) {
+		if (p > pages) {
 			p = pages;
 		}
 		map.put("currPage", p);
 		
 		return map;
 	}
+	
 
 	public ModelAndView songDetail(String song_no) {
 		ModelAndView mav = new ModelAndView();
@@ -59,26 +60,7 @@ public class SongService {
 		mav.setViewName("/song/songDetail");
 		return mav;
 	}
-
-	public Map<String, Object> songSearch(String search_info, String page) {
-		int p = Integer.parseInt(page);
-		int offset = (p - 1) * 10;
-		
-		ArrayList<SongDTO> list = new ArrayList<>();
-		list = dao.songSearch(search_info, offset);
-		map.put("list", list);
-		
-		int pages = dao.totalPage();
-		map.put("pages", pages);
-		
-		if (p > pages) {
-			p = pages;
-		}
-		map.put("currPage", p);
-		
-		return map;
-	}
-
+	
 	public void fileUpload(MultipartFile[] files, int song_no) throws IOException {
 		for (MultipartFile file : files) {
 			String oriFileName = file.getOriginalFilename();
@@ -101,5 +83,4 @@ public class SongService {
 			}
 		}
 	}
-
 }
