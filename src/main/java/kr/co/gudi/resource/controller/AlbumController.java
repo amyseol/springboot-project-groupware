@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.gudi.member.vo.MemberVO;
 import kr.co.gudi.resource.dto.AlbumDTO;
 import kr.co.gudi.resource.service.AlbumService;
 
@@ -38,8 +43,18 @@ public class AlbumController {
 	
 	// 음반 계약 현황 페이지 이동
 	@GetMapping(value="/album")
-	public String album() {
-		return "/album/album";
+	public String album(HttpSession session, Model model) {
+		int depart_no = ((MemberVO)session.getAttribute("loginMember")).getDepart_no();
+		if(session.getAttribute("loginMember")==null) {
+			model.addAttribute("msg","로그인이 필요한 서비스 입니다.");
+			model.addAttribute("url","/loginPage");
+		}else if(depart_no==8||depart_no==10) {
+			return "/album/album";
+		}else {
+			model.addAttribute("msg","페이지에 대한 권한이 없습니다.");
+			model.addAttribute("url","/main");
+		}
+		return "common/msg";
 	}
 	
 	// 음반 계약 현황 리스트 호출 
@@ -112,4 +127,6 @@ public class AlbumController {
 	public String albumApproval() {
 		return "album/albumApproval";
 	}
+	
+	
 }

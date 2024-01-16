@@ -24,8 +24,6 @@ public interface MemberDAO {
 	int searchFileNo(int member_no);
 	
 	MemberVO getMember();
-
-	String findPhoto(int file_no);
 	
 	List<Department> getAllDepartments();
 
@@ -86,4 +84,6 @@ public interface MemberDAO {
 	ArrayList<MemberDTO> detailDepart(String depart_no);
 
 	ArrayList<MemberDTO> getTeam(String depart_no);
+
+	String getFileName(int member_no);
 }

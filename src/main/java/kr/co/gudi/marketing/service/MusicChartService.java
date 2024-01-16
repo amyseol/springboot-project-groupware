@@ -27,7 +27,7 @@ public class MusicChartService {
 	// url 에 page 라는 parameter 추가해서 document 객체에 저장
 	String url = "https://www.melon.com/chart/index.htm";	
 
-	// 날짜/시간 크롤링
+	// 날짜/시간 크롤링 
 	public void getDatetime(Model model) throws Exception {
 		Document doc = Jsoup.connect(url).get();
 		

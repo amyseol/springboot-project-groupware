@@ -1,5 +1,7 @@
 package kr.co.gudi.notification.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,4 +66,13 @@ public class NotiController {
 		return service.notiDel(delList,model);
 	}
 	
+	@Scheduled(cron = "0 0 3 * * *")
+	public void deleteNoti() {
+		logger.info("오래된 알림 삭제 완료!");
+		try {
+			service.deleteNoti();
+		} catch (Exception e) {
+			
+		}
+	}
 }

@@ -152,7 +152,8 @@ function listCall(page){
 		data:{
 			'page':page, 
 			'member_no':member_no, 
-			'state':selectedState
+			'state':selectedState,
+			'a_name': $('#search_info').val()
 		}, 
 		dataType:'JSON',
 		success: function(data){
@@ -184,6 +185,7 @@ function drawAllList(list){
 	$('#fileList').empty();
 	$('#fileList').append(content);
 	
+	$('#pagination').twbsPagination('destroy');
 	$('#pagination').twbsPagination({
 		startPage: list.currPage,
 		totalPages: list.pages, 
@@ -332,10 +334,10 @@ function delYes(){
 //----------------------- 전사 파일 등록 버튼 처리 start----------------------------------
 // depart_no가 3, 4인 직원 로그인시 버튼 보여주기 
 var allFileBox = document.getElementById('allFileBox');
-var member_depart = ${sessionScope.loginMember.depart_no};
+var depart_p_no = ${sessionScope.loginMember.depart_p_no};
 
 $(document).ready(function() {
-	if(member_depart==3||member_depart==4){
+	if(depart_p_no==3||depart_p_no==4){
 		console.log('경영지원 부서 입니다.');
 		allFileBox.style.display='block';
 	}

@@ -45,7 +45,7 @@
 				<section class="mypage-section">
 					<div class="main-section section-shadow casrd profile-info">
 						<div class="right-container">
-							<img src="${photo}" id="mypage-profile" alt="mypage-profile" onclick="fn_updateProfile()">
+							<img src="/photo/${loginMember.file_newname}" id="mypage-profile" alt="mypage-profile" onclick="fn_updateProfile()"  width="300" height="300">
 							<form action="${path}/member/profile" method="post" enctype="multipart/form-data" id="profile-form">
 								<input type="file" name="profileImg" id="profile-input" accept="image" required>
 		

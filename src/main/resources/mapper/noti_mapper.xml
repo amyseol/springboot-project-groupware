@@ -25,6 +25,11 @@
 	<update id="notiDel">
 		UPDATE notification SET noti_state='2' WHERE noti_no=#{param1}
 	</update>	
+	
+	<delete id="deleteNoti">
+		DELETE FROM notification
+			WHERE DATEDIFF(CURDATE(), noti_date) > 7
+	</delete>
 </mapper>
 
 
