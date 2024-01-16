@@ -32,6 +32,17 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
+
+		#board_title {
+	    width: 80%;
+	    padding: 10px;
+	    box-sizing: border-box;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    margin-top: 5px;
+	    font-family: 'Arial', sans-serif; /* 원하는 폰트로 변경 가능 */
+		}
+		
 </style>
 </head>
 <body>
@@ -51,8 +62,6 @@
 	        </li>
 	        <li>
 	        <h5>내용</h5>
-	       <!-- <div id="editor"></div>-->
-	          
 	        	<div id="rich_deditor"></div>
 				
 				<input type="hidden" id="board_content" name="board_content" value=""/>

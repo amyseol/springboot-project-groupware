@@ -29,41 +29,47 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
-.list_form textarea {
-    width: 90%;
-    height: 150px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 5px;
-    font-family: 'Arial', sans-serif; /* 원하는 폰트로 변경 가능 */
-}
+		#board_title {
+	    width: 50%;
+	    padding: 10px;
+	    box-sizing: border-box;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    margin-top: 5px;
+	    font-family: 'Arial', sans-serif; 
+		}
+		
+		#board_title:focus {
+		    border-color: #4CAF50;
+		    outline: none;
+		}
+		
+		.list_form textarea {
+		    width: 50%;
+		    height: 150px;
+		    padding: 10px;
+		    box-sizing: border-box;
+		    border: 1px solid #ccc;
+		    border-radius: 5px;
+		    margin-top: 5px;
+		    font-family: 'Arial', sans-serif; 
+		}
+		
+		.list_form input[type="file"] {
+		    margin-top: 5px;
+		}
+		
+		.list_form input[type="button"],
+		.list_form button {
+		    padding: 5px 10px;
+		    background-color: #cccccc;
+		    color: white;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    margin-right: 5px;
+		}
 
-.list_form textarea:focus {
-    border-color: #4CAF50;
-    outline: none;
-}
-
-.list_form input[type="file"] {
-    margin-top: 5px;
-}
-
-.list_form input[type="button"],
-.list_form button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-}
-
-.list_form input[type="button"]:hover,
-.list_form button:hover {
-    background-color: #45a049;
-}
 </style>
 </head>
 <body>

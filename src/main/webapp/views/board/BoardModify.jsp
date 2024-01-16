@@ -27,9 +27,49 @@
         #common_list_form .list_form .list_content ul li:nth-child(4){width: 15%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 10%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
-
-
+        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}	
+		
+		#board_title {
+	    width: 50%;
+	    padding: 10px;
+	    box-sizing: border-box;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    margin-top: 5px;
+	    font-family: 'Arial', sans-serif; 
+		}
+		
+		#board_title:focus {
+		    border-color: #4CAF50;
+		    outline: none;
+		}
+		
+		.list_form textarea {
+		    width: 50%;
+		    height: 150px;
+		    padding: 10px;
+		    box-sizing: border-box;
+		    border: 1px solid #ccc;
+		    border-radius: 5px;
+		    margin-top: 5px;
+		    font-family: 'Arial', sans-serif; 
+		}
+		
+		.list_form input[type="file"] {
+		    margin-top: 5px;
+		}
+		
+		.list_form input[type="button"],
+		.list_form button {
+		    padding: 5px 10px;
+		    background-color: #cccccc;
+		    color: white;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    margin-right: 5px;
+		}
+		
 </style>
 </head>
 <body>
@@ -59,6 +99,7 @@
 	            <h5><label for="photos">사진</label></h5>
 	            <input type="file" id="photos" name="photos" />
 	        </li>
+	        <br/>
 	        <li>
 	            <input type="button" onclick="location.href='/board'" value="이전" />
 	            <button type="submit" onclick="location.href='/board'">수정</button>

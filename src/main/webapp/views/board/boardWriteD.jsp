@@ -32,7 +32,15 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
-
+		#board_title {
+	    width: 80%;
+	    padding: 10px;
+	    box-sizing: border-box;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    margin-top: 5px;
+	    font-family: 'Arial', sans-serif; /* 원하는 폰트로 변경 가능 */
+		}
 
  
 </style>
@@ -45,14 +53,16 @@
 
     <div class="list_form">
         <form action="writeD" method="post" enctype="multipart/form-data" onsubmit="return val()">
+        <ul>
+            <li class="list_list">
 	    <ul>
 	        <li>
 	            <h5><label for="board_title">제목</label></h5>
-	            <input type="text" id="board_title" name="board_title" />
+	            <input type="text" id="board_title" name="board_title" placeholder="제목을 입력해주세요."/>
 	        </li>
 	        <li>
 	        <h5>내용</h5>
-	            <div id="rich_deditor"></div>
+	        	<div id="rich_deditor"></div>
 				
 				<input type="hidden" id="board_content" name="board_content" value=""/>
 	            <!-- <textarea id="board_content" name="board_content"></textarea> -->
@@ -65,6 +75,8 @@
 	            <button type="button" onclick="location.href='/boardD'">취소</button>
 	            <button type="submit">저장</button>
 	        </li>
+	    </ul>
+	    </li>
 	    </ul>
 		</form>
 
