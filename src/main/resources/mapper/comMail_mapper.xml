@@ -209,7 +209,7 @@
 		SELECT name FROM member WHERE member_no = (SELECT sender_no FROM note WHERE note_no=#{param1})
 	</select>
 	
-	<select id="getReceiverNo" resultType="mail">
+	<select id="getReceiverNo" resultType="int">
 		SELECT member_no
 		FROM member
 		WHERE name = #{param1}
@@ -231,4 +231,9 @@
 	<update id="updateReState">
 		UPDATE note SET receive_state = "1" WHERE note_no = #{param1}
 	</update>
+	
+	<insert id="mailFileUpload">
+		INSERT INTO file(file_location, file_unique_no, file_oriname, file_newname, file_size, file_state) 
+			VALUES("n", #{param3}, #{param1},#{param2},#{param4},"0")
+	</insert>
 </mapper>

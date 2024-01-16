@@ -1,5 +1,6 @@
 package kr.co.gudi.comMail.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -153,10 +154,12 @@ public class ComMailController {
 	
 	// 메일 쓰기
 	@PostMapping("/writeMail.do")
-	public String write(MultipartFile[] files, @RequestParam HashMap<String, String>param,  HttpSession session) {
+	public String write(MultipartFile[] files, @RequestParam HashMap<String, String>param,  
+			Model model, HttpSession session) throws IOException {
 		int sender_no = ((MemberVO)session.getAttribute("loginMember")).getMember_no();
 		service.write(files, param, sender_no);
-		
+		model.addAttribute("msg","전송이 완료되었습니다.");
+		model.addAttribute("url","/sendMail");
 		return "common/msg";
 	}
 }

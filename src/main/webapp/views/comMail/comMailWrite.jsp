@@ -258,7 +258,7 @@
                     <td colspan="2">
                         <div id="rich_deditor"></div>
                         <!-- 작성글은 div 에 담겨지는데, div 는 서버로 전송이 불가능하다. -->
-                        <input type="hidden" name="content" value=""/>
+                        <input type="hidden" name="note_content" value=""/>
                     </td>
                 </tr>
             </table>

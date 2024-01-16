@@ -1,21 +1,29 @@
 package kr.co.gudi.comMail.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.gudi.archive.dto.ArchiveDTO;
 import kr.co.gudi.comMail.dao.ComMailDAO;
 import kr.co.gudi.comMail.dto.ComMailDTO;
 
 @Service
 public class ComMailService {
 	@Autowired ComMailDAO dao;
+	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	Map<String, Object> map = new HashMap<String, Object>();
 	
@@ -166,7 +174,7 @@ public class ComMailService {
 		dao.updateSeState(note_no);
 	}
 
-	public void write(MultipartFile[] files, HashMap<String, String> param, int sender_no) {
+	public void write(MultipartFile[] files, HashMap<String, String> param, int sender_no) throws IOException {
 		ComMailDTO dto = new ComMailDTO();
 		String receiver_name = param.get("receiver");
 		int receiver_no = dao.getReceiverNo(receiver_name);
@@ -179,12 +187,32 @@ public class ComMailService {
 		dao.upload(dto);
 		
 		int note_no = dto.getNote_no();
-		fileUpload(note_no, files);
+		logger.info("note_no === "+note_no);
+		mailFileUpload(note_no, files);
 		
 	}
 
-	private void fileUpload(int note_no, MultipartFile[] files) {
-		
+	private void mailFileUpload(int note_no, MultipartFile[] files) throws IOException {
+		for (MultipartFile file : files) {
+			String oriFileName = file.getOriginalFilename();
+			
+			if (!oriFileName.equals("")) {
+				// 1. 파일이름 변경
+				String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
+				String newFileName = System.currentTimeMillis()+ext;
+				
+				// 2. 파일을 경로에 저장
+				byte[] arr = file.getBytes();
+				Path path = Paths.get(root+newFileName);
+				Files.write(path, arr);
+				
+				// 3. 파일 사이즈 가져오기
+				long sizeInKB = Math.round(file.getSize()/1024.0);
+				String size = Long.toString(sizeInKB);
+				//3. 기존 파일명, 새로운 파일명, 파일 사이즈, alb_no 를 file 테이블에 추가
+				dao.mailFileUpload(oriFileName, newFileName, note_no, size);
+			}
+		}	
 	}
 
 	// 메일 답장시 보낸 사람의 이름을 가져온다 
