@@ -64,7 +64,7 @@
 <body>
   	<%@ include file="/views/nav.jsp" %>
     <!-- -------------------------------------------mailWrap start------------------------------------------------- -->
-    <form action="write.do" method="POST" id="write_form" enctype="multipart/form-data">
+    <form action="writeMail.do" method="POST" id="write_form" enctype="multipart/form-data">
         <div class="titleWrap">
 	        <h2 class="big_title"> 메일 쓰기 </h2>
         </div>
@@ -80,7 +80,12 @@
                         <div>
                             <ul>
                                 <li>
-                                    <input type="text" name="receiver" id="inputReceiver" placeholder="받는 사람을 입력하세요.">
+                                	<c:if test="${not empty sender}">
+                                   		<input type="text" name="receiver" id="inputReceiver" value="${sender}" readonly>
+                                	</c:if>
+                                	<c:if test="${empty sender}">
+                                   		<input type="text" name="receiver" id="inputReceiver" placeholder="받는 사람을 입력하세요.">
+                                	</c:if>
                                 </li>
                                 <li>
                                     <input type="button" id="organization" value="주소록" onclick="organization()"/>
@@ -116,7 +121,7 @@
                     <td colspan="2">
                         <div id="rich_deditor"></div>
                         <!-- 작성글은 div 에 담겨지는데, div 는 서버로 전송이 불가능하다. -->
-                        <input type="hidden" name="content" value=""/>
+                        <input type="hidden" name="note_content" value=""/>
                     </td>
                 </tr>
             </table>
