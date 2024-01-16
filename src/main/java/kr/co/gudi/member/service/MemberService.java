@@ -60,7 +60,6 @@ public class MemberService implements UserDetailsService{
 		int file_no =  dao.searchFileNo(member_no);
 		param.put("file_no", file_no);
 		dao.updateProfileImg(param);
-		//String new_name = dao.findPhoto(file_no);
 		logger.info(path);
 		model.addAttribute("photo", path);
 	}
@@ -255,5 +254,9 @@ public class MemberService implements UserDetailsService{
 		map.put("team", dtoTeam);
 		
 		return map;
+	}
+
+	public String getFileName(int member_no) {
+		return dao.getFileName(member_no);
 	}
 }
