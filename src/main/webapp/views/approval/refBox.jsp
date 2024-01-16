@@ -199,8 +199,8 @@
         <ul class="search_box">	
             <li>
                 <select id="search_type">
-                    <option value="0">기안자</option>
-                    <option value="1">제목</option>
+                    <option value="1">기안자</option>
+                    <option value="2">제목</option>
                 </select>
             </li>
             <li>
@@ -323,13 +323,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		$('#pagination').twbsPagination('destroy');
 		refListCall(showPage);
 	});
+	
+	
   
   
   function refListCall(page){
 	  $.ajax({
 			type:'get',
 			url:'refListCall.ajax',
-			data:{'viewPageNum':$('#viewPageNum').val(), 'page':page, 'searchType':$('.search_type').val(), 'searchInfo':$('#search_info').val()},
+			data:{'viewPageNum':$('#viewPageNum').val(), 'page':page, 'searchType':$('#search_type').val(), 'searchInfo':$('#search_info').val()},
 			dataType:'JSON',
 			success: function(data){
 				console.log("refListCall data 가져옴");

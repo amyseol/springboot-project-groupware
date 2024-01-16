@@ -180,21 +180,13 @@ public class ApprovalService {
 		int vpn = Integer.parseInt(viewPageNum);
 		int p = Integer.parseInt(page);
 		int offset = (p-1)*vpn;
-		int pages = apprDao.refTotalPage(member_no, vpn);
+		int pages = apprDao.refTotalPage(member_no, vpn, searchType, searchInfo);
+		
+		dto = apprDao.refList(member_no, vpn, offset, searchType, searchInfo);
 		
 		// 만약 현재 보고 있는 페이지가, 총 페이지 수 보다 크면 현재페이지를 총 페이지수로 변경한다.
 		if(p>pages) {
 			p = pages;
-		}
-		
-		if(searchInfo == null || searchInfo.trim().isEmpty()) {
-			if(searchType.equals("0")) { // 기안자
-				
-			} else { // 제목
-				
-			}
-		}else {
-			dto = apprDao.refList(member_no, vpn, offset);
 		}
 		
 		map.put("currPage", p);

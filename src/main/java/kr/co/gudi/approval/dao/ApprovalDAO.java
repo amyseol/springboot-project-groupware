@@ -37,9 +37,9 @@ public interface ApprovalDAO {
 
 	ArrayList<ApprovalDTO> apprList(int member_no);
 
-	ArrayList<ApprovalDTO> refList(int member_no, int vpn, int offset);
+	ArrayList<ApprovalDTO> refList(int member_no, int vpn, int offset, String searchType, String searchInfo);
 	
-	int refTotalPage(int member_no, int vpn);
+	int refTotalPage(int member_no, int vpn, String searchType, String searchInfo);
 
 	ApprovalDTO draftDocDetailInfo(int approval_no);
 

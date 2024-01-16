@@ -87,15 +87,27 @@
 			FROM approval a
 			JOIN member m ON a.draftmember_no = m.member_no
 			JOIN approver ap ON a.approval_no = ap.approval_no
-				WHERE a.document_state != 3 AND ap.sortation = 1 AND ap.member_no = #{param1}
-					ORDER BY ap.approver_no DESC LIMIT #{param2} OFFSET #{param3}
+				WHERE a.document_state != 3 AND ap.sortation = 1 AND ap.member_no = #{member_no}
+					<if test = "searchType == '1' and searchInfo != null">
+						AND m.name LIKE CONCAT('%',#{searchInfo},'%');
+					</if>
+					<if test="searchType == '2' and searchInfo != null">
+						AND a.approval_title LIKE CONCAT('%',#{searchInfo},'%');
+					</if>
+						ORDER BY ap.approver_no DESC LIMIT #{vpn} OFFSET #{offset}
 	</select>
 	
 	<select id="refTotalPage" resultType="int">
-		SELECT CEIL(COUNT(a.approval_no)/#{param2}) AS pages FROM approval a
+		SELECT CEIL(COUNT(a.approval_no)/#{vpn}) AS pages FROM approval a
 			JOIN member m ON a.draftmember_no = m.member_no
 			JOIN approver ap ON a.approval_no = ap.approval_no
-				WHERE a.document_state != 3 AND ap.sortation = 1 AND ap.member_no = #{param1}
+				WHERE a.document_state != 3 AND ap.sortation = 1 AND ap.member_no = #{member_no}
+				<if test="#{searchType} == '1' and searchInfo != null">
+					AND m.name LIKE CONCAT('%',#{searchInfo},'%');
+				</if>
+				<if test="searchType == '2' and searchInfo != null">
+					AND a.approval_title LIKE CONCAT('%',#{searchInfo},'%');
+				</if>
 	</select>
 	
 	<select id="draftDocDetailInfo" resultType="approval">
