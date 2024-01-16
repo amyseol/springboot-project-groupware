@@ -3,6 +3,7 @@ package kr.co.gudi.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -166,8 +167,14 @@ public class MemberController {
 	
 	@GetMapping("/organization/detail/{member_no}")
 	@ResponseBody
-	public List<MemberDTO>getMemberDetail(@PathVariable int member_no){
-		return service.getMemberDetail(member_no);
+	public Map<String, Object> getMemberDetail(@PathVariable int member_no){	
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+		list = service.getMemberDetail(member_no);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		String file_newname = service.getFileName(member_no);
+		map.put("file_newname", file_newname);
+		return map;
 	}
 	
     @GetMapping(value="/memberRegist")
