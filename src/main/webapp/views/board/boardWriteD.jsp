@@ -52,6 +52,10 @@
 		    color: #fff; 
 		}
 		
+		#rich_deditor{
+			width: 80%;
+		}
+		
 </style>
 </head>
 <body>
@@ -74,7 +78,6 @@
 		        	<div id="rich_deditor" ></div>
 					
 					<input type="hidden" name="board_content" value=""/>
-		            <!-- <textarea id="board_content" name="board_content"></textarea> -->
 		        </li>
 		        <li>
 		            <h5><label for="photos">사진</label></h5>
@@ -98,7 +101,7 @@
 	var config = {}
 	config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
 	config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
-	var editor = new RichTextEditor("#board_content", config);
+	var editor = new RichTextEditor("#rich_deditor", config);
 	
 	function save(){
 		 var content = editor.getHTMLCode();
@@ -124,6 +127,5 @@
 	    }
 	    
 	}
-	//alert("접근이 거부되었습니다! 권한이 없습니다.");
 </script>
 </html>

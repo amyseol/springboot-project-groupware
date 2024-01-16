@@ -112,17 +112,12 @@
 
 </body>
 <script>
-/*
-var config = {}
-config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
-config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
-var editor = new RichTextEditor("#board_content", config);
-*/
-	
-	function goBack() {
-	    window.history.back();
-	  }
-	  
+
+	var config = {}
+	config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
+	config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
+	var editor = new RichTextEditor("#board_content", config);
+
 	function val(){
 	var board_title = $('#board_title').val();
 	var board_content=$('#board_content').val();
