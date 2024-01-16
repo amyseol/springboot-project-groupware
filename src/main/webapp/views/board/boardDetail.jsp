@@ -29,7 +29,7 @@
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
         
 		li button, input[type="button"] {
-		    background-color: #ccc;
+		    background-color: #007aff;
 		    padding: 5px 10px;
 		    border: none;
 		    border-radius: 5px;
@@ -96,20 +96,20 @@
 </body>
 <script>
 
-function confirmDelete() {
-    var userConfirmed = confirm("삭제하시겠습니까?");
-    if (userConfirmed) {
-        // 사용자가 '예'를 선택한 경우
-        location.href = './del?board_no=${board.board_no}';
-    }
-}
-
-function confirmModify() {
-    var userConfirmed = confirm("수정하시겠습니까?");
-    if (userConfirmed) {
-        // 사용자가 '예'를 선택한 경우
-        location.href = './boardModify?board_no=${board.board_no}';
-    }
-}
+	function confirmDelete() {
+	    var userConfirmed = confirm("삭제하시겠습니까?");
+	    if (userConfirmed) {
+	        // 사용자가 '예'를 선택한 경우
+	        location.href = './del?board_no=${board.board_no}';
+	    }
+	}
+	
+	function confirmModify() {
+	    var userConfirmed = confirm("수정하시겠습니까?");
+	    if (userConfirmed) {
+	        // 사용자가 '예'를 선택한 경우
+	        location.href = './boardModify?board_no=${board.board_no}';
+	    }
+	}
 </script>
 </html>

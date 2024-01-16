@@ -30,7 +30,7 @@
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
 		li button, input[type="button"] {
-		    background-color: #ccc;
+		    background-color: #007aff;
 		    padding: 5px 10px;
 		    border: none;
 		    border-radius: 5px;
@@ -105,76 +105,76 @@
 <script>
 
 
-var showPage = 1;
-
-listCall(showPage);
-
-
-
-
-function listCall(page){
-	console.log("ajax시작");
-	$.ajax({
-		type:'get',
-		url:'listD',
-		data:{
-			 'page': page,
-			 'board_name': $('#board_name').val()
-		},
-		dataType:'json', // 받는 타입
-		success:function(data){
-			console.log(data);
-			console.log("------listCall-----");
-			drawList(data);	
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
+	var showPage = 1;
 	
-}
-
-function drawList(listD){
-	var content = '';
-	listD.listD.forEach(function(item, idx){
-		content += '<ul>';
-		content += '<li>'+item.board_no+'</li>';
-		content+='<li><a href="boardDetailD?board_no='+item.board_no+'">'+item.board_title+'</a></li>';
-		content += '<li>'+item.board_depart+'</li>';
-		content += '<li>'+item.board_date+'</li>';
-		content += '<li>'+item.bHit+'</li>';			
-		content += '</ul>';
-	});
-	$('#listD').empty(); 
-	$('#listD').append(content);
+	listCall(showPage);
 	
 	
-	//페이징 처리 UI 그리기(플러그인 사용)
-	$('#pagination').twbsPagination({
-		startPage:listD.currPage, // 보여줄 페이지
-		totalPages:listD.pages, // 총 페이지 수(총 갯수/페이지 당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
-		visiblePages:5, // [1][2][3][4][5]
-		onPageClick:function(e, page){ // 번호 클릭 시 실행할 내용
-			//console.log(e);
-			if(showPage != page){ // 1페이지 보고있는데 1페이지를 또 클릭하진 않을 거니까 (클릭하지 않은 것이라고 생각하기)
-				console.log(page);
-				showPage = page; // 클릭해서 다른 페이지를 보여주게 되면 현재 보고있는 페이지 번호도 변경해준다.
-				listCall(page);
+	
+	
+	function listCall(page){
+		console.log("ajax시작");
+		$.ajax({
+			type:'get',
+			url:'listD',
+			data:{
+				 'page': page,
+				 'board_name': $('#board_name').val()
+			},
+			dataType:'json', // 받는 타입
+			success:function(data){
+				console.log(data);
+				console.log("------listCall-----");
+				drawList(data);	
+			},
+			error:function(e){
+				console.log(e);
 			}
-		}
+		});
 		
-	});
-}
-
-
-
-function handleKeyDown(event) {
-    // 엔터 키의 keyCode는 13
-    if (event.keyCode === 13) {
-        // 엔터 키를 눌렀을 때 실행할 검색 함수 호출
-        search();
-    }
-}
+	}
+	
+	function drawList(listD){
+		var content = '';
+		listD.listD.forEach(function(item, idx){
+			content += '<ul>';
+			content += '<li>'+item.board_no+'</li>';
+			content+='<li><a href="boardDetailD?board_no='+item.board_no+'">'+item.board_title+'</a></li>';
+			content += '<li>'+item.board_depart+'</li>';
+			content += '<li>'+item.board_date+'</li>';
+			content += '<li>'+item.bHit+'</li>';			
+			content += '</ul>';
+		});
+		$('#listD').empty(); 
+		$('#listD').append(content);
+		
+		
+		//페이징 처리 UI 그리기(플러그인 사용)
+		$('#pagination').twbsPagination({
+			startPage:listD.currPage, // 보여줄 페이지
+			totalPages:listD.pages, // 총 페이지 수(총 갯수/페이지 당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
+			visiblePages:5, // [1][2][3][4][5]
+			onPageClick:function(e, page){ // 번호 클릭 시 실행할 내용
+				//console.log(e);
+				if(showPage != page){ // 1페이지 보고있는데 1페이지를 또 클릭하진 않을 거니까 (클릭하지 않은 것이라고 생각하기)
+					console.log(page);
+					showPage = page; // 클릭해서 다른 페이지를 보여주게 되면 현재 보고있는 페이지 번호도 변경해준다.
+					listCall(page);
+				}
+			}
+			
+		});
+	}
+	
+	
+	
+	function handleKeyDown(event) {
+	    // 엔터 키의 keyCode는 13
+	    if (event.keyCode === 13) {
+	        // 엔터 키를 눌렀을 때 실행할 검색 함수 호출
+	        search();
+	    }
+	}
 
 
 </script>

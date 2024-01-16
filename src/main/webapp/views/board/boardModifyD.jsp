@@ -62,7 +62,7 @@
 		.list_form input[type="button"],
 		.list_form button {
 		    padding: 5px 10px;
-		    background-color: #cccccc;
+		    background-color: #007aff;
 		    color: white;
 		    border: none;
 		    border-radius: 5px;
@@ -101,7 +101,7 @@
 		        </li>
 		        <br/>
 		        <li>
-		            <input type="button" onclick="location.href='/boardD'" value="이전" />
+		            <input type="button" onclisck="location.href='/boardD'" value="이전" />
 		            <button type="button" onclick="confirmModify()">수정</button>
 		        </li>
 		    </ul>
@@ -118,28 +118,28 @@ config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 �
 config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
 var editor = new RichTextEditor("#board_content", config);
 */
-
-function goBack() {
-    window.history.back();
-  }
-  
-function val(){
-var board_title = $('#board_title').val();
-var board_content=$('#board_content').val();
-if (board_title === "" || board_content === "") {
-    alert("입력하지 않은 값이 있습니다.");
-    return false;
+	
+	function goBack() {
+	    window.history.back();
+	  }
+	  
+	function val(){
+	var board_title = $('#board_title').val();
+	var board_content=$('#board_content').val();
+	if (board_title === "" || board_content === "") {
+	    alert("입력하지 않은 값이 있습니다.");
+	    return false;
+		}
+		return true;
 	}
-	return true;
-}
-
-function confirmModify() {
-    var userConfirmed = confirm("수정하시겠습니까?");
-    if (userConfirmed) {
-    	document.getElementById('sendModifyD').submit();
-    
-    }
-    
-}
+	
+	function confirmModify() {
+	    var userConfirmed = confirm("수정하시겠습니까?");
+	    if (userConfirmed) {
+	    	document.getElementById('sendModifyD').submit();
+	    
+	    }
+	    
+	}
 </script>
 </html>

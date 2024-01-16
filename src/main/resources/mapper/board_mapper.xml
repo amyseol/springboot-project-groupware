@@ -96,7 +96,7 @@
   	
   	<delete id="del">
   		DELETE FROM board
-  			WHERE board_no=#{param1}
+  			WHERE board_no=#{param1};
   	</delete>
   	
   	<delete id="delD">

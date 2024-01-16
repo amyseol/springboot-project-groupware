@@ -44,7 +44,7 @@
 
  
  		li button, input[type="button"] {
-		    background-color: #ccc;
+		    background-color: #007aff;
 		    padding: 5px 10px;
 		    border: none;
 		    border-radius: 5px;
@@ -71,9 +71,9 @@
 		        </li>
 		        <li>
 		        <h5>내용</h5>
-		        	<div id="rich_deditor"></div>
+		        	<div id="rich_deditor" ></div>
 					
-					<input type="hidden" id="board_content" name="board_content" value=""/>
+					<input type="hidden" name="board_content" value=""/>
 		            <!-- <textarea id="board_content" name="board_content"></textarea> -->
 		        </li>
 		        <li>
@@ -83,7 +83,7 @@
 		        <br/>
 		        <li>
 		            <button type="button" onclick="confirmCancel()">취소</button>
-		            <button type="submit">저장</button>
+		            <button type="submit" onclick="save()">저장</button>
 		        </li>
 		    </ul>
 		    </li>
@@ -96,11 +96,17 @@
 <script>
 	
 	var config = {}
-	//config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
+	config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
 	config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
 	var editor = new RichTextEditor("#board_content", config);
 	
-
+	function save(){
+		 var content = editor.getHTMLCode();
+		 $('input[name="board_content"]').val(content);
+		 console.log("content = "+content);
+	}
+	
+	
 	function val(){
 	var board_title = $('#board_title').val();
 	var board_content=$('#board_content').val();
