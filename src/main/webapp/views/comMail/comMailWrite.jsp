@@ -13,11 +13,21 @@
 
 </head>
 <style>
+		.left_box{width: 250px; float: left; height: 400px;}
+		.left_box .org_chart{width:100%; height: 100%; border: 1px solid #ccc; padding: 10px; overflow: auto;}
+        .left_box ul li{font-size: 16px;}
+        .left_box ul li span, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p{cursor: pointer; border: 1px solid rgba(0,0,0,0); display: inline-block;}
+        .left_box ul li span.on, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.on{font-weight: 700; border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
+        .left_box ul li span.hover, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.hover{border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
+        .left_box ul>li>ul{padding-top:3px;}
+        .left_box ul>li>ul>li{padding-left:15px;}
+        .plus{display: none;}
+
         #write_form {
         	position: relative;
             margin: 50px auto; /* 가운데 정렬을 위한 마진 설정 */
             width: 80%;
-            left: 150px;
+            left: 130px;
         }
 
         table {
@@ -59,7 +69,10 @@
     		padding: 3px;
         }
         
-
+        .fileBox{display: flex;height: 48px;}
+        #select_file{margin-top:10px;}
+		.del_all{height:25px;margin-top:10px;}
+		#organization{margin-top:5px;}
     </style>
 <body>
   	<%@ include file="/views/nav.jsp" %>
@@ -84,7 +97,7 @@
                                    		<input type="text" name="receiver" id="inputReceiver" value="${sender}" readonly>
                                 	</c:if>
                                 	<c:if test="${empty sender}">
-                                   		<input type="text" name="receiver" id="inputReceiver" placeholder="받는 사람을 입력하세요.">
+                                   		<input type="text" name="receiver" id="inputReceiver" value="" placeholder="받는 사람을 입력하세요.">
                                 	</c:if>
                                 	<input type="hidden" name="member_no" value="">
                                 </li>
@@ -102,7 +115,7 @@
                 <tr>
                     <th>&nbsp;파일첨부 &nbsp;&nbsp;</th>
                     <td>
-                        <div>
+                        <div class="fileBox">
                             <a class="btn_file">
                                 <span>
                                     <input type="file" id="select_file" name="files" multiple>
@@ -131,21 +144,21 @@
     <!-- -------------------------------------------mailWrap end------------------------------------------------- -->
     
     
-<!-- 조직도 팝업 모달 -->
-<div class="modal fade" id="orgChartModal" tabindex="-1" role="dialog" aria-labelledby="orgChartModalLabel" aria-hidden="true">
+<!-- 주소록 팝업 모달 -->
+<div class="modal fade" id="organizationModal" tabindex="-1" role="dialog" aria-labelledby="organizationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document" style="margin-left: 300px; width: 300px; height: 500px;">
         <div class="modal-content" >
             <div class="modal-header">
-                <h5 class="modal-title" id="orgChartModalLabel">조직도</h5>
+                <h5 class="modal-title" id="organizationModalLabel">주소록</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 			<div class="modal-body">
-				<div class="left_box">
+				<div>
 
 					<div class="left_box">
-						<h5>조직도</h5>
+						<h5>주소록</h5>
 						<div class="org_chart">
 							<ul>
 								<c:forEach items="${departments}" var="depart">
@@ -213,8 +226,7 @@
 </body>
 <script>
 document.getElementById('organization').addEventListener('click', function() {
-	$('#orgChartModal').modal('show');
-	
+	$('#organizationModal').modal('show');
 });
 
 $(document).on('click', 'p', function() {
@@ -224,9 +236,40 @@ $(document).on('click', 'p', function() {
     console.log("Member No:", memberNo);
     $('input[name="receiver"]').val(memberName);
     $('input[name="member_no"]').val(memberNo);
-    $('#orgChartModal').modal('hide');
-
+    $('#organizationModal').modal('hide');
 });
+
+
+
+$('.org_chart>ul>li>span').on('click',function(){
+    var $ul = $(this).siblings('ul');
+
+    $ul.slideToggle(400,function(){
+        if ($(this).is(":hidden")) {
+            $(this).siblings('span').find('.minus').css('display','none');
+            $(this).siblings('span').find('.plus').css('display','inline-block');
+        }else{
+            $(this).siblings('span').find('.minus').css('display','inline-block');
+            $(this).siblings('span').find('.plus').css('display','none');
+        }
+    });
+});
+$('.org_chart>ul>li>ul>li>span').on('click',function(){
+    var $ul = $(this).siblings('ul');
+
+    $ul.slideToggle(300,function(){
+        if ($(this).is(":hidden")) {
+            $(this).siblings('span').find('.minus').css('display','none');
+            $(this).siblings('span').find('.plus').css('display','inline-block');
+        }else{
+            $(this).siblings('span').find('.minus').css('display','inline-block');
+            $(this).siblings('span').find('.plus').css('display','none');
+        }
+    });
+});
+
+
+
 //--------------------------------------mail start-----------------------------------------------------
     $(document).ready(function() {
 		// 세션에서 저장된 정보 읽어오기

@@ -144,15 +144,17 @@ public class ComMailController {
 	}
 	
 	@GetMapping("/writeMail")
-	public ModelAndView writeMail(String note_no, Model model) {
+	public ModelAndView writeMail(String note_no) {
 		logger.info("note_no === "+note_no);
+		// ApprovalService 의 mailOrganization() 메서드 
 		ModelAndView mav = apprService.mailOrganization();
 		mav.setViewName("comMail/comMailWrite");
+		String sender = "";
 		if(note_no!=null) {
 			// 메일 답장시 보낸 사람의 이름을 가져온다 
-			String sender = service.getSender(note_no);
-			mav.addObject("sender", sender);
+			sender = service.getSender(note_no);
 		}
+		mav.addObject("sender", sender);
 		return mav;
 	}
 	
