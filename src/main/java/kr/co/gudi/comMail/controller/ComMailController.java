@@ -21,13 +21,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.gudi.approval.dto.ApprovalDTO;
+import kr.co.gudi.approval.service.ApprovalService;
 import kr.co.gudi.comMail.service.ComMailService;
 import kr.co.gudi.member.vo.MemberVO;
 
 @Controller
 public class ComMailController {
 	@Autowired ComMailService service;
-	
+	@Autowired ApprovalService apprService;
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@GetMapping("/receiveMail")
@@ -142,14 +144,16 @@ public class ComMailController {
 	}
 	
 	@GetMapping("/writeMail")
-	public String writeMail(String note_no, Model model) {
+	public ModelAndView writeMail(String note_no, Model model) {
 		logger.info("note_no === "+note_no);
+		ModelAndView mav = apprService.mailOrganization();
+		mav.setViewName("comMail/comMailWrite");
 		if(note_no!=null) {
 			// 메일 답장시 보낸 사람의 이름을 가져온다 
 			String sender = service.getSender(note_no);
-			model.addAttribute("sender",sender);
+			mav.addObject("sender", sender);
 		}
-		return "/comMail/comMailWrite";
+		return mav;
 	}
 	
 	// 메일 쓰기

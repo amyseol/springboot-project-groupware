@@ -76,6 +76,19 @@ public class ApprovalService {
 		mav.addObject("members", members);
 	}
 	
+	// 메일함 조직도 
+	public ModelAndView mailOrganization() {
+		ArrayList<ApprovalDTO> departments =  apprDao.departmentsInfo();
+		ArrayList<ApprovalDTO> teams = apprDao.departmentsInfo();
+		ArrayList<ApprovalDTO> members = apprDao.membersInfo();
+		
+		mav.addObject("departments", departments);
+		mav.addObject("teams", teams);
+		mav.addObject("members", members);
+		
+		return mav;
+	}
+	
 	
 	// 결재요청
 	public ModelAndView approvalWrite(HashMap<String, String> params, MultipartFile[] files, int member_no, String[] observer) {
