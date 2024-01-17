@@ -44,8 +44,9 @@
 		    margin-left: 10px; 
 		}
 		
-		
-		
+		.underline li{
+			 border-bottom: 1px solid #ccc; padding-bottom: 10px;
+		}
 </style>
 </head>
 <body>
@@ -55,19 +56,19 @@
         <h3 class="sub_title">전사 게시판</h3>
         <div class="allpadding" style="padding-left: 50px;">
 			<ul>
-		    <li>
+		    <li class="underline" style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">
 		        <h5><label for="board_title">제목</label></h5>
 		        <span id="board_title">${board.board_title}</span>
 		    </li>
-		    <li>
+		    <li class="underline" style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">
 		        <h5><label for="bHit">조회수</label></h5>
 		        <span id="bHit">${board.bHit}</span>
 		    </li>
-		    <li>
+		    <li class="underline" style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">
 		        <h5><label for="board_depart">작성자</label></h5>
 		        <span id="board_depart">${board.board_depart}</span>
 		    </li>
-		    <li>
+		    <li class="underline" style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">
 		        <h5><label for="board_content">내용</label></h5>
 		        <span id="board_content">${board.board_content}</span>
 		    </li>
