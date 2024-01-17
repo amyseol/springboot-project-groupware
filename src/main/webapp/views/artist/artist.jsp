@@ -16,16 +16,14 @@
         #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;text-align:center;}
         #common_list_form .list_form .list_title ul li:first-child{width: 25%; padding-left: 50px; }
         #common_list_form .list_form .list_title ul li:nth-child(2){width: 25%;}
-        #common_list_form .list_form .list_title ul li:nth-child(3){width: 25%;}
         #common_list_form .list_form .list_title ul li:last-child{width: 25%;}
         #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;text-align:center;}
         #common_list_form .list_form .list_content ul li:first-child{width: 25%; padding-left: 50px; }
         #common_list_form .list_form .list_content ul li:nth-child(2){width: 25%;}
-        #common_list_form .list_form .list_content ul li:nth-child(3){width: 25%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 25%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
+        #common_list_form .list_form .list_content ul li:hover{background-color: #eee;}
 		        
         #common_list_form .search_box{position: relative; margin: 0 0 10px 50px; border: 1px solid #fff; display: inline-block;}
         #common_list_form .search_box li{float: left;}
@@ -41,11 +39,16 @@
         
         .searchbox{
 			width: 150%;
-		    height: 6%;
+		    height: 10%;
 		    display: flex;
 		    position: relative;
 		    left: 65%;
         }
+        
+        button {
+			border-radius: 3px; background-color:025464; color:white; padding: 5 10; border:none;
+		}
+        
     </style>
 <body>
 <%@ include file="/views/nav.jsp" %>
@@ -64,15 +67,15 @@
 		<table style="margin-left: auto;margin-right: auto;">
 			<tr>
 				<td> 
-				아티스트 이름 : <input type="text" id="name"/> 
+				아티스트 이름 : <input type="text" id="name" style="margin-right: 10px;"/> 
 				</td>
 				
 				<td>
-				  소속사 이름 : <input type="text" id="agency" class="date"/>
+				  소속사 이름 : <input type="text" id="agency" class="date" style="margin-right: 10px;"/>
 				</td>
 				
 				<td>
-				<button id="get">등록</button>
+				<button id="get" style="color : white;">등록</button>
 				</td>
 			</tr>
 		</table>
@@ -85,23 +88,22 @@
                 </select>
             </li>
             <li>
-                <input type="text" class="search_info" placeholder="검색" id="searchbar"/>
+                <input type="text" class="search_info" name="search_box" placeholder="검색" id="search_info"/>
             </li>
             <li class="btn_box">
                 <div class="search_btn">
-                    <img src="./img/search.png" alt="검색 버튼" id="search">
+                    <img src="resources/img/common/search.png" alt="검색 버튼" id="search">
                 </div>
             </li>
         </ul>
-        <h3 class="sub_title">아티스트목록</h3>
-        <div class="list_form">
+        <h3 class="sub_title" style="margin-left: 240px;">아티스트목록</h3>
+        <div class="list_form" style="margin-left: 240px;">
             <ul>
                 <li class="list_title" id="list1">
                     <ul>
                         <li>no.</li>
                         <li>아티스트이름</li>
                         <li>소속사</li>
-                        <li>수정</li>
                     </ul>
                 </li>
 				
@@ -111,15 +113,15 @@
 
              </ul>
 
-        </div>
 		<div id="paging" class="pagingBox">
 			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
 			<div class="container">
-				<nav aria-label="Page navigation" style="text-align: center">
+				<nav aria-label="Page navigation" style="text-align: justify; margin-left: 240px;">
 					<ul class="pagination" id="getpagination"></ul>
 				</nav>
 			</div>
 		</div>
+        </div>
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
     <!-- -------------------------------------------music start------------------------------------------ -->
@@ -165,12 +167,12 @@ var searchtag ="";
 
 $("#search").on("click", function(){
 	
-	search = $("#searchbar").val();
+	search = $("#search_info").val();
 	
-	var storyLength = $("#searchbar").val().length;
+	var storyLength = $("#search_info").val().length;
 	if(storyLength < 2 ){
 		alert("2자 이상 입력해주세요");
-	    $("#searchbar").focus();
+	    $("#search_info").focus();
 	}else{
 	//searchbox = $('#search').val();
 	console.log($('#searchpath option:selected').val());
@@ -194,7 +196,7 @@ function call(showPage){
         url : '/artistlist',
         data:{
         	
-        	'pagePerNum':5
+        	'pagePerNum':15
         	,'page':showPage
         	,'search':search
         	,'searchtag':searchtag
@@ -215,7 +217,6 @@ function call(showPage){
                 content += '<li id="'+item.art_no+'">'+item.art_no+'</li>';
                 content += '<li id="'+item.art_name+'">'+"<a href = 'artistdetail?num="+item.art_no+"&name="+item.art_name+"&agency="+item.art_agency+"'>"+item.art_name+"</a>"+'</li>';
                 content += '<li id="'+item.art_agency+'">'+item.art_agency+'</li>';
-                content += '<li >'+"<a onclick='test("+item.art_no+","+item.art_name+","+item.art_agency+")'>수정</a>"+'</li>';
                 content += '</ul>';
             });
             $('#list_1').empty();

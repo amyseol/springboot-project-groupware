@@ -24,7 +24,7 @@
 		<if test="!(search=='')">
 			#{param1}
 		</if>
-	ORDER BY art_no DESC LIMIT 5 OFFSET #{param3}
+	ORDER BY art_no DESC LIMIT 15 OFFSET #{param3}
 	</select>
 	
 	

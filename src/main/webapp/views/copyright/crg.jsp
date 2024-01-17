@@ -169,6 +169,10 @@
         #approver_light_box .select_approver_box .approver_box_inner .btn_area .btn_inner button{width:50px; height:35px; box-sizing: border-box; cursor: pointer;}
         #approver_light_box .select_approver_box .approver_box_inner .btn_area .btn_inner button:first-child{background-color: #eb568e; border: none; color: #fff;}
         #approver_light_box .select_approver_box .approver_box_inner .btn_area .btn_inner button:last-child{border: 1px solid #ccc;}
+        
+        button {
+			border-radius: 3px; background-color:025464; color:white; padding: 5 10; border:none;
+		}
 </style>
 </head>
 <body>

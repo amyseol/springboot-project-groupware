@@ -70,11 +70,11 @@
                 </select>
             </li>
             <li>
-                <input type="text" class="search_info" placeholder="검색" id="searchbar"/>
+                <input type="text" class="search_info" placeholder="검색" id="search_info"/>
             </li>
             <li class="btn_box">
                 <div class="search_btn">
-                    <img src="./img/search.png" alt="검색 버튼" id="search">
+                    <img src="resources/img/common/search.png" alt="검색 버튼" id="search">
                 </div>
             </li>
         </ul>
@@ -168,12 +168,12 @@ var searchtag ="";
 
 $("#search").on("click", function(){
 	
-	search = $("#searchbar").val();
+	search = $("#search_info").val();
 	
-	var storyLength = $("#searchbar").val().length;
+	var storyLength = $("#search_info").val().length;
 	if(storyLength < 2 ){
 		alert("2자 이상 입력해주세요");
-	    $("#searchbar").focus();
+	    $("#search_info").focus();
 	}else{
 	//searchbox = $('#search').val();
 	console.log($('#searchpath option:selected').val());
