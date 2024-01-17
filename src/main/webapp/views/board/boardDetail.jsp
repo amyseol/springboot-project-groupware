@@ -44,6 +44,21 @@
 		    margin-left: 10px; 
 		}
 		
+		.underline {
+		    border-bottom: 1px solid #ccc;
+		    padding-top: 10px;
+		    padding-bottom: 10px;
+		}
+		
+		.underline div {
+		    margin-bottom: 10px;
+		}
+		
+		.list-item-label {
+	    	font-size: 15px;
+	    	font-weight: bold;
+		}
+		
 </style>
 </head>
 <body>
@@ -53,40 +68,40 @@
         <h3 class="sub_title">부서 게시판</h3>
         <div class="allpadding" style="padding-left: 50px;">
 			<ul>
-		    <li id="tt">
-		        <h5><label for="board_title">제목</label></h5>
-		        <span id="board_title">${board.board_title}</span>
-		    </li>
-		    <li>
-		        <h5><label for="bHit">조회수</label></h5>
-		        <span id="bHit">${board.bHit}</span>
-		    </li>
-		    <li>
-		        <h5><label for="board_depart">작성자</label></h5>
-		        <span id="board_depart">${board.board_depart}</span>
-		    </li>
-		    <li>
-		        <h5><label for="board_content">내용</label></h5>
-		        <span id="board_content">${board.board_content}</span>
-		    </li>
-	    
-		    	<c:if test="${photos.size() > 0}">
-			        <li>
-			            <h5><label for="board_photos">사진</label></h5>
-			            <span id="board_photos">
+			    <li class="underline">
+			        <div class="list-item-label"><label for="board_title">제목</label></div>
+			        <div id="board_title">${board.board_title}</div>
+			    </li>
+			    <li class="underline">
+			        <div class="list-item-label"><label for="bHit">조회수</label></div>
+			        <div id="bHit">${board.bHit}</div>
+			    </li>
+			    <li class="underline">
+			        <div class="list-item-label"><label for="board_depart">작성자</label></div>
+			        <div id="board_depart">${board.board_depart}</div>
+			    </li>
+			    <li class="underline">
+			        <div class="list-item-label"><label for="board_content">내용</label></div>
+			        <div id="board_content">${board.board_content}</div>
+			    </li>
+			
+			    <c:if test="${photos.size() > 0}">
+			        <li class="underline">
+			            <div class="list-item-label"><label for="board_photos">사진</label></div>
+			            <div id="board_photos">
 			                <c:forEach items="${photos}" var="file">
 			                    <img src="/photo/${file.file_newname}" width="500" alt="${file.file_oriname}" />
 			                </c:forEach>
-			            </span>
+			            </div>
 			        </li>
-		    	</c:if>
-				<br/>
-				<div class="buttonlist">
-					<li>
-			        	<input type="button" onclick="location.href='/board'" value="리스트" />
-					    <input type="button" onclick="confirmDelete()" value="삭제" />
-					    <input type="button" onclick="confirmModify()" value="수정" />
-				    </li>
+			    </c:if>
+			    <br/>
+			    <div class="buttonlist">
+			        <li>
+			            <input type="button" onclick="location.href='/board'" value="리스트" />
+			            <input type="button" onclick="confirmDelete()" value="삭제" />
+			            <input type="button" onclick="confirmModify()" value="수정" />
+			        </li>
 			    </div>
 			</ul>
 		</div>

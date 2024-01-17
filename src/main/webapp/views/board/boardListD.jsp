@@ -22,7 +22,7 @@
         #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
         #common_list_form .list_form .list_content ul li:first-child{width: 10%; padding-left: 50px; }
-        #common_list_form .list_form .list_content ul li:nth-child(2){width: 50%;}
+        #common_list_form .list_form .list_content ul li:nth-child(2){width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
         #common_list_form .list_form .list_content ul li:nth-child(3){width: 15%;}
         #common_list_form .list_form .list_content ul li:nth-child(4){width: 15%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 10%;}
@@ -83,8 +83,8 @@
         <br/>
         <!------- 검색 ------->
         <div class="searchbox" >
-			<div> <h5>작성자/제목으로 검색하기 :  <input type="text" id="board_name" onkeydown="handleKeyDown(event)"/>
-		<input type="button" value="검색" onclick="listCall('1')" /></h5></div> 
+			<div><input type="text" id="board_name" onkeydown="handleKeyDown(event)"/>
+		<input type="button" value="검색" onclick="listCall('1')" /></div> 
 		</div>
         
         <div id="paging" class="pagingBox">
