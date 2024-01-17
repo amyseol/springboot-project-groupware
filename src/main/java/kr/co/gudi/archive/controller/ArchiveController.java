@@ -32,19 +32,12 @@ public class ArchiveController {
 		return "archive/archiveAll";
 	}
 	
-	// 전사 리스트 출력
+	// 전사, 부서 리스트 출력 (검색 리스트)
 	@GetMapping(value="/archAllList")
 	@ResponseBody
 	public Map<String, Object> archAllList(String page, String member_no, String state, String a_name){
 		return service.archAllList(page, member_no, state, a_name);
 	}
-	
-	// 부서별 리스트 출력
-//	@GetMapping(value="/archDepartList")
-//	@ResponseBody
-//	public Map<String, Object> archDepartList(String page, String member_no){
-//		return service.archDepartList(page, member_no);
-//	}
 	
 	// 부서 파일 업로드 
 	@PostMapping(value="/departFileUpload.do")
@@ -64,6 +57,7 @@ public class ArchiveController {
 	@ResponseBody
 	public Map<String, Object> archiveDel(@RequestParam(value="delList[]") ArrayList<String> delList,
 			@RequestParam(value="names[]") ArrayList<String> names, HttpSession session, Model model){
+		// 체크한 파일을 클릭한 사람이 작성자인지 확인하기 위해 names 를 가져온다 
 		logger.info("names{}", names);
 		String member_name = ((MemberVO)session.getAttribute("loginMember")).getName();
 		logger.info("name ==="+member_name);

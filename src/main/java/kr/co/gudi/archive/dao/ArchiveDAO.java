@@ -12,7 +12,7 @@ public interface ArchiveDAO {
 
 	int totalPage();
 
-	ArrayList<ArchiveDTO> archAllList(int offset);
+	ArrayList<ArchiveDTO> archAllList(int offset, String a_name);
 
 	void departFileUpload(String oriFileName, String newFileName, int arch_no, String size);
 
@@ -22,9 +22,8 @@ public interface ArchiveDAO {
 
 	int archiveDel(String arch_no);
 
-	ArrayList<ArchiveDTO> archDepartList(int offset, String departName);
+	ArrayList<ArchiveDTO> archDepartList(int offset, String departName, String a_name);
 
 	int totalDepartPage(String departName);
-
 	
 }

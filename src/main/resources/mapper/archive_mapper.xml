@@ -4,7 +4,7 @@
    
 <mapper namespace="kr.co.gudi.archive.dao.ArchiveDAO">
 	<select id="totalPage" resultType="int">
-		SELECT CEIL(COUNT(arch_no)/20) AS pages FROM archive WHERE arch_depart='전사'
+		SELECT CEIL(COUNT(arch_no)/20) AS pages FROM archive WHERE arch_state = '0' AND arch_depart='전사'
 	</select>
 	
 	<!-- 전사 리스트 출력 -->
@@ -13,11 +13,14 @@
 			LEFT OUTER JOIN member m ON a.member_no = m.member_no
 			LEFT OUTER JOIN file f ON f.file_location ='s' AND f.file_unique_no = a.arch_no
 		WHERE a.arch_state = '0' AND a.arch_depart = '전사' 
+			<if test="a_name!=null">
+				AND f.file_oriname LIKE CONCAT('%',#{param2},'%')
+			</if>
 				ORDER BY a.arch_no DESC LIMIT 20 OFFSET #{param1}
 	</select> 
 	
  	<select id="totalDepartPage" resultType="int">
-		SELECT CEIL(COUNT(arch_no)/20) AS pages FROM archive WHERE arch_depart = #{param1}
+		SELECT CEIL(COUNT(arch_no)/20) AS pages FROM archive WHERE arch_state = '0' AND arch_depart = #{param1}
 	</select> 
 	
 	<!-- 부서별 리스트 출력 -->
@@ -26,6 +29,9 @@
 			LEFT OUTER JOIN member m ON a.member_no = m.member_no
 			LEFT OUTER JOIN file f ON f.file_location ='s' AND f.file_unique_no = a.arch_no
 		WHERE a.arch_state = '0' AND a.arch_depart= #{param2}
+			<if test="a_name!=null">
+				AND f.file_oriname LIKE CONCAT('%',#{param3},'%')
+			</if>
 				ORDER BY a.arch_no DESC LIMIT 20 OFFSET #{param1}
 	</select> 
 	
