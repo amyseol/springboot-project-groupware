@@ -77,10 +77,9 @@ public class BoardController {
 		int member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
 	    logger.info("@@boardWriteD@@ 세션 로그인 아이디 체크 : "+member_no);
 		
-	    if(member_no == 20) {
+	    if(member_no == 1 || member_no==2 || member_no==3 || member_no==4) {
 	    	return "board/boardWriteD";
 	    }else {
-	        // "권한이 없습니다" 메시지를 모델에 추가
 	        model.addAttribute("msg", "권한이 없습니다");
 	        return "board/boardListD";
 	    }
