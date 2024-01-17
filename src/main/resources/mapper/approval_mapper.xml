@@ -75,26 +75,46 @@
 	</select>
 	
 	<select id="apprList" resultType="approval">
-		SELECT a.*, m.name
+		SELECT a.approval_no, a.approval_start, a.approval_title, a.approval_end, a.approval_state, a.document_state, a.form_no, m.name
 			FROM approval a
 			JOIN member m ON a.draftmember_no = m.member_no
 			JOIN approver ap ON a.approval_no = ap.approval_no
-				WHERE a.document_state != 3 AND ap.sortation = 0 AND ap.member_no = #{param1}
+				WHERE a.document_state != 3 AND ap.sortation = 0 AND ap.member_no = #{member_no}
+					<if test="searchType == 1 and searchInfo != null">
+					    AND m.name LIKE CONCAT('%', #{searchInfo}, '%')
+					</if>
+					<if test="searchType == 2 and searchInfo != null">
+						AND a.approval_title LIKE CONCAT('%',#{searchInfo},'%')
+					</if>
+						ORDER BY ap.approver_no DESC LIMIT #{vpn} OFFSET #{offset}
 	</select>
 	
 	<select id="refList" resultType="approval">
-		SELECT a.approval_start, a.approval_title, a.approval_end, a.approval_state, a.document_state, a.form_no, m.name
+		SELECT a.approval_no, a.approval_start, a.approval_title, a.approval_end, a.approval_state, a.document_state, a.form_no, m.name
 			FROM approval a
 			JOIN member m ON a.draftmember_no = m.member_no
 			JOIN approver ap ON a.approval_no = ap.approval_no
 				WHERE a.document_state != 3 AND ap.sortation = 1 AND ap.member_no = #{member_no}
-					<if test = "searchType == '1' and searchInfo != null">
-						AND m.name LIKE CONCAT('%',#{searchInfo},'%');
+					<if test="searchType == 1 and searchInfo != null">
+					    AND m.name LIKE CONCAT('%', #{searchInfo}, '%')
 					</if>
-					<if test="searchType == '2' and searchInfo != null">
-						AND a.approval_title LIKE CONCAT('%',#{searchInfo},'%');
+					<if test="searchType == 2 and searchInfo != null">
+						AND a.approval_title LIKE CONCAT('%',#{searchInfo},'%')
 					</if>
 						ORDER BY ap.approver_no DESC LIMIT #{vpn} OFFSET #{offset}
+	</select>
+	
+	<select id="apprTotalPage" resultType="int">
+		SELECT CEIL(COUNT(a.approval_no)/#{vpn}) AS pages FROM approval a
+			JOIN member m ON a.draftmember_no = m.member_no
+			JOIN approver ap ON a.approval_no = ap.approval_no
+				WHERE a.document_state != 3 AND ap.sortation = 0 AND ap.member_no = #{member_no}
+				<if test="searchType == 1 and searchInfo != null">
+					AND m.name LIKE CONCAT('%',#{searchInfo},'%')
+				</if>
+				<if test="searchType == 2 and searchInfo != null">
+					AND a.approval_title LIKE CONCAT('%',#{searchInfo},'%')
+				</if>
 	</select>
 	
 	<select id="refTotalPage" resultType="int">
@@ -102,11 +122,11 @@
 			JOIN member m ON a.draftmember_no = m.member_no
 			JOIN approver ap ON a.approval_no = ap.approval_no
 				WHERE a.document_state != 3 AND ap.sortation = 1 AND ap.member_no = #{member_no}
-				<if test="#{searchType} == '1' and searchInfo != null">
-					AND m.name LIKE CONCAT('%',#{searchInfo},'%');
+				<if test="searchType == 1 and searchInfo != null">
+					AND m.name LIKE CONCAT('%',#{searchInfo},'%')
 				</if>
-				<if test="searchType == '2' and searchInfo != null">
-					AND a.approval_title LIKE CONCAT('%',#{searchInfo},'%');
+				<if test="searchType == 2 and searchInfo != null">
+					AND a.approval_title LIKE CONCAT('%',#{searchInfo},'%')
 				</if>
 	</select>
 	

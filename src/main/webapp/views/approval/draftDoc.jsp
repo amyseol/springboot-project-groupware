@@ -311,7 +311,7 @@
             </div>
             <div class="right_area">
                 <form id="form_info" class="doc_form" action="approvalWrite.do" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="form_no">
+                <input type="hidden" name="form_no" value="1">
                 <ul class="horizontal_obser">
                 	
                 </ul>
@@ -586,18 +586,6 @@
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
-
-var firstIdx = 26;
-var secondIdx = 27;
-var thirdIdx = 28;
-var firstOb = 29;
-var secondOb = 30;
-
-$('input[name="first_approver"]').val(firstIdx);
-$('input[name="second_approver"]').val(secondIdx);
-$('input[name="third_approver"]').val(thirdIdx);
-$('input[class="observer1"]').val(firstOb);
-$('input[class="observer2"]').val(secondOb);
 
 $('#approval_do').on('click',function(event){
 	event.stopPropagation();
@@ -898,7 +886,6 @@ var dataIndexValue = 0;
 var queryNo = window.location.search;
 var params = new URLSearchParams(queryNo);
 var rcvFormNo = params.get("form_no");
-$('input[name="form_no"]').val(rcvFormNo);
 
 $('.cancel_box').on('click',function(){
     $('#approval_light_box').fadeOut(500);
@@ -933,7 +920,7 @@ $('#form_go').on('click',function(){
     if(dataIndexValue == 0){
         alert("양식을 선택해 주세요.");
     } else if(dataIndexValue == 1){
-        window.location.href = '/approval/draftDoc?form_no='+encodeURIComponent(dataIndexValue);
+        window.location.href = '/draftDoc';
     } else if(dataIndexValue == 2){
         window.location.href = 'javascript:';
     } else if(dataIndexValue == 3){

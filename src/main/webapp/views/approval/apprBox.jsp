@@ -5,6 +5,9 @@
 <meta charset="UTF-8">
 <title>Hoony Music</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link href="/resources/css/paging.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+<script src="/resources/js/paging.js" type="text/javascript"></script>
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
@@ -92,6 +95,8 @@
         #common_list_form .search_box:hover select{border: 1px solid #333; border-right: none;}
         #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
         #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
+        #common_list_form .pageNum{float: right; margin-right: 50px;}
+        #common_list_form .pageNum #viewPageNum{width: 50px; height: 28px; border: 1px solid #ccc;}
         
 
 
@@ -193,20 +198,27 @@
         <h2 class="big_title">결재함</h2>
         <ul class="search_box">
             <li>
-                <select>
-                    <option>기안자</option>
-                    <option>제목</option>
+                <select id="search_type">
+                    <option value="1">기안자</option>
+                    <option value="2">제목</option>
                 </select>
             </li>
             <li>
-                <input type="text" id="search_info" placeholder="검색"/>
+                <input type="text" id="search_info" placeholder="검색" onkeydown="handleKeyDown(event)"/>
             </li>
             <li class="btn_box">
-                <div class="search_btn">
+                <div class="search_btn" onclick="search()">
                     <img src="/resources/img/common/search.png" alt="검색 버튼">
                 </div>
             </li>
         </ul>
+        <div class="pageNum">
+        	<select id="viewPageNum">
+        		<option value="5">5</option>
+        		<option value="10">10</option>
+        		<option value="15">15</option>
+        	</select>
+        </div>
         
         <div class="list_form">
             <ul>
@@ -225,6 +237,14 @@
                 </li>
             </ul>
         </div>
+        <div id="paging" class="pagingBox">
+			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
+			<div class="container">
+				<nav aria-label="Page navigation" style="text-align: center">
+					<ul class="pagination" id="pagination"></ul>
+				</nav>
+			</div>
+		</div>
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
     <!-- -------------------------------------------music start------------------------------------------ -->
@@ -236,7 +256,8 @@
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
-apprListCall();
+var showPage=1;
+apprListCall(showPage);
 
 document.addEventListener('DOMContentLoaded', function () {
     var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
@@ -295,12 +316,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   
+$('#viewPageNum').change(function(){
+	// 페이지당 보여줄 게시물 갯수가 변경되면 페이징 처리 UI 를 지우고 다시 그려 준다.
+	// 안그럼 처음에 계산한 페이지 값을 그대로 들고 있게 된다.
+	$('#pagination').twbsPagination('destroy');
+	apprListCall(showPage);
+});
+
+function search(){
+	$('#pagination').twbsPagination('destroy');
+	apprListCall(showPage);
+}
+
+// 검색
+function handleKeyDown(event){
+    // 엔터키 keycode == 13
+    if(event.keyCode === 13){
+        search();
+    }
+}
   
   
-  function apprListCall(){
+  
+  function apprListCall(page){
 	  $.ajax({
 			type:'get',
 			url:'apprListCall.ajax',
+			data:{'viewPageNum':$('#viewPageNum').val(), 'page':page, 'searchType':$('#search_type').val(), 'searchInfo':$('#search_info').val()},
 			dataType:'JSON',
 			success: function(data){
 				console.log("apprListCall data 가져옴");
@@ -385,6 +427,19 @@ document.addEventListener('DOMContentLoaded', function () {
 	  });
 	  $('.list_content').empty();
 	  $('.list_content').append(content);
+	  
+	//$('#pagination').twbsPagination('destroy');
+	 	$('#pagination').twbsPagination({
+			startPage: apprList.currPage,
+			totalPages: apprList.pages,
+			visiblePages: 5, 
+			onPageClick:function(e,page){ 
+				if(showPage != page){ 
+					showPage=page;
+					apprListCall(page);
+				}
+			}
+		}); 
 	  
   }
   

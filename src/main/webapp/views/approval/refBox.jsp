@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <title>Hoony Music</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="/resources/css/paging.css" rel="stylesheet">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
-<script src="/resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<script src="/resources/js/paging.js" type="text/javascript"></script>
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
@@ -204,10 +204,10 @@
                 </select>
             </li>
             <li>
-                <input type="text" id="search_info" placeholder="검색"/>
+                <input type="text" id="search_info" placeholder="검색" onkeydown="handleKeyDown(event)"/>
             </li>
             <li class="btn_box">
-                <div class="search_btn">
+                <div class="search_btn" onclick="search()">
                     <img src="/resources/img/common/search.png" alt="검색 버튼">
                 </div>
             </li>
@@ -217,7 +217,6 @@
         		<option value="5">5</option>
         		<option value="10">10</option>
         		<option value="15">15</option>
-        		<option value="20">20</option>
         	</select>
         </div>
         
@@ -323,6 +322,19 @@ document.addEventListener('DOMContentLoaded', function () {
 		$('#pagination').twbsPagination('destroy');
 		refListCall(showPage);
 	});
+	
+	function search(){
+		$('#pagination').twbsPagination('destroy');
+		refListCall(showPage);
+	}
+	
+	// 검색
+	function handleKeyDown(event){
+	    // 엔터키 keycode == 13
+	    if(event.keyCode === 13){
+	        search();
+	    }
+	}
 	
 	
   

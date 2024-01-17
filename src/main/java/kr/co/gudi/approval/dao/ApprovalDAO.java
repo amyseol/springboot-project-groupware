@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.gudi.approval.dto.ApprovalDTO;
 
@@ -35,9 +34,11 @@ public interface ApprovalDAO {
 
 	ArrayList<ApprovalDTO> draftList(int member_no);
 
-	ArrayList<ApprovalDTO> apprList(int member_no);
+	ArrayList<ApprovalDTO> apprList(int member_no, int vpn, int offset, String searchType, String searchInfo);
 
 	ArrayList<ApprovalDTO> refList(int member_no, int vpn, int offset, String searchType, String searchInfo);
+	
+	int apprTotalPage(int member_no, int vpn, String searchType, String searchInfo);
 	
 	int refTotalPage(int member_no, int vpn, String searchType, String searchInfo);
 
@@ -72,6 +73,8 @@ public interface ApprovalDAO {
 	void ReturnFinish(int approval_no);
 
 	void withdrawl(int approval_no);
+
+	
 
 	
 
