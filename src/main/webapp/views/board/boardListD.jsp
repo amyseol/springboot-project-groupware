@@ -30,14 +30,11 @@
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 
 		li button, input[type="button"] {
-		    background-color: #007aff;
 		    padding: 5px 10px;
-		    border: none;
-		    border-radius: 5px;
 		    cursor: pointer;
-	    color: #fff; 
+		    margin-right: 5px;
+		    border-radius: 3px;background-color:#025464;color:white;padding: 5 10;border:none;
 		}
-		
 		
 		.searchbox {
 	        text-align: center; 
@@ -61,7 +58,7 @@
     <section id="common_list_form">
 	<h2 class="big_title">공지사항</h2>
 	<h3 class="sub_title">전사 게시판</h3>
-        <div class="allpadding" style="padding-left: 50px;">
+        <div class="allpadding" style="padding-left: 50px;padding-right: 50px;">
 	        <li><button onclick="location.href='boardWriteD'">글작성</button></li>
 	        <br/>
 	
@@ -87,7 +84,7 @@
         <!------- 검색 ------->
         <div class="searchbox" >
 			<div> <h5>작성자/제목으로 검색하기 :  <input type="text" id="board_name" onkeydown="handleKeyDown(event)"/>
-		<input type="button" value="검색" onclick="listCall('1')"/></h5></div> 
+		<input type="button" value="검색" onclick="listCall('1')" /></h5></div> 
 		</div>
         
         <div id="paging" class="pagingBox">
@@ -108,7 +105,6 @@
 	var showPage = 1;
 	
 	listCall(showPage);
-	
 	
 	
 	
@@ -175,6 +171,13 @@
 	        search();
 	    }
 	}
+	
+	var msg = "${msg}";
+	console.log("msg :"+msg);
+	if(msg!=''){
+		alert('${msg}');
+	}
+	
 
 
 </script>

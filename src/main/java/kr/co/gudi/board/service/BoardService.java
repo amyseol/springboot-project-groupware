@@ -165,7 +165,7 @@ public class BoardService {
 	
 
 	public void detail(String board_no, Model model) {
-		logger.info("디테일메서드");
+		logger.info("Detail Method");
 		dao.bHit(board_no); 
 		
 		BoardDTO board = dao.detail(board_no); // 상세 글보기
@@ -263,7 +263,7 @@ public class BoardService {
 
 
 	public void detailD(String board_no, Model model) {
-		logger.info("디테일메서드");
+		logger.info("D Detail Method");
 		dao.bHit(board_no); 
 		
 		BoardDTO board = dao.detailD(board_no); // 상세 글보기

@@ -184,7 +184,7 @@
                     </ul>
                 </ul>
                 <a href="/archiveAll"><li class="dep1">공용자료실</li></a>
-                <a href="javascript:"><li class="dep1">시설예약</li></a>
+                <a href="/reserve"><li class="dep1">시설예약</li></a>
                 <a href="javascript:"><li class="dep1" data-index="7">근태관리
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
@@ -204,6 +204,7 @@
                     <a href="/memberList"><li class="dep2">직원 관리</li></a>
                      <a href="/departmentList"><li class="dep2">부서 관리</li></a>                    
                 </ul>     
+                <a href="/artist"><li class="dep1">아티스트 관리</li></a>
                 <a href="javascript:"><li class="dep1" data-index="9">자원 관리
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                         <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>

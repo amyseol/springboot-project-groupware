@@ -44,12 +44,10 @@
 
  
  		li button, input[type="button"] {
-		    background-color: #007aff;
-		    padding: 5px 10px;
-		    border: none;
-		    border-radius: 5px;
+ 			padding: 5px 10px;
 		    cursor: pointer;
-		    color: #fff; 
+		    margin-right: 5px;
+		    border-radius: 3px;background-color:#025464;color:white;padding: 5 10;border:none;
 		}
 		
 		#rich_deditor{
