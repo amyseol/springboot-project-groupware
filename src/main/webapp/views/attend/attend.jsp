@@ -482,10 +482,10 @@ function attTime(type){
 	var outTimeElement = document.getElementById('outTime');
 	console.log(inTimeElement);
 	console.log(outTimeElement);
-	if (type === 'in' && inTimeElement.innerText.trim() !== '미등록') {
+	if (type === 'in' && inTimeElement.innerText.trim() == '미등록') {
 		attendTime(type);
-        console.log('함수 실행');
-    }else if (type === 'out' && outTimeElement.innerText.trim() !== '미등록'){
+        console.log('함수 실행'+inTimeElement.innerText.trim());
+    }else if (type === 'out' && outTimeElement.innerText.trim() == '미등록'){
     	attendTime(type);
     }else{
     	alert('하루에 한번만 가능합니다.');
