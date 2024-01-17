@@ -24,14 +24,14 @@
 	<select id="reservlist" resultType="reserv">
 
 		SELECT * from reserv 
-		where (res_state = "0"and res_memberno = #{myno}) or (res_state="1"and res_memberno = #{myno}) or (res_state="4"and res_memberno = #{myno})
+		where (res_state = "0"and res_memberno = #{myno})
 		ORDER BY res_no DESC LIMIT 5 OFFSET #{offset};
 	</select>
 	
 	<select id="reservmaxpage" resultType="int">
 
 		SELECT (count(res_no)/#{pagePerNum}) from reserv 
-		where (res_state = "0"and res_memberno = #{myno}) or (res_state="1"and res_memberno = #{myno}) or (res_state="4"and res_memberno = #{myno})
+		where (res_state = "0"and res_memberno = #{myno})
 		
 	</select>
 	

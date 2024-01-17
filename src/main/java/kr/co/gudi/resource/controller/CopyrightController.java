@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +84,7 @@ public class CopyrightController {
 	
 	@GetMapping(value = "/copyrightregisterform")
 	public ModelAndView crg() {
-		ModelAndView mav = new ModelAndView("copyright/crg_copy");
+		ModelAndView mav = new ModelAndView("copyright/crg");
 		return mav;
 	}
 	
@@ -104,11 +105,16 @@ public class CopyrightController {
 	}
 	
 	@PostMapping(value = "/copyrightregister")
-	public ModelAndView copyrightregister(MultipartFile[] file, @RequestParam HashMap<String, String> data, HttpSession session) throws Exception {
+	public ModelAndView copyrightregister(MultipartFile[] files, @RequestParam HashMap<String, String> data, HttpSession session) throws Exception {
 		logger.info("여기는 등록완료를 거치는곳");
-		logger.info("data : "+data.get("no"));
+		logger.info("data : "+data.get("cr_no"));
+		logger.info("data : "+data.get("price"));
+		logger.info("data : "+data.get("name"));
+		logger.info("data : "+data.get("namae"));
+		logger.info("data : "+data.get("member"));
 		
-		service.copyrightregister(data,file,session);
+		
+		service.copyrightregister(data,files,session);
 		
 		ModelAndView mav = new ModelAndView("redirect:/copyrightlist");
 		return mav;
@@ -121,6 +127,15 @@ public class CopyrightController {
 	public Map<String, Object> depttlist(){
 		
 		return service.depttlist();
+	}
+	
+	//----------------------cr cancle------------------
+	@GetMapping(value = "/cancleform")
+	public ModelAndView cancleform(@RequestParam String cr_no, @RequestParam String cr_namae) {
+		ModelAndView mav = new ModelAndView("copyright/crc");
+		mav.addObject("cr_no", cr_no);
+		mav.addObject("cr_namae", cr_namae);
+		return mav;
 	}
 	
 	

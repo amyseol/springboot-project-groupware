@@ -43,6 +43,10 @@ public interface CopyrightDAO {
 
 	Map<String, Object> depttlist();
 
+	void apprcr(CopyrightDTO dto);
+
+	void appcon(CopyrightDTO dto);
+
 
 
 }

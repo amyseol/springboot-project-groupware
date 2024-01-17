@@ -15,18 +15,16 @@
         #common_list_form .list_form{position:relative;}
         #common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
         #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;text-align:center;}
-        #common_list_form .list_form .list_title ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .list_form .list_title ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_title ul li:nth-child(3){width: 15%;}
-        #common_list_form .list_form .list_title ul li:nth-child(4){width: 45%;}
-        #common_list_form .list_form .list_title ul li:last-child{width: 15%;}
+        #common_list_form .list_form .list_title ul li:first-child{width: 30%; padding-left: 50px; }
+        #common_list_form .list_form .list_title ul li:nth-child(2){width: 30%;}
+        #common_list_form .list_form .list_title ul li:nth-child(3){width: 20%;}
+        #common_list_form .list_form .list_title ul li:last-child{width: 20%;}
         #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;text-align:center;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_content ul li:nth-child(3){width: 15%;}
-        #common_list_form .list_form .list_content ul li:nth-child(4){width: 45%;}
-        #common_list_form .list_form .list_content ul li:last-child{width: 15%;}
+        #common_list_form .list_form .list_content ul li:first-child{width: 30%; padding-left: 50px; }
+        #common_list_form .list_form .list_content ul li:nth-child(2){width: 30%;}
+        #common_list_form .list_form .list_content ul li:nth-child(3){width: 20%;}
+        #common_list_form .list_form .list_content ul li:last-child{width: 20%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 		        
@@ -50,6 +48,10 @@
 		    left: 65%;
         }
         
+        button {
+			border-radius: 3px; background-color:025464; color:white; padding: 5 10; border:none;
+		}
+        
     </style>
 <body>
 <%@ include file="/views/nav.jsp" %>
@@ -59,10 +61,10 @@
     <!-- -------------------------------------------list_form start------------------------------------------ -->
     <section id="common_list_form">
         <h2 class="big_title">저작권 관리</h2>
-        <button id="getcr" style="border-radius: 5px; margin-left: 40px; padding: 5px 10px; background-color: blue; color: white; cursor: pointer;">저작권등록</button>
-		<ul class="search_box">
-            <li>
-                <select id="searchpath" name="searchtag">
+        <button id="getcr" style="margin-left: 40px; cursor: pointer; color: white;">저작권등록</button>
+		<ul class="search_box" style="margin-left: 1100px;">
+            <li >
+                <select id="searchpath" name="searchtag" style="width: 100px;">
 					<option  value="cr" >저작권번호</option>
 					<option value="name">저작권명</option>
                 </select>
@@ -85,7 +87,6 @@
                         <li>저작권명</li>
                         <li>담당자</li>
                         <li>등록날짜</li>
-                        <li>취소하기</li>
                     </ul>
                 </li>
 				
@@ -117,7 +118,6 @@
                         <li>저작권명</li>
                         <li>담당자</li>
                         <li>등록날짜</li>
-                        <li>취소/만료</li>
                     </ul>
                 </li>
                 <li class="list_content" id="list_2">
@@ -150,60 +150,7 @@
 <script>
 
 // -------------------------------- toggle start ------------------------------------------
-document.addEventListener('DOMContentLoaded', function () {
-    var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
-    var dep2Items = document.querySelectorAll('.gnb .dep2[data-index]');
 
-    dep1Items.forEach(function (item) {
-      item.addEventListener('click', function () {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-
-    dep2Items.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-  });
 //-------------------------------- toggle end ------------------------------------------
 
 $("#getcr").on("click", function(){
@@ -276,7 +223,7 @@ function call(showPage){
        			var date = new Date(item.cr_contdate);
     			var dateStr = date.toLocaleDateString("ko-KR"); //en-US
     			content += '<li>'+dateStr+'</li>';	
-                content += '<li ><a >'+"취소"+'</a></li>';
+                //content += '<li ><a href="cancleform?cr_no='+item.cr_no+'&cr_namae='+item.cr_namae+'">취소</a></li>';
                 content += '</ul>';
             });
             $('#list_1').empty();
@@ -322,7 +269,6 @@ function nocall(showPage2){
        			var date = new Date(item.cr_contdate);
     			var dateStr = date.toLocaleDateString("ko-KR"); //en-US
     			content += '<li>'+dateStr+'</li>';		
-               content += '<li >만료</li>';
                content += '</ul>';
            });
            $('#list_2').empty();

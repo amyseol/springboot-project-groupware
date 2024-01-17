@@ -15,7 +15,7 @@
         #common_list_form .count{position: absolute; top: 80px; left: 220px;}
         #common_list_form .list_form .list_title #readOption{cursor: pointer;}
         #common_list_form #mailListAllCheck{width: 20px; height: 50px;}
-        #common_list_form #toolbar{display:flex;}
+        #common_list_form #toolbar{display:flex;align-items:center;padding-left:2%;}
         #common_list_form #toolbar li{margin-right: 18px;}
         #common_list_form #toolbar #readOption{width:100%; height:100%;}
         
@@ -26,7 +26,7 @@
         #common_list_form .list_form .list_title .btn_submenu .btn_tool{position: relative; top: 5px;}
         #common_list_form .list_form .list_content ul{width: 100%; height: 40px;}
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box; text-align: center;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 5%; padding-left: 50px;}
+        #common_list_form .list_form .list_content ul li:first-child{width: 5%; }
         #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
         #common_list_form .list_form .list_content ul li:nth-child(3){width: 15%;}
         #common_list_form .list_form .list_content ul li:nth-child(4){width: 30%;}
@@ -35,7 +35,7 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
         
-        #common_list_form .search_box{position: relative; margin: 0px 0 10px 50px; border: 1px solid #fff; display: flex;width:100%;}
+        #common_list_form .search_box{position: relative; margin: 0px 0 10px 15px; border: 1px solid #fff; display: flex;width:100%;}
         #common_list_form .search_box #search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
         #common_list_form .search_box #search_info::placeholder{color: #ccc;}
         #common_list_form .search_box .btn_box{width: 28px; height: 28px; cursor: pointer; border: 1px solid #ccc; box-sizing: border-box; border-left: none;}
@@ -105,11 +105,6 @@
 				        	<li>
 				        		<input type="checkbox" id="mailListAllCheck" name="mailAllcheck" value="off">
 				            </li>
-				            <li class="btn_submenu">
-				            	<a class="btn_tool" data-role="button" onclick="reply()">
-								<span class="txt">답장</span>
-				                </a>
-							</li>
 							<li class="btn_submenu">
 								<a class="btn_tool" data-role="button" onclick="delModal()">
 				                <span class="txt_caution">삭제</span>

@@ -102,6 +102,16 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;} */
 
+		/* 조직도 모달창 스타일 */
+		.left_box{width: 250px; float: left; height: 400px;}
+		.left_box .org_chart{width:100%; height: 100%; border: 1px solid #ccc; padding: 10px; overflow: auto;}
+        .left_box ul li{font-size: 16px;}
+        .left_box ul li span, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p{cursor: pointer; border: 1px solid rgba(0,0,0,0); display: inline-block;}
+        .left_box ul li span.on, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.on{font-weight: 700; border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
+        .left_box ul li span.hover, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.hover{border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
+        .left_box ul>li>ul{padding-top:3px;}
+        .left_box ul>li>ul>li{padding-left:15px;}
+        .plus{display: none;}
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -174,7 +184,7 @@
                     </ul>
                 </ul>
                 <a href="/archiveAll"><li class="dep1">공용자료실</li></a>
-                <a href="javascript:"><li class="dep1">시설예약</li></a>
+                <a href="/reserve"><li class="dep1">시설예약</li></a>
                 <a href="javascript:"><li class="dep1" data-index="7">근태관리
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
@@ -194,6 +204,7 @@
                     <a href="/memberList"><li class="dep2">직원 관리</li></a>
                      <a href="/departmentList"><li class="dep2">부서 관리</li></a>                    
                 </ul>     
+                <a href="/artist"><li class="dep1">아티스트 관리</li></a>
                 <a href="javascript:"><li class="dep1" data-index="9">자원 관리
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                         <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
@@ -201,7 +212,8 @@
                 </li></a>
                 <ul data-index="9">
                     <a href="/album"><li class="dep2">음반 현황</li></a>
-                    <a href="/musicChart"><li class="dep2">음원 차트</li></a>                   
+                    <a href="/musicChart"><li class="dep2">음원 차트</li></a>   
+                    <a href="/copyrightlist"><li class="dep2">저작권 관리</li></a>                
                 </ul> 
                 <a href="javascript:"><li class="dep1" data-index="10">실적 관리
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
@@ -210,7 +222,8 @@
                 </li></a>
                 <ul data-index="10">
                     <a href="/albumPerform"><li class="dep2">음반 실적</li></a>
-                    <a href="javascript:"><li class="dep2">음원 실적</li></a>                   
+                    <a href="javascript:"><li class="dep2">음원 실적</li></a>  
+                    <a href="/resourceCopyright"><li class="dep2">저작권 실적</li></a>                 
                 </ul> 
             </ul>
         </div>
@@ -232,6 +245,89 @@
 	        <!-- 직원 정보 -->
 	        </div>
 	    </div>
+	    
+	    
+	    <!---------------------------- 조직도 테스 모달 ------------------------------->
+	    <button onclick="organization()">조직도 테스트 버튼</button>
+		<div class="modal fade" id="orgChartModal" tabindex="-1" role="dialog" aria-labelledby="orgChartModalLabel" aria-hidden="true">
+		    <div class="modal-dialog modal-lg" role="document" style="margin-left: 300px; width: 300px; height: 500px;">
+		        <div class="modal-content" >
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="orgChartModalLabel">조직도</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+					<div class="modal-body">
+						<div>
+		
+							<div class="left_box">
+								<h5>조직도</h5>
+								<div class="org_chart">
+									<ul>
+										<c:forEach items="${departments}" var="depart">
+											<c:if test="${depart.depart_p_no eq 0}">
+												<li><span> <svg class="plus" width="12"
+															height="12" viewBox="0 0 448 512"
+															xmlns="http://www.w3.org/2000/svg">
+															<path fill="currentColor"
+																d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
+														<svg class="minus" width="12" height="12"
+															viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+															<path fill="currentColor"
+																d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
+														${depart.depart_name}
+												</span>
+													<ul>
+														<c:forEach items="${teams}" var="team">
+															<c:if test="${depart.depart_no eq team.depart_p_no}">
+																<li><span> <svg class="plus" width="12"
+																			height="12" viewBox="0 0 448 512"
+																			xmlns="http://www.w3.org/2000/svg">
+																			<path fill="currentColor"
+																				d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
+																		<svg class="minus" width="12" height="12"
+																			viewBox="0 0 448 512"
+																			xmlns="http://www.w3.org/2000/svg">
+																			<path fill="currentColor"
+																				d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
+																		${team.depart_name}
+																</span>
+																	<ul>
+																		<c:forEach items="${members}" var="member">
+																			<c:if test="${team.depart_no eq member.depart_no}">
+																				<li>
+																					<p data-member-no="${member.member_no}" data-name="${member.name}">
+																						<svg width="14" height="14" viewBox="0 0 1408 1472"
+																							xmlns="http://www.w3.org/2000/svg">
+								                                                        <path
+																								fill="#df7ca2"
+																								d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128" />
+								                                                        </svg>
+																						${member.name} ${member.member_position}
+																					</p>
+																				</li>
+																			</c:if>
+																		</c:forEach>
+																	</ul></li>
+															</c:if>
+														</c:forEach>
+													</ul></li>
+											</c:if>
+										</c:forEach>
+									</ul>
+								</div>
+							</div>
+		
+						</div>
+					</div>
+					<div class="modal-footer" style="margin-top: 450px;">
+		                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	    
     </div>
     <!-- -------------------------------------------nav end------------------------------------------ -->
     <!-- -------------------------------------------util start------------------------------------------ -->
@@ -532,5 +628,42 @@ var selecEl = null;
             close.hide();
         }
 //-------------------------------- organization end-----------------------------------------
+
+
+//-------------------------------- 조직도 테스트 버튼 start -----------------------------------------
+function organization(){
+	$('#orgChartModal').modal('show');
+}
+
+$('.org_chart>ul>li>span').on('click',function(){
+    var $ul = $(this).siblings('ul');
+
+    $ul.slideToggle(400,function(){
+        if ($(this).is(":hidden")) {
+            $(this).siblings('span').find('.minus').css('display','none');
+            $(this).siblings('span').find('.plus').css('display','inline-block');
+        }else{
+            $(this).siblings('span').find('.minus').css('display','inline-block');
+            $(this).siblings('span').find('.plus').css('display','none');
+        }
+    });
+});
+$('.org_chart>ul>li>ul>li>span').on('click',function(){
+    var $ul = $(this).siblings('ul');
+
+    $ul.slideToggle(300,function(){
+        if ($(this).is(":hidden")) {
+            $(this).siblings('span').find('.minus').css('display','none');
+            $(this).siblings('span').find('.plus').css('display','inline-block');
+        }else{
+            $(this).siblings('span').find('.minus').css('display','inline-block');
+            $(this).siblings('span').find('.plus').css('display','none');
+        }
+    });
+});
+//-------------------------------- 조직도 테스트 버튼 end -----------------------------------------
+
+
+
 </script>
 </html>
