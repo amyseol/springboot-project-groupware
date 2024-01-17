@@ -38,6 +38,7 @@
         <h2 class="sub_title">실시간 멜론 차트</h2>
         <h3>${date}&nbsp;&nbsp;&nbsp;${time}</h3>
         <input type="button" value="소속 아티스트만 보기" class="artBtn" onclick="musicArtistCall()"/>
+        <input type="button" value="전체 차트 보기" class="artBtn" onclick="musicChartCall('')"/>
         <div class="list_form">
             <ul>
                 <li class="list_title">

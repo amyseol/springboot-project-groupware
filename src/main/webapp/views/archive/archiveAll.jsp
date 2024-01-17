@@ -53,6 +53,10 @@
 		
 		#del_modal{background: rgba(0, 0, 0, 0.8);display: none; width:300px; height:150px; background: rgb(237, 237, 237); border:1px solid gray; text-align:center;position:absolute; left:58%; top:27%; }
 		.fileBox li:first-child{width:80%;}
+		
+		#fileUploadBox{display:flex;}
+		.fileSelect{border-radius: 3px;background-color:025464;color:white;padding: 5 10;border:none;}
+		#departFileBox{margin-left:40px;}
 </style>
 </head>
 <body>
@@ -79,21 +83,26 @@
         <!------- 파일 등록 ------->
         <ul class="fileBox">
         	<li><input type="button" id="delBtn" value="삭제" onclick="delBtnClick()"/></li>
-            <li id="allFileBox">
-				<form action="allFileUpload.do" id="allUploadForm" method="post" enctype="multipart/form-data">
-				    <input type="file" id="allFile" name="files" multiple/>
-			        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
-			        <input type="button" value="전사 파일 등록" id="allUploadBtn">
-			    </form>
-            </li>
-            <li id="departFileBox">
-				<form action="departFileUpload.do" id="departUploadForm" method="post" enctype="multipart/form-data">
-				    <input type="file" id="departFile" name="files" multiple/>
-			        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
-			        <input type="button" value="부서 파일 등록" id="departUploadBtn">
-			    </form>
-            </li>
+	        <li>
+	        	<ul id="fileUploadBox">
+		            <li id="allFileBox">
+						<form action="allFileUpload.do" id="allUploadForm" method="post" enctype="multipart/form-data">
+						    <input type="file" id="allFile" name="files" multiple/>
+					        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
+					        <input type="button" value="전사 파일 등록" id="allUploadBtn">
+					    </form>
+		            </li>
+		            <li id="departFileBox">
+						<form action="departFileUpload.do" id="departUploadForm" method="post" enctype="multipart/form-data">
+						    <input type="file" id="departFile" name="files" multiple/>
+					        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
+					        <input type="button" value="부서 파일 등록" id="departUploadBtn">
+					    </form>
+		            </li>
+	            </ul>
+	        </li>    
         </ul>
+        
         <!------- 파일 등록 ------->
 		<!------- 리스트 ------->
         <div class="list_form">
