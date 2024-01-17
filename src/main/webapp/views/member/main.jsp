@@ -104,6 +104,7 @@
 </style>
 <body>
 <%@ include file="/views/nav.jsp" %>
+
 <div class="div_inner">
 	<div class="mainBox">
 			<div class="mainLeft float">
