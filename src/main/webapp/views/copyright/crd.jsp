@@ -95,16 +95,6 @@
         	${data.cr_price} 원
         	</td>
         	<td style="border: solid 1px black; border-collapse: collapse;">
-        	계약일
-        	${data.cr_contdate}
-        	</td>
-        </tr>
-        <tr style="border: solid 1px black; border-collapse: collapse;">
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	만료일
-        	${data.cr_expdate}
-        	</td>
-        	<td style="border: solid 1px black; border-collapse: collapse;">
         	아티스트명
         	${data.cr_name}
         	</td>
@@ -135,60 +125,7 @@
 <script>
 
 // -------------------------------- toggle start ------------------------------------------
-document.addEventListener('DOMContentLoaded', function () {
-    var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
-    var dep2Items = document.querySelectorAll('.gnb .dep2[data-index]');
 
-    dep1Items.forEach(function (item) {
-      item.addEventListener('click', function () {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-
-    dep2Items.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-  });
 //-------------------------------- toggle end ------------------------------------------
 $("#back").on("click", function(){
 	

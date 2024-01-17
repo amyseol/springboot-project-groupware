@@ -4,10 +4,11 @@ package kr.co.gudi.resource.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Date;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -200,8 +201,10 @@ public class CopyrightService {
 		logger.info("여기까지 4");
 		
 		//String str = data.get("cont");
-		//dto.setCr_contdate(java.sql.Date.valueOf(str));
-		//logger.info("cr_no"+dto.getCr_contdate());
+		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/mm/dd");
+		//LocalDate localTime =LocalDate.parse(str, formatter);
+		//dto.setCr_contdate(Date.valueOf(localTime));
+		logger.info("cr_no"+dto.getCr_contdate());
 		logger.info("여기까지 5");
 		//dto.setCr_expdate(java.sql.Date.valueOf(str));
 		logger.info("여기까지 6");

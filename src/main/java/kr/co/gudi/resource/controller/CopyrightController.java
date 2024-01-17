@@ -109,8 +109,6 @@ public class CopyrightController {
 		logger.info("여기는 등록완료를 거치는곳");
 		logger.info("data : "+data.get("cr_no"));
 		logger.info("data : "+data.get("price"));
-		logger.info("data : "+data.get("cont"));
-		logger.info("data : "+data.get("exp"));
 		logger.info("data : "+data.get("name"));
 		logger.info("data : "+data.get("namae"));
 		logger.info("data : "+data.get("member"));

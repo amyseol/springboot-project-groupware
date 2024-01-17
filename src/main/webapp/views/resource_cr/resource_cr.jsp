@@ -15,22 +15,18 @@
         #common_list_form .list_form{position:relative;}
         #common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
         #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;text-align:center;}
-        #common_list_form .list_form .list_title ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .list_form .list_title ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_title ul li:nth-child(3){width: 15%;}
-        #common_list_form .list_form .list_title ul li:nth-child(4){width: 15%;}
-        #common_list_form .list_form .list_title ul li:nth-child(5){width: 15%;}
-        #common_list_form .list_form .list_title ul li:nth-child(6){width: 15%;}
-        #common_list_form .list_form .list_title ul li:last-child{width: 15%;}
+        #common_list_form .list_form .list_title ul li:first-child{width: 20%; padding-left: 50px; }
+        #common_list_form .list_form .list_title ul li:nth-child(2){width: 20%;}
+        #common_list_form .list_form .list_title ul li:nth-child(3){width: 20%;}
+        #common_list_form .list_form .list_title ul li:nth-child(4){width: 20%;}
+        #common_list_form .list_form .list_title ul li:last-child{width: 20%;}
         #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;text-align:center;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_content ul li:nth-child(3){width: 15%;}
-        #common_list_form .list_form .list_content ul li:nth-child(4){width: 15%;}
-        #common_list_form .list_form .list_content ul li:nth-child(5){width: 15%;}
-        #common_list_form .list_form .list_content ul li:nth-child(6){width: 15%;}
-        #common_list_form .list_form .list_content ul li:last-child{width: 15%;}
+        #common_list_form .list_form .list_content ul li:first-child{width: 20%; padding-left: 50px; }
+        #common_list_form .list_form .list_content ul li:nth-child(2){width: 20%;}
+        #common_list_form .list_form .list_content ul li:nth-child(3){width: 20%;}
+        #common_list_form .list_form .list_content ul li:nth-child(4){width: 20%;}
+        #common_list_form .list_form .list_content ul li:last-child{width: 20%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
 		        
@@ -91,7 +87,7 @@
         
  		<ul class="search_box">
             <li>
-                <select id="searchpath" name="searchtag">
+                <select id="searchpath" name="searchtag" style="width: 100px; ">
 					<option  value="cr" >저작권번호</option>
                 </select>
             </li>
@@ -151,60 +147,7 @@
 <script>
 
 // -------------------------------- toggle start ------------------------------------------
-document.addEventListener('DOMContentLoaded', function () {
-    var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
-    var dep2Items = document.querySelectorAll('.gnb .dep2[data-index]');
 
-    dep1Items.forEach(function (item) {
-      item.addEventListener('click', function () {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-
-    dep2Items.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-  });
 //-------------------------------- toggle end ------------------------------------------
 //--------------------------------등록-------------------------------------------------
 
