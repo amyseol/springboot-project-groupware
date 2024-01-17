@@ -54,12 +54,17 @@
 	box-sizing: border-box;
 	width: 100%;
     height: 50%;
+     border-radius: 10px;
+	border: 3px solid #007aff;
+	padding-bottom:1%;
 }	
 .mainRight{	
 	box-sizing: border-box;
 	width: 100%;
     height: 50%;
     overflow:auto;
+     border-radius: 10px;
+	border: 3px solid #007aff;
 }	
 
 .mainPageAttend{
@@ -69,7 +74,9 @@
 }
 .mainSchedule{
 	box-sizing: border-box;
-	height: 100%;
+	height: 350px;
+	 border-radius: 10px;
+	border: 3px solid #007aff;
 }
 .mainBoard{
 	box-sizing: border-box;
