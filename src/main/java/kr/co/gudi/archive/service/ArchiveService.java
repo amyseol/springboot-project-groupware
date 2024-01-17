@@ -25,22 +25,21 @@ public class ArchiveService {
 	Map<String, Object> map = new HashMap<String, Object>();
 	@Value("${spring.servlet.multipart.location}") private String root;
 
-	// 전사 리스트 출력 
+	// 전사, 부서 리스트 출력 (검색 리스트)
 	public Map<String, Object> archAllList(String page, String member_no, String state, String a_name) {
 		int p = Integer.parseInt(page);
 		int offset = (p - 1) * 20;
 		String departName = dao.getDepartName(member_no);
 		int pages = dao.totalPage();
 		
-		
 		ArrayList<ArchiveDTO> list = new ArrayList<ArchiveDTO>();
-		list = dao.archAllList(offset);
+		// 전사 리스트 출력 (초기값)
+		list = dao.archAllList(offset,a_name);
+		// 부서 리스트 출력 
 		if(state.equals("부서")) {
-			list = dao.archDepartList(offset, departName);
+			list = dao.archDepartList(offset, departName, a_name);
 			pages = dao.totalDepartPage(departName);
 		}
-		
-		// 검색 리스트 호출
 		
 		map.put("list", list);
 		map.put("pages", pages);
@@ -53,29 +52,6 @@ public class ArchiveService {
 
 		return map;
 	}
-	
-//	// 부서별 리스트 출력 
-//	public Map<String, Object> archDepartList(String page, String member_no) {
-//		int p = Integer.parseInt(page);
-//		int offset = (p - 1) * 20;
-//		
-//		String departName = dao.getDepartName(member_no);
-//		logger.info("departName === "+departName);
-//		
-//		ArrayList<ArchiveDTO> list = new ArrayList<ArchiveDTO>();
-//		list = dao.archDepartList(offset, departName);
-//		map.put("list", list);
-//
-//		int pages = dao.totalDepartPage(departName);
-//		map.put("pages", pages);
-//		// 전체 페이지가 p 값보다 작을 때 
-//		if (p > pages) {
-//			p = pages;
-//		}
-//		map.put("currPage", p);
-//
-//		return map;
-//	}
 
 	// 부서 파일 업로드 
 	public void departFileUpload(MultipartFile[] files, String member_no) 

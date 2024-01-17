@@ -11,7 +11,7 @@
         #common_list_form{padding-left:15%;}
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .sub_title{padding: 20px 50px;}
-        #common_list_form .list_form{position:relative; }
+        #common_list_form .list_form{position:relative; display: flex;}
         #common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
         #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
         #common_list_form .list_form .list_title ul li:first-child{width: 15%; padding-left: 50px; }
@@ -32,20 +32,24 @@
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
         
         /* list form 스타일 */
-        #common_list_form .list_form .first_list{width: 50%; float: left;}
+        #common_list_form .list_form .first_list{width: 50%; float: left;padding:30;}
         #common_list_form .list_form .first_list:last-child li{width: 100%;}
         #common_list_form .list_form .first_list li{float: left; width: 50%; /* border-bottom: 1px solid #333;  */box-sizing: border-box;margin-bottom: 6px;}
-        #common_list_form .list_form .first_list:first-child li:nth-child(2n-1){font-weight: 500; text-align: center;}
+        #common_list_form .list_form .first_list:first-child li:nth-child(2n-1){font-size: 14;font-weight: 600; text-align: center;}
 
+		#common_list_form .list_form .second_list{padding-left: 60;border-left: 1px solid lightgrey;}
+		input[type="button"],#downbtn{border-radius: 3px;background-color:025464;color:white;padding: 5 10;border:none;}
+		#option{padding:5px; margin:15px;}
+		
         #add_modal, #cancel_modal{display: none; width:300px; height:150px; background: rgb(237, 237, 237); border:1px solid gray; text-align:center;
 			position:absolute; left:50%; bottom: 60%;}
 		
 		.modalBtnNo, .modalBtnYes{height: 30px;width: 70px;color: white;border: none;border-radius: 10px;background-color: gray;}
-    	.fileName {
-		  white-space: nowrap;
-		  overflow: hidden;
-		  text-overflow: ellipsis;
-		}
+    	.fileName {white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+    	
+    	.btnBox{margin-left:50px;}
+    	form{display:none;}
+    	.txt{font-size: 15;font-weight: 600;}
     </style>
 <body>
 	<%@ include file="/views/nav.jsp" %>
@@ -53,8 +57,10 @@
     <section id="common_list_form">
         <h2 class="big_title">음반</h2>
         <h3 class="sub_title">상세보기</h3>
-        <input type="button" value="계약 취소" onclick="openCancelModal()"/>
-        <input type="button" value="목록" onclick="location.href='/album'"/>
+        <div class="btnBox">
+       		<input type="button" value="계약 취소" onclick="openCancelModal()"/>
+        	<input type="button" value="목록" onclick="location.href='/album'"/>
+        </div>
         <form action="albumFile.do" method="post" enctype="multipart/form-data">
         	<input type="file" id="file" name="files" multiple/>
         	<input type="hidden" name="alb_no" value="${albumDetail.alb_no}"/>
@@ -87,13 +93,15 @@
 							${file.file_oriname}
 							<%-- <img src="/photo/${file.file_newname}" width="300" height="300"/> --%>
 						</p>
-						<button onclick="location.href='download.do?newName=${file.file_newname}&oriName=${file.file_oriname}'">download</button>
+						<button id="downbtn" onclick="location.href='download.do?newName=${file.file_newname}&oriName=${file.file_oriname}'">download</button>
 					</c:forEach>
                 </li>
             </ul>
-            <ul class="first_list">
-                <li>생산 회차별 판매량과 재고량 <select id="option"></select>
-                <input type="button" value="추가 생산" onclick="openAddModal()"/>
+            <ul class="second_list">
+                <li>
+                	<span class="txt">생산 회차별 판매량과 재고량</span>
+                	<select id="option"></select>
+                	<input type="button" value="추가 생산" onclick="openAddModal()"/>
                 </li>
                 <li>
                 	<div><canvas id="doughnut" style="width: 300px; height:300px;"></canvas></div>
