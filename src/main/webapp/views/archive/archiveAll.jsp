@@ -44,10 +44,19 @@
         
         #common_list_form .fileBox{position: relative; margin: 0 0 10px 50px; border: 1px solid #fff; display: inline-block;width: 90%;height: 10%;display: flex;position: relative;}
         input[type="submit"]{margin: 10 0 10;}
+        input[type="file"]{margin-bottom: 10px;width: 200px;}
 		#common_list_form .fileBox #allFileBox{display:none;}
+		#delBtn{margin-right: 10px;}
+		#downBtn,#delBtn,#departUploadBtn,#allUploadBtn{border-radius: 3px;background-color:025464;color:white;padding: 5 10;border:none;}
+		
+		#allList, #departList{font-size:20;padding: 5px;}
 		
 		#del_modal{background: rgba(0, 0, 0, 0.8);display: none; width:300px; height:150px; background: rgb(237, 237, 237); border:1px solid gray; text-align:center;position:absolute; left:58%; top:27%; }
-		#delBtn{margin-right: 10px;padding: 2px 5px 2px 5px;}
+		.fileBox li:first-child{width:80%;}
+		
+		#fileUploadBox{display:flex;}
+		.fileSelect{border-radius: 3px;background-color:025464;color:white;padding: 5 10;border:none;}
+		#departFileBox{margin-left:40px;}
 </style>
 </head>
 <body>
@@ -74,21 +83,26 @@
         <!------- 파일 등록 ------->
         <ul class="fileBox">
         	<li><input type="button" id="delBtn" value="삭제" onclick="delBtnClick()"/></li>
-            <li id="departFileBox">
-				<form action="departFileUpload.do" id="departUploadForm" method="post" enctype="multipart/form-data">
-				    <input type="file" id="departFile" name="files" multiple/>
-			        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
-			        <input type="button" value="부서 파일 등록" id="departUploadBtn">
-			    </form>
-            </li>
-            <li id="allFileBox">
-				<form action="allFileUpload.do" id="allUploadForm" method="post" enctype="multipart/form-data">
-				    <input type="file" id="allFile" name="files" multiple/>
-			        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
-			        <input type="button" value="전사 파일 등록" id="allUploadBtn">
-			    </form>
-            </li>
+	        <li>
+	        	<ul id="fileUploadBox">
+		            <li id="allFileBox">
+						<form action="allFileUpload.do" id="allUploadForm" method="post" enctype="multipart/form-data">
+						    <input type="file" id="allFile" name="files" multiple/>
+					        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
+					        <input type="button" value="전사 파일 등록" id="allUploadBtn">
+					    </form>
+		            </li>
+		            <li id="departFileBox">
+						<form action="departFileUpload.do" id="departUploadForm" method="post" enctype="multipart/form-data">
+						    <input type="file" id="departFile" name="files" multiple/>
+					        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
+					        <input type="button" value="부서 파일 등록" id="departUploadBtn">
+					    </form>
+		            </li>
+	            </ul>
+	        </li>    
         </ul>
+        
         <!------- 파일 등록 ------->
 		<!------- 리스트 ------->
         <div class="list_form">
@@ -125,7 +139,7 @@
     </section>
 </body>
 <script>
-//----------------------- all depart list start ----------------------------------
+//----------------------- all/depart list start ----------------------------------
 var selectedState = '전사';
 var showPage=1;
 listCall(showPage);
@@ -133,14 +147,20 @@ var member_no = ${sessionScope.loginMember.member_no};
 
 //페이지 로딩 시 초기값에 해당하는 라벨에 스타일 적용
 document.getElementById('allList').style.fontWeight = 'bold';
+document.getElementById('allList').style.border = '1px solid black';
 document.getElementById('departList').style.fontWeight = 'normal';
+document.getElementById('departList').style.border = '1px solid lightgray';
 
 function selectDepart(state){
 	selectedState = state;
 	console.log(selectedState);
 	
 	document.getElementById('allList').style.fontWeight = (selectedState === '전사') ? 'bold' : 'normal';
+	document.getElementById('allList').style.border = (selectedState === '전사') ? '1px solid rgb(4, 11, 80)' : '1px solid lightgray';
+
     document.getElementById('departList').style.fontWeight = (selectedState === '부서') ? 'bold' : 'normal';
+    document.getElementById('departList').style.border = (selectedState === '부서') ? '1px solid rgb(4, 11, 80)' : '1px solid lightgray';
+
     listCall(showPage);	
 }
 
@@ -172,7 +192,7 @@ function drawAllList(list){
 		content+='<ul>';
 		content+='<li><input type="checkbox" name="checkEach" value="'+item.arch_no+'"/></li>'
 		content+='<li>'+item.file_oriname+'</li>';
-		content+='<li><button onclick="location.href=\'download.do?newName='+item.file_newname+'&oriName='+item.file_oriname+'\'">다운로드</button></li>';
+		content+='<li><button id="downBtn" onclick="location.href=\'download.do?newName='+item.file_newname+'&oriName='+item.file_oriname+'\'">다운로드</button></li>';
 		
 		content+='<li>'+item.name+'</li>'; 
 		content+='<li>'+item.file_size+'KB</li>'; 
@@ -198,67 +218,7 @@ function drawAllList(list){
 		}
 	});
 }
-//----------------------- all depart list end ---------------------------------------
-
-
-//----------------------- each depart list start ----------------------------------
-// 로그인한 사람의 depart_name 이 archive 의 arch_depart 랑 동일한 데이터만 출력 
-/* function listDepartCall(showPage){
-	$.ajax({
-		type:'get',
-		url:'archDepartList',
-		data:{'page':showPage, 'member_no':member_no}, 
-		dataType:'JSON',
-		success: function(data){
-			console.log(data);
-			drawDepartList(data);	
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
-}
-
-
-$('#departList').on('click',function(){
-	listDepartCall(showPage);
-});
-
-
-function drawDepartList(list){
-	var content='';
-	list.list.forEach(function(item,idx){ 
-		content+='<ul>';
-		content+='<li><input type="checkbox" name="checkEach" value="'+item.arch_no+'"/></li>'
-		content+='<li>'+item.file_oriname+'</li>';
-		content+='<li><button onclick="location.href=\'download.do?newName='+item.file_newname+'&oriName='+item.file_oriname+'\'">다운로드</button></li>';
-		
-		content+='<li>'+item.name+'</li>'; 
-		content+='<li>'+item.file_size+'KB</li>'; 
-		
-		var date = new Date(item.arch_date);
-		var uploadDate = date.toLocaleDateString("ko-KR");
-		content+='<li>'+uploadDate+'</li>';
-		content+='</ul>';
-	});
-	$('#fileList').empty();
-	$('#fileList').append(content);
-	
-	$('#pagination').twbsPagination({
-		startPage: list.currPage,
-		totalPages: list.pages, 
-		visiblePages:5, 
-		onPageClick:function(e,page){ 
-			if(showPage != page){ 
-				//console.log(page);	
-				showPage=page; 
-				listDepartCall(page);
-			}
-		}
-	});
-} */
-//----------------------- each depart list end ----------------------------------
-
+//----------------------- all/depart list end ---------------------------------------
 
 //----------------------- delete start ---------------------------------------
 // 모든 리스트 체크 
@@ -373,6 +333,17 @@ document.getElementById('departUploadBtn').addEventListener('click', function() 
     }
 });
 //----------------------- 부서 파일 등록 버튼 end ----------------------------------
+
+//-------------------------------- 검색 start ------------------------------------------
+function handleKeyDown(event) {
+    // 엔터 키의 keyCode는 13
+    if (event.keyCode === 13) {
+        // 엔터 키를 눌렀을 때 실행할 검색 함수 호출
+        showPage=1;
+        listCall(showPage);
+    }
+}
+//-------------------------------- 검색 end ------------------------------------------
 
 
 </script>

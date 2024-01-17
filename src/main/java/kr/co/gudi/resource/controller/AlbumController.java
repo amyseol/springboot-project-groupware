@@ -48,7 +48,7 @@ public class AlbumController {
 		if(session.getAttribute("loginMember")==null) {
 			model.addAttribute("msg","로그인이 필요한 서비스 입니다.");
 			model.addAttribute("url","/loginPage");
-		}else if(depart_no==8||depart_no==10) {
+		}else if(depart_no==8||depart_no==10||depart_no==2) {
 			return "/album/album";
 		}else {
 			model.addAttribute("msg","페이지에 대한 권한이 없습니다.");
