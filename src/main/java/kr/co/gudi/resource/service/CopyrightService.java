@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode;
 
@@ -345,6 +346,36 @@ public class CopyrightService {
 	public Map<String, Object> depttlist() {
 		
 		return dao.depttlist();
+	}
+
+
+
+	public ModelAndView crd2(String approval_no, ModelAndView mav) {
+		
+		int appr_no = Integer.parseInt(approval_no);
+		Map<String, String> map = dao.crd2(appr_no);
+		map.put("approval_no", approval_no);
+		logger.info(" approval_no : "+map.get("approval_no"));
+		mav.addObject("data",map);
+		return mav;
+	}
+
+
+
+	public void okcr(String no, String app) {
+		
+		dao.okcr(no);
+		dao.uprp(Integer.parseInt(app));
+		
+	}
+
+
+
+	public void nocr(String no, String app) {
+		
+		dao.nocr(no);
+		dao.uprp(Integer.parseInt(app));
+		
 	}
 
 	//--------------------------------------------------------------------------

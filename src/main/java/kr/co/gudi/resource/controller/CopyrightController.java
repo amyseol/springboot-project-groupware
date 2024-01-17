@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
+import org.jsoup.helper.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -220,7 +221,30 @@ public class CopyrightController {
 		return mav; 
 	}
 	
+	@GetMapping(value = "/crd2")
+	public ModelAndView crd2(@RequestParam String approval_no) {
+		
+		ModelAndView mav = new ModelAndView("copyright/crd2");
+		return service.crd2(approval_no,mav);
+		
+	}
 	
+	@GetMapping (value = "/okcr")
+	public ModelAndView okcr(@RequestParam String no, @RequestParam String app) {
+		
+		ModelAndView mav = new ModelAndView("redirect:/draftBox");
+		service.okcr(no,app);
+		return mav;
+		
+	}
+	
+	@GetMapping(value = "/nocr")
+	public ModelAndView nocr(@RequestParam String no, @RequestParam String app) {
+		
+		ModelAndView mav = new ModelAndView("redirect:/draftBox");
+		service.nocr(no,app);
+		return mav;
+	}
 	
 	
 
