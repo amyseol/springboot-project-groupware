@@ -125,7 +125,7 @@
 			keyProperty="cr_no"
 			id="copyrightregister" parameterType="cr">
 	
-		INSERT into cr_manage values(#{cr_no},#{member_no},#{cr_name},#{cr_member},#{cr_price},curdate(),#{cr_expdate},#{cr_contdate},"0",#{cr_namae});
+		INSERT into cr_manage values(#{cr_no},#{member_no},#{cr_name},#{cr_member},#{cr_price},curdate(),curdate(),curdate(),"2",#{cr_namae});
 	
 	</insert>
 	
@@ -181,6 +181,28 @@
 	
 	</select>
 	
+	
+	<insert 			
+			useGeneratedKeys="true"
+			keyColumn="approval_no"
+			keyProperty="approval_no"
+			id="apprcr" parameterType="cr">
+	
+		INSERT into approval
+		(draftmember_no,approval_title,approval_content,approval_start,approval_state,document_state,form_no,currmember_no) 
+		values
+		(25,#{approval_title},#{approval_content},curdate(),0,0,7,#{member_no})
+	
+	</insert>
 
+
+	<insert id="appcon" parameterType="cr">
+	
+	insert into appcr_manage 
+	(approval_no,appcr_name,appcr_price,appcr_regdate,appcr_expdate,appcr_contdate,cr_no,appcr_member)
+	values
+	(#{approval_no},#{cr_name},#{cr_price},curdate(),curdate(),curdate(),#{cr_no},#{cr_member})
+	
+	</insert>
 
 </mapper>

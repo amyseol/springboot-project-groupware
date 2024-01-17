@@ -60,9 +60,9 @@
     <section id="common_list_form">
         <h2 class="big_title">저작권 관리</h2>
         <button id="getcr" style="border-radius: 5px; margin-left: 40px; padding: 5px 10px; background-color: blue; color: white; cursor: pointer;">저작권등록</button>
-		<ul class="search_box">
-            <li>
-                <select id="searchpath" name="searchtag">
+		<ul class="search_box" style="margin-left: 1100px;">
+            <li >
+                <select id="searchpath" name="searchtag" style="width: 100px;">
 					<option  value="cr" >저작권번호</option>
 					<option value="name">저작권명</option>
                 </select>
@@ -276,7 +276,7 @@ function call(showPage){
        			var date = new Date(item.cr_contdate);
     			var dateStr = date.toLocaleDateString("ko-KR"); //en-US
     			content += '<li>'+dateStr+'</li>';	
-                content += '<li ><a >'+"취소"+'</a></li>';
+                content += '<li ><a href="cancleform?cr_no='+item.cr_no+'&cr_namae='+item.cr_namae+'">취소</a></li>';
                 content += '</ul>';
             });
             $('#list_1').empty();

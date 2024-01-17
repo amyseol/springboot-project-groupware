@@ -211,7 +211,8 @@
                 </li></a>
                 <ul data-index="9">
                     <a href="/album"><li class="dep2">음반 현황</li></a>
-                    <a href="/musicChart"><li class="dep2">음원 차트</li></a>                   
+                    <a href="/musicChart"><li class="dep2">음원 차트</li></a>   
+                    <a href="/copyrightlist"><li class="dep2">저작권 관리</li></a>                
                 </ul> 
                 <a href="javascript:"><li class="dep1" data-index="10">실적 관리
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
@@ -220,7 +221,8 @@
                 </li></a>
                 <ul data-index="10">
                     <a href="/albumPerform"><li class="dep2">음반 실적</li></a>
-                    <a href="javascript:"><li class="dep2">음원 실적</li></a>                   
+                    <a href="javascript:"><li class="dep2">음원 실적</li></a>  
+                    <a href="/resourceCopyright"><li class="dep2">저작권 실적</li></a>                 
                 </ul> 
             </ul>
         </div>
