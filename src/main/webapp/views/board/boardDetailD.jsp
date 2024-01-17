@@ -56,7 +56,7 @@
         <div class="allpadding" style="padding-left: 50px;">
 			<ul>
 		    <li>
-		        <h5></h5><label for="board_title">제목</label></h5>
+		        <h5><label for="board_title">제목</label></h5>
 		        <span id="board_title">${board.board_title}</span>
 		    </li>
 		    <li>

@@ -53,7 +53,7 @@
         <h3 class="sub_title">부서 게시판</h3>
         <div class="allpadding" style="padding-left: 50px;">
 			<ul>
-		    <li id="tt">
+		    <li>
 		        <h5><label for="board_title">제목</label></h5>
 		        <span id="board_title">${board.board_title}</span>
 		    </li>
