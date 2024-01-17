@@ -4,7 +4,11 @@ package kr.co.gudi.resource.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -178,39 +182,70 @@ public class CopyrightService {
 
 
 
-	public void copyrightregister(HashMap<String, String> data, MultipartFile[] file, HttpSession session) throws Exception {
+	public void copyrightregister(HashMap<String, String> data, MultipartFile[] files, HttpSession session) throws Exception {
 		// TODO Auto-generated method stub
 
 		logger.info("등록 들어옴");
-		copyrightnoti(data);
+		//copyrightnoti(data);
+		
 		CopyrightDTO dto = new CopyrightDTO();
-		dto.setCr_no(data.get("no"));
+		logger.info("여기까지 0");
+		dto.setCr_no(data.get("cr_no"));
+		logger.info("여기까지 1");
 		dto.setCr_namae(data.get("namae"));
+		logger.info("여기까지 2");
 		dto.setCr_name(data.get("name"));
+		logger.info("여기까지 3");
 		dto.setCr_price(Integer.parseInt(data.get("price")));
-		dto.setCr_contdate(Date.valueOf(data.get("cont")));
-		dto.setCr_expdate(Date.valueOf(data.get("exp")));
+		logger.info("여기까지 4");
+		
+		//String str = data.get("cont");
+		//dto.setCr_contdate(java.sql.Date.valueOf(str));
+		//logger.info("cr_no"+dto.getCr_contdate());
+		logger.info("여기까지 5");
+		//dto.setCr_expdate(java.sql.Date.valueOf(str));
+		logger.info("여기까지 6");
 		dto.setCr_member(data.get("member"));
+		logger.info("여기까지 7");
 		dto.setMember_no(((MemberVO)session.getAttribute("loginMember")).getMember_no());
+		logger.info("여기까지 end");
+		logger.info("cr_no"+dto.getCr_no());
+		logger.info("cr_no"+dto.getCr_namae());
+		logger.info("cr_no"+dto.getCr_name());
+		logger.info("cr_no"+dto.getCr_price());
+		//logger.info("cr_no"+dto.getCr_expdate());
+		logger.info("cr_no"+dto.getCr_member());
+		logger.info("cr_no"+dto.getMember_no());
 		
 		
 		logger.info("date : "+dto.getCr_member());
 		
+		
+		dto.setApproval_title(data.get("title"));
+		dto.setApproval_content(data.get("content"));
+		
 		dao.copyrightregister(dto);
+		dao.apprcr(dto);
+		
+		logger.info("idddd : "+dto.getApproval_no());
+		dao.appcon(dto);
+		
 		logger.info("dto : "+dto.getCr_no());
+		
 		
 		String idx = dto.getCr_no();
 		
-		saveFile(idx, file);
+		
+		saveFile(idx, files);
 		
 	}
 	
 	
 	
-	private void saveFile(String idx, MultipartFile[] file) throws Exception {
+	private void saveFile(String idx, MultipartFile[] files) throws Exception {
 		
 		
-		for (MultipartFile photo : file) {
+		for (MultipartFile photo : files) {
 			String oriFileName = photo.getOriginalFilename();
 			logger.info("oriFileName : "+oriFileName);
 			logger.info("oriFileName : "+idx+oriFileName);
@@ -225,8 +260,8 @@ public class CopyrightService {
 				
 				// 2. 파일 저장
 				byte[] arr = photo.getBytes();
-				logger.info("크기 : "+arr.length);
-				String kb = String.valueOf(arr.length);
+				logger.info("크기 : "+arr.length/1000);
+				String kb = String.valueOf(arr.length/1000);
 				logger.info("크기 : "+kb);
 				Path path = Paths.get(root+newFileName);
 				Files.write(path, arr);

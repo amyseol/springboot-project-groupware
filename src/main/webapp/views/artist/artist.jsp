@@ -78,9 +78,9 @@
 			</tr>
 		</table>
         
- 		<ul class="search_box">
+ 		<ul class="search_box" style="margin-left: 1200px;">
             <li>
-                <select id="searchpath" name="searchtag">
+                <select id="searchpath" name="searchtag" style="width: 100px;">
 					<option  value="an" >아티스트명</option>
 					<option value="aa">소속사명</option>
                 </select>

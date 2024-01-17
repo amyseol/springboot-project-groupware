@@ -134,7 +134,6 @@
                         <li>예약명</li>
                         <li>시작날짜</li>
                         <li>종료날짜</li>
-                        <li>상태</li>
                     </ul>
                 </li>
 				
@@ -251,18 +250,17 @@
  		</div>
  	</div>
  	
- 	<div id="popno" style="z-index: 999;">
+ 	<div id="popno" style="z-index: 999; height: 460px;" >
+ 	<div><h3>반려</h3></div>
  		<div>
  		
- 			<textarea rows="" cols="" id="popcontent" style="width: 250px; height: 350px;">
- 			
- 			
- 			</textarea>
+ 			<textarea rows="" cols="" id="popcontent"  style="width: 200px; height: 350px; resize: none" placeholder="반려사유를 작성해주세요."></textarea>
  			
  		
  		
  		</div>
- 		<button id="register" style="z-index: 999;">반려</button>
+ 		
+ 		<button id="register" style="z-index: 999; color: black;">반려</button>
  		<div>
  			<div id="closeno" style="width: 100px; margin: auto;">close</div>
  		</div>
@@ -682,12 +680,12 @@ function reservNo(res_no){
 	   }
 	   
 	   
+	   
+		});
 	   $(document).ready(function(){
 			$('#closeno').click(function(){
 				$('#popno').hide();
 			});
-		});
-	   
 		});
 }
 
