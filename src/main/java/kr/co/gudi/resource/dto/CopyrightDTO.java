@@ -30,8 +30,30 @@ public class CopyrightDTO {
 	String name;
 	String member_position;
 
+	String approval_title;
+	String approval_content;
+	int approval_no;
 	
 	
+	
+	public int getApproval_no() {
+		return approval_no;
+	}
+	public void setApproval_no(int approval_no) {
+		this.approval_no = approval_no;
+	}
+	public String getApproval_title() {
+		return approval_title;
+	}
+	public void setApproval_title(String approval_title) {
+		this.approval_title = approval_title;
+	}
+	public String getApproval_content() {
+		return approval_content;
+	}
+	public void setApproval_content(String approval_content) {
+		this.approval_content = approval_content;
+	}
 	public int getDepart_no() {
 		return depart_no;
 	}

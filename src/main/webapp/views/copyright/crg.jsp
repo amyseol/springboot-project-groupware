@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hoony Music</title>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<%@ include file="/views/nav.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" type="text/css"/>
@@ -84,10 +84,18 @@
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li.bor_left{border-left: 1px solid #333;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(2){width: 24%;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(4){width: 40%;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(6){width: 82%;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(7){width: 100%; height: 400px;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(6){width: 32%;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(8){width: 32%;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(10){width: 32%;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(12){width: 32%;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(14){width: 32%;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(16){width: 32%;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(18){width: 32%;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(20){width: 32%;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(22){width: 82%;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(23){width: 100%; height: 400px;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li>input, #approval_write .bottom_area .right_area .form_bottom>div>ul>li>select{width: 100%; height: 100%; box-sizing: border-box; border: 1px solid #ccc;;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li #testDatepicker{padding-left: 26px;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li #testDatepicker .cont .exp{padding-left: 26px;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li svg{position:absolute; left: 9px; top: 9px;}
         .file-list {height: 145px; border: 2px dashed #ddd; padding: 10px;}
         .file-list .filebox p {font-size: 13px; margin-top: 8px; display: inline-block;}
@@ -166,106 +174,24 @@
 </style>
 </head>
 <body>
-<%@ include file="/views/nav.jsp" %>
+
 	<!-- -------------------------------------------nav start------------------------------------------ -->
-    <div id="nav">
-        <div class="nav_inner">
-            <h1 class="logo"><a href="javascript:">Hoony Music</a></h1>
-            <ul class="gnb">
-                <a href="javascript:"><li class="dep1">게시판</li></a>
-                <a href="javascript:"><li class="dep1" data-index="1">쪽지
-                    <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                    </svg></div>
-                </li></a>
-                <ul data-index="1">
-                    <a href="javascript:"><li class="dep2">쪽지 쓰기</li></a>
-                    <a href="javascript:"><li class="dep2">받은 쪽지함</li></a>
-                    <a href="javascript:"><li class="dep2">보낸 쪽지함</li></a>
-                    <a href="javascript:"><li class="dep2">휴지통</li></a>
-                </ul>
-                <a href="javascript:"><li class="dep1" data-index="2">전자결재
-                    <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                    </svg></div>
-                </li></a>
-                <ul data-index="2">
-                    <a href="javascript:" onclick="approval_select_go()"><li class="dep2">새 결재 작성</li></a>
-                    <a href="javascript:"><li class="dep2">결재 대기 문서</li></a>
-                    <a href="javascript:"><li class="dep2">결재 예정 문서</li></a>
-                    <a href="javascript:"><li class="dep2">참조 대기 문서</li></a>
-                    <a href="javascript:"><li class="dep2" data-index="3">결재 보관함
-                        <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                            </svg></div>
-                    </li></a>
-                    <ul data-index="3">
-                        <a href="javascript:"><li class="dep3">삭제 문서</li></a>
-                        <a href="javascript:"><li class="dep3">수정 문서</li></a>
-                    </ul>
-                </ul>
-                <a href="javascript:"><li class="dep1" data-index="4">일정관리
-                    <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                    </svg></div>
-                </li></a>
-                <ul data-index="4">
-                    <a href="javascript:"><li class="dep2">전사 일정</li></a>
-                    <a href="javascript:"><li class="dep2" data-index="5">부서 일정
-                        <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                            </svg></div>
-                    </li></a>
-                    <ul data-index="5">
-                        <a href="javascript:"><li class="dep3">일정 쓰기</li></a>
-                        <a href="javascript:"><li class="dep3">일정 예약</li></a>
-                    </ul>
-                    <a href="javascript:"><li class="dep2" data-index="6">내 일정
-                        <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                            </svg></div>
-                    </li></a>
-                    <ul data-index="6">
-                        <a href="javascript:"><li class="dep3">일정 쓰기</li></a>
-                        <a href="javascript:"><li class="dep3">일정 예약</li></a>
-                    </ul>
-                </ul>
-                <a href="javascript:"><li class="dep1">공용자료실</li></a>
-                <a href="javascript:"><li class="dep1">시설예약</li></a>
-                <a href="javascript:"><li class="dep1">근태관리</li></a>
-                <a href="javascript:"><li class="dep1">차량관리</li></a>
-                <a href="javascript:"><li class="dep1">복지몰</li></a>
-            </ul>
-        </div>
-    </div>
+
     <!-- -------------------------------------------nav end------------------------------------------ -->
 
 
     <!-- -------------------------------------------util start------------------------------------------ -->
-    <div id="util">
-        <ul class="util_inner">
-            <li class="search">
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#eb568e" d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396l1.414-1.414l-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8s3.589 8 8 8m0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6s-6-2.691-6-6s2.691-6 6-6"/>
-                </svg>
-            </li>
-            <li class="Notification">
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#eb568e" d="M4 8a8 8 0 1 1 16 0v4.697l2 3V20h-5.611a4.502 4.502 0 0 1-8.777 0H2v-4.303l2-3zm5.708 12a2.5 2.5 0 0 0 4.584 0zM12 2a6 6 0 0 0-6 6v5.303l-2 3V18h16v-1.697l-2-3V8a6 6 0 0 0-6-6"/>
-                </svg>
-            </li>
-            <li class="profile"><img src="/resources/img/common/kang.jpg" alt="231217_강태오"></li>
-        </ul>
-    </div>
+   
     <!-- -------------------------------------------util end------------------------------------------ -->
 
 
     <!-- -------------------------------------------form start------------------------------------------ -->
     <section id="approval_write">
+    
         <div class="top_area">
             <h2 class="title">업무기안</h2>
             <ul class="approval_btn">
-                <li><a href="javascript:" id="approval_do"><svg width="15" height="15" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 9l-3 .54L5 6.5L10.73.79a1 1 0 0 1 1.42 0l1.06 1.06a1 1 0 0 1 0 1.42Z"/><path d="M12 9.5v3a1 1 0 0 1-1 1H1.5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3"/></g></svg> 결재요청</a></li>
+                <li><a href="" id="approval_do"><svg width="15" height="15" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 9l-3 .54L5 6.5L10.73.79a1 1 0 0 1 1.42 0l1.06 1.06a1 1 0 0 1 0 1.42Z"/><path d="M12 9.5v3a1 1 0 0 1-1 1H1.5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3"/></g></svg> 결재요청</a></li>
                 <li><a href="javascript:" onclick="approval_select_go()"><svg width="16" height="16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M24 24v2h2.46A5.94 5.94 0 0 1 22 28a6.007 6.007 0 0 1-6-6h-2a7.984 7.984 0 0 0 14 5.265V30h2v-6zm-2-10a8.04 8.04 0 0 0-6 2.735V14h-2v6h6v-2h-2.46A5.94 5.94 0 0 1 22 16a6.007 6.007 0 0 1 6 6h2a8.01 8.01 0 0 0-8-8"/><path fill="currentColor" d="M12 28H6v-4h2v-2H6v-5h2v-2H6v-5h2V8H6V4h18v8h2V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v4H2v2h2v5H2v2h2v5H2v2h2v4a2 2 0 0 0 2 2h6Z"/></svg> 양식변경</a></li>
                 <li><a href="javascript:"><svg width="18" height="18" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M16 3C8.832 3 3 8.832 3 16s5.832 13 13 13s13-5.832 13-13S23.168 3 16 3m0 2c6.087 0 11 4.913 11 11s-4.913 11-11 11S5 22.087 5 16S9.913 5 16 5m-3.78 5.78l-1.44 1.44L14.564 16l-3.782 3.78l1.44 1.44L16 17.437l3.78 3.78l1.44-1.437L17.437 16l3.78-3.78l-1.437-1.44L16 14.564l-3.78-3.782z"/></svg> 취소</a></li>
             </ul>
@@ -350,13 +276,21 @@
                     </ul>
                 </div>
             </div>
+            
+            
+            
+            
             <div class="right_area">
-                <form id="form_info" class="doc_form" action="approvalWrite" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="form_no">
+           	저작권 검색<input type="text" id="crr"/><button id="umother">검색</button>
+           	<ul id="sclist">
+           	
+           	</ul>
+                <form id="form_info" class="doc_form" action="/copyrightregister" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="form_no" value="8" >
                 <input type="hidden" name="observer" class="observer1">
                 <input type="hidden" name="observer" class="observer2">
                     <div class="form_top">
-                        <h4 class="form_name">업 무 기 안</h4>
+                        <h4 class="form_name">저작권 등록</h4>
                         <div class="top_left">
                             <ul>
                                 <li class="head">기안자</li>
@@ -415,13 +349,14 @@
                                     <g fill="none">
                                         <path fill="#B4ACBC" d="m2 9l13.267-2.843a3.5 3.5 0 0 1 1.466 0L30 9v15.8a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 24.8z"/>
                                         <path fill="#F3EEF8" d="m3 8l12.213-2.818a3.5 3.5 0 0 1 1.574 0L29 8v16.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5z"/>
-                                        <path fill="#998EA4" d="M8 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm0 5.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.6c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2H8a.2.2 0 0 1-.2-.2zM14.6 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.7c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 5.2a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zM21 12.2c0-.11.09-.2.2-.2H24c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 10.7a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
+                                       <path fill="#998EA4" d="M8 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm0 5.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.6c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2H8a.2.2 0 0 1-.2-.2zM14.6 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.7c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 5.2a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zM21 12.2c0-.11.09-.2.2-.2H24c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 10.7a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
                                         <path fill="#0084CE" d="M7.2 2A5.2 5.2 0 0 0 2 7.2V9h28V7.2A5.2 5.2 0 0 0 24.8 2zm14 15.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
                                     </g>
-                                </svg></li>
+                                </svg>
+                                </li>
                                 <li class="head bor_top">협조팀명</li>
                                 <li class="bor_top">
-                                    <select id="team_name" name="team_name">
+                                    <select name="team_name">
                                         <option value="0">-</option>
                                         <option value="1">광고팀</option>
                                         <option value="2">기획팀</option>
@@ -435,7 +370,53 @@
                                         <option value="10">인사팀</option>
                                     </select>
                                 </li>
-                                <li class="head bor_left">제목</li>
+                                <li class="head bor_left">저작권번호</li>
+                                <li >
+                                <input class="" type="text" id="cr_no" name="cr_no"/>
+                                </li>
+                                <li class="head ">저작권이름</li>
+                                <li >
+                                <input class="" type="text" id="namae" name="namae"/>
+                                </li>
+                                <li class="head bor_left">요금</li>
+                                <li >
+                                <input class="" type="text" id="price" name="price"/>
+                                </li>
+                                <li class="head ">계약일</li>
+                                <li >
+                                <input class="date" type="text" id="cont" name="cont"/><svg width="17" height="17" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                    <g fill="none">
+                                        <path fill="#B4ACBC" d="m2 9l13.267-2.843a3.5 3.5 0 0 1 1.466 0L30 9v15.8a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 24.8z"/>
+                                        <path fill="#F3EEF8" d="m3 8l12.213-2.818a3.5 3.5 0 0 1 1.574 0L29 8v16.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5z"/>
+                                       <path fill="#998EA4" d="M8 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm0 5.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.6c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2H8a.2.2 0 0 1-.2-.2zM14.6 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.7c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 5.2a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zM21 12.2c0-.11.09-.2.2-.2H24c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 10.7a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
+                                        <path fill="#0084CE" d="M7.2 2A5.2 5.2 0 0 0 2 7.2V9h28V7.2A5.2 5.2 0 0 0 24.8 2zm14 15.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
+                                    </g>
+                                </svg>
+                                </li>
+                                <li class="head bor_left">만료일</li>
+                                <li >
+                                <input class="date" type="text" id="exp" name="exp"/><svg width="17" height="17" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                    <g fill="none">
+                                        <path fill="#B4ACBC" d="m2 9l13.267-2.843a3.5 3.5 0 0 1 1.466 0L30 9v15.8a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 24.8z"/>
+                                        <path fill="#F3EEF8" d="m3 8l12.213-2.818a3.5 3.5 0 0 1 1.574 0L29 8v16.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5z"/>
+                                       <path fill="#998EA4" d="M8 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm0 5.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.6c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2H8a.2.2 0 0 1-.2-.2zM14.6 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.7c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 5.2a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zM21 12.2c0-.11.09-.2.2-.2H24c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 10.7a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
+                                        <path fill="#0084CE" d="M7.2 2A5.2 5.2 0 0 0 2 7.2V9h28V7.2A5.2 5.2 0 0 0 24.8 2zm14 15.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
+                                    </g>
+                                </svg>
+                                </li>
+                                <li class="head ">아티스트명</li>
+                                <li >
+                                <input class="" type="text" name="name"/>
+                                </li>
+                                <li class="head bor_left">담당자</li>
+                                <li >
+                                <input class="" type="text" name="member"/>
+                                </li>
+                                <li class="head ">비고</li>
+                                <li >
+                                
+                                </li>
+                                <li class="head bor_left" >제목</li>
                                 <li><input type="text" name="title"/></li>
                                 <li id="rich_editor" class="bor_left"></li>
                                 <input type="hidden" name="content" value=""/>
@@ -447,6 +428,7 @@
                     <input id="input_file" type="file" name="files" onchange="addFile(this);" multiple="multiple" />
                     <div class="file-list"></div>
                 </div>
+                <button>결재</button>
                 </form>
             </div>
         </div>
@@ -549,8 +531,28 @@
                                                 <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
                                                 <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 광고팀
                                             </span>
-                                            <ul id="" >
-                                                
+                                            <ul>
+                                                <li>
+                                                    <p>
+                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
+                                                        </svg> 손흥민 과장
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
+                                                        </svg> 한지훈 과장
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
+                                                        </svg> 황희찬 과장
+                                                    </p>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li>
@@ -559,27 +561,7 @@
                                                 <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> 기획팀
                                             </span>
                                             <ul>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 황용하 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 설유린 과장
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-                                                        </svg> 손흥민 과장
-                                                    </p>
-                                                </li>
+                                                
                                             </ul>
                                         </li>
                                         <li>
@@ -833,7 +815,7 @@
                         <div class="observer_area">
                             <h5>참조자</h5>
                             <div>
-                                <div class="picker" onclick="observer_select()">
+                                <div class="picker" onclick="observer_select()" >
                                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path fill="currentColor" d="m18.78 11.37l-4.78-6a1 1 0 0 0-1.41-.15a1 1 0 0 0-.15 1.41L16.71 12l-4.48 5.37a1 1 0 0 0 .13 1.41A1 1 0 0 0 13 19a1 1 0 0 0 .77-.36l5-6a1 1 0 0 0 .01-1.27"/>
                                         <path fill="currentColor" d="M7 5.37a1 1 0 0 0-1.61 1.26L9.71 12l-4.48 5.36a1 1 0 0 0 .13 1.41A1 1 0 0 0 6 19a1 1 0 0 0 .77-.36l5-6a1 1 0 0 0 0-1.27Z"/>
@@ -868,11 +850,7 @@
 
 
     <!-- -------------------------------------------music start------------------------------------------ -->
-    <div id="bottom_music">
-        <div class="music_inner">
-
-        </div>
-    </div>
+    
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
@@ -905,7 +883,7 @@ $('#approval_do').on('click',function(event){
 		// <Connector maxPostSize="-1" connectionTimeout="20000" maxParameterCount="1000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
 		alert('컨텐츠의 크기가 너무 큽니다. 이미지의 갯수나 크기를 줄여 주세요.');
 	}else{
-		form.submit();
+		document.getElementById('form_info').submit();
 	}
 });    
 
@@ -1222,7 +1200,23 @@ dep2Items.forEach(function (item) {
 // ----------------------------------- nav toggle end ---------------------------------------------
 
 // ----------------------------------- datepicker start -------------------------------------------
-$( "#testDatepicker" ).datepicker({
+ $( "#testDatepicker" ).datepicker({
+    dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+    dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
+    monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+    monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+    dateFormat: 'yy/mm/dd'
+}); 
+$( "#cont" ).datepicker({
+    dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+    dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
+    monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+    monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+    dateFormat: 'yy/mm/dd'
+});
+$( "#exp" ).datepicker({
     dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
     dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
     dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
@@ -1354,52 +1348,102 @@ $('#file_btn').on('click',function(event){
 	document.getElementById("input_file").click();  
 });
 
-//---------------------------------------------------my another script--------------------------------------
+
+var page = 1;
+var perPage = 10;
+var search = "";
+var detaildata ;
+
+$("#umother").on("click", function(){
+	
+	console.log($("#crr").val());
+	search = $("#crr").val();
+	console.log(search);
+	api();
+	
+});
+
+function api(){
+$.ajax({
+    type : 'GET',
+    url : '/copyrightsearch',
+    data:{
+        'page':page,
+        'perPage':perPage,
+        'search':search 
+        
+    },
+    dataType:'JSON',
+    success:function(data){
+        console.log(data);
+        var content ='';
+
+        data.data.forEach(function(item){
+            content += '<ul>';
+            //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
+            content += '<li class="REG_ID">'+item.REG_ID+'</li>';
+            content += '<li class="CONT_TITLE">'+"<h3 "+'onClick = "copyrightsearchdetail('+"'"+item.REG_ID+"','"+page+"','"+perPage+"'"+')" style="cursor: pointer;">'+item.CONT_TITLE+"</h3>"+'</li>';
+            content += '<li class="REG_DATE">'+item.REG_DATE+'</li>';
+            //content += '</a>';
+            content += '</ul>';
+        });
+        $('#sclist').empty();
+        $('#sclist').append(content);
+
+
+    },error:function(e){
+        console.log(e);
+    }
 
 
 
+});
 
-/* $.ajax({
-       type : 'POST',
-       url : '/depttlist',
-       data:{
-    	   
-       },
-       dataType:'json',
-       success:function(data){
-       	alert("성공");
-       	
-       	
-           console.log(data);
-           
-           var content ='';
+}
 
-           data.list.forEach(function(item,idx){
-        	   
-        	   
-        	   content="<li>";
-        	   content=+"<p>";
-        	   content=+'<svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">';
-        	   content=+'<path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>';
-        	   content=+'</svg>'+item.name+" "+item.member_position;
-        	   content=+"</p>";
-        	   content="</li>";
-        	   
-        	   
-           if(item.depart_no=6){
-	           $('#plann').append(content);
-           }else{
-        	   
-           }
-           
-           });
 
-       },error:function(e){
-           console.log(e);
-           alert("실패");
-       }
-   }); */
-   
-   
+function copyrightsearchdetail(id,page,perpage){
+		
+	   $.ajax({
+        type : 'GET',
+        url : '/copyrightsearchdetail',
+        data:{
+            'page':page,
+            'perPage':perPage,
+            'search':id 
+            
+        },
+        dataType:'JSON',
+        success:function(data){
+            console.log(data);
+            var content ='';
+            var i = 0;
+            
+            
+				
+            data.data.forEach(function(item){
+
+                detaildata = item.CONT_TITLE;
+            });
+                console.log(detaildata);
+                const element = document.getElementById('namae');
+                const numelement = document.getElementById('cr_no');
+                element.value = detaildata;
+                numelement.value = $("#crr").val();
+            
+
+        },error:function(e){
+            console.log(e);
+        }
+
+
+
+    });
+    
+		
+	}
+
+
+
 </script>
 </html>
