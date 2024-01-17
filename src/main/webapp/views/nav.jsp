@@ -564,6 +564,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 //-------------------------------- toggle end ------------------------------------------
 //-------------------------------- organization start----------------------------------------
+/*
 	 var selecEl = null;
         
         // 부서 모달 팝업
@@ -737,10 +738,11 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.hide();
             close.hide();
         }
- *///-------------------------------- organization end-----------------------------------------
+ //-------------------------------- organization end-----------------------------------------
+ */
 
 
-//-------------------------------- 조직도 테스트 버튼 start -----------------------------------------
+//-------------------------------- 조직도 버튼 start -----------------------------------------
 function organization(){
 	  // XMLHttpRequest 객체 생성
 	  var xhr = new XMLHttpRequest();
@@ -770,15 +772,48 @@ function organization(){
 	
 	  // 요청 보내기
 	  xhr.send();
-	 
-
-	$('#orgChartModal').modal('show');
 }
  
  function organizationChart(data) {
 	var org_chart = document.querySelector(".org_chart");
+	org_chart.innerHTML = '';
 	
+	data.departments.forEach(function (depart){
+		if (depart.depart_p_no === 0) {
+			var departNode = createNode(depart);
+			org_chart.appendChild(departNode);
+			
+			data.teams.forEach(function (team){
+				if (depart.depart_no === team.depart_p_no) {
+					var teamNode = createNode(team);
+					departNode.querySelector('ul').appendChild(teamNode);
+					
+					data.members.forEach(function (member) {
+						if (team.depart_no === member.depart_no) {
+							var memberNode = createMemberNode(member);
+							teamNode.querySelector('ul').appendChild(memberNode);
+						}
+					});
+				}
+			});
+		}
+	});
+
+    document.getElementById('orgChartModal').style.display = 'block';
 }
+
+// XMLHttpRequest를 사용하지 않는 이벤트 처리 방식으로 모달 닫기
+document.querySelector('.modal .close').addEventListener('click', function () {
+  document.getElementById('orgChartModal').style.display = 'none';
+});
+
+// 모달 외부 클릭 시 모달 닫기
+window.addEventListener('click', function (event) {
+  var modal = document.getElementById('orgChartModal');
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+});
 
 $('.org_chart>ul>li>span').on('click',function(){
     var $ul = $(this).siblings('ul');

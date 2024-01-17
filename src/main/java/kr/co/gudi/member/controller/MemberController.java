@@ -17,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.gudi.approval.service.ApprovalService;
-import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.service.MemberService;
 import kr.co.gudi.member.vo.MemberVO;
@@ -151,10 +152,18 @@ public class MemberController {
 	
 	
 	  @GetMapping("/organization") 
-	  public ModelAndView organization() {
-		  ModelAndView mav = approvalService.mailOrganization();
+	  public ResponseEntity<Map<String, List<?>>> organization() {
+		  Map<String, List<?>> orgData = new HashMap<String, List<?>>();
 		  
-		  return mav;
+		  List<MemberDTO> departments = service.getAllDepartments();
+		  List<MemberDTO> teams = service.getAllTeams();
+	      List<MemberDTO> members = service.getAllMembers();
+	      
+	      orgData.put("departments", departments);
+	      orgData.put("teams", teams);
+	      orgData.put("members", members);
+	      
+	      return new ResponseEntity<>(orgData, HttpStatus.OK);
 	  }
 	 /* 
 	 * @GetMapping("/organization/departments")

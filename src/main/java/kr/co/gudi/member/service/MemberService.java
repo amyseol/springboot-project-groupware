@@ -29,7 +29,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.gudi.approval.dto.ApprovalDTO;
 import kr.co.gudi.member.dao.MemberDAO;
-import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.vo.MemberVO;
 
@@ -71,6 +70,18 @@ public class MemberService implements UserDetailsService{
 		return dao.getMember();
 	}
 	
+	public List<MemberDTO> getAllDepartments() {
+		return dao.getAllDepartments();
+	}
+
+	public List<MemberDTO> getAllTeams() {
+		return dao.getAllTeams();
+	}
+
+	public List<MemberDTO> getAllMembers() {
+		return dao.getAllMembers();
+	}
+	/*
 	public List<Department> getAllDepartments() {
 		return dao.getAllDepartments();
 	}
@@ -82,7 +93,7 @@ public class MemberService implements UserDetailsService{
 	public List<MemberDTO> getMemberList(int depart_no) {
 		return dao.getMemberList(depart_no);
 	}
-	
+	*/
 	public List<MemberDTO> getMemberDetail(int member_no) {
 		return dao.getMemberDetail(member_no);
 	}
@@ -316,5 +327,4 @@ public class MemberService implements UserDetailsService{
         dao.delMember(member_no,resign_date);
 		
 	}
-
 }

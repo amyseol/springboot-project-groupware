@@ -39,13 +39,13 @@
         WHERE depart_p_no = 0;
     </select>
 	
-	<select id="getTeamList" resultType="member">
+	<select id="getAllTeams" resultType="member">
 		SELECT depart_no, depart_name
 		FROM department
 		WHERE depart_p_no = #{depart_no}
 	</select>
 	
-	<select id="getMemberList" resultType="member">
+	<select id="getAllMembers" resultType="member">
         SELECT member_no, name, member_position, depart_no
         FROM member
         WHERE depart_no = #{depart_no}
