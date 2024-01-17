@@ -71,7 +71,7 @@ public class BoardController {
 	}
 	
 	@GetMapping(value = "/boardWriteD")
-	public String boardWriteD(HttpSession session) {
+	public String boardWriteD(HttpSession session, Model model) {
 		logger.info("boardWriteD로 이동");
 		
 		int member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
@@ -79,8 +79,11 @@ public class BoardController {
 		
 	    if(member_no == 20) {
 	    	return "board/boardWriteD";
+	    }else {
+	        // "권한이 없습니다" 메시지를 모델에 추가
+	        model.addAttribute("msg", "권한이 없습니다");
+	        return "board/boardListD";
 	    }
-	    return "board/boardListD";
 	}
 	
 	@PostMapping(value = "/write")
