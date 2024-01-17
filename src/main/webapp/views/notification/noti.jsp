@@ -18,8 +18,8 @@
         #common_list_form .list_form .notiBox .notiContent{margin-right: 20px;}
         #common_list_form .list_form .notiBox .notiDate{text-align: right;}
                 
-        #delBtn{margin: 0 3% 1% 73%;}        
-                
+        #delBtn{margin: 0 3% 1% 73%;width: 45;height: 30;border-radius: 3px;background-color:025464;color:white;padding: 5 10;border:none;}        
+
         .blink{
 		  -webkit-animation: blink 0.7s ease-in-out infinite alternate;
 		  -moz-animation: blink 0.7s ease-in-out infinite alternate;
@@ -45,14 +45,14 @@
 		}
 		
 		#del_modal{background: rgba(0, 0, 0, 0.8);display: none; width:300px; height:150px; background: rgb(237, 237, 237); border:1px solid gray; text-align:center;position:absolute; left:58%; top:27%; }
-		#delBtn{margin-right: 10px;padding: 2px 5px 2px 5px;}
+		
 </style>
 <body>
 	<%@ include file="/views/nav.jsp" %>
     <!-- -------------------------------------------list_form start------------------------------------------ -->
     <section id="common_list_form">
         <h2 class="big_title">NOTIFICATION</h2>
-        <h3 class="sub_title">알림 🔔</h3>
+        <h3 class="sub_title">🔔 알림 🔔</h3>
         <input type="button" id="delBtn" value="삭제" onclick="delBtnClick()"/>
 		<input type="checkbox" id="checkAll"/>
 		<!------- 리스트 ------->
