@@ -37,7 +37,8 @@
         li{list-style: none;}
         a{text-decoration: none;}
         img{border:none; display: block;}
-        body, header, section, footer, div, ul, li, p, a, span, input, textarea, h2, h3, h4, h5, h6{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 14px;}
+        body, header, section, footer, div, ul, li, p, a, span, input, textarea{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 14px;}
+        h2, h3, h4, h5, h6{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 24px;}
         h1{font-family: 'GmarketSansMedium'; color:#222;}
 
         #nav{position:fixed; width:15%; height:100%; box-shadow: 0 0 3px 0.5px rgb(228, 228, 228); background-color: #fff; overflow: auto; z-index:9999;}
