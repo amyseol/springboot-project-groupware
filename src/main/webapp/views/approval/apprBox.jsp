@@ -197,7 +197,7 @@ function handleKeyDown(event){
 		  }else if(item.form_no == '7'){
 			  content += '<li>음반 계약 취소 신청서</li>';
 		  }else if(item.form_no == '8'){
-			  content += '<li>저작권 계약 신청서</li>';
+			  content += '<li><a href="crd2?approval_no='+item.approval_no+'">'+item.approval_title+'</a></li>';
 		  }else if(item.form_no == '9'){
 			  content += '<li>저작권 계약 취소 신청서</li>';
 		  }else if(item.form_no == '10'){
