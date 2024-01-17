@@ -16,6 +16,15 @@
 <title>HoonyMusic</title>
 </head>
 <style>
+ 
+		li button, input[type="button"] {
+		    padding: 5px 10px;
+		    cursor: pointer;
+		    margin-right: 5px;
+		    border-radius: 3px;background-color:#025464;color:white;padding: 5 10;border:none;
+		}
+		
+
 .div_inner{
 	padding-left: 15%;
 	padding-top: 100px; 	
@@ -35,17 +44,24 @@
 	width: 26%;
     height: 100%;
 }	
+.rightfloat{
+	box-sizing: border-box;
+	width: 70%;
+    height: 100%;
+}
+
 .mainCenter{	
 	box-sizing: border-box;
-	width: 40%;
-    height: 100%;
+	width: 100%;
+    height: 50%;
 }	
 .mainRight{	
 	box-sizing: border-box;
-	width: 30%;
-    height: 100%;
+	width: 100%;
+    height: 50%;
     overflow:auto;
 }	
+
 .mainPageAttend{
 	box-sizing: border-box;
 	height: 183px;
@@ -57,8 +73,9 @@
 }
 .mainBoard{
 	box-sizing: border-box;
-	height: 400px;
-	background-color: yellow;
+	height: 100%;
+	width:100%;
+	overflow-x:hidden;
 }
 .mainMusci{
 	box-sizing: border-box;
@@ -72,6 +89,9 @@
   
   .fc-header-toolbar, .fc-header-toolbar * {
     font-size: 10px; /* 원하는 크기로 조절 */
+}
+.mainMusic{
+	overflow:auto;
 }
 
 </style>
@@ -87,13 +107,14 @@
 					</div>
 				</div>
 			</div>
-			
-			<div class="mainCenter float">
-				<div class="mainBoard">게시판</div>
+		<div class="rightfloat float">	
+			<div class="mainCenter">
+				<div class="mainBoard" id="mainBoardList"></div>
 			</div>
-			<div class="mainRight float">
-				<div class="mainMusci" id="mList"></div>
+			<div class="mainRight">
+				<div class="mainMusic" id="mList"></div>
 			</div>
+		</div>	
 	</div>
 </div>
 </body>
@@ -147,9 +168,25 @@ $(document).ready(function () {
 		}
 
 	});
-	// 음원차트
+/* 	// 음원차트
 	 $(document).ready(function() {
          $('#mList').load('mainMusicChart.html');
      });
+	
+		// 전사게시판
+	  $(document).ready(function() {
+         $('#mainBoardList').load('mainBoard.html');
+     });  */
+
+	  $(document).ready(function() {
+		    $('#mList').load('mainMusicChart.html', function() {
+		        // 음원차트 로드 완료 후 실행할 작업
+		        $('#mainBoardList').load('mainBoard.html', function() {
+		            // 두 번째 로드 완료 후 추가 작업
+		            // 이곳에 필요한 코드를 추가하세요
+		        });
+		    });
+		});
+
 </script>
 </html>
