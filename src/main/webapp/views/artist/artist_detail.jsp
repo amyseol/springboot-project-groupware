@@ -9,56 +9,6 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
-	<style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
-        @font-face {
-            font-family: 'GmarketSansBold';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
-            font-weight: 700;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'GmarketSansMedium';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-            font-weight: 500;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'GmarketSansLight';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
-            font-weight: 300;
-            font-style: normal;
-        }
-
-        *{margin:0; padding:0;}
-        li{list-style: none; width: 1000px;}
-        a{text-decoration: none;}
-        img{border:none; display: block;}
-        body, header, section, footer, div, ul, li, p, a, span, input, textarea{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 14px;}
-        h1, h2, h3, h4, h5, h6{font-family: 'GmarketSansMedium'; color:#222;}
-
-        #nav{position:fixed; width:15%; height:100%; box-shadow: 0 0 3px 0.5px rgb(228, 228, 228); background-color: #fff; overflow: auto;}
-        #nav .nav_inner{padding-top: 40px;}
-        #nav .logo{padding: 0 0 30px 40px;}
-        #nav .logo a{color:#222; font-size:20px;}
-        #nav .gnb ul{display: none;}
-        #nav .gnb li{padding:10px 0 10px 40px; font-size:14px; font-family: 'GmarketSansMedium', sans-serif; color:#888; letter-spacing: 0.5px; word-spacing: -2px;}
-        #nav .gnb li.dep2{padding-left:50px;}
-        #nav .gnb li.dep3{padding-left:60px;}
-        #nav .gnb a:hover li{color:#222; background-color: #eee;}
-        #nav .gnb li.active{color:#222; background-color: #eee;}
-        #nav .gnb a li{position:relative;}
-        #nav .gnb a li .arrow{position:absolute; right:30px; top:12px;}
-        #nav .gnb a li .arrow svg{width:100%; transition:0.3s;}
-
-        #util{position:fixed; right:0; height: 80px;}
-        #util .util_inner{position:relative; top:30px; right:50px; width:195px; height: 55px;}
-        #util .util_inner li{width: 55px; height: 55px; border-radius: 25px; background-color: #fff; float:left; margin-right:15px; cursor: pointer; overflow: hidden; box-shadow: 1px 1px 3px 1px #ddd;}
-        #util .util_inner li:last-child{margin-right:0;}
-        #util .util_inner li svg{position:relative; top:15px; left:15px;}
-        #util .util_inner li img{width:100%;}
-
         #common_list_form{padding-left:15%;}
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .sub_title{padding: 20px 50px;}
@@ -75,9 +25,6 @@
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
         #common_list_form .list_form .list_content ul li:first-child{width: 15%; padding-left: 50px; }
         #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_content ul li:nth-child(3){width: 5%;}
-        #common_list_form .list_form .list_content ul li:nth-child(4){width: 50%;}
-        #common_list_form .list_form .list_content ul li:nth-child(5){width: 5%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 15%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
@@ -104,32 +51,18 @@
         
         /*  */
         
-                #common_list_form .list_form .list_title1 ul{width: 100%; height: 32px;}
+        #common_list_form .list_form .list_title1 ul{width: 100%; height: 32px;}
         #common_list_form .list_form .list_title1 ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
         #common_list_form .list_form .list_title1 ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .list_form .list_title1 ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_title1 ul li:nth-child(3){width: 5%;}
-        #common_list_form .list_form .list_title1 ul li:nth-child(4){width: 50%;}
-        #common_list_form .list_form .list_title1 ul li:nth-child(5){width: 5%;}
+        #common_list_form .list_form .list_title1 ul li:nth-child(2){width: 25%;}
         #common_list_form .list_form .list_title1 ul li:last-child{width: 15%;}
         
-                #common_list_form .list_form .list_title2 ul{width: 100%; height: 32px;}
+        #common_list_form .list_form .list_title2 ul{width: 100%; height: 32px;}
         #common_list_form .list_form .list_title2 ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
         #common_list_form .list_form .list_title2 ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .list_form .list_title2 ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_title2 ul li:nth-child(3){width: 5%;}
-        #common_list_form .list_form .list_title2 ul li:nth-child(4){width: 50%;}
-        #common_list_form .list_form .list_title2 ul li:nth-child(5){width: 5%;}
+        #common_list_form .list_form .list_title2 ul li:nth-child(2){width: 25%;}
         #common_list_form .list_form .list_title2 ul li:last-child{width: 15%;}
         
-                #common_list_form .list_form .list_title3 ul{width: 100%; height: 32px;}
-        #common_list_form .list_form .list_title3 ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .list_form .list_title3 ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .list_form .list_title3 ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_title3 ul li:nth-child(3){width: 5%;}
-        #common_list_form .list_form .list_title3 ul li:nth-child(4){width: 50%;}
-        #common_list_form .list_form .list_title3 ul li:nth-child(5){width: 5%;}
-        #common_list_form .list_form .list_title3 ul li:last-child{width: 15%;}
     </style>
 <body>
     <!-- -------------------------------------------nav start------------------------------------------ -->
@@ -143,21 +76,15 @@
         <h2 class="big_title">아티스트 상세보기</h2>
 	<!-- 아티스트 이름 소속사 명 -->
 		<div>
-		<table>
+		<table style="margin-left: 100px;">
 			<tr>
 				<td>
-				
-				
-				<input type="text" value="${name}" id="name"/>
-				
+				<h1  id="name">${name}</h1>
 				</td>
 			</tr>
 			<tr>
 				<td>
-				
-				
-				<input type="text" value="${agency}" id="agency"/>
-				
+				<h3  id="name">${agency}</h3>
 				</td>
 			</tr>
 		</table>
@@ -173,8 +100,8 @@
 			<tr>
 				<td>
 				
-		<h3 class="sub_title">음반실적</h3>
-         <div class="list_form">
+		<h3 class="sub_title" style="margin-left: 500px;">음반실적</h3>
+         <div class="list_form" style="margin-left: 500px;">
             <ul>
                 <li class="list_title1" id="list1">
                     <ul>
@@ -184,31 +111,31 @@
                     </ul>
                 </li>
 				
-				<li class="list_title" id="list_1">
+				<li class="list_title1" id="list_1">
 				
 				</li>
 
              </ul>
              
 
-        </div>
 		<div id="paging" class="pagingBox">
 			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
 			<div class="container">
-				<nav aria-label="Page navigation" style="text-align: center">
+				<nav aria-label="Page navigation" style="text-align: justify; margin-left: 180px;">
 					<ul class="pagination" id="getpagination1"></ul>
 				</nav>
 			</div>
 			
 		</div>
+        </div>
 				
 				</td>
 			</tr>
 			<tr>
 				<td>
 				
-		<h3 class="sub_title">음원실적</h3>
-         <div class="list_form">
+		<h3 class="sub_title" style="margin-left: 500px;">음원실적</h3>
+         <div class="list_form" style="margin-left: 500px;">
             <ul>
                 <li class="list_title2" id="list2">
                     <ul>
@@ -218,22 +145,22 @@
                     </ul>
                 </li>
 				
-				<li class="list_title" id="list_2">
+				<li class="list_title2" id="list_2">
 				
 				</li>
 
              </ul>
              
 
-        </div>
 		<div id="paging" class="pagingBox">
 			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
 			<div class="container">
-				<nav aria-label="Page navigation" style="text-align: center">
+				<nav aria-label="Page navigation" style="text-align: justify; margin-left: 180px;">
 					<ul class="pagination" id="getpagination2"></ul>
 				</nav>
 			</div>
 		</div>
+        </div>
 				
 				</td>
 			</tr>
@@ -249,60 +176,7 @@
 <script>
 
 // -------------------------------- toggle start ------------------------------------------
-document.addEventListener('DOMContentLoaded', function () {
-    var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
-    var dep2Items = document.querySelectorAll('.gnb .dep2[data-index]');
 
-    dep1Items.forEach(function (item) {
-      item.addEventListener('click', function () {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-
-    dep2Items.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-  });
 //-------------------------------- toggle end ------------------------------------------
 
 

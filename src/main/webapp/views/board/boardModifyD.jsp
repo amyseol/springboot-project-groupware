@@ -62,12 +62,9 @@
 		.list_form input[type="button"],
 		.list_form button {
 		    padding: 5px 10px;
-		    background-color: #007aff;
-		    color: white;
-		    border: none;
-		    border-radius: 5px;
 		    cursor: pointer;
 		    margin-right: 5px;
+		    border-radius: 3px;background-color:#025464;color:white;padding: 5 10;border:none;
 		}
 
 </style>

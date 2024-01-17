@@ -28,7 +28,7 @@
         #common_list_form .list_form .list_content ul li:nth-child(4){width: 10%;}
         #common_list_form .list_form .list_content ul li:last-child{width: 10%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
+        #common_list_form .list_form .list_content ul li:hover{background-color: #eee;}
 		        
         #common_list_form .search_box{position: relative; margin: 0 0 10px 50px; border: 1px solid #fff; display: inline-block;}
         #common_list_form .search_box li{float: left;}
@@ -63,6 +63,10 @@
 			position: absolute; top: 50%; left: 50%; text-align: center;
 			border:2px solid #000; display: none;
 		}
+		
+		button {
+			border-radius: 3px; background-color:025464; color:white; padding: 5 10; border:none;
+		}
     </style>
 <body>
 <%@ include file="/views/nav.jsp" %>
@@ -75,7 +79,7 @@
  	
  	<h1 style="margin-bottom: 50px; padding-top: 100px;">시설 예약하기</h1>
  	
- 	<table>
+ 	<table style="margin-left: 300px;">
  		<tr>
  			<td>
  			
@@ -94,7 +98,8 @@
  			
  			</td>
  			<td>
- 			시작날짜<input type="date" id="start"  />
+ 			<h4 style="margin-left: 60px; " >시작날짜</h4>
+ 			<input type="date" id="start" style="margin-left: 60px; "/>
  			</td>
  		</tr>
  		 		<tr>
@@ -103,7 +108,9 @@
  			
  			</td>
  			<td>
- 			끝난날짜<input type="date" id="end"/>
+ 			
+ 			<h4 style="margin-left: 60px; " >종료날짜</h4>
+ 			<input type="date" id="end" style="margin-left: 60px; "/>
  			</td>
  		</tr>
  		<tr>
@@ -116,7 +123,7 @@
  		</tr>
  		
  		</table>
- 		<button id="enter">신청</button>
+ 		<button id="enter" style="color:white;">신청</button>
  			
  			
  			</td>
@@ -144,15 +151,15 @@
              </ul>
              
 		</section>
-        </div>
 		<div id="paging" class="pagingBox">
 			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
 			<div class="container">
-				<nav aria-label="Page navigation" style="text-align: center">
+				<nav aria-label="Page navigation" style="text-align:justify; margin-left: 220px;">
 					<ul class="pagination" id="getpagination"></ul>
 				</nav>
 			</div>
 		</div>
+        </div>
  				
  				
  		<div class="list_form">
@@ -177,7 +184,7 @@
 		<div id="paging" class="pagingBox">
 			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
 			<div class="container">
-				<nav aria-label="Page navigation" style="text-align:justify;">
+				<nav aria-label="Page navigation" style="text-align:justify; margin-left: 40px;">
 					<ul class="pagination" id="getpagination2"></ul>
 				</nav>
 			</div>
@@ -214,7 +221,7 @@
 		<div id="paging" class="pagingBox">
 			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
 			<div class="container">
-				<nav aria-label="Page navigation" style="text-align: center">
+				<nav aria-label="Page navigation" style="text-align:justify; margin-left: 220px;">
 					<ul class="pagination" id="getpagination3"></ul>
 				</nav>
 			</div>
@@ -236,17 +243,21 @@
  	
  	<div id="pop" style="z-index: 999;">
  		<div>
- 		
  			<div id="popname"></div>
- 			<div id="popstart" ></div>
- 			<div id="popend" ></div>
+ 		</div>
+ 		<div style="margin-top: 10px ; margin-bottom: 10px;">
+ 		시작날짜<div id="popstart" ></div>
+ 		</div>
+ 		<div style="margin-top: 10px ; margin-bottom: 10px;">
+ 		종료날짜<div id="popend" ></div>
+ 		</div>
+ 		<div style="height: 200px;">
  			<div id="popcont"></div>
- 			
  		
  		
  		</div>
  		<div>
- 			<div id="close" style="width: 100px; margin: auto;">close</div>
+ 			<div id="close" style=" cursor:pointer; width: 100px; margin: auto;">close</div>
  		</div>
  	</div>
  	
@@ -262,7 +273,7 @@
  		
  		<button id="register" style="z-index: 999; color: black;">반려</button>
  		<div>
- 			<div id="closeno" style="width: 100px; margin: auto;">close</div>
+ 			<div id="closeno" style=" cursor:pointer; width: 100px; margin: auto;">close</div>
  		</div>
  		
  	</div>
@@ -273,60 +284,7 @@
 <script>
 
 // -------------------------------- toggle start ------------------------------------------
-document.addEventListener('DOMContentLoaded', function () {
-    var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
-    var dep2Items = document.querySelectorAll('.gnb .dep2[data-index]');
 
-    dep1Items.forEach(function (item) {
-      item.addEventListener('click', function () {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-
-    dep2Items.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-  });
 //-------------------------------- toggle end ------------------------------------------
 //--------------------------------등록-------------------------------------------------
 
@@ -374,7 +332,7 @@ function call(showPage){
                 //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
                 content += '<ul>';
                 content += '<li>'+item.res_no+'</li>';
-                content += '<li ><a onClick="reservDetail('+item.res_no+')">'+item.res_name+'</a></li>';
+                content += '<li ><a style="cursor:pointer" onClick="reservDetail('+item.res_no+')">'+item.res_name+'</a></li>';
                 content += '<li >'+item.res_start+'</li>';
                 content += '<li >'+item.res_end+'</li>';
                 content += '</ul>';
@@ -443,7 +401,7 @@ function call(showPage){
 	                //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
 	            	content += '<ul>';
 	            	content += '<li>'+item.res_no+'</li>';
-	            	content += '<li ><a onClick="reservDetail('+item.res_no+')">'+item.res_name+'</a></li>';
+	            	content += '<li ><a style="cursor:pointer" onClick="reservDetail('+item.res_no+')">'+item.res_name+'</a></li>';
 	                content += '<li >'+item.res_start+'</li>';
 	                content += '<li >'+item.res_end+'</li>';
 	                content += '</ul>';
@@ -511,11 +469,11 @@ function call(showPage){
 	                //content += '<a href="https://www.google.com/maps/place/'+item.address+'" target="_blank">';
 	            	content += '<ul>';
 	            	content += '<li>'+item.res_no+'</li>';
-	            	content += '<li ><a onClick="reservDetail('+item.res_no+')">'+item.res_name+'</a></li>';
+	            	content += '<li ><a style="cursor:pointer" onClick="reservDetail('+item.res_no+')">'+item.res_name+'</a></li>';
 	            	content += '<li >'+item.res_start+'</li>';
 	                content += '<li >'+item.res_end+'</li>';
-	                content += '<button onClick="location.href='+"'reservOk?res_no="+item.res_no+"'"+'">승인</button>';
-	                content += '<button onClick="reservNo('+item.res_no+')">반려</button>';
+	                content += '<button style="color:white;" onClick="location.href='+"'reservOk?res_no="+item.res_no+"'"+'">승인</button>';
+	                content += '<button style="color:white;" onClick="reservNo('+item.res_no+')">반려</button>';
 	                
 	                content += '</ul>';
 	            });
