@@ -228,27 +228,27 @@
             </ul>
         </div>
         
-        <div>
+        <!-- <div>
 	        <button onclick="showDepartModal()">조직도</button>
 	    </div>
 	
-	    <!-- 부서 모달 팝업 -->
+	    부서 모달 팝업
 	    <div id="departModal">
 	        <ul id="departments">
-	            <!-- 부서 목록이 들어갈 공간 -->
+	            부서 목록이 들어갈 공간
 	        </ul>
 	    </div>
 		
-	    <!-- 직원 정보 모달 팝업 -->
+	    직원 정보 모달 팝업
 	    <div id="memberModal">
 	        <div id="memberInfo">
-	        <!-- 직원 정보 -->
+	        직원 정보
 	        </div>
-	    </div>
+	    </div> -->
 	    
 	    
 	    <!---------------------------- 조직도 테스 모달 ------------------------------->
-	    <button onclick="organization()">조직도 테스트 버튼</button>
+	    <button onclick="organization()">조직도</button>
 		<div class="modal fade" id="orgChartModal" tabindex="-1" role="dialog" aria-labelledby="orgChartModalLabel" aria-hidden="true">
 		    <div class="modal-dialog modal-lg" role="document" style="margin-left: 300px; width: 300px; height: 500px;">
 		        <div class="modal-content" >
@@ -340,7 +340,7 @@
             </li>
             <li class="profile">
             	<a href="/mypage">
-            		<img src="./img/kang.jpg" alt="사용자_마이페이지">            	
+            		<img src="/resources/img/common/kang.jpg" alt="사용자_마이페이지">            	
             	</a>
             </li>
             <li class="logout">
@@ -446,10 +446,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 //-------------------------------- toggle end ------------------------------------------
 //-------------------------------- organization start----------------------------------------
-var selecEl = null;
+	 var selecEl = null;
         
         // 부서 모달 팝업
-        function showDepartModal(){
+        function organization(){
             var departModal = $("#departModal");
             
             if (departModal.css("display") == "none") {
@@ -619,24 +619,47 @@ var selecEl = null;
             modal.hide();
             close.hide();
         }
-//-------------------------------- organization end-----------------------------------------
+ *///-------------------------------- organization end-----------------------------------------
 
 
 //-------------------------------- 조직도 테스트 버튼 start -----------------------------------------
 function organization(){
-	$.ajax({
-        type: "GET",
-        url: "your_server_endpoint_for_organization_data",
-        dataType: "JSON",
-        success: function(data) {
-            updateOrgChartModal(data);
-        },
-        error: function(e) {
-            console.log(e);
-        }
-    });
+	  // XMLHttpRequest 객체 생성
+	  var xhr = new XMLHttpRequest();
+	  
+	  // GET 방식으로 서버에 요청
+	  xhr.open("GET", "/organization", true);
+	  
+	  // 응답 데이터의 형식 지정
+	  xhr.setRequestHeader('Content-Type', 'application/json');
+	  
+	  // 요청 성공 시의 처리
+	  xhr.onload = function () {
+	    if (xhr.status === 200) {
+	      // 응답 데이터를 JSON으로 파싱
+	      var data = JSON.parse(xhr.responseText);
+	      organizationChart(data);
+	    } else {
+	      // 오류 처리
+	      console.error('Error fetching data:', xhr.statusText);
+	    }
+	  };
 	
+	  // 요청 실패 시의 처리
+	  xhr.onerror = function () {
+	    console.error('Network error occurred');
+	  };
+	
+	  // 요청 보내기
+	  xhr.send();
+	 
+
 	$('#orgChartModal').modal('show');
+}
+ 
+ function organizationChart(data) {
+	var org_chart = document.querySelector(".org_chart");
+	
 }
 
 $('.org_chart>ul>li>span').on('click',function(){

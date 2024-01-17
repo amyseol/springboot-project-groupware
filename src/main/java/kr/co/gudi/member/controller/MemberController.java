@@ -42,7 +42,7 @@ public class MemberController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired MemberService service;
-
+	@Autowired ApprovalService approvalService;
 	
 	
 	// 로그인 페이지 이동
@@ -149,28 +149,30 @@ public class MemberController {
 		return "common/msg";
 	}
 	
-	@GetMapping("/organization")
-	public String organization() {
-		return "common/organization";
-	}
 	
-	@GetMapping("/organization/departments")
-	@ResponseBody
-    public List<Department> showDepartments() {
-        return service.getAllDepartments();
-    }
-	
-	@GetMapping("/organization/teams/{depart_no}")
-	@ResponseBody
-	public List<MemberDTO> getTeamList(@PathVariable int depart_no){
-		return service.getTeamList(depart_no);
-	}
-	
-	@GetMapping("/organization/members/{depart_no}")
-	@ResponseBody
-	public List<MemberDTO> getMemberList(@PathVariable int depart_no){
-		return service.getMemberList(depart_no);
-	}
+	  @GetMapping("/organization") 
+	  public ModelAndView organization() {
+		  ModelAndView mav = approvalService.mailOrganization();
+		  
+		  return mav;
+	  }
+	 /* 
+	 * @GetMapping("/organization/departments")
+	 * 
+	 * @ResponseBody public List<Department> showDepartments() { return
+	 * service.getAllDepartments(); }
+	 * 
+	 * @GetMapping("/organization/teams/{depart_no}")
+	 * 
+	 * @ResponseBody public List<MemberDTO> getTeamList(@PathVariable int
+	 * depart_no){ return service.getTeamList(depart_no); }
+	 * 
+	 * @GetMapping("/organization/members/{depart_no}")
+	 * 
+	 * @ResponseBody public List<MemberDTO> getMemberList(@PathVariable int
+	 * depart_no){ return service.getMemberList(depart_no); }
+	 */
+
 	
 	@GetMapping("/organization/detail/{member_no}")
 	@ResponseBody
