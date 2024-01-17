@@ -30,6 +30,7 @@ public class ApprovalService {
 
 	ModelAndView mav = new ModelAndView();
 	HashMap<String, Object> map = new HashMap<String, Object>();
+	ArrayList<ApprovalDTO> dto = new ArrayList<ApprovalDTO>();
 
 	// 기안서 작성 이동
 	public ModelAndView draftDoc(int member_no) {
@@ -96,7 +97,7 @@ public class ApprovalService {
 		
 		// 사진 테이블에 저장할 고유키 값 가져오기 위한 셋팅
 		dto.setDraftmember_no(member_no);
-		int first_approver=Integer.parseInt(params.get("first_approver"));
+		int first_approver=Integer.parseInt(params.get("approver1"));
 		dto.setFirst_approver(first_approver);
 		dto.setApproval_title(params.get("title"));
 		dto.setApproval_content(params.get("content"));
@@ -126,11 +127,11 @@ public class ApprovalService {
 		}
 		
 		// 결재자 or 참조자 추가
-		if(params.get("first_approver") != null) {
+		if(params.get("approver1") != null) {
 			apprDao.firstApprover(params);
-			if(params.get("second_approver") != null) {
+			if(params.get("approver2") != null) {
 				apprDao.secondApprover(params);
-				if(params.get("third_approver") != null) {
+				if(params.get("approver3") != null) {
 					apprDao.thirdApprover(params);
 				}
 			}
@@ -171,28 +172,61 @@ public class ApprovalService {
 	}
 
 	// 기안함 리스트 출력
-	public HashMap<String, Object> draftListCall(int member_no) {
-		ArrayList<ApprovalDTO> dto = new ArrayList<ApprovalDTO>();
-		dto = apprDao.draftList(member_no);
+	public HashMap<String, Object> draftListCall(int member_no, String page, String viewPageNum, String searchType, String searchInfo) {
+		int vpn = Integer.parseInt(viewPageNum);
+		int p = Integer.parseInt(page);
+		int offset = (p-1)*vpn;
+		int pages = apprDao.draftTotalPage(member_no, vpn, searchType, searchInfo);
 		
+		dto = apprDao.draftList(member_no, vpn, offset, searchType, searchInfo);
+		
+		// 만약 현재 보고 있는 페이지가, 총 페이지 수 보다 크면 현재페이지를 총 페이지수로 변경한다.
+		if(p>pages) {
+			p = pages;
+		}
+		
+		map.put("currPage", p);
+		map.put("pages", pages); // 만들 수 있는 총 페이지 수
 		map.put("list", dto);
 		return map;
 	}
 
 	// 결재함 리스트 출력
-	public HashMap<String, Object> apprListCall(int member_no) {
-		ArrayList<ApprovalDTO> dto = new ArrayList<ApprovalDTO>();
-		dto = apprDao.apprList(member_no);
+	public HashMap<String, Object> apprListCall(int member_no, String page, String viewPageNum, String searchType, String searchInfo) {
+		int vpn = Integer.parseInt(viewPageNum);
+		int p = Integer.parseInt(page);
+		int offset = (p-1)*vpn;
+		int pages = apprDao.apprTotalPage(member_no, vpn, searchType, searchInfo);
 		
+		dto = apprDao.apprList(member_no, vpn, offset, searchType, searchInfo);
+		
+		// 만약 현재 보고 있는 페이지가, 총 페이지 수 보다 크면 현재페이지를 총 페이지수로 변경한다.
+		if(p>pages) {
+			p = pages;
+		}
+		
+		map.put("currPage", p);
+		map.put("pages", pages); // 만들 수 있는 총 페이지 수
 		map.put("list", dto);
 		return map;
 	}
 
 	// 참조함 리스트 출력
-	public HashMap<String, Object> refListCall(int member_no) {
-		ArrayList<ApprovalDTO> dto = new ArrayList<ApprovalDTO>();
-		dto = apprDao.refList(member_no);
+	public HashMap<String, Object> refListCall(int member_no, String page, String viewPageNum, String searchType, String searchInfo) {
+		int vpn = Integer.parseInt(viewPageNum);
+		int p = Integer.parseInt(page);
+		int offset = (p-1)*vpn;
+		int pages = apprDao.refTotalPage(member_no, vpn, searchType, searchInfo);
 		
+		dto = apprDao.refList(member_no, vpn, offset, searchType, searchInfo);
+		
+		// 만약 현재 보고 있는 페이지가, 총 페이지 수 보다 크면 현재페이지를 총 페이지수로 변경한다.
+		if(p>pages) {
+			p = pages;
+		}
+		
+		map.put("currPage", p);
+		map.put("pages", pages); // 만들 수 있는 총 페이지 수
 		map.put("list", dto);
 		return map;
 	}

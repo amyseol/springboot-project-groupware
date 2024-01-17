@@ -127,22 +127,31 @@
 .mainAttend {
 	box-sizing: border-box;
 	height: 183px;
-	background-color: #FFC0CB;
 	margin-bottom: 16px;
+    border-radius: 10px;
+	border: 3px solid #007aff;
+    font-family: 'Helvetica', Arial, sans-serif;
 }
 
 .mainBoard {
 	box-sizing: border-box;
 	height: 183px;
-	background-color: #FFC0CB;
 	position: relative;
+    border-radius: 10px;
+	border: 3px solid #007aff;
+    font-family: 'Helvetica', Arial, sans-serif;
 }
 
 .attendList {
 	box-sizing: border-box;
-	height: 200px;
-	background-color: #FFC0CB;
+	height: 350px;
+    border-radius: 10px;
+	border: 3px solid #007aff;
+    font-family: 'Helvetica', Arial, sans-serif;
+    overflow: auto;
+   
 }
+
 
 .attendBox {
 	height: 40%;
@@ -165,18 +174,23 @@
 	left: 0;
 	width: 20%;
 	height: 80px;
+    font-size: 40px;
+    cursor: pointer;
 }
 
 .mainBoard .absol_right {
 	right: 0;
 	width: 20%;
 	height: 80px;
+    font-size: 40px;
+    cursor: pointer;
 }
 
 .attendBtn {
 	width: 100px;
 	height: 30px;
-	background-color: #aaa;
+    color: #fff;
+	background-color:  #007aff;
 	border-radius: 10px;
 	cursor: pointer;
 	margin-bottom: 5px;
@@ -204,6 +218,8 @@
 	margin-left: 125px;
 	width: 60%;
 	height: 95%;
+    font-size: 35px;
+    padding-top: 20px;
 }
 
 .togle {
@@ -211,9 +227,8 @@
 	list-style: none;
 }
 
-.hidee {
-	display: none;
-}
+
+
 </style>
 <body>
 <%@ include file="/views/nav.jsp" %>
@@ -280,20 +295,19 @@
 			</div>
 			<div class="mainbottom">
 				<div class="attendList">
-					<ul class="attendListItem togle" id="attendList1">1주차
-						<li class="list_title hidee">
+					<ul class="attendListItem" id="attendList">
+						<li class="list_title">
 							<ul>
-								<li>일자</li>
-								<li>업무 시작</li>
-								<li>업무 종료</li>
-								<li>총 근무시간</li>
-								<li>상세</li>
+								<li class="togle" data-week="1">1주차</li>
+								<li class="togle" data-week="2">2주차</li>
+								<li class="togle" data-week="3">3주차</li>
+								<li class="togle" data-week="4">4주차</li>
+								<li class="togle" data-week="5">5주차</li>
 							</ul>
 						</li>
-						<li class="list_content hidee" id="attendListContent1"></li>
 					</ul>
-					<ul class="attendListItem togle" id="attendList2">2주차
-						<li class="list_title hidee">
+					<ul>
+						<li class="list_title">
 							<ul>
 								<li>일자</li>
 								<li>업무 시작</li>
@@ -302,43 +316,7 @@
 								<li>상세</li>
 							</ul>
 						</li>
-						<li class="list_content hidee" id="attendListContent2"></li>
-					</ul>
-					<ul class="attendListItem togle" id="attendList3">3주차
-						<li class="list_title hidee">
-							<ul>
-								<li>일자</li>
-								<li>업무 시작</li>
-								<li>업무 종료</li>
-								<li>총 근무시간</li>
-								<li>상세</li>
-							</ul>
-						</li>
-						<li class="list_content hidee" id="attendListContent3"></li>
-					</ul>
-					<ul class="attendListItem togle"  id="attendList4">4주차
-						<li class="list_title hidee">
-							<ul>
-								<li>일자</li>
-								<li>업무 시작</li>
-								<li>업무 종료</li>
-								<li>총 근무시간</li>
-								<li>상세</li>
-							</ul>
-						</li>
-						<li class="list_content hidee" id="attendListContent4"></li>
-					</ul>
-					<ul class="attendListItem togle" id="attendList5">5주차
-						<li class="list_title hidee">
-							<ul>
-								<li>일자</li>
-								<li>업무 시작</li>
-								<li>업무 종료</li>
-								<li>총 근무시간</li>
-								<li>상세</li>
-							</ul>
-						</li>
-						<li class="list_content hidee" id="attendListContent5"></li>
+						<li class="list_content hidee" id="attendListContent"></li>
 					</ul>
 				</div>
 			</div>
@@ -354,6 +332,8 @@ $(document).ready(function() {
 $(document).ready(function() {
     timeTable();
 });
+
+var selectToggle=1;
 
 function notiTime(){
 	console.log('그만하자');
@@ -436,20 +416,25 @@ function updateClock() {
 function updateMonthYear() {
     var monthYearString = currentYear + '년 ' + (currentMonth + 1) + '월';
     document.getElementById('monthYearBoard').innerHTML = monthYearString;   
-    selectDate(currentYear,currentMonth + 1);
+    selectDate(selectToggle);
 }
-function selectDate(year,month){
+
+
+function selectDate(selectToggle){
 	
 	$.ajax({
 		type: 'POST',
         url: 'selectDate',
-        data: { 'year': year, 'month': month },
+        data: { 'year': currentYear, 'month': currentMonth + 1 },
         success: function(data) {
             console.log('조회한 달 :', data);
-         for (var weekNumber = 1; weekNumber <= 5; weekNumber++) {
-            var content='';
+        	console.log(selectToggle+'week');
+            var selWeek=selectToggle+'week';
+            $('#attendListContent').empty();
+            var content = '';
+            if (Array.isArray(data[selWeek])) {
             
-            data[weekNumber +'week'].forEach(function(item, idx){         
+            data[selWeek].forEach(function(item, idx){         
             	 var offCheckLabel = (item.off_check === 'N') ? '근무' : '휴가';
             	 var attOutTimeLabel = (item.att_intime === null) ? '' : item.att_outtime;
             	 var workHoursLabel = (item.work_hours === null) ? '' : item.work_hours;
@@ -460,11 +445,11 @@ function selectDate(year,month){
         		content+='<li>'+attOutTimeLabel+'</li>';
         		content+='<li>'+workHoursLabel+'</li>';
         		content+='<li>'+offCheckLabel+'</li>';
-        		content+='</ul>';         	               
-            });
-            $('#attendListContent'+weekNumber).empty();
-        	$('#attendListContent'+weekNumber).append(content);
+        		content+='</ul>';         	                        
+           	 });
             }
+          
+        	$('#attendListContent').append(content);
         },
         error: function(error) {
             console.error('Error:', error);
@@ -519,10 +504,11 @@ function attTime(type){
 	
 }
 // 리스트 토글
-$('.togle').on('click',function(){
-	console.log('토글클릭');
-	$(this).find('.hidee').slideToggle(300);
-	$('.togle').not(this).find('.hidee').slideUp(300);
+$('.togle').on('click',function(){	
+    selectToggle=$(this).data('week');
+	console.log('토글클릭'+selectToggle);
+	selectDate(selectToggle);
+
 });
 
 </script>
