@@ -49,6 +49,11 @@
 		    position: relative;
 		    left: 65%;
         }
+        
+        button {
+			border-radius: 3px; background-color:025464; color:white; padding: 5 10; border:none;
+		}
+        
     </style>
 <body>
 <%@ include file="/views/nav.jsp" %>
@@ -61,26 +66,26 @@
         <ul id="list">
 
         </ul>
-		<table style="margin-left: auto;margin-right: auto;">
+		<table style="margin-left: auto;margin-right: auto; margin-bottom: 30px;">
 			<tr>
 				<td> 
-				저작권번호 : <input type="text" id="no"/>
+				저작권번호 : <input type="text" id="no" style="margin-right: 10px;"/>
 				</td>
 				
 				<td>
-				사용날짜 : <input type="date" id="date" class="date"/>
+				 사용날짜 : <input type="date" id="date" class="date" style="margin-right: 10px;"/>
 				</td>
 				
 				<td>
-				사용료 : <input type="text" id="price"/>
+				사용료 : <input type="text" id="price" style="margin-right: 10px;"/>
 				</td>
 				
 				<td>
-				저작권이름 : <input type="text" id="namae"/>
+				저작권이름 : <input type="text" id="namae" style="margin-right: 10px;"/>
 				</td>	
 				
 				<td>
-				<button id="get">등록</button>
+				<button id="get" style="color: white;">등록</button>
 				</td>
 			</tr>
 		</table>
@@ -92,11 +97,11 @@
                 </select>
             </li>
             <li>
-                <input type="text" class="search_info" placeholder="검색" id="searchbar"/>
+                <input type="text" class="search_info" placeholder="검색" id="search_info"/>
             </li>
             <li class="btn_box">
                 <div class="search_btn">
-                    <img src="./img/search.png" alt="검색 버튼" id="search">
+                    <img src="resources/img/common/search.png" alt="검색 버튼" id="search">
                 </div>
             </li>
         </ul>
@@ -191,12 +196,12 @@ var searchtag ="";
 
 $("#search").on("click", function(){
 	
-	search = $("#searchbar").val();
+	search = $("#search_info").val();
 	
-	var storyLength = $("#searchbar").val().length;
+	var storyLength = $("#search_info").val().length;
 	if(storyLength < 2 ){
 		alert("2자 이상 입력해주세요");
-	    $("#searchbar").focus();
+	    $("#search_info").focus();
 	}else{
 	//searchbox = $('#search').val();
 	console.log($('#searchpath option:selected').val());

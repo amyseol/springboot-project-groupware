@@ -79,7 +79,7 @@
  	
  	<h1 style="margin-bottom: 50px; padding-top: 100px;">시설 예약하기</h1>
  	
- 	<table style="margin-left: 200px;">
+ 	<table style="margin-left: 300px;">
  		<tr>
  			<td>
  			
@@ -249,9 +249,9 @@
  		시작날짜<div id="popstart" ></div>
  		</div>
  		<div style="margin-top: 10px ; margin-bottom: 10px;">
- 		끝 날짜<div id="popend" ></div>
+ 		종료날짜<div id="popend" ></div>
  		</div>
- 		<div style="height: 160px;">
+ 		<div style="height: 200px;">
  			<div id="popcont"></div>
  		
  		
