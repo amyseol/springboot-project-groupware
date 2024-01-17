@@ -23,203 +23,287 @@
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <style>
+#calendar-container {
+	width: 1300px;
+	padding-left: 20%;
+	padding-top: 100px;
+	box-sizing: border-box;
+}
 
-
-  </style>
+</style>
     <script>
-    var titleData;
-    var startData;
-    var endData;
-    var contentData;
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            locale: "ko",
-            initialView: 'dayGridMonth',
-            customButtons: {
-                myCustomButton: {
-                    text: "일정 추가하기",
-                    click: function() {
-                        // 부트스트랩 모달 열기
-                        $("#exampleModal").modal("show");
-                    }
-                }
-            },
+					var titleData;
+					var startData;
+					var endData;
+					var contentData;
+					document
+							.addEventListener(
+									'DOMContentLoaded',
+									function() {
+										var calendarEl = document
+												.getElementById('calendar');
+										var calendar = new FullCalendar.Calendar(
+												calendarEl,
+												{
+													locale : "ko",
+													initialView : 'dayGridMonth',
+													height : 500,
+													customButtons : {
+														myCustomButton : {
+															text : "일정 추가하기",
+															click : function() {
+																// 부트스트랩 모달 열기
+																$(
+																		"#exampleModal")
+																		.modal(
+																				"show");
+															}
+														}
+													},
 
-            headerToolbar: {
-                left: 'prev,next today, myCustomButton',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek'
-            },
-            
-        	eventClick: function(info) {
-                // info는 클릭한 이벤트의 정보를 포함하는 객체입니다.
-                var eventNo = info.event.extendedProps.sch_no;
-                var eventTitle = info.event.title;
-                var eventStart = info.event.start;
-                var eventEnd = info.event.end;
-                var eventContent = info.event.extendedProps.content;
-				
-                openModal(eventNo);
-                // 콘솔에 이벤트 정보 출력
-                console.log('클릭한 이벤트 정보:');
-                console.log('클릭한 이벤트 번호:',eventNo);
-                console.log('제목:', eventTitle);
-                console.log('시작 시간:', eventStart);
-                console.log('종료 시간:', eventEnd);
-                console.log('내용:', eventContent);
-            }
-           
-        });
-  
+													headerToolbar : {
+														left : 'prev,next today, myCustomButton',
+														center : 'title',
+														right : 'dayGridMonth,timeGridWeek'
+													},
 
-        // '취소' 버튼 클릭 시 모달 닫기
-        $('#exampleModal .btn-secondary').on('click', function() {
-            $("#exampleModal").modal("hide");
-        });
-        
-     	// 'X' 클릭 시 모달 닫기
-        $('#closeModalBtn').on('click', function() {
-            $("#exampleModal").modal("hide");
-        });
+													eventClick : function(info) {
+														// info는 클릭한 이벤트의 정보를 포함하는 객체입니다.
+														var eventNo = info.event.extendedProps.sch_no;
+														var eventTitle = info.event.title;
+														var eventStart = info.event.start;
+														var eventEnd = info.event.end;
+														var eventContent = info.event.extendedProps.content;
 
-        // '추가' 버튼 클릭 시 처리할 부분 
-        $('#addChanges').on('click', function() {
-    
-		    var eventData = {
-		        title: $("#title").val(),
-		        start: $("#start").val(),
-		        end: $("#end").val(),
-		        content: $("#content").val()
-		    };
-		    //calendar.addEvent(eventData);
-		    titleData = $("#title").val();
-		    startData = $("#start").val();
-		    endData = $("#end").val();
-		    contentData = $('#content').val();
-		
-		    // 빈 값 입력 시 오류
-		    if (
-		        eventData.title == "" ||
-		        eventData.start == "" ||
-		        eventData.end == "" ||
-		        eventData.content == ""
-		    ) {
-		        alert("입력하지 않은 값이 있습니다.");
-		    } else if ($("#start").val() > $("#end").val()) {
-		        alert("시간을 잘못 입력 하셨습니다.");
-		    } else {
-		        // 이벤트 추가
-				calendar.addEvent(eventData);
-		        
-		        // 서버로 데이터 전송
-		        $.ajax({
-		            type: "GET",
-		            url: "save",
-		            contentType: "application/json",
-		            data: /* $("#addData").serialize() */
-		            {'title':$("#title").val(),
-		            'content':$("#content").val(),
-		            'start':$("#start").val(),
-		            'end':$("#end").val(),
-		            'sch_state':$('#depart_select').val()
-		            },
-		            dataType: 'JSON',
-		            success: function(response) {
-		                console.log(response); // 서버에서의 응답 확인
-		            },
-		            error: function(error) {
-		                console.error('Error while saving events:', error);
-		            }
-		        });
-		
-		        // 모달 닫기
-		        $("#exampleModal").modal("hide");
-		
-		        // 입력 필드 초기화
-		        $("#title").val("");
-		        $("#start").val("");
-		        $("#end").val("");
-		        $("#content").val("");
-		    }
-		});
+														openModal(eventNo);
+														// 콘솔에 이벤트 정보 출력
+														console
+																.log('클릭한 이벤트 정보:');
+														console.log(
+																'클릭한 이벤트 번호:',
+																eventNo);
+														console.log('제목:',
+																eventTitle);
+														console.log('시작 시간:',
+																eventStart);
+														console.log('종료 시간:',
+																eventEnd);
+														console.log('내용:',
+																eventContent);
+													}
 
-         calendar.render(); 
-         fetchEvents();
-  		
-         //상태 필터링  
-         $('#depart_select').change(function () {
-             console.log($(this).val());
-             fetchEvents();
-         });
-         
-         // db 에서 값을 SELECT해오는거 
-    	function fetchEvents() {
+												});
 
-    	       $.ajax({
-    	    	 type:'get',
-    	         url: 'schedule/list',
-    	         data:{'sch_state':$('#depart_select').val()},
-    	         dataType: 'json',
-    	         success: function(data) {
-    	            eventList = data.eventList;
-    	            // eventList의 각 이벤트 객체에서 sch_no 값을 뽑아내기
-    	       
-    	          console.log(data.eventList);
-    	          //풀캘린더 자체내에서 제공하는 일종의 함수? 이벤트추가할수있는거 
-    	           calendar.removeAllEvents();
-    	           calendar.addEventSource(eventList);
-    	         },
-    	         error: function(xhr, status, error) {
-    	           console.error('에러 발생:', status, error);
-    	         }
-    	      });
-    	 }
-    	 
-	});
-    
+										// '취소' 버튼 클릭 시 모달 닫기
+										$('#exampleModal .btn-secondary').on(
+												'click',
+												function() {
+													$("#exampleModal").modal(
+															"hide");
+												});
 
-    function openModal(sch_no) {
-    	$('#myModal').modal('show');
-    	$.ajax({
-    		type:'get',
-    		url:'detailSchedule',
-    		data:{'sch_no':sch_no}, 
-    		dataType:'JSON',
-    		success: function(data){	
-    			console.log(data);
-    			$('#eventTitle').empty();
-		        $('#eventContent').empty();
-		        $('#eventStart').empty();
-		        $('#eventEnd').empty();
-    			 data.dto.forEach(function(dtoItem) {
-    			        $('#eventTitle').append(dtoItem.title);
-    			        $('#eventContent').append(dtoItem.content);
-    			        $('#eventStart').append(dtoItem.start);
-    			        $('#eventEnd').append(dtoItem.end);
-    			        $('#eventSchNo').val(dtoItem.sch_no);
-    			    });
-    		},
-    		error:function(e){
-    			console.log(e)
-    		}
-    	}); 
-    }
-    
- 
+										// 'X' 클릭 시 모달 닫기
+										$('#closeModalBtn').on(
+												'click',
+												function() {
+													$("#exampleModal").modal(
+															"hide");
+												});
 
-    </script>
+										// '추가' 버튼 클릭 시 처리할 부분 
+										$('#addChanges')
+												.on(
+														'click',
+														function() {
+
+															var eventData = {
+																title : $(
+																		"#title")
+																		.val(),
+																start : $(
+																		"#start")
+																		.val(),
+																end : $("#end")
+																		.val(),
+																content : $(
+																		"#content")
+																		.val()
+															};
+															//calendar.addEvent(eventData);
+															titleData = $(
+																	"#title")
+																	.val();
+															startData = $(
+																	"#start")
+																	.val();
+															endData = $("#end")
+																	.val();
+															contentData = $(
+																	'#content')
+																	.val();
+
+															// 빈 값 입력 시 오류
+															if (eventData.title == ""
+																	|| eventData.start == ""
+																	|| eventData.end == ""
+																	|| eventData.content == "") {
+																alert("입력하지 않은 값이 있습니다.");
+															} else if ($(
+																	"#start")
+																	.val() > $(
+																	"#end")
+																	.val()) {
+																alert("시간을 잘못 입력 하셨습니다.");
+															} else {
+																// 이벤트 추가
+																calendar
+																		.addEvent(eventData);
+
+																// 서버로 데이터 전송
+																$
+																		.ajax({
+																			type : "GET",
+																			url : "save",
+																			contentType : "application/json",
+																			data : /* $("#addData").serialize() */
+																			{
+																				'title' : $(
+																						"#title")
+																						.val(),
+																				'content' : $(
+																						"#content")
+																						.val(),
+																				'start' : $(
+																						"#start")
+																						.val(),
+																				'end' : $(
+																						"#end")
+																						.val(),
+																				'sch_state' : $(
+																						'#depart_select')
+																						.val()
+																			},
+																			dataType : 'JSON',
+																			success : function(
+																					response) {
+																				console
+																						.log(response); // 서버에서의 응답 확인
+																			},
+																			error : function(
+																					error) {
+																				console
+																						.error(
+																								'Error while saving events:',
+																								error);
+																			}
+																		});
+
+																// 모달 닫기
+																$(
+																		"#exampleModal")
+																		.modal(
+																				"hide");
+
+																// 입력 필드 초기화
+																$("#title")
+																		.val("");
+																$("#start")
+																		.val("");
+																$("#end").val(
+																		"");
+																$("#content")
+																		.val("");
+															}
+														});
+
+										calendar.render();
+										fetchEvents();
+
+										//상태 필터링  
+										$('#depart_select').change(function() {
+											console.log($(this).val());
+											fetchEvents();
+										});
+
+										// db 에서 값을 SELECT해오는거 
+										function fetchEvents() {
+
+											$
+													.ajax({
+														type : 'get',
+														url : 'schedule/list',
+														data : {
+															'sch_state' : $(
+																	'#depart_select')
+																	.val()
+														},
+														dataType : 'json',
+														success : function(data) {
+															eventList = data.eventList;
+															// eventList의 각 이벤트 객체에서 sch_no 값을 뽑아내기
+
+															console
+																	.log(data.eventList);
+															//풀캘린더 자체내에서 제공하는 일종의 함수? 이벤트추가할수있는거 
+															calendar
+																	.removeAllEvents();
+															calendar
+																	.addEventSource(eventList);
+														},
+														error : function(xhr,
+																status, error) {
+															console.error(
+																	'에러 발생:',
+																	status,
+																	error);
+														}
+													});
+										}
+
+									});
+
+					function openModal(sch_no) {
+						$('#myModal').modal('show');
+						$.ajax({
+							type : 'get',
+							url : 'detailSchedule',
+							data : {
+								'sch_no' : sch_no
+							},
+							dataType : 'JSON',
+							success : function(data) {
+								console.log(data);
+								$('#eventTitle').empty();
+								$('#eventContent').empty();
+								$('#eventStart').empty();
+								$('#eventEnd').empty();
+								data.dto.forEach(function(dtoItem) {
+									$('#eventTitle').append(dtoItem.title);
+									$('#eventContent').append(dtoItem.content);
+									$('#eventStart').append(dtoItem.start);
+									$('#eventEnd').append(dtoItem.end);
+									$('#eventSchNo').val(dtoItem.sch_no);
+								});
+							},
+							error : function(e) {
+								console.log(e)
+							}
+						});
+					}
+				</script>
 
     
   <body style="padding:30px;">
-
-  <select id="depart_select" class="depart_select" name="sch_state">
-  	<option value="0" selected>내 일정</option>
-  	<option value="2">전사 일정</option>
-  	<option value="3">부서 일정</option>
-  </select>
+<%@ include file="/views/nav.jsp" %>
     <!-- calendar 태그 -->
   <div id='calendar-container'>
+  	<div class="calFilter">
+			<select id="depart_select" class="depart_select" name="sch_state">
+				<option value="0" selected>내 일정</option>
+				<option value="2">전사 일정</option>
+				<option value="3">부서 일정</option>
+			</select>
+		</div>
     <div id='calendar'></div>
   </div>
       <!-- 부트스트랩 modal 부분 -->

@@ -25,7 +25,6 @@ import kr.co.gudi.approval.service.ApprovalService;
 import kr.co.gudi.member.vo.MemberVO;
 
 @Controller
-@RequestMapping("/approval")
 public class ApprovalController {
 	@Autowired
 	ApprovalService apprService;
@@ -132,36 +131,47 @@ public class ApprovalController {
 	// 기안함 리스트 출력
 	@GetMapping("/draftListCall.ajax")
 	@ResponseBody
-	public HashMap<String, Object> draftListCall(HttpSession session) {
+	public HashMap<String, Object> draftListCall(HttpSession session, String page, String viewPageNum, String searchType, String searchInfo) {
 		log.info("----------------- start draftListCall --------------------");
 		member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
 		log.info("memberNo : "+member_no);
+		log.info("page : "+page);
+		log.info("viewPageNum : "+viewPageNum);
+		log.info("searchType : "+searchType);
+		log.info("searchInfo : "+searchInfo);
 		log.info("----------------- end draftListCall --------------------");
-		return apprService.draftListCall(member_no);
+		return apprService.draftListCall(member_no, page, viewPageNum, searchType, searchInfo);
 	}
 	
 	// 결재함 리스트 출력
 	@GetMapping("/apprListCall.ajax")
 	@ResponseBody
-	public HashMap<String, Object> apprListCall(HttpSession session) {
+	public HashMap<String, Object> apprListCall(HttpSession session, String page, String viewPageNum, String searchType, String searchInfo) {
 		log.info("----------------- start apprListCall --------------------");
 		member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
 		log.info("memberNo : "+member_no);
+		log.info("page : "+page);
+		log.info("viewPageNum : "+viewPageNum);
+		log.info("searchType : "+searchType);
+		log.info("searchInfo : "+searchInfo);
 		log.info("----------------- end apprListCall --------------------");
-		return apprService.apprListCall(member_no);
+		return apprService.apprListCall(member_no, page, viewPageNum, searchType, searchInfo);
 	}
 		
 		
 	// 참조함 리스트 출력
 	@GetMapping("/refListCall.ajax")
 	@ResponseBody
-	public HashMap<String, Object> refListCall(HttpSession session) {
+	public HashMap<String, Object> refListCall(HttpSession session, String page, String viewPageNum, String searchType, String searchInfo) {
 		log.info("----------------- start refListCall --------------------");
 		member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
 		log.info("memberNo : "+member_no);
-		log.info("----------------- end refListCall --------"
-				+ "------------");
-		return apprService.refListCall(member_no);
+		log.info("page : "+page);
+		log.info("viewPageNum : "+viewPageNum);
+		log.info("searchType : "+searchType);
+		log.info("searchInfo : "+searchInfo);
+		log.info("----------------- end refListCall --------------------");
+		return apprService.refListCall(member_no, page, viewPageNum, searchType, searchInfo);
 	}
 	
 	
