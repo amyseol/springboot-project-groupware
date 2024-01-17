@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <title>HoonyMusic</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
-<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<link href="/resources/css/paging.css" rel="stylesheet">
+<script src="/resources/js/paging.js" type="text/javascript"></script>   
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 </head>
 <style>
 	<style>
@@ -38,9 +38,10 @@
         a{text-decoration: none;}
         img{border:none; display: block;}
         body, header, section, footer, div, ul, li, p, a, span, input, textarea{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 14px;}
-        h1, h2, h3, h4, h5, h6{font-family: 'GmarketSansMedium'; color:#222;}
+        h2, h3, h4, h5, h6{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 24px;}
+        h1{font-family: 'GmarketSansMedium'; color:#222;}
 
-        #nav{position:fixed; width:15%; height:100%; box-shadow: 0 0 3px 0.5px rgb(228, 228, 228); background-color: #fff; overflow: auto; z-index:9999;}
+        #nav{position:fixed; width:15%; height:100%; box-shadow: 0 0 3px 0.5px rgb(228, 228, 228); background-color: #fff; overflow: auto; z-index:9998;}
         #nav .nav_inner{padding-top: 40px;}
         #nav .logo{padding: 0 0 30px 40px;}
         #nav .logo a{color:#222; font-size:20px;}
@@ -54,66 +55,143 @@
         #nav .gnb a li .arrow{position:absolute; right:30px; top:12px;}
         #nav .gnb a li .arrow svg{width:100%; transition:0.3s;}
 
-        #util{position:fixed; right:0; height: 80px; z-index: 9999;}
+        #util{position:fixed; right:0; height: 80px; z-index: 999;}
         #util .util_inner{position:relative; top:30px; right:50px; width:300px; height: 55px;}
         #util .util_inner li{width: 55px; height: 55px; border-radius: 25px; background-color: #fff; float:left; margin-right:15px; cursor: pointer; overflow: hidden; box-shadow: 1px 1px 3px 1px #ddd;}
         #util .util_inner li:last-child{margin-right:0;}
         #util .util_inner li svg{position:relative; top:15px; left:15px;}
         #util .util_inner li img{width:100%;}
         
+        /*
         #departModal{ display: none; position: fixed; top: 60%; left: 10%; transform: translate(-50%, -50%); padding: 20px; border: 1px solid black; background-color: lightgray; z-index: 1; width: 200px; height: auto; overflow: hidden;}
 
         #departModal li{ cursor: pointer; margin-bottom: 10px;}
 
-        .teamList, .memberList{ /* display: none; */ margin-top: 10px;}
+        .teamList, .memberList{display: none; margin-top: 10px;}
         
-         /* 모달 스타일 */
+         모달 스타일
         #memberModal {display: none; position: fixed; z-index: 1; left: 10%; top: 50%; width: 60%; height: auto; overflow: hidden;}
 
-        /* 모달 내용 스타일 */
+        모달 내용 스타일
         #memberInfo {background-color: #fefefe; margin: 1% auto; padding: 20px; border: 1px solid #888; width: 80%;}
 
-        /* 닫기 버튼 스타일 */
+        닫기 버튼 스타일
         .close {display: none; color: #aaa; float: right; font-size: 28px; font-weight: bold; display: revert;}
 
         .close:hover,
         .close:focus {color: black; text-decoration: none; cursor: pointer;}
-
-      /*   #common_list_form{padding-left:15%;}
-        #common_list_form .big_title{padding: 50px 50px;}
-        #common_list_form .sub_title{padding: 20px 50px;}
-        #common_list_form .list_form{position:relative;}
-        #common_list_form .list_form .list_title ul{width: 100%; height: 32px;}
-        #common_list_form .list_form .list_title ul li{ float: left; border-top: 1px solid #999; border-bottom: 1px solid #222; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .list_form .list_title ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .list_form .list_title ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_title ul li:nth-child(3){width: 5%;}
-        #common_list_form .list_form .list_title ul li:nth-child(4){width: 50%;}
-        #common_list_form .list_form .list_title ul li:nth-child(5){width: 5%;}
-        #common_list_form .list_form .list_title ul li:last-child{width: 15%;}
-        #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
-        #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 15%; padding-left: 50px; }
-        #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
-        #common_list_form .list_form .list_content ul li:nth-child(3){width: 5%;}
-        #common_list_form .list_form .list_content ul li:nth-child(4){width: 50%;}
-        #common_list_form .list_form .list_content ul li:nth-child(5){width: 5%;}
-        #common_list_form .list_form .list_content ul li:last-child{width: 15%;}
-        #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
-        #common_list_form .list_form .list_content ul:hover{background-color: #eee;} */
-
-		/* 조직도 모달창 스타일 */
-		.left_box{width: 250px; float: left; height: 400px;}
-		.left_box .org_chart{width:100%; height: 100%; border: 1px solid #ccc; padding: 10px; overflow: auto;}
-        .left_box ul li{font-size: 16px;}
-        .left_box ul li span, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p{cursor: pointer; border: 1px solid rgba(0,0,0,0); display: inline-block;}
-        .left_box ul li span.on, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.on{font-weight: 700; border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
-        .left_box ul li span.hover, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.hover{border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
-        .left_box ul>li>ul{padding-top:3px;}
-        .left_box ul>li>ul>li{padding-left:15px;}
-        .plus{display: none;}
+        */
+        
+        /* 조직도 모달창 스타일 
+        .modal-body .left_box{width: 250px; float: left; height: 400px;}
+        .modal-body .left_box .org_chart{width:100%; height: 100%; border: 1px solid #ccc; padding: 10px; overflow: auto;}
+        .modal-body .left_box ul li{font-size: 16px;}
+        .modal-body .left_box ul li span, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p{cursor: pointer; border: 1px solid rgba(0,0,0,0); display: inline-block;}
+        .modal-body .left_box ul li span.on, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.on{font-weight: 700; border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
+        .modal-body .left_box ul li span.hover, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.hover{border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
+        .modal-body .left_box ul>li>ul{padding-top:3px;}
+        .modal-body .left_box ul>li>ul>li{padding-left:15px;}
+        .modal-body .plus{display: none;}*/
+        
+         /* approval select box css */
+        #approval_light_box{position:fixed; top:0; left:0; width:100%; height:100%; background-color: rgba(0,0,0,0.5); z-index: 9999; display: none;}
+        #approval_light_box .select_form_box{position: absolute; left:50%; top: 20%; background-color: #fff; width:700px; height:52%; transform: translateX(-50%); border-radius: 10px;}
+        #approval_light_box .select_form_box .form_box_inner{position:relative; padding:40px;}
+        #approval_light_box .select_form_box .form_box_inner .cancel_box{position:absolute; right:20px; top:20px; width:32px; height:32px; cursor: pointer;}
+        #approval_light_box .select_form_box .form_box_inner h3{font-size:18px; font-weight:500; padding-bottom: 20px;}
+        #approval_light_box .select_form_box .form_box_inner .select_form{width: 100%; height: 320px;}
+        #approval_light_box .select_form_box .form_box_inner .select_form>div{box-sizing: border-box; float: left; height: 300px;}
+        #approval_light_box .select_form_box .form_box_inner .select_form .left_box{padding: 10px; width: 250px; border: 1px solid #ccc; overflow: auto;}
+        #approval_light_box .select_form_box .form_box_inner .select_form .right_box{padding-left: 10px; width: 350px; margin-left: 20px;}
+        #approval_light_box .select_form_box .form_box_inner .select_form .right_box h6{font-size: 16px; font-weight: 500; padding: 0 0 10px 10px;}
+        #approval_light_box .select_form_box .form_box_inner .select_form .right_box>div{border: 1px solid #ccc; height: 266px; box-sizing: border-box; padding: 15px 10px;}
+        #approval_light_box .select_form_box .form_box_inner .select_form .right_box>div ul{float: left;}
+        #approval_light_box .select_form_box .form_box_inner .select_form .right_box>div ul:first-child{width: 32%;}
+        #approval_light_box .select_form_box .form_box_inner .select_form .right_box>div ul:last-child{width: 65%;}
+        #approval_light_box .select_form_box .form_box_inner .select_form .right_box>div ul:first-child li{font-size: 14px; font-weight: 500; padding-bottom: 20px; color: #333;}
+        #approval_light_box .select_form_box .form_box_inner .select_form .right_box>div ul:last-child li{font-size: 14px; padding-bottom: 20px;}
+        #approval_light_box .select_form_box .form_box_inner .select_form ul li{font-size: 16px;}
+        #approval_light_box .select_form_box .form_box_inner .select_form ul li span{cursor: pointer; border: 1px solid rgba(0,0,0,0)}
+        #approval_light_box .select_form_box .form_box_inner .select_form ul li span.on{font-weight: 700; border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
+        #approval_light_box .select_form_box .form_box_inner .select_form ul li span:hover{border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
+        #approval_light_box .select_form_box .form_box_inner .select_form ul>li>ul{padding-top:3px;}
+        #approval_light_box .select_form_box .form_box_inner .select_form ul>li>ul>li{padding-left:15px;}
+        #approval_light_box .select_form_box .form_box_inner .btn_area{position:relative;}
+        #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner{position: absolute; right:0;}
+        #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner button{width:50px; height:35px; box-sizing: border-box; cursor: pointer;}
+        #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner button:first-child{background-color: #eb568e; border: none; color: #fff;}
+        #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner button:last-child{border: 1px solid #ccc;}
+        
     </style>
 <body>
+	<!-- -------------------------------------------select_approval_form start------------------------------------------ -->
+    <div id="approval_light_box">
+        <div class="select_form_box">
+            <div class="form_box_inner">
+                <div class="cancel_box">
+                    <svg width="32" height="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243"/></svg>
+                </div>
+                <h3>결재양식 선택</h3>
+                <div class="select_form">
+                    <div class="left_box">
+                        <ul>
+                            <li><span><svg width="12" height="12" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#FFA000" d="M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v8h40v-4c0-2.2-1.8-4-4-4"/><path fill="#FFCA28" d="M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4"/></svg> 일반</span>
+                                <ul>
+                                    <li><span><svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g fill="#f4ae7f"><path d="M52.11 58.32c0 3.056-2.289 5.531-5.116 5.531H14.379c-2.824 0-5.114-2.476-5.114-5.531V8.447c0-3.059 2.291-5.534 5.114-5.534h32.615c2.827 0 5.116 2.475 5.116 5.534z"/><path d="M30.899 10.509c0 .581-1.158 1.051-2.58 1.051H11.848c-1.426 0-2.582-.47-2.582-1.051v-9.46C9.266.47 10.421 0 11.848 0h16.471c1.422 0 2.58.47 2.58 1.049z"/></g><path fill="#d0d2d3" d="M54.662 56c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69V13.73c0-2.591 2.316-4.69 5.167-4.69h32.959c2.855 0 5.167 2.1 5.167 4.69z"/><path fill="#fff" d="M54.662 52.694c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69v-42.27c0-2.591 2.316-4.688 5.167-4.688h32.959c2.855 0 5.167 2.098 5.167 4.688z"/><path fill="#d0d2d3" d="M43.1 8.28c0 .312-1.538.566-3.43.566h-21.9c-1.896 0-3.434-.254-3.434-.566V3.185c0-.315 1.538-.566 3.434-.566h21.9c1.892 0 3.43.251 3.43.566z"/><path fill="#35494d" d="M20.07 18.03h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.485h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 5.605h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.48h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 10.58h13.148c1.916 0 1.916-2.699 0-2.699H20.07c-1.915-.001-1.915 2.699 0 2.699"/></svg> 기안서</span></li>
+                                    <li><span><svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g fill="#f4ae7f"><path d="M52.11 58.32c0 3.056-2.289 5.531-5.116 5.531H14.379c-2.824 0-5.114-2.476-5.114-5.531V8.447c0-3.059 2.291-5.534 5.114-5.534h32.615c2.827 0 5.116 2.475 5.116 5.534z"/><path d="M30.899 10.509c0 .581-1.158 1.051-2.58 1.051H11.848c-1.426 0-2.582-.47-2.582-1.051v-9.46C9.266.47 10.421 0 11.848 0h16.471c1.422 0 2.58.47 2.58 1.049z"/></g><path fill="#d0d2d3" d="M54.662 56c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69V13.73c0-2.591 2.316-4.69 5.167-4.69h32.959c2.855 0 5.167 2.1 5.167 4.69z"/><path fill="#fff" d="M54.662 52.694c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69v-42.27c0-2.591 2.316-4.688 5.167-4.688h32.959c2.855 0 5.167 2.098 5.167 4.688z"/><path fill="#d0d2d3" d="M43.1 8.28c0 .312-1.538.566-3.43.566h-21.9c-1.896 0-3.434-.254-3.434-.566V3.185c0-.315 1.538-.566 3.434-.566h21.9c1.892 0 3.43.251 3.43.566z"/><path fill="#35494d" d="M20.07 18.03h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.485h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 5.605h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.48h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 10.58h13.148c1.916 0 1.916-2.699 0-2.699H20.07c-1.915-.001-1.915 2.699 0 2.699"/></svg> 품의서</span></li>
+                                </ul>
+                            </li>
+                            <li><span><svg width="12" height="12" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#FFA000" d="M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v8h40v-4c0-2.2-1.8-4-4-4"/><path fill="#FFCA28" d="M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4"/></svg> 휴가</span>
+                                <ul>
+                                    <li><span><svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g fill="#f4ae7f"><path d="M52.11 58.32c0 3.056-2.289 5.531-5.116 5.531H14.379c-2.824 0-5.114-2.476-5.114-5.531V8.447c0-3.059 2.291-5.534 5.114-5.534h32.615c2.827 0 5.116 2.475 5.116 5.534z"/><path d="M30.899 10.509c0 .581-1.158 1.051-2.58 1.051H11.848c-1.426 0-2.582-.47-2.582-1.051v-9.46C9.266.47 10.421 0 11.848 0h16.471c1.422 0 2.58.47 2.58 1.049z"/></g><path fill="#d0d2d3" d="M54.662 56c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69V13.73c0-2.591 2.316-4.69 5.167-4.69h32.959c2.855 0 5.167 2.1 5.167 4.69z"/><path fill="#fff" d="M54.662 52.694c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69v-42.27c0-2.591 2.316-4.688 5.167-4.688h32.959c2.855 0 5.167 2.098 5.167 4.688z"/><path fill="#d0d2d3" d="M43.1 8.28c0 .312-1.538.566-3.43.566h-21.9c-1.896 0-3.434-.254-3.434-.566V3.185c0-.315 1.538-.566 3.434-.566h21.9c1.892 0 3.43.251 3.43.566z"/><path fill="#35494d" d="M20.07 18.03h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.485h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 5.605h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.48h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 10.58h13.148c1.916 0 1.916-2.699 0-2.699H20.07c-1.915-.001-1.915 2.699 0 2.699"/></svg> 휴가신청서</span></li>
+                                </ul>
+                            </li>
+                            <li><span><svg width="12" height="12" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#FFA000" d="M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v8h40v-4c0-2.2-1.8-4-4-4"/><path fill="#FFCA28" d="M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4"/></svg> 계약</span>
+                                <ul>
+                                    <li><span><svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g fill="#f4ae7f"><path d="M52.11 58.32c0 3.056-2.289 5.531-5.116 5.531H14.379c-2.824 0-5.114-2.476-5.114-5.531V8.447c0-3.059 2.291-5.534 5.114-5.534h32.615c2.827 0 5.116 2.475 5.116 5.534z"/><path d="M30.899 10.509c0 .581-1.158 1.051-2.58 1.051H11.848c-1.426 0-2.582-.47-2.582-1.051v-9.46C9.266.47 10.421 0 11.848 0h16.471c1.422 0 2.58.47 2.58 1.049z"/></g><path fill="#d0d2d3" d="M54.662 56c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69V13.73c0-2.591 2.316-4.69 5.167-4.69h32.959c2.855 0 5.167 2.1 5.167 4.69z"/><path fill="#fff" d="M54.662 52.694c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69v-42.27c0-2.591 2.316-4.688 5.167-4.688h32.959c2.855 0 5.167 2.098 5.167 4.688z"/><path fill="#d0d2d3" d="M43.1 8.28c0 .312-1.538.566-3.43.566h-21.9c-1.896 0-3.434-.254-3.434-.566V3.185c0-.315 1.538-.566 3.434-.566h21.9c1.892 0 3.43.251 3.43.566z"/><path fill="#35494d" d="M20.07 18.03h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.485h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 5.605h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.48h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 10.58h13.148c1.916 0 1.916-2.699 0-2.699H20.07c-1.915-.001-1.915 2.699 0 2.699"/></svg> 음원 계약 신청서</span></li>
+                                    <li><span><svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g fill="#f4ae7f"><path d="M52.11 58.32c0 3.056-2.289 5.531-5.116 5.531H14.379c-2.824 0-5.114-2.476-5.114-5.531V8.447c0-3.059 2.291-5.534 5.114-5.534h32.615c2.827 0 5.116 2.475 5.116 5.534z"/><path d="M30.899 10.509c0 .581-1.158 1.051-2.58 1.051H11.848c-1.426 0-2.582-.47-2.582-1.051v-9.46C9.266.47 10.421 0 11.848 0h16.471c1.422 0 2.58.47 2.58 1.049z"/></g><path fill="#d0d2d3" d="M54.662 56c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69V13.73c0-2.591 2.316-4.69 5.167-4.69h32.959c2.855 0 5.167 2.1 5.167 4.69z"/><path fill="#fff" d="M54.662 52.694c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69v-42.27c0-2.591 2.316-4.688 5.167-4.688h32.959c2.855 0 5.167 2.098 5.167 4.688z"/><path fill="#d0d2d3" d="M43.1 8.28c0 .312-1.538.566-3.43.566h-21.9c-1.896 0-3.434-.254-3.434-.566V3.185c0-.315 1.538-.566 3.434-.566h21.9c1.892 0 3.43.251 3.43.566z"/><path fill="#35494d" d="M20.07 18.03h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.485h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 5.605h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.48h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 10.58h13.148c1.916 0 1.916-2.699 0-2.699H20.07c-1.915-.001-1.915 2.699 0 2.699"/></svg> 음원 계약 취소 신청서</span></li>
+                                    <li><span><svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g fill="#f4ae7f"><path d="M52.11 58.32c0 3.056-2.289 5.531-5.116 5.531H14.379c-2.824 0-5.114-2.476-5.114-5.531V8.447c0-3.059 2.291-5.534 5.114-5.534h32.615c2.827 0 5.116 2.475 5.116 5.534z"/><path d="M30.899 10.509c0 .581-1.158 1.051-2.58 1.051H11.848c-1.426 0-2.582-.47-2.582-1.051v-9.46C9.266.47 10.421 0 11.848 0h16.471c1.422 0 2.58.47 2.58 1.049z"/></g><path fill="#d0d2d3" d="M54.662 56c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69V13.73c0-2.591 2.316-4.69 5.167-4.69h32.959c2.855 0 5.167 2.1 5.167 4.69z"/><path fill="#fff" d="M54.662 52.694c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69v-42.27c0-2.591 2.316-4.688 5.167-4.688h32.959c2.855 0 5.167 2.098 5.167 4.688z"/><path fill="#d0d2d3" d="M43.1 8.28c0 .312-1.538.566-3.43.566h-21.9c-1.896 0-3.434-.254-3.434-.566V3.185c0-.315 1.538-.566 3.434-.566h21.9c1.892 0 3.43.251 3.43.566z"/><path fill="#35494d" d="M20.07 18.03h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.485h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 5.605h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.48h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 10.58h13.148c1.916 0 1.916-2.699 0-2.699H20.07c-1.915-.001-1.915 2.699 0 2.699"/></svg> 음반 계약 신청서</span></li>
+                                    <li><span><svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g fill="#f4ae7f"><path d="M52.11 58.32c0 3.056-2.289 5.531-5.116 5.531H14.379c-2.824 0-5.114-2.476-5.114-5.531V8.447c0-3.059 2.291-5.534 5.114-5.534h32.615c2.827 0 5.116 2.475 5.116 5.534z"/><path d="M30.899 10.509c0 .581-1.158 1.051-2.58 1.051H11.848c-1.426 0-2.582-.47-2.582-1.051v-9.46C9.266.47 10.421 0 11.848 0h16.471c1.422 0 2.58.47 2.58 1.049z"/></g><path fill="#d0d2d3" d="M54.662 56c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69V13.73c0-2.591 2.316-4.69 5.167-4.69h32.959c2.855 0 5.167 2.1 5.167 4.69z"/><path fill="#fff" d="M54.662 52.694c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69v-42.27c0-2.591 2.316-4.688 5.167-4.688h32.959c2.855 0 5.167 2.098 5.167 4.688z"/><path fill="#d0d2d3" d="M43.1 8.28c0 .312-1.538.566-3.43.566h-21.9c-1.896 0-3.434-.254-3.434-.566V3.185c0-.315 1.538-.566 3.434-.566h21.9c1.892 0 3.43.251 3.43.566z"/><path fill="#35494d" d="M20.07 18.03h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.485h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 5.605h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.48h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 10.58h13.148c1.916 0 1.916-2.699 0-2.699H20.07c-1.915-.001-1.915 2.699 0 2.699"/></svg> 음반 계약 취소 신청서</span></li>
+                                    <li><span><svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g fill="#f4ae7f"><path d="M52.11 58.32c0 3.056-2.289 5.531-5.116 5.531H14.379c-2.824 0-5.114-2.476-5.114-5.531V8.447c0-3.059 2.291-5.534 5.114-5.534h32.615c2.827 0 5.116 2.475 5.116 5.534z"/><path d="M30.899 10.509c0 .581-1.158 1.051-2.58 1.051H11.848c-1.426 0-2.582-.47-2.582-1.051v-9.46C9.266.47 10.421 0 11.848 0h16.471c1.422 0 2.58.47 2.58 1.049z"/></g><path fill="#d0d2d3" d="M54.662 56c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69V13.73c0-2.591 2.316-4.69 5.167-4.69h32.959c2.855 0 5.167 2.1 5.167 4.69z"/><path fill="#fff" d="M54.662 52.694c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69v-42.27c0-2.591 2.316-4.688 5.167-4.688h32.959c2.855 0 5.167 2.098 5.167 4.688z"/><path fill="#d0d2d3" d="M43.1 8.28c0 .312-1.538.566-3.43.566h-21.9c-1.896 0-3.434-.254-3.434-.566V3.185c0-.315 1.538-.566 3.434-.566h21.9c1.892 0 3.43.251 3.43.566z"/><path fill="#35494d" d="M20.07 18.03h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.485h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 5.605h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.48h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 10.58h13.148c1.916 0 1.916-2.699 0-2.699H20.07c-1.915-.001-1.915 2.699 0 2.699"/></svg> 저작권 계약 신청서</span></li>
+                                    <li><span><svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g fill="#f4ae7f"><path d="M52.11 58.32c0 3.056-2.289 5.531-5.116 5.531H14.379c-2.824 0-5.114-2.476-5.114-5.531V8.447c0-3.059 2.291-5.534 5.114-5.534h32.615c2.827 0 5.116 2.475 5.116 5.534z"/><path d="M30.899 10.509c0 .581-1.158 1.051-2.58 1.051H11.848c-1.426 0-2.582-.47-2.582-1.051v-9.46C9.266.47 10.421 0 11.848 0h16.471c1.422 0 2.58.47 2.58 1.049z"/></g><path fill="#d0d2d3" d="M54.662 56c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69V13.73c0-2.591 2.316-4.69 5.167-4.69h32.959c2.855 0 5.167 2.1 5.167 4.69z"/><path fill="#fff" d="M54.662 52.694c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69v-42.27c0-2.591 2.316-4.688 5.167-4.688h32.959c2.855 0 5.167 2.098 5.167 4.688z"/><path fill="#d0d2d3" d="M43.1 8.28c0 .312-1.538.566-3.43.566h-21.9c-1.896 0-3.434-.254-3.434-.566V3.185c0-.315 1.538-.566 3.434-.566h21.9c1.892 0 3.43.251 3.43.566z"/><path fill="#35494d" d="M20.07 18.03h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.485h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 5.605h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.48h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 10.58h13.148c1.916 0 1.916-2.699 0-2.699H20.07c-1.915-.001-1.915 2.699 0 2.699"/></svg> 저작권 계약 취소 신청서</span></li>
+                                    <li><span><svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g fill="#f4ae7f"><path d="M52.11 58.32c0 3.056-2.289 5.531-5.116 5.531H14.379c-2.824 0-5.114-2.476-5.114-5.531V8.447c0-3.059 2.291-5.534 5.114-5.534h32.615c2.827 0 5.116 2.475 5.116 5.534z"/><path d="M30.899 10.509c0 .581-1.158 1.051-2.58 1.051H11.848c-1.426 0-2.582-.47-2.582-1.051v-9.46C9.266.47 10.421 0 11.848 0h16.471c1.422 0 2.58.47 2.58 1.049z"/></g><path fill="#d0d2d3" d="M54.662 56c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69V13.73c0-2.591 2.316-4.69 5.167-4.69h32.959c2.855 0 5.167 2.1 5.167 4.69z"/><path fill="#fff" d="M54.662 52.694c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69v-42.27c0-2.591 2.316-4.688 5.167-4.688h32.959c2.855 0 5.167 2.098 5.167 4.688z"/><path fill="#d0d2d3" d="M43.1 8.28c0 .312-1.538.566-3.43.566h-21.9c-1.896 0-3.434-.254-3.434-.566V3.185c0-.315 1.538-.566 3.434-.566h21.9c1.892 0 3.43.251 3.43.566z"/><path fill="#35494d" d="M20.07 18.03h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.485h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 5.605h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.48h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 10.58h13.148c1.916 0 1.916-2.699 0-2.699H20.07c-1.915-.001-1.915 2.699 0 2.699"/></svg> 고객사 계약 신청서</span></li>
+                                    <li><span><svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g fill="#f4ae7f"><path d="M52.11 58.32c0 3.056-2.289 5.531-5.116 5.531H14.379c-2.824 0-5.114-2.476-5.114-5.531V8.447c0-3.059 2.291-5.534 5.114-5.534h32.615c2.827 0 5.116 2.475 5.116 5.534z"/><path d="M30.899 10.509c0 .581-1.158 1.051-2.58 1.051H11.848c-1.426 0-2.582-.47-2.582-1.051v-9.46C9.266.47 10.421 0 11.848 0h16.471c1.422 0 2.58.47 2.58 1.049z"/></g><path fill="#d0d2d3" d="M54.662 56c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69V13.73c0-2.591 2.316-4.69 5.167-4.69h32.959c2.855 0 5.167 2.1 5.167 4.69z"/><path fill="#fff" d="M54.662 52.694c0 2.593-2.312 4.69-5.167 4.69H16.536c-2.851 0-5.167-2.098-5.167-4.69v-42.27c0-2.591 2.316-4.688 5.167-4.688h32.959c2.855 0 5.167 2.098 5.167 4.688z"/><path fill="#d0d2d3" d="M43.1 8.28c0 .312-1.538.566-3.43.566h-21.9c-1.896 0-3.434-.254-3.434-.566V3.185c0-.315 1.538-.566 3.434-.566h21.9c1.892 0 3.43.251 3.43.566z"/><path fill="#35494d" d="M20.07 18.03h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.485h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 5.605h28.562c1.922 0 1.922-2.7 0-2.7H20.07c-1.915 0-1.915 2.7 0 2.7m0 5.48h28.562c1.922 0 1.922-2.698 0-2.698H20.07c-1.915 0-1.915 2.698 0 2.698m0 10.58h13.148c1.916 0 1.916-2.699 0-2.699H20.07c-1.915-.001-1.915 2.699 0 2.699"/></svg> 고객사 계약 취소 신청서</span></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="right_box">
+                        <h6>상세정보</h6>
+                        <div>
+                            <form>
+                                <ul>
+                                    <li>제목</li>
+                                    <li>기안자</li>
+                                    <li>기안부서</li>
+                                    <li>기안일</li>
+                                    <li>보존연한</li>
+                                </ul>
+                                <ul>
+                                    <li class="selected_form_name">&nbsp;</li>
+                                    <li id="approval_name"></li>
+                                    <li id="approval_depart_name"></li>
+                                    <li class="cur_date"></li>
+                                    <li>5년</li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn_area">
+                    <div class="btn_inner">
+                        <button id="form_go" type="submit">확인</button>
+                        <button class="cancel_btn">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- -------------------------------------------nav start------------------------------------------ -->
     <div id="nav">
         <div class="nav_inner">
@@ -144,18 +222,10 @@
                     </svg></div>
                 </li></a>
                 <ul data-index="2">
-                    <a href="javascript:"><li class="dep2">결재 대기 문서</li></a>
-                    <a href="javascript:"><li class="dep2">결재 예정 문서</li></a>
-                    <a href="javascript:"><li class="dep2">참조 대기 문서</li></a>
-                    <a href="javascript:"><li class="dep2" data-index="3">결재 보관함
-                        <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                            </svg></div>
-                    </li></a>
-                    <ul data-index="3">
-                        <a href="javascript:"><li class="dep3">삭제 문서</li></a>
-                        <a href="javascript:"><li class="dep3">수정 문서</li></a>
-                    </ul>
+                    <a href="javascript:" onclick="approval_select_go()"><li class="dep2">새 결재 진행</li></a>
+                    <a href="/draftBox"><li class="dep2">기안함</li></a>
+                    <a href="/apprBox"><li class="dep2">결재함</li></a>
+                    <a href="/refBox"><li class="dep2">참조함</li></a>
                 </ul>
                 <a href="/schedule"><li class="dep1" data-index="4">일정관리</li></a>
                
@@ -203,107 +273,6 @@
                 </ul> 
             </ul>
         </div>
-        
-        <div>
-	        <button onclick="showDepartModal()">조직도</button>
-	    </div>
-	
-	    <!-- 부서 모달 팝업 -->
-	    <div id="departModal">
-	        <ul id="departments">
-	            <!-- 부서 목록이 들어갈 공간 -->
-	        </ul>
-	    </div>
-		
-	    <!-- 직원 정보 모달 팝업 -->
-	    <div id="memberModal">
-	        <div id="memberInfo">
-	        <!-- 직원 정보 -->
-	        </div>
-	    </div>
-	    
-	    
-	    <!---------------------------- 조직도 테스 모달 ------------------------------->
-	    <button onclick="organization()">조직도 테스트 버튼</button>
-		<div class="modal fade" id="orgChartModal" tabindex="-1" role="dialog" aria-labelledby="orgChartModalLabel" aria-hidden="true">
-		    <div class="modal-dialog modal-lg" role="document" style="margin-left: 300px; width: 300px; height: 500px;">
-		        <div class="modal-content" >
-		            <div class="modal-header">
-		                <h5 class="modal-title" id="orgChartModalLabel">조직도</h5>
-		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                    <span aria-hidden="true">&times;</span>
-		                </button>
-		            </div>
-					<div class="modal-body">
-						<div>
-		
-							<div class="left_box">
-								<h5>조직도</h5>
-								<div class="org_chart">
-									<ul>
-										<c:forEach items="${departments}" var="depart">
-											<c:if test="${depart.depart_p_no eq 0}">
-												<li><span> <svg class="plus" width="12"
-															height="12" viewBox="0 0 448 512"
-															xmlns="http://www.w3.org/2000/svg">
-															<path fill="currentColor"
-																d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
-														<svg class="minus" width="12" height="12"
-															viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
-															<path fill="currentColor"
-																d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
-														${depart.depart_name}
-												</span>
-													<ul>
-														<c:forEach items="${teams}" var="team">
-															<c:if test="${depart.depart_no eq team.depart_p_no}">
-																<li><span> <svg class="plus" width="12"
-																			height="12" viewBox="0 0 448 512"
-																			xmlns="http://www.w3.org/2000/svg">
-																			<path fill="currentColor"
-																				d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
-																		<svg class="minus" width="12" height="12"
-																			viewBox="0 0 448 512"
-																			xmlns="http://www.w3.org/2000/svg">
-																			<path fill="currentColor"
-																				d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
-																		${team.depart_name}
-																</span>
-																	<ul>
-																		<c:forEach items="${members}" var="member">
-																			<c:if test="${team.depart_no eq member.depart_no}">
-																				<li>
-																					<p data-member-no="${member.member_no}" data-name="${member.name}">
-																						<svg width="14" height="14" viewBox="0 0 1408 1472"
-																							xmlns="http://www.w3.org/2000/svg">
-								                                                        <path
-																								fill="#df7ca2"
-																								d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128" />
-								                                                        </svg>
-																						${member.name} ${member.member_position}
-																					</p>
-																				</li>
-																			</c:if>
-																		</c:forEach>
-																	</ul></li>
-															</c:if>
-														</c:forEach>
-													</ul></li>
-											</c:if>
-										</c:forEach>
-									</ul>
-								</div>
-							</div>
-		
-						</div>
-					</div>
-					<div class="modal-footer" style="margin-top: 450px;">
-		                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-	    
     </div>
     <!-- -------------------------------------------nav end------------------------------------------ -->
     <!-- -------------------------------------------util start------------------------------------------ -->
@@ -332,16 +301,8 @@
             </li>
         </ul>
     </div>
-    <!-- -------------------------------------------util end------------------------------------------ -->
-
-    <!-- -------------------------------------------music start------------------------------------------ -->
-    <!-- <div id="bottom_music">
-        <div class="music_inner">
-
-        </div>
-    </div>
-     -->
-    <!-- -------------------------------------------music end------------------------------------------ -->
+    <!-- -------------------------------------------util end------------------------------------------ -->\
+    
 </body>
 <script>
 //------------------------------------util start--------------------------------------------------
@@ -638,6 +599,98 @@ $('.org_chart>ul>li>ul>li>span').on('click',function(){
     });
 });
 //-------------------------------- 조직도 테스트 버튼 end -----------------------------------------
+
+
+
+
+
+
+// ------------------------------------ approval_select_box start ------------------------------------
+// var $member_name = ${sessionScope.loginMember.name};
+// console.log($member_name);
+// var $member_depart_name = ${sessionScope.loginMember.depart_name};
+// console.log($member_depart_name);
+// $('#approval_name').text($member_name);
+// $('#approval_depart_name').text($member_depart_name);
+
+
+function approval_select_go(){
+    $('#approval_light_box').fadeIn(500);
+}
+
+$('.cancel_box').on('click',function(){
+    $('#approval_light_box').fadeOut(500);
+});
+
+$('.cancel_btn').on('click',function(){
+    $('#approval_light_box').fadeOut(500);
+});
+
+/*$('.select_form>.left_box>ul>li>span').on('click',function(){
+    $(this).siblings('ul').slideToggle(300);
+});*/
+
+$('span').on('click', function() {
+    $(this).addClass('on');
+    $('span').not(this).removeClass('on');
+    $('p').not(this).removeClass('on');
+    dataIndexValue = $(this).data('index');
+});
+
+$('.select_form_box .left_box>ul>li>ul>li>span').each(function(index){
+    $(this).attr('data-index',index+1);
+});
+
+$('.select_form_box .left_box>ul>li>ul>li>span').on('click',function(){
+    var selectedFormName = $(this).text();
+    $('.selected_form_name').text(selectedFormName);
+});
+
+$('#form_go').on('click',function(){
+    if(dataIndexValue == 0){
+        alert("양식을 선택해 주세요.");
+    } else if(dataIndexValue == 1){
+        window.location.href = '/draftDoc';
+    } else if(dataIndexValue == 2){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 3){
+        window.location.href = 'form_two.html';
+    } else if(dataIndexValue == 4){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 5){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 6){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 7){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 8){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 9){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 10){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 11){
+        window.location.href = 'javascript:';
+    }
+});
+
+// 현재 날짜를 가져오기 위한 함수
+function getCurrentDate() {
+var currentDate = new Date();
+
+var year = currentDate.getFullYear();
+var month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 1을 더하고 두 자리로 맞춰줍니다.
+var day = ('0' + currentDate.getDate()).slice(-2);
+
+var formattedDate = year + '-' + month + '-' + day;
+return formattedDate;
+}
+
+// 가져온 날짜를 특정 태그에 넣기
+$('.cur_date').text(getCurrentDate());
+
+
+//------------------------------------ approval_select_box end ------------------------------------
 
 
 
