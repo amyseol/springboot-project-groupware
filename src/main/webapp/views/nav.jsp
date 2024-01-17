@@ -249,15 +249,8 @@
 		<div class="modal fade" id="orgChartModal" tabindex="-1" role="dialog" aria-labelledby="orgChartModalLabel" aria-hidden="true">
 		    <div class="modal-dialog modal-lg" role="document" style="margin-left: 300px; width: 300px; height: 500px;">
 		        <div class="modal-content" >
-		            <div class="modal-header">
-		                <h5 class="modal-title" id="orgChartModalLabel">조직도</h5>
-		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                    <span aria-hidden="true">&times;</span>
-		                </button>
-		            </div>
 					<div class="modal-body">
 						<div>
-		
 							<div class="left_box">
 								<h5>조직도</h5>
 								<div class="org_chart">
@@ -324,7 +317,6 @@
 		        </div>
 		    </div>
 		</div>
-	    
     </div>
     <!-- -------------------------------------------nav end------------------------------------------ -->
     <!-- -------------------------------------------util start------------------------------------------ -->
@@ -629,6 +621,18 @@ var selecEl = null;
 
 //-------------------------------- 조직도 테스트 버튼 start -----------------------------------------
 function organization(){
+	$.ajax({
+        type: "GET",
+        url: "your_server_endpoint_for_organization_data",
+        dataType: "JSON",
+        success: function(data) {
+            updateOrgChartModal(data);
+        },
+        error: function(e) {
+            console.log(e);
+        }
+    });
+	
 	$('#orgChartModal').modal('show');
 }
 

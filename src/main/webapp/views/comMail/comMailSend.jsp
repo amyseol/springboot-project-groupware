@@ -238,9 +238,9 @@
 	        content += '<li><input type="checkbox" name="sendCheck" value="' + item.note_no + '"/></li>';
 	        content +='<li>' 
 	            if(item.send_state==="0"){
-	                content+='<img src="resources/img/unread.jpg" alt="unreadImage" width=20 height=20/>';
+	                content+='<img src="/resources/img/common/unread.jpg" alt="unreadImage" width=20 height=20/>';
 	            }else if(item.send_state==="1"){
-	                content+='<img src="resources/img/read.jpg" alt="readImage" width=20 height=20/>';
+	                content+='<img src="/resources/img/common/read.jpg" alt="readImage" width=20 height=20/>';
 	            }
 	        content +='</li>';
 	        content += '<li><span class="name">' + item.receiver_name + '</span></li>';

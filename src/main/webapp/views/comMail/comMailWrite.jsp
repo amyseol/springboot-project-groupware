@@ -20,7 +20,7 @@
         .left_box ul li span.on, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.on{font-weight: 700; border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
         .left_box ul li span.hover, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.hover{border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
         .left_box ul>li>ul{padding-top:3px;}
-        .left_box ul>li>ul>li{padding-left:15px;}
+        .left_box ul>li>ul>li{padding-left:15px; cursor: pointer;}
         .plus{display: none;}
 
         #write_form {
@@ -39,9 +39,10 @@
             padding: 10px;
             border: 1px solid #ddd;
         }
+        
+        th{width: 20%; text-align: center; width: 10%;}
 
         input[type="text"] {
-            width: 100%;
             padding: 8px;
         }
 
@@ -52,7 +53,14 @@
         
         #send{
         	float: right;
-        	padding: 5px;
+        	border-radius: 3px;
+        	background-color:025464;
+        	color:white;
+        	padding: 5 10;
+        	border:none;
+        	margin: 10px;
+        	position: relative;
+        	right: 10px;
         }
         
         .titleWrap{
@@ -64,15 +72,29 @@
         	margin-top: 80px;
         }
         
-        .del_all{
-        	border: 1px solid black;
-    		padding: 3px;
+        .all_del{
+    		margin: 10px;
+    		border-radius: 3px;
+    		background-color:025464;
+    		padding: 2 10 5 10;
+    		border:none;
+    		height: 22px;
+    		cursor: pointer;
+    		color: white;
+    		margin-left: 10px;
         }
         
-        .fileBox{display: flex;height: 48px;}
+        span{color: white;}
+        
+        .fileBox{display: flex;height: 48px; align-items: center;}
         #select_file{margin-top:10px;}
-		.del_all{height:25px;margin-top:10px;}
-		#organization{margin-top:5px;}
+		#organization{margin:5 0 5 10; border-radius: 3px; background-color:025464; color:white; padding: 5 10; border:none;}
+		#sender_ul{display: flex; margin: 10px;}
+		#inputSubject{margin: 10px; width: 98%;}
+		.select_file_custom{cursor: pointer; border-radius: 3px;background-color:025464;color:white;padding: 5 10;border:none; margin: 10px;}
+		.file_list ul{display: flex;}
+		.file_list ul li{margin-right: 5px;}
+		.file_delete{cursor: pointer;}
     </style>
 <body>
   	<%@ include file="/views/nav.jsp" %>
@@ -85,13 +107,13 @@
         <div class="contentWrap">
             <table>
                 <tr>
-                    <td colspan="2"><input type="button" id="send" value="보내기" onclick="save()"/></td>
+                    <td  class="" colspan="2" style="border: none;"><input type="button" id="send" value="보내기" onclick="save()"/></td>
                 </tr>
                 <tr>
                     <th>&nbsp;받는 사람 &nbsp;&nbsp;</th>
                     <td>
                         <div>
-                            <ul>
+                            <ul id="sender_ul">
                                 <li>
                                 	<c:if test="${not empty sender}">
                                    		<input type="text" name="receiver" id="inputReceiver" value="${sender}" readonly>
@@ -118,15 +140,21 @@
                         <div class="fileBox">
                             <a class="btn_file">
                                 <span>
-                                    <input type="file" id="select_file" name="files" multiple>
+                                	<label class="select_file_custom" for="select_file">
+                                	파일 선택
+                                	</label>
+                                    <input type="file" id="select_file" name="files" multiple style="display:none">
                                 </span>
                             </a>
-                            <a class="all_del">
-                                <span onclick="all_del()">모두삭제</span>
+                            <a>
+                                <span class="all_del" onclick="all_del()">모두삭제</span>
                             </a>
                         </div>
-
-                        <div class="file_list">
+                    </td>
+                </tr>
+                <tr>
+                	<td colspan="2">
+                    	<div class="file_list">
                             <!-- 첨부 파일란 -->
                         </div>
                     </td>
@@ -148,15 +176,8 @@
 <div class="modal fade" id="organizationModal" tabindex="-1" role="dialog" aria-labelledby="organizationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document" style="margin-left: 300px; width: 300px; height: 500px;">
         <div class="modal-content" >
-            <div class="modal-header">
-                <h5 class="modal-title" id="organizationModalLabel">주소록</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
 			<div class="modal-body">
 				<div>
-
 					<div class="left_box">
 						<h5>주소록</h5>
 						<div class="org_chart">
@@ -295,7 +316,7 @@ $('.org_chart>ul>li>ul>li>span').on('click',function(){
     
     // 파일이 선택될 때마다 파일 리스트에 추가
     $("#select_file").on("change", function(){
-    	var file = $(this)[0].files;
+    	var files = $(this)[0].files;
     	
     	for (var i = 0; i < files.length; i++) {
 			fileList.push(files[i]);
@@ -304,29 +325,26 @@ $('.org_chart>ul>li>ul>li>span').on('click',function(){
     });
     
     // 파일 리스트
-    function addFileToUI(list) {
+    function addFileToUI(file) {
 		var content = "";
 		
-		list.list.foreach(function(item, idx) {
-			content += '<ul>';
-			content += '<li><span class="file_name">' + item.file_oriname + '</span></li>';
-			content += '<li><span class="file_size">' + formatFileSize(item.file_size) + '</span></li>';
-			content += '<li><span class="file_delete" onclick="deleteFile(\'' + item.file_no +'\')">X</span></li>';
-			content += '</ul>';
-		});
+		content += '<ul>';
+		content += '<li><span class="file_name">' + file.name + '</span></li>';
+		content += '<li><span class="file_size">' + formatFileSize(file.size) + '</span></li>';
+		content += '<li><span class="file_delete" onclick="deleteFile(\'' + file.name +'\')">X</span></li>';
+		content += '</ul>';
 		
-		$(".file_list").empty();
 		$(".file_list").append(content);
 	}
     
     // 파일 크기 포맷
     function formatFileSize(size) {
     	if (size < 1024) {
-            return size + ' B';
+            return size + 'B';
         } else if (size < 1024 * 1024) {
-            return (size / 1024).toFixed(2) + ' KB';
+            return (size / 1024).toFixed(2) + 'KB';
         } else {
-            return (size / (1024 * 1024)).toFixed(2) + ' MB';
+            return (size / (1024 * 1024)).toFixed(2) + 'MB';
         }
 	}
     
@@ -337,9 +355,9 @@ $('.org_chart>ul>li>ul>li>span').on('click',function(){
 	}
     
  	// 개별 파일 삭제 함수
-    function deleteFile(file_no) {
+    function deleteFile(fileName) {
         fileList = fileList.filter(function(file) {
-            return file.file_no !== fileNo;
+            return file.name !== fileName;
         });
         $('.file_list').empty();
         fileList.forEach(function(file) {
@@ -350,14 +368,37 @@ $('.org_chart>ul>li>ul>li>span').on('click',function(){
     // 저장 버튼을 누르면 실행되는 함수 save
     function save(){
         var content = editor.getHTMLCode();
-        $('input[name="content"]').val(content);
-        console.log((content.length/1024/1024)+'MB');
-        
-        if(content.length > (2*1024*1024)){
-            alert('컨텐츠의 크기가 너무 큽니다. 이미지의 갯수나 크기를 줄여 주세요!');
-        }else{
-            $('form').submit();
-        }
+        $('input[name="note_content"]').val(content);
+       
+    	 // FormData 객체 생성
+        var formData = new FormData(document.getElementById("write_form"));
+    	
+     	/* // 파일 리스트를 FormData에 추가
+        for (var i = 0; i < fileList.length; i++) {
+            formData.append("files", fileList[i]);
+        } */
+     	
+     	// XMLHttpRequest 객체 생성
+        var xhr = new XMLHttpRequest();
+
+        // POST 방식, URL, 동기 여부 설정
+        xhr.open('POST', document.getElementById('write_form').action, true);
+
+        // 폼 데이터 전송
+        xhr.send(formData);
+
+        // 서버 응답 처리
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // 성공 시 동작
+                console.log(xhr.responseText);
+                // 여기에 성공 시 동작을 추가할 수 있습니다.
+            } else {
+                // 실패 시 동작
+                console.error(xhr.statusText);
+                // 여기에 실패 시 동작을 추가할 수 있습니다.
+            }
+        };
     }
 //--------------------------------------mail end-----------------------------------------------------
 </script>

@@ -26,6 +26,7 @@
 	    LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 	    LEFT OUTER JOIN file f ON file_location = "n" AND f.file_unique_no = n.note_no
 	    WHERE n.receiver_no = #{param2} AND n.receive_state IN ("0", "1")
+	    GROUP BY n.note_no
 	    ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
 	</select>
 	
@@ -40,6 +41,7 @@
 	        OR LENGTH(#{search_info}) = 1
 	        OR n.sender_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{search_info}, '%'))
 	        OR n.note_subject LIKE CONCAT('%', #{search_info}, '%'))
+	    GROUP BY n.note_no
 	    ORDER BY n.note_date DESC LIMIT 10 OFFSET #{offset}
 	</select>
 	
@@ -108,12 +110,13 @@
 	</select>
 	
 	<select id="receiveMailDetail" resultType="mail">
-		SELECT n.note_subject, n.note_content, n.note_date, n.note_no, sender.name AS sender_name, receiver.name AS receiver_name, f.file_newname
+		SELECT n.note_no, n.note_subject, n.note_content, n.note_date, n.note_no, sender.name AS sender_name, receiver.name AS receiver_name, f.file_newname
 		FROM note n
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no		
-		LEFT OUTER JOIN file f ON f.file_unique_no = n.note_no
-		WHERE n.note_no = #{param1} AND f.file_location = "n"
+		LEFT OUTER JOIN file f ON f.file_unique_no = n.note_no AND f.file_location = "n"
+		WHERE n.note_no = #{param1} 
+		GROUP BY n.note_no
 	</select>
 	
 	<select id="getFile" resultType="mail">
@@ -144,6 +147,7 @@
 	    LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no
 	    LEFT OUTER JOIN file f ON file_location = "n" AND f.file_unique_no = n.note_no
 	    WHERE n.sender_no = #{param2} AND n.send_state IN ("0", "1")
+	    GROUP BY n.note_no
 	    ORDER BY n.note_date DESC LIMIT 10 OFFSET #{param1}
 	</select>
 	
@@ -184,6 +188,7 @@
 	        OR LENGTH(#{search_info}) = 1
 	        OR n.receiver_no IN (SELECT member_no FROM member WHERE name LIKE CONCAT('%', #{search_info}, '%'))
 	        OR n.note_subject LIKE CONCAT('%', #{search_info}, '%'))
+	    GROUP BY n.note_no
 	    ORDER BY n.note_date DESC LIMIT 10 OFFSET #{offset}	
 	</select>
 	
@@ -192,12 +197,13 @@
 	</update>
 	
 	<select id="sendMailDetail" resultType="mail">
-		SELECT n.note_subject, n.note_content, n.note_date, sender.name AS sender_name, receiver.name AS receiver_name, f.file_newname
+		SELECT n.note_no, n.note_subject, n.note_content, n.note_date, sender.name AS sender_name, receiver.name AS receiver_name, f.file_newname
 		FROM note n
 		LEFT OUTER JOIN member receiver ON receiver.member_no = n.receiver_no
 		LEFT OUTER JOIN member sender ON sender.member_no = n.sender_no		
-		LEFT OUTER JOIN file f ON f.file_unique_no = n.note_no
-		WHERE n.note_no = #{param1} AND f.file_location = "n"
+		LEFT OUTER JOIN file f ON f.file_unique_no = n.note_no AND f.file_location = "n"
+		WHERE n.note_no = #{param1} 
+		GROUP BY n.note_no
 	</select>
 	
 	<insert id="write" parameterType="map">

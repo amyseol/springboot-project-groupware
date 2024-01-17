@@ -245,9 +245,9 @@
 	        content += '<li><input type="checkbox" name="receiveCheck" value="' + item.note_no + '"/></li>';
 	        content +='<li>' 
 	            if(item.receive_state=== "0"){
-	                content+='<img src="./img/unread.png" alt="unreadImage" width=20 height=20/>';
+	                content+='<img src="/resources/img/common/unread.png" alt="unreadImage" width=20 height=20/>';
 	            }else if(item.receive_state=== "1"){
-	                content+='<img src="./img/read.png" alt="readImage" width=20 height=20/>';
+	                content+='<img src="/resources/img/common/read.png" alt="readImage" width=20 height=20/>';
 	            }
 	        content +='</li>';
 	        content += '<li><span class="name">' + item.sender_name + '</span></li>';
