@@ -38,5 +38,11 @@ public interface BoardDAO {
 
 	void writeD(BoardDTO dto);
 
-	int totalPageAll();
+	int totalPageD();
+
+	void modifyD(HashMap<String, String> params);
+
+	BoardDTO detailD(String board_no);
+
+	int delD(String board_no);
 }

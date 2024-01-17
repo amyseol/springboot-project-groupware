@@ -20,12 +20,13 @@
         #common_list_form .list_form{position:relative; width: 90%; margin-left: 50px;}
         #common_list_form .list_form .list_content {padding-top: 60px;}
         #common_list_form .list_form .list_content ul{width: 100%; height: 30px;}
-        #common_list_form .list_form .list_content ul li{float:left;padding:5px 0 5px 10px; box-sizing: border-box; text-align: center;}
+        #common_list_form .list_form .list_content ul li{float:left;border-top: 1px solid #999; padding:5px 0 5px 10px; box-sizing: border-box; text-align: center;}
         #common_list_form .list_form .list_content ul li{width: 20%;}
         #common_list_form .list_form .list_content ul li:nth-child(2n){width: 80%;}
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         
         #common_list_form .list_form .list_content .first_list li{width:100%; border-bottom:1px solid lightgray;}
+        #common_list_form .list_form .list_content .second_list li:nth-child(2n-1){font-weight:bold;}
         #common_list_form .list_form .list_content .second_list li:nth-child(2n){width:70%;border-right: 1px solid lightgray;}
         #common_list_form .list_form .list_content .second_list li{float: left; width: 30%; border:1px solid lightgray;box-sizing: border-box;margin-bottom: 6px;}
         #common_list_form .list_form .list_content .second_list li:nth-child(7){height:100px;}
@@ -45,9 +46,10 @@
         #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
         
         #del_modal{display: none;}
-        .txt{font-size:20;}
+        .txt{font-size:20;border: 1px solid black;padding: 5px;}
         .btn_submenu{margin-right: 12px;}
         .toolbar{display:flex;}
+        
     </style>
 <body>
 	<%@ include file="/views/nav.jsp" %>
@@ -59,7 +61,7 @@
         <div class="list_form">
             <ul>
                 <li class="list_title">
-                    <ul class="toolbar">
+                    <ul class="toolbar" >
                         <!-- 툴바 -->
                         <li class="btn_submenu">
                             <a class="btn_tool" data-role="button" onclick="location.href='/writeMail?note_no=${reMailDetail.note_no}'">

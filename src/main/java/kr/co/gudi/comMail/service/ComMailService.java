@@ -176,9 +176,7 @@ public class ComMailService {
 
 	public void write(MultipartFile[] files, HashMap<String, String> param, int sender_no) throws IOException {
 		ComMailDTO dto = new ComMailDTO();
-		String receiver_name = param.get("receiver");
-		int receiver_no = dao.getReceiverNo(receiver_name);
-		
+		int receiver_no = Integer.parseInt(param.get("member_no"));
 		dto.setReceiver_no(receiver_no);
 		dto.setSender_no(sender_no);
 		dto.setNote_subject(param.get("note_subject"));

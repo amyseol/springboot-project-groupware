@@ -133,9 +133,14 @@ public class MemberController {
 					param.put("member_no", ((MemberVO)session.getAttribute("loginMember")).getMember_no());
 					param.put("file_oriname", file_oriname);
 					
-					service.updateProfileImg(param, model, path);
-					model.addAttribute("msg", "프로필이 수정되었습니다.");
-					model.addAttribute("url", "/mypage");
+					int success = service.updateProfileImg(param, model, path);
+					if(success>0) {
+						model.addAttribute("msg", "프로필이 수정되었습니다.");
+						model.addAttribute("url", "/mypage");
+					}else {
+						model.addAttribute("msg", "프로필 수정 실패했습니다.");
+						model.addAttribute("url", "/mypage");
+					}
 
 				}
 		} catch (IOException e) {

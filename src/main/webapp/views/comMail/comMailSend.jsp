@@ -13,20 +13,20 @@
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .titleWrap{position: relative; display: flex;}
         #common_list_form .count{position: absolute; top: 80px; left: 220px;}
+        #common_list_form .list_form .list_title #readOption{cursor: pointer;}
         #common_list_form #mailListAllCheck{width: 20px; height: 50px;}
-        #common_list_form #toolbar{display:flex;}
+        #common_list_form #toolbar{display:flex;align-items:center;padding-left:2%;}
         #common_list_form #toolbar li{margin-right: 18px;}
         #common_list_form #toolbar #readOption{width:100%; height:100%;}
         
         #common_list_form .list_form{position:relative; width: 90%; margin-left: 50px;}
         #common_list_form .list_form .list_title ul{width: 100%;}
         #common_list_form .list_form .list_title ul li{float: left;}
-        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 50px; height: 30px; text-align: center;}
+        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 50px; height: 30px; text-align: center; cursor: pointer;}
         #common_list_form .list_form .list_title .btn_submenu .btn_tool{position: relative; top: 5px;}
-        #common_list_form .list_form .list_content {}
         #common_list_form .list_form .list_content ul{width: 100%; height: 40px;}
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box; text-align: center;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 5%; padding-left: 50px;}
+        #common_list_form .list_form .list_content ul li:first-child{width: 5%; }
         #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
         #common_list_form .list_form .list_content ul li:nth-child(3){width: 15%;}
         #common_list_form .list_form .list_content ul li:nth-child(4){width: 30%;}
@@ -35,7 +35,7 @@
         #common_list_form .list_form .list_content ul li a:hover{text-decoration: underline;}
         #common_list_form .list_form .list_content ul:hover{background-color: #eee;}
         
-        #common_list_form .search_box{position: relative; margin: 0px 0 10px 50px; border: 1px solid #fff; display: flex;width:100%;}
+        #common_list_form .search_box{position: relative; margin: 0px 0 10px 15px; border: 1px solid #fff; display: flex;width:100%;}
         #common_list_form .search_box #search_info{width:250px; height: 28px; border: 1px solid #ccc; box-sizing: border-box; padding-left:5px;}
         #common_list_form .search_box #search_info::placeholder{color: #ccc;}
         #common_list_form .search_box .btn_box{width: 28px; height: 28px; cursor: pointer; border: 1px solid #ccc; box-sizing: border-box; border-left: none;}
@@ -105,11 +105,6 @@
 				        	<li>
 				        		<input type="checkbox" id="mailListAllCheck" name="mailAllcheck" value="off">
 				            </li>
-				            <li class="btn_submenu">
-				            	<a class="btn_tool" data-role="button" onclick="reply()">
-								<span class="txt">답장</span>
-				                </a>
-							</li>
 							<li class="btn_submenu">
 								<a class="btn_tool" data-role="button" onclick="delModal()">
 				                <span class="txt_caution">삭제</span>
@@ -142,8 +137,8 @@
 		<!-- 모달 -->
 		<div id="del_modal">
 			<div style="margin:30px 0; font-size:24px;">삭제 하시겠습니까?</div>
-			<button onclick="delNoSend()" class="modalBtnNo">아니요</button>
-			<button onclick="delYesSend()" class="modalBtnYes">예</button>	
+			<button onclick="delNo()" class="modalBtnNo">아니요</button>
+			<button onclick="delYes()" class="modalBtnYes">예</button>	
 		</div>
     </section>
     <!-- -------------------------------------------mailWrap end------------------------------------------------- -->
@@ -240,7 +235,7 @@
 	
 	    list.list.forEach(function(item, index){
 	        content += '<ul>';
-	        content += '<li><input type="checkbox" name="receiveCheck" value="' + item.note_no + '"/></li>';
+	        content += '<li><input type="checkbox" name="sendCheck" value="' + item.note_no + '"/></li>';
 	        content +='<li>' 
 	            if(item.send_state==="0"){
 	                content+='<img src="resources/img/unread.jpg" alt="unreadImage" width=20 height=20/>';
@@ -277,7 +272,7 @@
 	
 	// 보낸 쪽지 체크 박스
 	$("#mailListAllCheck").on("click", function(){
-	    var $chk = $('input[name="mailAllcheck"]'); 
+	    var $chk = $('input[name="sendCheck"]'); 
 	    console.log($chk);
 	    console.log($(this).is(":checked")); 
 	    if($(this).is(":checked")){
@@ -289,7 +284,10 @@
 	
 	// 보낸 쪽지 삭제 모달창
 	function delModal(){
-	    document.getElementById('del_modal').style.display = 'block';
+		$('input[name="sendCheck"]:checked').each(function(idx,item){
+			console.log('체크됨!');
+			document.getElementById('del_modal').style.display = 'block';
+		});
 	}
 	
 	// 보낸 메일 '아니요 버튼 클릭
@@ -301,7 +299,7 @@
 	function delYes(){
 	    var chkArr = [];
 	
-	    $('input[name="mailListAllCheck"]:checked').each(function(idx,item){
+	    $('input[name="sendCheck"]:checked').each(function(idx,item){
 		//console.log(idx, $(item).val()); 
 		var val = $(item).val();
 	        if(val != 'on'){

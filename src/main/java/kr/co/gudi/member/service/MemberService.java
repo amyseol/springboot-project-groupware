@@ -57,14 +57,14 @@ public class MemberService implements UserDetailsService{
 		return dao.selectApprovMember(member_id);
 	}
 
-	public void updateProfileImg(Map<String, Object> param, Model model, String path) {
+	public int updateProfileImg(Map<String, Object> param, Model model, String path) {
 
 		int member_no = (int) param.get("member_no");
 		int file_no =  dao.searchFileNo(member_no);
 		param.put("file_no", file_no);
-		dao.updateProfileImg(param);
 		logger.info(path);
 		model.addAttribute("photo", path);
+		return dao.updateProfileImg(param);
 	}
 
 	public MemberVO getMember() {

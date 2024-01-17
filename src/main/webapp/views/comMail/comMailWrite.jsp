@@ -13,61 +13,21 @@
 
 </head>
 <style>
-	<style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
-        @font-face {
-            font-family: 'GmarketSansBold';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
-            font-weight: 700;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'GmarketSansMedium';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-            font-weight: 500;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'GmarketSansLight';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
-            font-weight: 300;
-            font-style: normal;
-        }
-
-        *{margin:0; padding:0;}
-        li{list-style: none;}
-        a{text-decoration: none;}
-        img{border:none; display: block;}
-        body, header, section, footer, div, ul, li, p, a, span, input, textarea, table{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 14px;}
-        h1, h2, h3, h4, h5, h6{font-family: 'GmarketSansMedium'; color:#222;}
-
-        #nav{position:fixed; width:15%; height:100%; box-shadow: 0 0 3px 0.5px rgb(228, 228, 228); background-color: #fff; overflow: auto;}
-        #nav .nav_inner{padding-top: 40px;}
-        #nav .logo{padding: 0 0 30px 40px;}
-        #nav .logo a{color:#222; font-size:20px;}
-        #nav .gnb ul{display: none;}
-        #nav .gnb li{padding:10px 0 10px 40px; font-size:14px; font-family: 'GmarketSansMedium', sans-serif; color:#888; letter-spacing: 0.5px; word-spacing: -2px;}
-        #nav .gnb li.dep2{padding-left:50px;}
-        #nav .gnb li.dep3{padding-left:60px;}
-        #nav .gnb a:hover li{color:#222; background-color: #eee;}
-        #nav .gnb li.active{color:#222; background-color: #eee;}
-        #nav .gnb a li{position:relative;}
-        #nav .gnb a li .arrow{position:absolute; right:30px; top:12px;}
-        #nav .gnb a li .arrow svg{width:100%; transition:0.3s;}
-
-        #util{position:fixed; right:0; height: 80px;}
-        #util .util_inner{position:relative; top:30px; right:50px; width:195px; height: 55px;}
-        #util .util_inner li{width: 55px; height: 55px; border-radius: 25px; background-color: #fff; float:left; margin-right:15px; cursor: pointer; overflow: hidden; box-shadow: 1px 1px 3px 1px #ddd;}
-        #util .util_inner li:last-child{margin-right:0;}
-        #util .util_inner li svg{position:relative; top:15px; left:15px;}
-        #util .util_inner li img{width:100%;}
+		.left_box{width: 250px; float: left; height: 400px;}
+		.left_box .org_chart{width:100%; height: 100%; border: 1px solid #ccc; padding: 10px; overflow: auto;}
+        .left_box ul li{font-size: 16px;}
+        .left_box ul li span, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p{cursor: pointer; border: 1px solid rgba(0,0,0,0); display: inline-block;}
+        .left_box ul li span.on, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.on{font-weight: 700; border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
+        .left_box ul li span.hover, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .left_box ul li p.hover{border: 1px solid rgba(146, 224, 255, 0.8); box-sizing: border-box; background-color: rgba(146, 224, 255, 0.1);}
+        .left_box ul>li>ul{padding-top:3px;}
+        .left_box ul>li>ul>li{padding-left:15px;}
+        .plus{display: none;}
 
         #write_form {
         	position: relative;
             margin: 50px auto; /* 가운데 정렬을 위한 마진 설정 */
             width: 80%;
-            left: 150px;
+            left: 130px;
         }
 
         table {
@@ -109,97 +69,13 @@
     		padding: 3px;
         }
         
-
+        .fileBox{display: flex;height: 48px;}
+        #select_file{margin-top:10px;}
+		.del_all{height:25px;margin-top:10px;}
+		#organization{margin-top:5px;}
     </style>
 <body>
-    <!-- -------------------------------------------nav start------------------------------------------ -->
-    <div id="nav">
-        <div class="nav_inner">
-            <h1 class="logo"><a href="javascript:">Hoony Music</a></h1>
-            <ul class="gnb">
-                <a href="javascript:"><li class="dep1">게시판</li></a>
-                <a href="javascript:"><li class="dep1" data-index="1">쪽지
-                    <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                    </svg></div>
-                </li></a>
-                <ul data-index="1">
-                    <a href="javascript:"><li class="dep2">쪽지 쓰기</li></a>
-                    <a href="javascript:"><li class="dep2">받은 쪽지함</li></a>
-                    <a href="javascript:"><li class="dep2">보낸 쪽지함</li></a>
-                    <a href="javascript:"><li class="dep2">휴지통</li></a>
-                </ul>
-                <a href="javascript:"><li class="dep1" data-index="2">전자결재
-                    <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                    </svg></div>
-                </li></a>
-                <ul data-index="2">
-                    <a href="javascript:"><li class="dep2">결재 대기 문서</li></a>
-                    <a href="javascript:"><li class="dep2">결재 예정 문서</li></a>
-                    <a href="javascript:"><li class="dep2">참조 대기 문서</li></a>
-                    <a href="javascript:"><li class="dep2" data-index="3">결재 보관함
-                        <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                            </svg></div>
-                    </li></a>
-                    <ul data-index="3">
-                        <a href="javascript:"><li class="dep3">삭제 문서</li></a>
-                        <a href="javascript:"><li class="dep3">수정 문서</li></a>
-                    </ul>
-                </ul>
-                <a href="javascript:"><li class="dep1" data-index="4">일정관리
-                    <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                    </svg></div>
-                </li></a>
-                <ul data-index="4">
-                    <a href="schedule"><li class="dep2">전사 일정</li></a>
-                    <a href="javascript:"><li class="dep2" data-index="5">부서 일정
-                        <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                            </svg></div>
-                    </li></a>
-                    <ul data-index="5">
-                        <a href="javascript:"><li class="dep3">일정 쓰기</li></a>
-                        <a href="javascript:"><li class="dep3">일정 예약</li></a>
-                    </ul>
-                    <a href="javascript:"><li class="dep2" data-index="6">내 일정
-                        <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                            </svg></div>
-                    </li></a>
-                    <ul data-index="6">
-                        <a href="javascript:"><li class="dep3">일정 쓰기</li></a>
-                        <a href="javascript:"><li class="dep3">일정 예약</li></a>
-                    </ul>
-                </ul>
-                <a href="javascript:"><li class="dep1">공용자료실</li></a>
-                <a href="javascript:"><li class="dep1">시설예약</li></a>
-                <a href="javascript:"><li class="dep1">근태관리</li></a>
-                <a href="javascript:"><li class="dep1">차량관리</li></a>
-                <a href="javascript:"><li class="dep1">복지몰</li></a>
-            </ul>
-        </div>
-    </div>
-    <!-- -------------------------------------------nav end------------------------------------------ -->
-    <!-- -------------------------------------------util start------------------------------------------ -->
-    <div id="util">
-        <ul class="util_inner">
-            <li class="search">
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#eb568e" d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396l1.414-1.414l-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8s3.589 8 8 8m0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6s-6-2.691-6-6s2.691-6 6-6"/>
-                </svg>
-            </li>
-            <li class="Notification">
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#eb568e" d="M4 8a8 8 0 1 1 16 0v4.697l2 3V20h-5.611a4.502 4.502 0 0 1-8.777 0H2v-4.303l2-3zm5.708 12a2.5 2.5 0 0 0 4.584 0zM12 2a6 6 0 0 0-6 6v5.303l-2 3V18h16v-1.697l-2-3V8a6 6 0 0 0-6-6"/>
-                </svg>
-            </li>
-            <li class="profile"><img src="./img/kang.jpg" alt="231217_강태오"></li>
-        </ul>
-    </div>
-    <!-- -------------------------------------------util end------------------------------------------ -->
+  	<%@ include file="/views/nav.jsp" %>
     <!-- -------------------------------------------mailWrap start------------------------------------------------- -->
     <form action="writeMail.do" method="POST" id="write_form" enctype="multipart/form-data">
         <div class="titleWrap">
@@ -221,11 +97,12 @@
                                    		<input type="text" name="receiver" id="inputReceiver" value="${sender}" readonly>
                                 	</c:if>
                                 	<c:if test="${empty sender}">
-                                   		<input type="text" name="receiver" id="inputReceiver" placeholder="받는 사람을 입력하세요.">
+                                   		<input type="text" name="receiver" id="inputReceiver" value="" placeholder="받는 사람을 입력하세요.">
                                 	</c:if>
+                                	<input type="hidden" name="member_no" value="">
                                 </li>
                                 <li>
-                                    <input type="button" id="organization" value="주소록" onclick="organization()"/>
+                                    <input type="button" id="organization" value="주소록"/>
                                 </li>
                             </ul>
                         </div>
@@ -238,7 +115,7 @@
                 <tr>
                     <th>&nbsp;파일첨부 &nbsp;&nbsp;</th>
                     <td>
-                        <div>
+                        <div class="fileBox">
                             <a class="btn_file">
                                 <span>
                                     <input type="file" id="select_file" name="files" multiple>
@@ -265,9 +142,150 @@
         </div>
     </form>
     <!-- -------------------------------------------mailWrap end------------------------------------------------- -->
+    
+    
+<!-- 주소록 팝업 모달 -->
+<div class="modal fade" id="organizationModal" tabindex="-1" role="dialog" aria-labelledby="organizationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="margin-left: 300px; width: 300px; height: 500px;">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="organizationModalLabel">주소록</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+			<div class="modal-body">
+				<div>
+
+					<div class="left_box">
+						<h5>주소록</h5>
+						<div class="org_chart">
+							<ul>
+								<c:forEach items="${departments}" var="depart">
+									<c:if test="${depart.depart_p_no eq 0}">
+										<li><span> <svg class="plus" width="12"
+													height="12" viewBox="0 0 448 512"
+													xmlns="http://www.w3.org/2000/svg">
+													<path fill="currentColor"
+														d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
+												<svg class="minus" width="12" height="12"
+													viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+													<path fill="currentColor"
+														d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
+												${depart.depart_name}
+										</span>
+											<ul>
+												<c:forEach items="${teams}" var="team">
+													<c:if test="${depart.depart_no eq team.depart_p_no}">
+														<li><span> <svg class="plus" width="12"
+																	height="12" viewBox="0 0 448 512"
+																	xmlns="http://www.w3.org/2000/svg">
+																	<path fill="currentColor"
+																		d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
+																<svg class="minus" width="12" height="12"
+																	viewBox="0 0 448 512"
+																	xmlns="http://www.w3.org/2000/svg">
+																	<path fill="currentColor"
+																		d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6" /></svg>
+																${team.depart_name}
+														</span>
+															<ul>
+																<c:forEach items="${members}" var="member">
+																	<c:if test="${team.depart_no eq member.depart_no}">
+																		<li>
+																			<p data-member-no="${member.member_no}" data-name="${member.name}">
+																				<svg width="14" height="14" viewBox="0 0 1408 1472"
+																					xmlns="http://www.w3.org/2000/svg">
+						                                                        <path
+																						fill="#df7ca2"
+																						d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128" />
+						                                                        </svg>
+																				${member.name} ${member.member_position}
+																			</p>
+																		</li>
+																	</c:if>
+																</c:forEach>
+															</ul></li>
+													</c:if>
+												</c:forEach>
+											</ul></li>
+									</c:if>
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer" style="margin-top: 450px;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script>
+document.getElementById('organization').addEventListener('click', function() {
+	$('#organizationModal').modal('show');
+});
+
+$(document).on('click', 'p', function() {
+    // 클릭한 p 태그의 데이터 가져오기
+    var memberNo = $(this).data('member-no');   
+    var memberName = $(this).data('name'); 
+    console.log("Member No:", memberNo);
+    $('input[name="receiver"]').val(memberName);
+    $('input[name="member_no"]').val(memberNo);
+    $('#organizationModal').modal('hide');
+});
+
+
+
+$('.org_chart>ul>li>span').on('click',function(){
+    var $ul = $(this).siblings('ul');
+
+    $ul.slideToggle(400,function(){
+        if ($(this).is(":hidden")) {
+            $(this).siblings('span').find('.minus').css('display','none');
+            $(this).siblings('span').find('.plus').css('display','inline-block');
+        }else{
+            $(this).siblings('span').find('.minus').css('display','inline-block');
+            $(this).siblings('span').find('.plus').css('display','none');
+        }
+    });
+});
+$('.org_chart>ul>li>ul>li>span').on('click',function(){
+    var $ul = $(this).siblings('ul');
+
+    $ul.slideToggle(300,function(){
+        if ($(this).is(":hidden")) {
+            $(this).siblings('span').find('.minus').css('display','none');
+            $(this).siblings('span').find('.plus').css('display','inline-block');
+        }else{
+            $(this).siblings('span').find('.minus').css('display','inline-block');
+            $(this).siblings('span').find('.plus').css('display','none');
+        }
+    });
+});
+
+
+
 //--------------------------------------mail start-----------------------------------------------------
+    $(document).ready(function() {
+		// 세션에서 저장된 정보 읽어오기
+		var selectInfo = JSON.parse(sessionStorage.getItem("selectInfo"));
+		
+		console.log("선택된 메일 정보", selectInfo);
+	
+		// 가져온 이름을 inputReceiver의 value로 설정
+	    if (selectInfo && selectInfo.sender) {
+	        $("#inputReceiver").val(selectInfo.sender);
+	    }
+			
+		// 세션에서 사용이 끝난 정보는 삭제
+		sessionStorage.removeItem('selectInfo');
+	});
+	
     var config = {}
     //config.toolbar = "basic"; // 이 부분이 주석 되면 모든 기능이 다 나타난다.
     config.editorResizeMode = "none"; // 에디터 크기 조절 안됨
@@ -285,64 +303,6 @@
             $('form').submit();
         }
     }
-	
-    
 //--------------------------------------mail end-----------------------------------------------------
-// -------------------------------- toggle start ------------------------------------------
-document.addEventListener('DOMContentLoaded', function () {
-    var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
-    var dep2Items = document.querySelectorAll('.gnb .dep2[data-index]');
-
-    dep1Items.forEach(function (item) {
-      item.addEventListener('click', function () {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-
-    dep2Items.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        var dataIndex = item.getAttribute('data-index');
-        var targetUl = document.querySelector('.gnb ul ul[data-index="' + dataIndex + '"]');
-        var isActive = targetUl.classList.contains('active');
-
-        if (!isActive) {
-            $(targetUl).stop().slideDown(300);
-            $(targetUl).addClass('active');
-            $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-            $(this).addClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-            if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-                $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-                $(this).parents('a').siblings().find('li.active').removeClass('active');
-            }
-        } else {
-            $(targetUl).stop().slideUp(300);
-            $(targetUl).removeClass('active');
-            $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-            $(this).removeClass('active');
-        }
-      });
-    });
-  });
-//-------------------------------- toggle end ------------------------------------------
 </script>
 </html>
