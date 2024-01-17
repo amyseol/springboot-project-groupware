@@ -348,11 +348,11 @@
             </li>
             <li class="profile">
             	<a href="/mypage">
-            		<img src="./img/kang.jpg" alt="사용자_마이페이지">            	
+            		<img src="/resources/img/common/kang.jpg" alt="사용자_마이페이지">            	
             	</a>
             </li>
             <li class="logout">
-            		<img alt="로그아웃" src="./img/logout.png" onclick="fn_logout()">
+            		<img alt="로그아웃" src="/resources/img/common/logout1.png" height="55" onclick="fn_logout()">
             </li>
         </ul>
     </div>
