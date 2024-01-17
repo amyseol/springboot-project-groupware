@@ -6,19 +6,19 @@
 <meta charset="UTF-8">
 <title>Hoony Music</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" type="text/css"/>
 <link rel="stylesheet" href="/resources/richtexteditor/rte_theme_default.css"/>
 <link rel="stylesheet" href="/resources/css/main.css" type="text/css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/resources/richtexteditor/rte.js"></script>
 <script type="text/javascript" src='/resources/richtexteditor/plugins/all_plugins.js'></script>
 <style>
 	/* approval form */
         #approval_write{position:relative; margin-left: 15%;}
-        #approval_write .top_area{position:fixed; top: 0; left: 15%; width:100%; padding: 30px 50px 22px 50px; border-bottom: 1px solid #ccc; background-color: #fff; z-index: 9997;}
+        #approval_write .top_area{position:fixed; top: 0; left: 15%; width:100%; padding: 30px 50px 17px 50px; border-bottom: 1px solid #ccc; background-color: #fff; z-index: 9997;}
         #approval_write .top_area h2{font-size: 24px; font-weight:500; padding-bottom:20px;}
         #approval_write .top_area .approval_btn{position:relative;}
         #approval_write .top_area .approval_btn li{position:relative; float: left; margin-left: 15px;}
@@ -26,7 +26,7 @@
         #approval_write .top_area .approval_btn li:first-child{margin-left: 0; font-weight: 500;}
         #approval_write .top_area .approval_btn li svg{position:relative; top:3px;}
         #approval_write .top_area .approval_btn li a:hover{background-color: #efefef;}
-        #approval_write .bottom_area{position:relative; padding-top: 130px; height: 1300px;}
+        #approval_write .bottom_area{position:relative; padding-top: 125px; height: 1300px;}
         #approval_write .bottom_area .left_area{position:fixed; width: 300px; height: 100%; border-right: 1px solid #ccc; box-sizing: border-box; z-index: 9997; background-color: #fff;}
         #approval_write .bottom_area .left_area .btn_box{position:relative; height: 110px; margin-bottom: 20px;}
         #approval_write .bottom_area .left_area .btn_box .approver_btn{position:relative; left: 50px; top: 30px; width: 200px; height: 50px; border-radius: 5px; border: 1px solid #bbb; text-align: center; line-height:45px; font-size: 16px; box-sizing: border-box; cursor: pointer;}
@@ -88,9 +88,8 @@
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(4){width: 40%;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(6){width: 82%;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(7){width: 100%; height: 400px;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li>input, #approval_write .bottom_area .right_area .form_bottom>div>ul>li>select{width: 100%; height: 100%; box-sizing: border-box; border: 1px solid #ccc;;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li #testDatepicker{padding-left: 26px;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li svg{position:absolute; left: 9px; top: 9px;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li>input, #approval_write .bottom_area .right_area .form_bottom>div>ul>li>select{width: 100%; height: 100%; box-sizing: border-box; border: 1px solid #ccc;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li #date_picker:hover{border: 1px solid #222;}
         .file-list {height: 145px; border: 2px dashed #ddd; padding: 10px;}
         .file-list .filebox p {font-size: 13px; margin-top: 8px; display: inline-block;}
         .file-list .filebox .delete i{color: #aaa;margin-left: 5px;}
@@ -168,107 +167,15 @@
 </style>
 </head>
 <body>
-	<!-- -------------------------------------------nav start------------------------------------------ -->
-    <div id="nav">
-        <div class="nav_inner">
-            <h1 class="logo"><a href="javascript:">Hoony Music</a></h1>
-            <ul class="gnb">
-                <a href="javascript:"><li class="dep1">게시판</li></a>
-                <a href="javascript:"><li class="dep1" data-index="1">쪽지
-                    <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                    </svg></div>
-                </li></a>
-                <ul data-index="1">
-                    <a href="javascript:"><li class="dep2">쪽지 쓰기</li></a>
-                    <a href="javascript:"><li class="dep2">받은 쪽지함</li></a>
-                    <a href="javascript:"><li class="dep2">보낸 쪽지함</li></a>
-                    <a href="javascript:"><li class="dep2">휴지통</li></a>
-                </ul>
-                <a href="javascript:"><li class="dep1" data-index="2">전자결재
-                    <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                    </svg></div>
-                </li></a>
-                <ul data-index="2">
-                    <a href="javascript:" onclick="approval_select_go()"><li class="dep2">새 결재 작성</li></a>
-                    <a href="javascript:"><li class="dep2">결재 대기 문서</li></a>
-                    <a href="javascript:"><li class="dep2">결재 예정 문서</li></a>
-                    <a href="javascript:"><li class="dep2">참조 대기 문서</li></a>
-                    <a href="javascript:"><li class="dep2" data-index="3">결재 보관함
-                        <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                            </svg></div>
-                    </li></a>
-                    <ul data-index="3">
-                        <a href="javascript:"><li class="dep3">삭제 문서</li></a>
-                        <a href="javascript:"><li class="dep3">수정 문서</li></a>
-                    </ul>
-                </ul>
-                <a href="javascript:"><li class="dep1" data-index="4">일정관리
-                    <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                    </svg></div>
-                </li></a>
-                <ul data-index="4">
-                    <a href="javascript:"><li class="dep2">전사 일정</li></a>
-                    <a href="javascript:"><li class="dep2" data-index="5">부서 일정
-                        <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                            </svg></div>
-                    </li></a>
-                    <ul data-index="5">
-                        <a href="javascript:"><li class="dep3">일정 쓰기</li></a>
-                        <a href="javascript:"><li class="dep3">일정 예약</li></a>
-                    </ul>
-                    <a href="javascript:"><li class="dep2" data-index="6">내 일정
-                        <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#888" d="M338.752 104.704a64 64 0 0 0 0 90.496l316.8 316.8l-316.8 316.8a64 64 0 0 0 90.496 90.496l362.048-362.048a64 64 0 0 0 0-90.496L429.248 104.704a64 64 0 0 0-90.496 0"/>
-                            </svg></div>
-                    </li></a>
-                    <ul data-index="6">
-                        <a href="javascript:"><li class="dep3">일정 쓰기</li></a>
-                        <a href="javascript:"><li class="dep3">일정 예약</li></a>
-                    </ul>
-                </ul>
-                <a href="javascript:"><li class="dep1">공용자료실</li></a>
-                <a href="javascript:"><li class="dep1">시설예약</li></a>
-                <a href="javascript:"><li class="dep1">근태관리</li></a>
-                <a href="javascript:"><li class="dep1">차량관리</li></a>
-                <a href="javascript:"><li class="dep1">복지몰</li></a>
-            </ul>
-        </div>
-    </div>
-    <!-- -------------------------------------------nav end------------------------------------------ -->
-
-
-    <!-- -------------------------------------------util start------------------------------------------ -->
-    <div id="util">
-        <ul class="util_inner">
-            <li class="search">
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#eb568e" d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396l1.414-1.414l-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8s3.589 8 8 8m0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6s-6-2.691-6-6s2.691-6 6-6"/>
-                </svg>
-            </li>
-            <li class="Notification">
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#eb568e" d="M4 8a8 8 0 1 1 16 0v4.697l2 3V20h-5.611a4.502 4.502 0 0 1-8.777 0H2v-4.303l2-3zm5.708 12a2.5 2.5 0 0 0 4.584 0zM12 2a6 6 0 0 0-6 6v5.303l-2 3V18h16v-1.697l-2-3V8a6 6 0 0 0-6-6"/>
-                </svg>
-            </li>
-            <li class="profile"><img src="/resources/img/common/kang.jpg" alt="231217_강태오"></li>
-        </ul>
-    </div>
-    <!-- -------------------------------------------util end------------------------------------------ -->
-
-
+	<%@ include file="/views/nav.jsp" %>
     <!-- -------------------------------------------form start------------------------------------------ -->
     <section id="approval_write">
         <div class="top_area">
             <h2 class="title">업무기안</h2>
             <ul class="approval_btn">
-                <li><a href="javascript:" id="approval_do"><svg width="15" height="15" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 9l-3 .54L5 6.5L10.73.79a1 1 0 0 1 1.42 0l1.06 1.06a1 1 0 0 1 0 1.42Z"/><path d="M12 9.5v3a1 1 0 0 1-1 1H1.5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3"/></g></svg> 결재요청</a></li>
+                <li><a href="javascript:" id="approval_do" onclick="approval_do()"><svg width="15" height="15" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 9l-3 .54L5 6.5L10.73.79a1 1 0 0 1 1.42 0l1.06 1.06a1 1 0 0 1 0 1.42Z"/><path d="M12 9.5v3a1 1 0 0 1-1 1H1.5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3"/></g></svg> 결재요청</a></li>
                 <li><a href="javascript:" onclick="approval_select_go()"><svg width="16" height="16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M24 24v2h2.46A5.94 5.94 0 0 1 22 28a6.007 6.007 0 0 1-6-6h-2a7.984 7.984 0 0 0 14 5.265V30h2v-6zm-2-10a8.04 8.04 0 0 0-6 2.735V14h-2v6h6v-2h-2.46A5.94 5.94 0 0 1 22 16a6.007 6.007 0 0 1 6 6h2a8.01 8.01 0 0 0-8-8"/><path fill="currentColor" d="M12 28H6v-4h2v-2H6v-5h2v-2H6v-5h2V8H6V4h18v8h2V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v4H2v2h2v5H2v2h2v5H2v2h2v4a2 2 0 0 0 2 2h6Z"/></svg> 양식변경</a></li>
-                <li><a href="javascript:"><svg width="18" height="18" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M16 3C8.832 3 3 8.832 3 16s5.832 13 13 13s13-5.832 13-13S23.168 3 16 3m0 2c6.087 0 11 4.913 11 11s-4.913 11-11 11S5 22.087 5 16S9.913 5 16 5m-3.78 5.78l-1.44 1.44L14.564 16l-3.782 3.78l1.44 1.44L16 17.437l3.78 3.78l1.44-1.437L17.437 16l3.78-3.78l-1.437-1.44L16 14.564l-3.78-3.782z"/></svg> 취소</a></li>
+                <li><a href="javascript:" onclick="cancel_go()"><svg width="18" height="18" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M16 3C8.832 3 3 8.832 3 16s5.832 13 13 13s13-5.832 13-13S23.168 3 16 3m0 2c6.087 0 11 4.913 11 11s-4.913 11-11 11S5 22.087 5 16S9.913 5 16 5m-3.78 5.78l-1.44 1.44L14.564 16l-3.782 3.78l1.44 1.44L16 17.437l3.78 3.78l1.44-1.437L17.437 16l3.78-3.78l-1.437-1.44L16 14.564l-3.78-3.782z"/></svg> 취소</a></li>
             </ul>
         </div>
         <div class="bottom_area">
@@ -351,14 +258,7 @@
                         <div class="bottom_inner">
                             <ul>
                                 <li class="head bor_top bor_left">시행일자</li>
-                                <li class="bor_top"><input type="text" name="date" id="testDatepicker"><svg width="17" height="17" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                                    <g fill="none">
-                                        <path fill="#B4ACBC" d="m2 9l13.267-2.843a3.5 3.5 0 0 1 1.466 0L30 9v15.8a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 24.8z"/>
-                                        <path fill="#F3EEF8" d="m3 8l12.213-2.818a3.5 3.5 0 0 1 1.574 0L29 8v16.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5z"/>
-                                        <path fill="#998EA4" d="M8 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm0 5.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.6c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2H8a.2.2 0 0 1-.2-.2zM14.6 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.7c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 5.2a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zM21 12.2c0-.11.09-.2.2-.2H24c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 10.7a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
-                                        <path fill="#0084CE" d="M7.2 2A5.2 5.2 0 0 0 2 7.2V9h28V7.2A5.2 5.2 0 0 0 24.8 2zm14 15.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
-                                    </g>
-                                </svg></li>
+                                <li class="bor_top"><input type="date" name="date" id="date_picker"></li>
                                 <li class="head bor_top">협조팀명</li>
                                 <li class="bor_top">
                                     <select name="team_name">
@@ -575,26 +475,19 @@
         </div>
     </div>
     <!-- -------------------------------------------select_approver end------------------------------------------ -->
-
-
-    <!-- -------------------------------------------music start------------------------------------------ -->
-    <div id="bottom_music">
-        <div class="music_inner">
-
-        </div>
-    </div>
-    <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
 
-$('#approval_do').on('click',function(event){
+function approval_do(){
 	event.stopPropagation();
 	var form = document.getElementById("form_info");
 	var content = editor.getHTMLCode();
+	var $date = $('input[name = "date"]');
+	var $title = $('input[name = "title"]');
+	var $content = $('input[name = "content"]');
+	var $approver = $('input[name = "approver1"]');
+	$content.val(content);
 	
-	$('input[name="content"]').val(content);
-	console.log($('input[name="content"]').val(content));
-	console.log((content.length/1024/1024)+'MB');
 	if(content.length > (2*1024*1024)){
 		// POST 방식은 순수 컨텐츠의 크기가 2MB 이상은 수용하지 못한다.
 		// data:image는 별도의 파트가 아닌, 문자열과 함께하는 컨텐츠이기 때문에 2MB가 넘어가면 안된다.
@@ -602,14 +495,29 @@ $('#approval_do').on('click',function(event){
 		// maxPostSize = -1 (무제한) maxPostSize = 허용바이트
 		// <Connector maxPostSize="-1" connectionTimeout="20000" maxParameterCount="1000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
 		alert('컨텐츠의 크기가 너무 큽니다. 이미지의 갯수나 크기를 줄여 주세요.');
+	}else if($date.val() == ''){
+		alert("시행일자를 입력해 주세요.");
+		$date.focus();
+	}else if($title.val() == ''){
+		alert("제목을 입력해 주세요.");
+		$title.focus();
+	}else if($content.val() == ''){
+		alert("내용을 입력해 주세요.");
+		$content.focus();
+	}else if($approver.length == 0){
+		alert("결재자를 선택해 주세요.");
+		approver_select_go();
 	}else{
 		form.submit();
 	}
-});    
+}
 
-// nav approval select fadeIn
-function approval_select_go(){
-    $('#approval_light_box').fadeIn(500);
+function cancel_go(){
+	var userResponse = confirm("작성한 내용은 저장되지 않습니다.\n취소하시겠습니까?");
+	
+	if (userResponse) {
+		window.location.href = '/draftBox';
+	}
 }
 
 // ------------------------------------ approver_select_box start ------------------------------------
@@ -627,6 +535,7 @@ function approver_select_go(){
 
 $('.cancel_box').on('click',function(){
     $('#approver_light_box').fadeOut(500);
+    $('#approval_light_box').fadeOut(500);
 });
 
 function orgAddClass(){
@@ -883,155 +792,8 @@ function drawObserver(apprList){
 
 // ------------------------------------ approval_select_box start ------------------------------------
 var dataIndexValue = 0;
-var queryNo = window.location.search;
-var params = new URLSearchParams(queryNo);
-var rcvFormNo = params.get("form_no");
 
-$('.cancel_box').on('click',function(){
-    $('#approval_light_box').fadeOut(500);
-});
-
-$('.cancel_btn').on('click',function(){
-    $('#approval_light_box').fadeOut(500);
-    $('#approver_light_box').fadeOut(500);
-});
-
-$('.select_form>.left_box>ul>li>span').on('click',function(){
-    $(this).siblings('ul').slideToggle(300);
-});
-
-$('span').on('click', function() {
-    $(this).addClass('on');
-    $('span').not(this).removeClass('on');
-    $('p').not(this).removeClass('on');
-    dataIndexValue = $(this).data('index');
-});
-
-$('.select_form_box .left_box>ul>li>ul>li>span').each(function(index){
-    $(this).attr('data-index',index+1);
-});
-
-$('.select_form_box .left_box>ul>li>ul>li>span').on('click',function(){
-    var selectedFormName = $(this).text();
-    $('.selected_form_name').text(selectedFormName);
-});
-
-$('#form_go').on('click',function(){
-    if(dataIndexValue == 0){
-        alert("양식을 선택해 주세요.");
-    } else if(dataIndexValue == 1){
-        window.location.href = '/draftDoc';
-    } else if(dataIndexValue == 2){
-        window.location.href = 'javascript:';
-    } else if(dataIndexValue == 3){
-        window.location.href = 'form_two.html';
-    } else if(dataIndexValue == 4){
-        window.location.href = 'javascript:';
-    } else if(dataIndexValue == 5){
-        window.location.href = 'javascript:';
-    } else if(dataIndexValue == 6){
-        window.location.href = 'javascript:';
-    } else if(dataIndexValue == 7){
-        window.location.href = 'javascript:';
-    } else if(dataIndexValue == 8){
-        window.location.href = 'javascript:';
-    } else if(dataIndexValue == 9){
-        window.location.href = 'javascript:';
-    } else if(dataIndexValue == 10){
-        window.location.href = 'javascript:';
-    } else if(dataIndexValue == 11){
-        window.location.href = 'javascript:';
-    }
-});
-
-// 현재 날짜를 가져오기 위한 함수
-function getCurrentDate() {
-var currentDate = new Date();
-
-var year = currentDate.getFullYear();
-var month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 1을 더하고 두 자리로 맞춰줍니다.
-var day = ('0' + currentDate.getDate()).slice(-2);
-
-var formattedDate = year + '-' + month + '-' + day;
-return formattedDate;
-}
-
-// 가져온 날짜를 특정 태그에 넣기
-$('.cur_date').text(getCurrentDate());
-$('.doc_date').val(getCurrentDate());
-$('.doc_date').text(getCurrentDate());
-
-// ------------------------------------ approval_select_box end ------------------------------------
-
-
-
-
-// nav trigger
-$(document).ready(function() {
-    $('.dep1').eq(2).trigger('click');
-    $('.dep2').eq(8).trigger('click');
-    $('.dep3').eq(1).addClass('active');
-});
-// ----------------------------------- nav toggle start -------------------------------------------
-document.addEventListener('DOMContentLoaded', function () {
-var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
-var dep2Items = document.querySelectorAll('.gnb .dep2[data-index]');
-
-dep1Items.forEach(function (item) {
-  item.addEventListener('click', function () {
-    var dataIndex = item.getAttribute('data-index');
-    var targetUl = document.querySelector('.gnb ul[data-index="' + dataIndex + '"]');
-    var isActive = targetUl.classList.contains('active');
-
-    // 현재 상태에 따라 토글
-    if (!isActive) {
-        $(targetUl).stop().slideDown(300);
-        $(targetUl).addClass('active');
-        $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-        $(this).addClass('active');
-        $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-        if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-            $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-            $(this).parents('a').siblings().find('li.active').removeClass('active');
-        }
-    } else {
-        $(targetUl).stop().slideUp(300);
-        $(targetUl).removeClass('active');
-        $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-        $(this).removeClass('active');
-    }
-  });
-});
-
-dep2Items.forEach(function (item) {
-  item.addEventListener('click', function (e) {
-    var dataIndex = item.getAttribute('data-index');
-    var targetUl = document.querySelector('.gnb ul ul[data-index="' + dataIndex + '"]');
-    var isActive = targetUl.classList.contains('active');
-
-    // 현재 상태에 따라 토글
-    if (!isActive) {
-        $(targetUl).stop().slideDown(300);
-        $(targetUl).addClass('active');
-        $(targetUl).siblings('ul').removeClass('active').slideUp(300);
-        $(this).addClass('active');
-        $(this).find('.arrow>svg').css('transform','rotate(90deg)');
-        if($(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(90deg)')){
-            $(this).parents('a').siblings().find('li .arrow svg').css('transform','rotate(0deg)');
-            $(this).parents('a').siblings().find('li.active').removeClass('active');
-        }
-    } else {
-        $(targetUl).stop().slideUp(300);
-        $(targetUl).removeClass('active');
-        $(this).find('.arrow>svg').css('transform','rotate(0deg)');
-        $(this).removeClass('active');
-    }
-  });
-});
-});
-// ----------------------------------- nav toggle end ---------------------------------------------
-
-// ----------------------------------- datepicker start -------------------------------------------
+/*----------------------------------- datepicker start -------------------------------------------
 $( "#testDatepicker" ).datepicker({
     dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
     dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
@@ -1040,26 +802,26 @@ $( "#testDatepicker" ).datepicker({
     monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
     dateFormat: 'yy/mm/dd'
 });
-// ----------------------------------- datepicker end -------------------------------------------
+----------------------------------- datepicker end -------------------------------------------*/
 
 // ----------------------------------- sortation tabs start -------------------------------------------
 function tabs(index){
-            $('.list_btn>li[data-index='+index+']').addClass('on');
-            $('.list_btn>li[data-index!='+index+']').removeClass('on');
-            $('.sor_box[data-index='+index+']').stop().fadeIn(1000);
-            $('.sor_box[data-index!='+index+']').css('display','none');
-        }
+    $('.list_btn>li[data-index='+index+']').addClass('on');
+    $('.list_btn>li[data-index!='+index+']').removeClass('on');
+    $('.sor_box[data-index='+index+']').stop().fadeIn(1000);
+    $('.sor_box[data-index!='+index+']').css('display','none');
+}
 
-        $('.sor_box').each(function(index){
-            $(this).attr('data-index',index)
-        })
+$('.sor_box').each(function(index){
+    $(this).attr('data-index',index)
+});
 
-        $('.list_btn>li').each(function(index){
-            $(this).attr('data-index',index);
-            $(this).click(function(){
-                tabs(index);
-            })
-        })
+$('.list_btn>li').each(function(index){
+     $(this).attr('data-index',index);
+     $(this).click(function(){
+        tabs(index);
+     });
+});
 // ----------------------------------- sortation tabs end -------------------------------------------
 
 // ----------------------------------- text editor start ------------------------------------------
@@ -1163,5 +925,84 @@ $('#file_btn').on('click',function(event){
 	event.stopPropagation();
 	document.getElementById("input_file").click();  
 });
+
+$('.cancel_box').on('click',function(){
+    $('#approval_light_box').fadeOut(500);
+});
+
+$('.cancel_btn').on('click',function(){
+    $('#approval_light_box').fadeOut(500);
+    $('#approver_light_box').fadeOut(500);
+});
+
+$('.select_form>.left_box>ul>li>span').on('click',function(){
+    $(this).siblings('ul').slideToggle(300);
+});
+
+$('span').on('click', function() {
+    $(this).addClass('on');
+    $('span').not(this).removeClass('on');
+    $('p').not(this).removeClass('on');
+    dataIndexValue = $(this).data('index');
+});
+
+$('.select_form_box .left_box>ul>li>ul>li>span').each(function(index){
+    $(this).attr('data-index',index+1);
+});
+
+$('.select_form_box .left_box>ul>li>ul>li>span').on('click',function(){
+    var selectedFormName = $(this).text();
+    $('.selected_form_name').text(selectedFormName);
+});
+
+$('#form_go').on('click',function(){
+    if(dataIndexValue == 0){
+        alert("양식을 선택해 주세요.");
+    } else if(dataIndexValue == 1){
+        window.location.href = '/draftDoc';
+    } else if(dataIndexValue == 2){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 3){
+        window.location.href = 'form_two.html';
+    } else if(dataIndexValue == 4){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 5){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 6){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 7){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 8){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 9){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 10){
+        window.location.href = 'javascript:';
+    } else if(dataIndexValue == 11){
+        window.location.href = 'javascript:';
+    }
+});
+
+// 현재 날짜를 가져오기 위한 함수
+function getCurrentDate() {
+var currentDate = new Date();
+
+var year = currentDate.getFullYear();
+var month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 1을 더하고 두 자리로 맞춰줍니다.
+var day = ('0' + currentDate.getDate()).slice(-2);
+
+var formattedDate = year + '-' + month + '-' + day;
+return formattedDate;
+}
+
+// 가져온 날짜를 특정 태그에 넣기
+$('.cur_date').text(getCurrentDate());
+$('.doc_date').val(getCurrentDate());
+$('.doc_date').text(getCurrentDate());
+
+// ------------------------------------ approval_select_box end ------------------------------------
+
+
+
 </script>
 </html>

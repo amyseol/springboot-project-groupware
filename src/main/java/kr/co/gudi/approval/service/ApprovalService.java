@@ -172,10 +172,21 @@ public class ApprovalService {
 	}
 
 	// 기안함 리스트 출력
-	public HashMap<String, Object> draftListCall(int member_no) {
+	public HashMap<String, Object> draftListCall(int member_no, String page, String viewPageNum, String searchType, String searchInfo) {
+		int vpn = Integer.parseInt(viewPageNum);
+		int p = Integer.parseInt(page);
+		int offset = (p-1)*vpn;
+		int pages = apprDao.draftTotalPage(member_no, vpn, searchType, searchInfo);
 		
-		dto = apprDao.draftList(member_no);
+		dto = apprDao.draftList(member_no, vpn, offset, searchType, searchInfo);
 		
+		// 만약 현재 보고 있는 페이지가, 총 페이지 수 보다 크면 현재페이지를 총 페이지수로 변경한다.
+		if(p>pages) {
+			p = pages;
+		}
+		
+		map.put("currPage", p);
+		map.put("pages", pages); // 만들 수 있는 총 페이지 수
 		map.put("list", dto);
 		return map;
 	}

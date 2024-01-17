@@ -32,11 +32,13 @@ public interface ApprovalDAO {
 
 	void observer(String obs, int approval_no);
 
-	ArrayList<ApprovalDTO> draftList(int member_no);
+	ArrayList<ApprovalDTO> draftList(int member_no, int vpn, int offset, String searchType, String searchInfo);
 
 	ArrayList<ApprovalDTO> apprList(int member_no, int vpn, int offset, String searchType, String searchInfo);
 
 	ArrayList<ApprovalDTO> refList(int member_no, int vpn, int offset, String searchType, String searchInfo);
+	
+	int draftTotalPage(int member_no, int vpn, String searchType, String searchInfo);
 	
 	int apprTotalPage(int member_no, int vpn, String searchType, String searchInfo);
 	
@@ -73,6 +75,8 @@ public interface ApprovalDAO {
 	void ReturnFinish(int approval_no);
 
 	void withdrawl(int approval_no);
+
+	
 
 	
 

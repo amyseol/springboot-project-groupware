@@ -67,11 +67,18 @@
 	</insert>
 	
 	<select id="draftList" resultType="approval">
-		SELECT a.*, m.name
+		SELECT a.approval_no, a.approval_start, a.approval_title, a.approval_end, a.approval_state, a.document_state, a.form_no, m.name
 			FROM approval a
 			JOIN member m ON a.currmember_no = m.member_no
 				WHERE a.document_state != 3
-				AND a.draftmember_no = #{param1}
+					AND a.draftmember_no = #{member_no}
+					<if test="searchType == 1 and searchInfo != null">
+					    AND m.name LIKE CONCAT('%', #{searchInfo}, '%')
+					</if>
+					<if test="searchType == 2 and searchInfo != null">
+						AND a.approval_title LIKE CONCAT('%',#{searchInfo},'%')
+					</if>
+						ORDER BY a.approval_no DESC LIMIT #{vpn} OFFSET #{offset}
 	</select>
 	
 	<select id="apprList" resultType="approval">
@@ -102,6 +109,19 @@
 						AND a.approval_title LIKE CONCAT('%',#{searchInfo},'%')
 					</if>
 						ORDER BY ap.approver_no DESC LIMIT #{vpn} OFFSET #{offset}
+	</select>
+	
+	<select id="draftTotalPage" resultType="int">
+		SELECT CEIL(COUNT(a.approval_no)/#{vpn}) AS pages FROM approval a
+			JOIN member m ON a.currmember_no = m.member_no
+				WHERE a.document_state != 3
+					AND a.draftmember_no = #{member_no}
+					<if test="searchType == 1 and searchInfo != null">
+						AND m.name LIKE CONCAT('%',#{searchInfo},'%')
+					</if>
+					<if test="searchType == 2 and searchInfo != null">
+						AND a.approval_title LIKE CONCAT('%',#{searchInfo},'%')
+					</if>
 	</select>
 	
 	<select id="apprTotalPage" resultType="int">

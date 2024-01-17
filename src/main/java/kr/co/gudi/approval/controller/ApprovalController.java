@@ -131,13 +131,16 @@ public class ApprovalController {
 	// 기안함 리스트 출력
 	@GetMapping("/draftListCall.ajax")
 	@ResponseBody
-	public HashMap<String, Object> draftListCall(HttpSession session, String page) {
+	public HashMap<String, Object> draftListCall(HttpSession session, String page, String viewPageNum, String searchType, String searchInfo) {
 		log.info("----------------- start draftListCall --------------------");
 		member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
 		log.info("memberNo : "+member_no);
 		log.info("page : "+page);
+		log.info("viewPageNum : "+viewPageNum);
+		log.info("searchType : "+searchType);
+		log.info("searchInfo : "+searchInfo);
 		log.info("----------------- end draftListCall --------------------");
-		return apprService.draftListCall(member_no);
+		return apprService.draftListCall(member_no, page, viewPageNum, searchType, searchInfo);
 	}
 	
 	// 결재함 리스트 출력
@@ -146,7 +149,6 @@ public class ApprovalController {
 	public HashMap<String, Object> apprListCall(HttpSession session, String page, String viewPageNum, String searchType, String searchInfo) {
 		log.info("----------------- start apprListCall --------------------");
 		member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
-		log.info("memberNo : "+member_no);
 		log.info("memberNo : "+member_no);
 		log.info("page : "+page);
 		log.info("viewPageNum : "+viewPageNum);
