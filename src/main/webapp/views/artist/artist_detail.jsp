@@ -135,7 +135,7 @@
 			<tr>
 				<td>
 				
-		<h3 class="sub_title" style="margin-left: 500px;">음원실적</h3>
+		<!-- <h3 class="sub_title" style="margin-left: 500px;">음원실적</h3>
          <div class="list_form" style="margin-left: 500px;">
             <ul>
                 <li class="list_title2" id="list2">
@@ -154,14 +154,14 @@
              
 
 		<div id="paging" class="pagingBox">
-			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
+				플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함
 			<div class="container">
 				<nav aria-label="Page navigation" style="text-align: justify; margin-left: 180px;">
 					<ul class="pagination" id="getpagination2"></ul>
 				</nav>
 			</div>
 		</div>
-        </div>
+        </div> -->
 				
 				</td>
 			</tr>
@@ -195,7 +195,7 @@ var num = ${num};
 
 
 call1(showPage);
-call2(showPage);
+//call2(showPage);
 
 function call1(showPage){
    $.ajax({
@@ -264,7 +264,7 @@ function call1(showPage){
    
    //-------------------------------ajax.list2------------------------------------------
 
-   function call2(showPage){
+  /*  function call2(showPage){
    $.ajax({
         type : 'POST',
         url : '/artistdetail_2',
@@ -327,6 +327,6 @@ function call1(showPage){
 			}
 			
 		});
-   }
+   } */
 
 </script>
