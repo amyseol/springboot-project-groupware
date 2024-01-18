@@ -292,6 +292,11 @@ $('.org_chart>ul>li>ul>li>span').on('click',function(){
 
 
 //--------------------------------------mail start-----------------------------------------------------
+	var $inputReceiver = $("#inputReceiver");
+	var $inputSubject = $("#inputSubject");
+	var $rich_deditor = $("#rich_deditor");
+
+
     $(document).ready(function() {
 		// 세션에서 저장된 정보 읽어오기
 		var selectInfo = JSON.parse(sessionStorage.getItem("selectInfo"));
@@ -383,9 +388,20 @@ $('.org_chart>ul>li>ul>li>span').on('click',function(){
 
         // POST 방식, URL, 동기 여부 설정
         xhr.open('POST', document.getElementById('write_form').action, true);
-
-        // 폼 데이터 전송
-        xhr.send(formData);
+		
+        if ($inputReceiver.val() == "") {
+			alert("받는 사람을 채워 주세요!");
+			$inputReceiver.focus();
+		} else if($inputSubject.val() == ""){
+			alert("제목을 입력 해주세요!");
+			$inputSubject.focus();
+		} else if($rich_deditor.val() == ""){
+			alert("내용을 입력 해주세요!");
+			$rich_deditor.focus();
+		} else{
+	        // 폼 데이터 전송
+	        xhr.send(formData);
+		}
 
         // 서버 응답 처리
         xhr.onload = function() {

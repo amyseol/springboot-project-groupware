@@ -170,8 +170,10 @@
         #approver_light_box .select_approver_box .approver_box_inner .btn_area .btn_inner button:first-child{background-color: #eb568e; border: none; color: #fff;}
         #approver_light_box .select_approver_box .approver_box_inner .btn_area .btn_inner button:last-child{border: 1px solid #ccc;}
         
-        button {
-			border-radius: 3px; background-color:025464; color:white; padding: 5 10; border:none;
+		
+		#sclist{
+		
+		 border: solid 2px black;
 		}
 </style>
 </head>
@@ -209,72 +211,10 @@
                         <li>참조자</li>
                     </ul>
                     <ul class="list_box approver">
-                        <li class="on">
-                            <div class="info_box">
-                                <div class="left_box">
-                                    <div class="img_box">
-                                        <a href="javascript:"><img src="/resources/img/common/kang.jpg" alt="231217_강태오"></a>
-                                    </div>
-                                </div>
-                                <div class="right_box">
-                                    <ul class="approver_info">
-                                        <li class="member_name"><a href="javascript:">강태오 사원</a></li>
-                                        <li class="depart_name">지원팀</li>
-                                        <li class="sortation">기안</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="info_box">
-                                <div class="left_box">
-                                    <div class="img_box">
-                                        <a href="javascript:"><img src="/resources/img/common/kang.jpg" alt="231217_강태오"></a>
-                                    </div>
-                                </div>
-                                <div class="right_box">
-                                    <ul class="approver_info">
-                                        <li class="member_name"><a href="javascript:">강태오 사원</a></li>
-                                        <li class="depart_name">지원팀</li>
-                                        <li class="sortation">결재</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
+                        
                     </ul>
                     <ul class="list_box observer">
-                        <li>
-                            <div class="info_box">
-                                <div class="left_box">
-                                    <div class="img_box">
-                                        <a href="javascript:"><img src="/resources/img/common/kang.jpg" alt="231217_강태오"></a>
-                                    </div>
-                                </div>
-                                <div class="right_box">
-                                    <ul class="approver_info">
-                                        <li class="member_name"><a href="javascript:">강태오 사원</a></li>
-                                        <li class="depart_name">지원팀</li>
-                                        <li class="sortation">기안</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="info_box">
-                                <div class="left_box">
-                                    <div class="img_box">
-                                        <a href="javascript:"><img src="/resources/img/common/kang.jpg" alt="231217_강태오"></a>
-                                    </div>
-                                </div>
-                                <div class="right_box">
-                                    <ul class="approver_info">
-                                        <li class="member_name"><a href="javascript:">강태오 사원</a></li>
-                                        <li class="depart_name">지원팀</li>
-                                        <li class="sortation">결재</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -284,9 +224,7 @@
             
             <div class="right_area">
            	저작권 검색<input type="text" id="crr"/><button id="umother">검색</button>
-           	<ul id="sclist">
            	
-           	</ul>
                 <form id="form_info" class="doc_form" action="/copyrightregister" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="form_no" value="8" >
                 <input type="hidden" name="observer" class="observer1">
@@ -295,14 +233,9 @@
                         <h4 class="form_name">저작권 등록</h4>
                         <div class="top_left">
                             <ul>
-                                <li class="head">기안자</li>
-                                <li><input type="text" value="강태오" readonly/></li>
-                                <li class="head">소속</li>
-                                <li><input type="text" value="지원팀" readonly/></li>
-                                <li class="head">기안일</li>
-                                <li><input type="text" value="2023-12-27(수)" readonly/></li>
-                                <li class="head">문서번호</li>
-                                <li><input type="text" value="" readonly/></li>
+                                <li id="sclist">
+           							
+           						</li>
                             </ul>
                         </div>
                         <div class="top_right">
@@ -313,8 +246,8 @@
                                     </div>
                                     <div class="right_wrap">
                                         <div class="sign_rank">사원</div>
-                                        <div class="sign_name">강태오</div>
-                                        <div class="sign_date">2023/12/27</div>
+                                        <div class="sign_name"></div>
+                                        <div class="sign_date"></div>
                                     </div>
                                 </div>
                                 <div class="approver sign_wrap">
@@ -323,19 +256,19 @@
                                     </div>
                                     <div class="right_wrap">
                                         <div class="sign_rank">사원</div>
-                                        <div class="sign_name">강태오</div>
+                                        <div class="sign_name"></div>
                                         <div class="sign_date"></div>
                                         <input type="hidden" name="first_approver">
                                     </div>
                                     <div class="right_wrap">
                                         <div class="sign_rank">사원</div>
-                                        <div class="sign_name">강태오</div>
+                                        <div class="sign_name"></div>
                                         <div class="sign_date"></div>
                                         <input type="hidden" name="second_approver">
                                     </div>
                                     <div class="right_wrap">
                                         <div class="sign_rank">사원</div>
-                                        <div class="sign_name">강태오</div>
+                                        <div class="sign_name"></div>
                                         <div class="sign_date"></div>
                                         <input type="hidden" name="third_approver">
                                     </div>
@@ -386,20 +319,20 @@
                                 </li>
                                 <li class="head ">아티스트명</li>
                                 <li >
-                                <input class="" type="text" name="name"/>
+                                <input class="" type="text" name="name" id="name"/>
                                 </li>
                                 <li class="head bor_left">담당자</li>
                                 <li >
-                                <input class="" type="text" name="member"/>
+                                <input class="" type="text" name="member" id="member"/>
                                 </li>
                                 <li class="head ">비고</li>
                                 <li >
                                 
                                 </li>
                                 <li class="head bor_left" >제목</li>
-                                <li><input type="text" name="title"/></li>
+                                <li><input type="text" name="title" id="title"/></li>
                                 <li id="rich_editor" class="bor_left"></li>
-                                <input type="hidden" name="content" value=""/>
+                                <input type="hidden" name="content" value="" id="content"/>
                             </ul>
                         </div>
                     </div>
@@ -408,7 +341,7 @@
                     <input id="input_file" type="file" name="files" onchange="addFile(this);" multiple="multiple" />
                     <div class="file-list"></div>
                 </div>
-                <button>결재</button>
+                <button style="border-radius: 3px; background-color:025464; color:white; padding: 5 10; border:none;">결재</button>
                 </form>
             </div>
         </div>
@@ -1112,14 +1045,6 @@ $('.cur_date').text(getCurrentDate());
 // ------------------------------------ approval_select_box end ------------------------------------
 
 
-
-
-// nav trigger
-$(document).ready(function() {
-    $('.dep1').eq(2).trigger('click');
-    $('.dep2').eq(8).trigger('click');
-    $('.dep3').eq(1).addClass('active');
-});
 // ----------------------------------- nav toggle start -------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
 var dep1Items = document.querySelectorAll('.gnb .dep1[data-index]');
@@ -1422,6 +1347,17 @@ function copyrightsearchdetail(id,page,perpage){
     
 		
 	}
+	
+	var cr_no ;
+	var namae;
+	var price;
+	var name;
+	var member;
+	var title;
+	var content;
+	
+	
+	
 
 
 

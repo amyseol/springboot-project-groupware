@@ -151,9 +151,10 @@ public class MemberController {
 	}
 	
 	
-	  @GetMapping("/organization") 
-	  public ResponseEntity<Map<String, List<?>>> organization() {
-		  Map<String, List<?>> orgData = new HashMap<String, List<?>>();
+	  @GetMapping("/organization.ajax") 
+	  @ResponseBody
+	  public ResponseEntity<Map<String, List<MemberDTO>>> organization() {
+		  Map<String, List<MemberDTO>> orgData = new HashMap<>();
 		  
 		  List<MemberDTO> departments = service.getAllDepartments();
 		  List<MemberDTO> teams = service.getAllTeams();

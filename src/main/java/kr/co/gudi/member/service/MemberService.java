@@ -75,7 +75,7 @@ public class MemberService implements UserDetailsService{
 	}
 
 	public List<MemberDTO> getAllTeams() {
-		return dao.getAllTeams();
+		return dao.getAllDepartments();
 	}
 
 	public List<MemberDTO> getAllMembers() {

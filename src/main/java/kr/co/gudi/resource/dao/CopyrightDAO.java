@@ -47,6 +47,14 @@ public interface CopyrightDAO {
 
 	void appcon(CopyrightDTO dto);
 
+	Map<String, String> crd2(int appr_no);
+
+	void okcr(String no);
+
+	void uprp(int app);
+
+	void nocr(String no);
+
 
 
 }

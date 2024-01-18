@@ -30,8 +30,6 @@ public interface MemberDAO {
 	
 	List<MemberDTO> getAllDepartments();
 
-	List<MemberDTO> getAllTeams();
-
 	List<MemberDTO> getAllMembers();
 	/*
 	List<Department> getAllDepartments();

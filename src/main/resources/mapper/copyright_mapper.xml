@@ -191,7 +191,7 @@
 		INSERT into approval
 		(draftmember_no,approval_title,approval_content,approval_start,approval_state,document_state,form_no,currmember_no) 
 		values
-		(25,#{approval_title},#{approval_content},curdate(),0,0,7,#{member_no})
+		(19,#{approval_title},#{approval_content},curdate(),0,0,8,#{member_no})
 	
 	</insert>
 
@@ -204,5 +204,30 @@
 	(#{approval_no},#{cr_name},#{cr_price},curdate(),curdate(),curdate(),#{cr_no},#{cr_member})
 	
 	</insert>
+	
+	
+	<select id="crd2">
+	
+	SELECT appcr_member, appcr_regdate,cr_no from approval a inner join appcr_manage b where a.approval_no = #{appr_no} and b.approval_no= #{appr_no}
+	
+	</select>
+	
+	<update id="okcr">
+	
+	update cr_manage set cr_state = "0" where cr_no = #{param1};
+	
+	</update>
+	
+	<update id="nocr">
+	
+	update cr_manage set cr_state = "1" where cr_no = #{param1};
+	
+	</update>
+	
+	<update id="uprp">
+	
+	update approval set approval_state = 1 where approval_no = #{param1};
+	
+	</update>
 
 </mapper>

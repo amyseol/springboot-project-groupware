@@ -23,8 +23,7 @@
         #common_list_form .list_form .list_title ul li{float: left;}
         #common_list_form .list_form .list_title #readOption{cursor: pointer;}
         #common_list_form .list_form .list_title #mailListAllCheck{width: 20px; height: 50px;}
-        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 50px; height: 30px; text-align: center; cursor: pointer;}
-        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 50px; height: 30px; text-align: center;}
+        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 55px; height: 30px; text-align: center; cursor: pointer;}
         #common_list_form .list_form .list_title .btn_submenu .btn_tool{position: relative; top: 5px;}
         #common_list_form .list_form .list_content{padding-top:30px;}
         #common_list_form .list_form .list_content ul{width: 100%; height: 40px;}
