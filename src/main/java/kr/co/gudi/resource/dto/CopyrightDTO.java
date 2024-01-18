@@ -34,8 +34,23 @@ public class CopyrightDTO {
 	String approval_content;
 	int approval_no;
 	
+	String appcr_member;
+	Date appcr_regdate;
 	
 	
+	
+	public String getAppcr_member() {
+		return appcr_member;
+	}
+	public void setAppcr_member(String appcr_member) {
+		this.appcr_member = appcr_member;
+	}
+	public Date getAppcr_regdate() {
+		return appcr_regdate;
+	}
+	public void setAppcr_regdate(Date appcr_regdate) {
+		this.appcr_regdate = appcr_regdate;
+	}
 	public int getApproval_no() {
 		return approval_no;
 	}

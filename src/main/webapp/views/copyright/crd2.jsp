@@ -74,62 +74,57 @@
     <!-- -------------------------------------------util end------------------------------------------ -->
     <!-- -------------------------------------------list_form start------------------------------------------ -->
      <section id="common_list_form">
-        <h2 class="big_title">저작권상세보기</h2>
+        <h2 class="big_title">저작권등록결재</h2>
         <h3 class="sub_title" style="margin-left: 80px;">저작권정보</h3>
 
         <div class="list_form">
         <table style="margin-left:auto;margin-right:auto;">
         <tr style="border: solid 1px black; border-collapse: collapse;">
         	<td style="border: solid 1px black; border-collapse: collapse; ">
-        	저작권번호
+        	저작권번호 :
         	${data.cr_no}
         	</td>
         	<td style="border: solid 1px black; border-collapse: collapse;">
-        	음원명
-        	${data.cr_namae}
+        	담당자 :
+        	${data.appcr_member}
         	</td>
         </tr>
         <tr style="border: solid 1px black; border-collapse: collapse;">
         	<td style="border: solid 1px black; border-collapse: collapse;">
-        	요금
-        	${data.cr_price} 원
+        	등록 요청일 :
+        	${data.appcr_regdate}
         	</td>
         	<td style="border: solid 1px black; border-collapse: collapse;">
-        	아티스트명
-        	${data.cr_name}
+        	요청번호 :
+        	${data.approval_no}
         	</td>
         </tr>
-        <tr style="border: solid 1px black; border-collapse: collapse;">
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	담당자
-        	${data.cr_member}
-        	</td>
-        	<td style="border: solid 1px black; border-collapse: collapse;">
-        	비고
-        	</td>
-        </tr>        
         
         </table>
-        <button id="back" style="color: white; margin-left: 170px;" >뒤로가기</button>
+        <button id="back" style="color: white; margin-left: 170px;" >승인</button>
+        <button id="no" style=" border-radius: 3px; background-color:025464; color:white; padding: 5 10; border:none; cursor:pointer; color: white; margin-left: 170px;" >반려</button>
         </div>
     </section>
     <!-- -------------------------------------------list_form end------------------------------------------ -->
     <!-- -------------------------------------------music start------------------------------------------ -->
-    <div id="bottom_music">
-        <div class="music_inner">
-
-        </div>
-    </div>
     <!-- -------------------------------------------music end------------------------------------------ -->
 </body>
 <script>
 
 // -------------------------------- toggle start ------------------------------------------
 
+var app = ${data.approval_no};
+console.log(app);
 //-------------------------------- toggle end ------------------------------------------
 $("#back").on("click", function(){
 	
-	location.href="copyrightlist";
+	location.href="okcr?no=${data.cr_no}&app="+app;
+	
+});
+
+$("#no").on("click", function(){
+	
+	location.href="nocr?no=${data.cr_no}&app="+app;
 	
 });
 
