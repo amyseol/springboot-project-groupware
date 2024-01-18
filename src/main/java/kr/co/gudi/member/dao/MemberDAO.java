@@ -16,6 +16,8 @@ import kr.co.gudi.member.vo.MemberVO;
 
 @Mapper
 public interface MemberDAO {
+	List<MemberDTO> getAllMembers = null;
+
 	MemberVO selectMemberByParam(Map<String, Object> param);
 
 	MemberVO selectApprovMember(String member_id);
@@ -26,12 +28,16 @@ public interface MemberDAO {
 	
 	MemberVO getMember();
 	
+	List<MemberDTO> getAllDepartments();
+
+	List<MemberDTO> getAllMembers();
+	/*
 	List<Department> getAllDepartments();
 
 	List<MemberDTO> getTeamList(int depart_no);
 
 	List<MemberDTO> getMemberList(int depart_no);
-	
+	*/
 	List<MemberDTO> getMemberDetail(int member_no);
 
 	void join(HashMap<String, String> params);
@@ -103,4 +109,8 @@ public interface MemberDAO {
 	void delDpt(String depart_no);
 
 	void delMember(String member_no, String resign_date);
+
+	void createTeam(HashMap<String, String> param);
+
+	void updateTeam(HashMap<String, String> param);
 }

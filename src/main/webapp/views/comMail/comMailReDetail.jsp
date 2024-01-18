@@ -45,10 +45,31 @@
         #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
         #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
         
-        #del_modal{display: none;}
+        
         .txt{font-size:20;border: 1px solid black;padding: 5px;}
-        .btn_submenu{margin-right: 12px;}
+        .btn_submenu{margin-right: 12px; cursor: pointer;}
         .toolbar{display:flex;}
+        
+         #del_modal{
+			display: none; 
+			width:300px; 
+			height:150px; 
+			background: rgb(237, 237, 237); 
+			border:1px solid gray; 
+			text-align:center;
+			position:absolute; 
+			left:50%; 
+			bottom: 50%;
+		}
+		
+		.modalBtnNo, .modalBtnYes{
+			height: 35px;
+			width: 80px;
+			color: white;
+			border: none;
+			border-radius: 10px;
+			background-color: gray;
+		}
         
     </style>
 <body>
@@ -69,7 +90,7 @@
                             </a>
                         </li>
                         <li class="btn_submenu">
-                            <a class="btn_tool" data-role="button" onclick="delReceive(this)">
+                            <a class="btn_tool" data-role="button" onclick="delModal()">
                                 <span class="txt">삭제</span>
                             </a>
                         </li>
@@ -102,6 +123,8 @@
                 </li>
             </ul>            
         </div>
+        
+        <input type="hidden" id="hidden" value="${reMailDetail.note_no}">
 
 		<!-- 모달 -->
 		<div id="del_modal">
@@ -113,7 +136,6 @@
     <!-- -------------------------------------------mailWrap end------------------------------------------------- -->
 </body>
 <script>
-
     // 받은 쪽지 삭제 모달창
     function delModal(){
         document.getElementById('del_modal').style.display = 'block';
@@ -124,13 +146,15 @@
         document.getElementById('del_modal').style.display = 'none';
     }
 
-    // 받은 메일 '예' 버튼 클릭(리스트에서 숨김 처리)
+	 // 받은 메일 '예' 버튼 클릭(리스트에서 숨김 처리)
     function delYes(){
+    	var note_no = $("#hidden").val();
+    	console.log("보낸 메일 번호 : "+note_no);
+    	
     	// 삭제 버튼을 클릭하면 메일 리스트로 이동
-        window.location.href = "/receiveMail/list.ajax";
+        window.location.href = "/delReMailDetail?note_no="+note_no; 
 
-        // 삭제한 메일을 숨기기 위해 리스트 아이템을 숨김 처리
-        $(".list_content").hide();
+        document.getElementById('del_modal').style.display = 'none';
     }
     //-----------------------------------mail end--------------------------------------------
 </script>

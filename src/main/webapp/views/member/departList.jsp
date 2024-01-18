@@ -8,11 +8,13 @@
 <title>부서관리</title>
 <link rel="stylesheet" href="resources/css/memberList.css">
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 
 </head>
 <style>
+
 	#common_list_form{
 		position: relative;
 	}
@@ -22,7 +24,7 @@
 		top: 120px;
 		right: 50px;
 	}
-	
+
 .left_box{width: 250px; float: left; height: 400px;}
 .left_box .org_chart{width:100%; height: 100%; border: 1px solid #ccc; padding: 10px; overflow: auto;}
 .left_box ul li{font-size: 16px;}
@@ -32,6 +34,8 @@
 .left_box ul>li>ul{padding-top:3px;}
 .left_box ul>li>ul>li{padding-left:15px;}
 .plus{display: none;}	
+
+
 </style>
 <body>
 <%@ include file="/views/nav.jsp" %>
@@ -119,15 +123,18 @@
 </div>
 
 <!-- 부서생성 모달 -->
+ 
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">부서 등록</h5>
+                <h5 class="modal-title" id="myModalLabel">부서/팀 등록</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>   
+          
+            
             <form action="createDpt" method="post">      
             <div class="modal-body">
                 <div class="form-group">
@@ -142,16 +149,20 @@
 					</button>           
                     <input type="text" name="dpt_oner" />
                     <input type="hidden" name="oner_no" />
+                    <input type="hidden" id="depart_p_no" name="depart_p_no"/>
                 </div>              
             </div>          
             <div class="modal-footer">                               	
                 <button type="submit" class="btn btn-danger" id="createDpt">등록</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
             </div>
-			</form>   
+			</form>  		
+  			 
         </div>
     </div>
 </div>
+
+
 </body>
 
 <!-- 팀 디테일 모달 -->
@@ -164,6 +175,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            
+             <form id="updateTeamForm" action="updateTeam" method="post">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="depart_name">팀 명:</label>
@@ -172,6 +185,9 @@
            
                 <div class="form-group">
                     <label for="dpt_oner">책임자:</label>
+                     <button id="addTeamOner" type="button" style="display: none;" onclick="onerModal()">
+  					  <i class="fas fa-plus"></i> <!-- Font Awesome 플러스 아이콘 -->
+				</button>     
                     <span id="team_oner" data-name="team_oner"></span>
                 </div>
 
@@ -188,15 +204,18 @@
                 </div> 
             </div>          
 			<input type="hidden" id="team_no" name="team_no"/>
+			<input type="hidden" id="team_oner_no" name="team_oner_no"/>
             <div class="modal-footer">                               	
                 <button type="button" class="btn btn-danger" id="updateTeam">수정</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
 
 <!-- 조직도 팝업 모달 -->
+
 <div class="modal fade" id="orgChartModal" tabindex="-1" role="dialog" aria-labelledby="orgChartModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document" style="margin-left: 300px; width: 300px; height: 500px;">
         <div class="modal-content" >
@@ -206,11 +225,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-			<div class="modal-body">
-				<div class="left_box">
-
 					<div class="left_box">
-						<h5>조직도</h5>
+					<div class="left_box">
+						
 						<div class="org_chart">
 							<ul>
 								<c:forEach items="${departments}" var="depart">
@@ -266,15 +283,18 @@
 							</ul>
 						</div>
 					</div>
-
-				</div>
+				
 			</div>
 			<div class="modal-footer" style="margin-top: 450px;">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
+            
         </div>
     </div>
 </div>
+
+
+
 <script>
 //삭제
 document.getElementById('delDpt').addEventListener('click', function() {
@@ -294,16 +314,19 @@ document.getElementById('delDpt').addEventListener('click', function() {
 });
 //조직도
 function onerModal(){
-		$('#orgChartModal').modal('show');
+		$('#orgChartModal').modal('show');		
 }
 
 $(document).on('click', 'p', function() {
+	console.log("직원선택");
     // 클릭한 p 태그의 데이터 가져오기
     var memberNo = $(this).data('member-no');   
     var memberName = $(this).data('name'); 
     console.log("Member No:", memberNo);
     $('input[name="dpt_oner"]').val(memberName);
     $('input[name="oner_no"]').val(memberNo);
+    $('input[name="team_oner"]').val(memberName);
+    $('input[name="team_oner_no"]').val(memberNo);
     $('#orgChartModal').modal('hide');
 
 });
@@ -362,8 +385,16 @@ $(document).on('click', 'p', function() {
 		$('#departmentList').append(content);
 	}
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/master
 	function createModal() {
-		$('#createModal').modal('show');
+		var departNo = $('#depart_no').val();
+		 $('#depart_p_no').val(departNo);
+		$('#createModal').modal('show');	
+		console.log('부서등록');
 	}
 
 	function openTeam(depart_name) {
@@ -398,6 +429,7 @@ $(document).on('click', 'p', function() {
 
 	function openModal(depart_no) {
 		$('#myModal').modal('show');
+		console.log('open모달이왜안대? : ');
 		$.ajax({
 			type : 'get',
 			url : 'detailDepart',
@@ -422,7 +454,7 @@ $(document).on('click', 'p', function() {
 				var content = '';
 				data.team.forEach(function(item) {
 					content += '<li onclick="openTeam(\'' + item.depart_name
-							+ '\')">' + item.depart_name + '</li>';
+							+ '\')">' + item.depart_name + '</li>';		
 				});
 				$('#depart_teamN').empty();
 				$('#depart_teamN').append(content);
@@ -471,33 +503,21 @@ $(document).on('click', 'p', function() {
 	document.getElementById('updateTeam').addEventListener('click', function() {
 		makeEditable('team_name');
 		makeEditable('team_oner');
+		var btn = document.getElementById('addTeamOner');
+		btn.style.display = 'block';
 		this.innerHTML = '저장';
+		
 
 		// 수정 버튼의 클릭 이벤트를 저장 함수로 변경
 		this.removeEventListener('click', arguments.callee);
 		this.addEventListener('click', function() {
 			// 저장 버튼이 클릭되었을 때 수행되는 함수
 			// 폼을 submit
-			document.getElementById('updateDptForm').submit();
+			document.getElementById('updateTeamForm').submit();
 		});
 	});
 
-	function makeEditable(id) {
-		var element = document.getElementById(id);
-		var value = element.textContent;
 
-		// input 요소 생성
-		var input = document.createElement('input');
-		input.type = 'text';
-		input.value = value;
-		var nameAttribute = element.getAttribute('data-name');
-		if (nameAttribute) {
-			input.setAttribute('name', nameAttribute);
-		}
-		// 기존 요소를 input 요소로 교체
-		element.innerHTML = '';
-		element.appendChild(input);
-	}
 	
 
 </script>

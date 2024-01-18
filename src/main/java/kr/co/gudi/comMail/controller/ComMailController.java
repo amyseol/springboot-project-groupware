@@ -160,7 +160,7 @@ public class ComMailController {
 	
 	// 메일 쓰기
 	@PostMapping("/writeMail.do")
-	public String write(MultipartFile[] files, @RequestParam HashMap<String, String>param,  
+	public String write(@RequestParam("files") MultipartFile[] files, @RequestParam HashMap<String, String>param,  
 			Model model, HttpSession session) throws IOException {
 		int sender_no = ((MemberVO)session.getAttribute("loginMember")).getMember_no();
 		service.write(files, param, sender_no);
@@ -168,4 +168,17 @@ public class ComMailController {
 		model.addAttribute("url","/sendMail");
 		return "common/msg";
 	}
+	
+	@GetMapping("/delSeMailDetail")
+	public String delSeMailDetail(String note_no) {
+		service.delSeMailDetail(note_no);
+		return "redirect:/sendMail";
+	}
+	
+	@GetMapping("/delReMailDetail")
+	public String delReMailDetail(String note_no) {
+		service.delReMailDetail(note_no);
+		return "redirect:/receiveMail";
+	}
+	
 }

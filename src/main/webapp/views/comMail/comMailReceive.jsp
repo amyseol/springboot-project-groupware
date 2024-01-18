@@ -23,8 +23,7 @@
         #common_list_form .list_form .list_title ul li{float: left;}
         #common_list_form .list_form .list_title #readOption{cursor: pointer;}
         #common_list_form .list_form .list_title #mailListAllCheck{width: 20px; height: 50px;}
-        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 50px; height: 30px; text-align: center; cursor: pointer;}
-        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 50px; height: 30px; text-align: center;}
+        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 55px; height: 30px; text-align: center; cursor: pointer;}
         #common_list_form .list_form .list_title .btn_submenu .btn_tool{position: relative; top: 5px;}
         #common_list_form .list_form .list_content{padding-top:30px;}
         #common_list_form .list_form .list_content ul{width: 100%; height: 40px;}
@@ -245,9 +244,9 @@
 	        content += '<li><input type="checkbox" name="receiveCheck" value="' + item.note_no + '"/></li>';
 	        content +='<li>' 
 	            if(item.receive_state=== "0"){
-	                content+='<img src="./img/unread.png" alt="unreadImage" width=20 height=20/>';
+	                content+='<img src="/resources/img/common/unread.png" alt="unreadImage" width=20 height=20/>';
 	            }else if(item.receive_state=== "1"){
-	                content+='<img src="./img/read.png" alt="readImage" width=20 height=20/>';
+	                content+='<img src="/resources/img/common/read.png" alt="readImage" width=20 height=20/>';
 	            }
 	        content +='</li>';
 	        content += '<li><span class="name">' + item.sender_name + '</span></li>';
@@ -322,9 +321,9 @@
 	        data: {'delList': chkArr},
 	        dataType: "JSON",
 	        success: function(data){
-	            console.log(data);
+	            console.log("success".data);
 	
-	            document.getElementById('del_modal').style.display = 'none';
+	            $('#del_modal').modal('hide');
 	            listCall(showPage, searchInfo, $('#readOption').val());
 	        },
 	        error: function(e){

@@ -80,6 +80,7 @@
 	margin: 0;
 	font-size: 22px;
 	font-weight: 500;
+	margin-bottom:10px;
 }
 
 #date {
@@ -129,7 +130,7 @@
 	height: 183px;
 	margin-bottom: 16px;
     border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
     font-family: 'Helvetica', Arial, sans-serif;
 }
 
@@ -138,7 +139,7 @@
 	height: 183px;
 	position: relative;
     border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
     font-family: 'Helvetica', Arial, sans-serif;
 }
 
@@ -146,7 +147,7 @@
 	box-sizing: border-box;
 	height: 350px;
     border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
     font-family: 'Helvetica', Arial, sans-serif;
     overflow: auto;
    
@@ -161,6 +162,7 @@
 	float: left;
 	width: 45.25%;
 	padding: 3% 2% 3% 2%;
+	margin-left:20px;
 }
 
 .mainBoard .absol {
@@ -190,7 +192,7 @@
 	width: 100px;
 	height: 30px;
     color: #fff;
-	background-color:  #007aff;
+	background-color:  #025464;
 	border-radius: 10px;
 	cursor: pointer;
 	margin-bottom: 5px;
@@ -478,6 +480,22 @@ updateMonthYear();
 
 // 출퇴근 버튼
 function attTime(type){
+	var inTimeElement = document.getElementById('inTime');
+	var outTimeElement = document.getElementById('outTime');
+	console.log(inTimeElement);
+	console.log(outTimeElement);
+	if (type === 'in' && inTimeElement.innerText.trim() == '미등록') {
+		attendTime(type);
+        console.log('함수 실행'+inTimeElement.innerText.trim());
+    }else if (type === 'out' && outTimeElement.innerText.trim() == '미등록'){
+    	attendTime(type);
+    }else{
+    	alert('하루에 한번만 가능합니다.');
+    }
+}
+	
+function attendTime(type){
+	
 	var currentDate = document.getElementById('date').textContent;
 	 var currentTime = document.getElementById('clock').textContent;
 	console.log("현재 일시 :"+currentDate+" "+currentTime);

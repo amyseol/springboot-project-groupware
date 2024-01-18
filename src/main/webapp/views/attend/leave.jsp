@@ -149,7 +149,9 @@
 .mainAttend {
 	box-sizing: border-box;
 	height: 100px;
-	background-color: #FFC0CB;
+	 border-radius: 10px;
+	border: 1px solid #025464;
+    font-family: 'Helvetica', Arial, sans-serif;
 	margin-bottom: 16px;
 		margin-left:2%;
 	margin-right: 2%; 
@@ -158,9 +160,12 @@
 .useList {
 	box-sizing: border-box;
 	height: 234.5px;
-	background-color: #FFC0CB;
+	 border-radius: 10px;
+	border: 1px solid #025464;
+    font-family: 'Helvetica', Arial, sans-serif;
 		margin-left:2%;
 	margin-right: 2%; 
+	overflow:auto;
 }
 
 .filterLi{

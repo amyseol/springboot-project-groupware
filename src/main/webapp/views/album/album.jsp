@@ -22,7 +22,7 @@
         #common_list_form .list_form .list_title ul li:last-child{width: 15%;}
         #common_list_form .list_form .list_content ul{width:100%; height: 30px;}
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box;text-align:center;}
-        #common_list_form .list_form .list_content ul li:first-child{width: 15%; padding-left: 50px; }
+        #common_list_form .list_form .list_content ul li:first-child{width: 15%; padding-left: 50px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
         #common_list_form .list_form .list_content ul li:nth-child(2){width: 10%;}
         #common_list_form .list_form .list_content ul li:nth-child(3){width: 15%;}
         #common_list_form .list_form .list_content ul li:nth-child(4){width: 15%;}

@@ -10,35 +10,38 @@
 <style>
 
     body {
-        font-family: 'Arial', sans-serif;
-        background-color: #2d6a4f;
+
         margin: 0;
         padding: 0;
     }
 
     #memberBox {
-    	margin-left:400px;
+    	margin-left:600px;
     	padding-top:120px;
     	padding-bottom:60px;
-        max-width: 700px;
-        height:800px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 900px;
+        height:900px;
+  
+        
         border-radius: 5px;
         position:relative;
     }
 
     .registTable{
         width: 100%;
+        height:100%;
         border-collapse: collapse;
+        border-radius: 10px;
+        border:1px solid #025464;
+   	    font-family: 'Helvetica', Arial, sans-serif;
         
     }
 
     th, td {
         padding: 10px;
-        border: 1px solid #ddd;
+        border: 1px solid #025464;
         text-align: center;
-        background: #899857;
+        
 
     }
 
@@ -52,30 +55,15 @@
     }
 
     .registBtn {
-        padding: 3px;
-        background-color: #FEB72B;
-        color: white;
-        border: none;
-        border-radius: 4px;
         cursor: pointer;
+        border-radius: 3px;background-color:025464;color:white;padding: 5 10;border:none;
     }
 
     .registBtn:hover {
         background-color: #45a049;
     }
 
-    input[type="submit"] {
-        padding: 10px;
-        background-color: #008CBA;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
 
-    input[type="submit"]:hover {
-        background-color: #0073aa;
-    }
 
     .registInput {
         width: 50%;
@@ -97,7 +85,9 @@
 	
 	.registImg{height:220px;}
 	
-	img{margin-left:250px;}
+	.img{margin-left:250px;}
+	
+	.btnPosition{text-align: center;}
 
 </style>
 </head>
@@ -108,7 +98,7 @@
      <table class="registTable">
      	<tr>
              <th class="registImg" colspan="2">
-        		 <img id="idImage" src="#" alt="ID Image Preview" style="max-width: 140px; max-height: 200px;"/>
+        		 <img id="idImage" class="img" src="#" alt="ID Image Preview" style="max-width: 140px; max-height: 200px;"/>
    			 </th>   
      	</tr>
    		<tr>
@@ -227,9 +217,10 @@
              </th>
          </tr>
          <tr>
-             <th colspan="2">
+             <th colspan="2" class="btnPosition">
              	 <button type="button" class="registBtn" onclick="cancelForm()">취소</button>
-                 <input type="submit" value="생성"/>
+             	 <button type="submit" class="registBtn">생성</button>
+          
              </th>
          </tr>
      </table>

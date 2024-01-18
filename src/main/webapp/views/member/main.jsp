@@ -29,7 +29,7 @@
 	padding-left: 15%;
 	padding-top: 100px; 	
 	box-sizing: border-box;
-	height: 650px;
+	height: 750px;
 	}
 .float{
 	float:left;
@@ -55,16 +55,17 @@
 	width: 100%;
     height: 50%;
      border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
 	padding-bottom:1%;
 }	
 .mainRight{	
+	padding-top:30px;
 	box-sizing: border-box;
 	width: 100%;
     height: 50%;
     overflow:auto;
      border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
 }	
 
 .mainPageAttend{
@@ -73,10 +74,11 @@
 	margin-bottom:16px;
 }
 .mainSchedule{
+	height:450px;
 	box-sizing: border-box;
-	height: 350px;
+
 	 border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
 }
 .mainBoard{
 	box-sizing: border-box;
@@ -109,7 +111,7 @@
 	<div class="mainBox">
 			<div class="mainLeft float">
 				<div class="mainPageAttend" id="mainAttendContainer"></div>
-				<div class="mainSchedule" id="mainCalContainer">
+				<div class="mainSchedule" id="mainCalContainer" onclick="scheduleGo()">
 					<div id='calendar-container'>
 						<div id="calendar"></div>
 					</div>
@@ -176,15 +178,7 @@ $(document).ready(function () {
 		}
 
 	});
-/* 	// 음원차트
-	 $(document).ready(function() {
-         $('#mList').load('mainMusicChart.html');
-     });
-	
-		// 전사게시판
-	  $(document).ready(function() {
-         $('#mainBoardList').load('mainBoard.html');
-     });  */
+
 
 	  $(document).ready(function() {
 		    $('#mList').load('mainMusicChart.html', function() {
@@ -195,6 +189,10 @@ $(document).ready(function () {
 		        });
 		    });
 		});
+	  
+function scheduleGo(){
+	window.location='/schedule';
+}
 
 </script>
 </html>

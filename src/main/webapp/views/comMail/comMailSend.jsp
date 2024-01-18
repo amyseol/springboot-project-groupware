@@ -22,7 +22,7 @@
         #common_list_form .list_form{position:relative; width: 90%; margin-left: 50px;}
         #common_list_form .list_form .list_title ul{width: 100%;}
         #common_list_form .list_form .list_title ul li{float: left;}
-        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 50px; height: 30px; text-align: center; cursor: pointer;}
+        #common_list_form .list_form .list_title .btn_submenu{border: 1px solid black; width: 55px; height: 30px; text-align: center; cursor: pointer;}
         #common_list_form .list_form .list_title .btn_submenu .btn_tool{position: relative; top: 5px;}
         #common_list_form .list_form .list_content ul{width: 100%; height: 40px;}
         #common_list_form .list_form .list_content ul li{float:left; padding:5px 0 5px 10px; box-sizing: border-box; text-align: center;}
@@ -238,9 +238,9 @@
 	        content += '<li><input type="checkbox" name="sendCheck" value="' + item.note_no + '"/></li>';
 	        content +='<li>' 
 	            if(item.send_state==="0"){
-	                content+='<img src="resources/img/unread.jpg" alt="unreadImage" width=20 height=20/>';
+	                content+='<img src="/resources/img/common/unread.jpg" alt="unreadImage" width=20 height=20/>';
 	            }else if(item.send_state==="1"){
-	                content+='<img src="resources/img/read.jpg" alt="readImage" width=20 height=20/>';
+	                content+='<img src="/resources/img/common/read.jpg" alt="readImage" width=20 height=20/>';
 	            }
 	        content +='</li>';
 	        content += '<li><span class="name">' + item.receiver_name + '</span></li>';
