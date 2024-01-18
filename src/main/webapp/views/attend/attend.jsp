@@ -80,6 +80,7 @@
 	margin: 0;
 	font-size: 22px;
 	font-weight: 500;
+	margin-bottom:10px;
 }
 
 #date {
@@ -129,7 +130,7 @@
 	height: 183px;
 	margin-bottom: 16px;
     border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
     font-family: 'Helvetica', Arial, sans-serif;
 }
 
@@ -138,7 +139,7 @@
 	height: 183px;
 	position: relative;
     border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
     font-family: 'Helvetica', Arial, sans-serif;
 }
 
@@ -146,7 +147,7 @@
 	box-sizing: border-box;
 	height: 350px;
     border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
     font-family: 'Helvetica', Arial, sans-serif;
     overflow: auto;
    
@@ -161,6 +162,7 @@
 	float: left;
 	width: 45.25%;
 	padding: 3% 2% 3% 2%;
+	margin-left:20px;
 }
 
 .mainBoard .absol {
@@ -190,7 +192,7 @@
 	width: 100px;
 	height: 30px;
     color: #fff;
-	background-color:  #007aff;
+	background-color:  #025464;
 	border-radius: 10px;
 	cursor: pointer;
 	margin-bottom: 5px;

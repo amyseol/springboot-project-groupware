@@ -150,7 +150,7 @@
 	box-sizing: border-box;
 	height: 100px;
 	 border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
     font-family: 'Helvetica', Arial, sans-serif;
 	margin-bottom: 16px;
 		margin-left:2%;
@@ -161,7 +161,7 @@
 	box-sizing: border-box;
 	height: 234.5px;
 	 border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
     font-family: 'Helvetica', Arial, sans-serif;
 		margin-left:2%;
 	margin-right: 2%; 

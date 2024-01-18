@@ -12,7 +12,7 @@
     #memberDetail{margin-left: 15%; height: 100px;}
     #memberDetail .detailInner{position: relative; width: 800px; height:300px; padding:100px 0 0 15%;}
     #memberDetail .detailInner .detailBox{position: relative;}
-    #memberDetail .detailInner .detailBox li{float: left;  width:70%; height: 30px;  border-radius: 10px; border: 3px solid #007aff; box-sizing: border-box; text-align: center;}
+    #memberDetail .detailInner .detailBox li{float: left;  width:70%; height: 30px;  border-radius: 10px; border: 1px solid #025464; box-sizing: border-box; text-align: center;}
     #memberDetail .detailInner .detailBox li:nth-child(2n){width: 30%;}
     #memberDetail .detailInner .detailBox li:first-child{width: 100%; height: 220px;}
     #memberDetail .detailInner .detailBox li:last-child{width: 100%; height: 50px; padding:5px;}
@@ -20,11 +20,11 @@
     img{
     margin-left: 250px;
     margin-top:10px;
-    border: 1px solid #FF725F;
+    border:1px solid #025464;
     }
     
     .button-orange {
-    background-color: #FF725F; /* 주황색 */
+    background-color: #025464;/* 주황색 */
     color: #fff; /* 흰색 텍스트 */
     padding: 10px 20px; /* 적절한 패딩 값 */
     border: none;
@@ -33,7 +33,7 @@
 }
 
 .button-orange:hover {
-    background-color: #FF8C00; /* 버튼에 호버될 때 변경될 색상 */
+    background-color: #025464;/* 버튼에 호버될 때 변경될 색상 */
 }
 
 

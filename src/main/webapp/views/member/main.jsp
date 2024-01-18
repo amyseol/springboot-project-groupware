@@ -74,8 +74,9 @@
 	margin-bottom:16px;
 }
 .mainSchedule{
+	height:450px;
 	box-sizing: border-box;
-	height: 350px;
+
 	 border-radius: 10px;
 	border: 1px solid #025464;
 }
@@ -110,7 +111,7 @@
 	<div class="mainBox">
 			<div class="mainLeft float">
 				<div class="mainPageAttend" id="mainAttendContainer"></div>
-				<div class="mainSchedule" id="mainCalContainer">
+				<div class="mainSchedule" id="mainCalContainer" onclick="scheduleGo()">
 					<div id='calendar-container'>
 						<div id="calendar"></div>
 					</div>
@@ -177,15 +178,7 @@ $(document).ready(function () {
 		}
 
 	});
-/* 	// 음원차트
-	 $(document).ready(function() {
-         $('#mList').load('mainMusicChart.html');
-     });
-	
-		// 전사게시판
-	  $(document).ready(function() {
-         $('#mainBoardList').load('mainBoard.html');
-     });  */
+
 
 	  $(document).ready(function() {
 		    $('#mList').load('mainMusicChart.html', function() {
@@ -196,6 +189,10 @@ $(document).ready(function () {
 		        });
 		    });
 		});
+	  
+function scheduleGo(){
+	window.location='/schedule';
+}
 
 </script>
 </html>

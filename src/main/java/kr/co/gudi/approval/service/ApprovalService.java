@@ -145,7 +145,7 @@ public class ApprovalService {
 		
 		// 작성 후 이동 위치
 		if(form_no == 1) {
-			mav.setViewName("approval/draftDocDetail?approval_no="+approval_no);
+			mav.setViewName("approval/draftBox");
 		} else if(form_no == 2) {
 			
 		}

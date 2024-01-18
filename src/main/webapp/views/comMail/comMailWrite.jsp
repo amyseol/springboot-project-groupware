@@ -389,19 +389,9 @@ $('.org_chart>ul>li>ul>li>span').on('click',function(){
         // POST 방식, URL, 동기 여부 설정
         xhr.open('POST', document.getElementById('write_form').action, true);
 		
-        if ($inputReceiver.val() == "") {
-			alert("받는 사람을 채워 주세요!");
-			$inputReceiver.focus();
-		} else if($inputSubject.val() == ""){
-			alert("제목을 입력 해주세요!");
-			$inputSubject.focus();
-		} else if($rich_deditor.val() == ""){
-			alert("내용을 입력 해주세요!");
-			$rich_deditor.focus();
-		} else{
-	        // 폼 데이터 전송
-	        xhr.send(formData);
-		}
+
+	    // 폼 데이터 전송
+	    xhr.send(formData);
 
         // 서버 응답 처리
         xhr.onload = function() {
@@ -415,6 +405,8 @@ $('.org_chart>ul>li>ul>li>span').on('click',function(){
                 // 여기에 실패 시 동작을 추가할 수 있습니다.
             }
         };
+        
+        //location.href="/sendMail";
     }
 //--------------------------------------mail end-----------------------------------------------------
 </script>
