@@ -103,4 +103,8 @@ public interface MemberDAO {
 	void delDpt(String depart_no);
 
 	void delMember(String member_no, String resign_date);
+
+	void createTeam(HashMap<String, String> param);
+
+	void updateTeam(HashMap<String, String> param);
 }

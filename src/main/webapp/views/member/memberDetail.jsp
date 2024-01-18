@@ -8,12 +8,12 @@
 
 <style>
 
+
     #memberDetail{margin-left: 15%; height: 100px;}
     #memberDetail .detailInner{position: relative; width: 800px; height:300px; padding:100px 0 0 15%;}
     #memberDetail .detailInner .detailBox{position: relative;}
-    #memberDetail .detailInner .detailBox li{float: left; background-color: #351C4D; color:white; width:70%; height: 30px; border: 1px solid #FF725F; box-sizing: border-box;
-    text-align: center;}
-    #memberDetail .detailInner .detailBox li:nth-child(2n){width: 30%; background-color: #351C4D; color:white;}
+    #memberDetail .detailInner .detailBox li{float: left;  width:70%; height: 30px;  border-radius: 10px; border: 3px solid #007aff; box-sizing: border-box; text-align: center;}
+    #memberDetail .detailInner .detailBox li:nth-child(2n){width: 30%;}
     #memberDetail .detailInner .detailBox li:first-child{width: 100%; height: 220px;}
     #memberDetail .detailInner .detailBox li:last-child{width: 100%; height: 50px; padding:5px;}
     
@@ -36,10 +36,7 @@
     background-color: #FF8C00; /* 버튼에 호버될 때 변경될 색상 */
 }
 
-body{
-	background-color: #FEB47B;
-	font-family: 'Arial', sans-serif;
-}
+
 </style>
 </head>
 <body>

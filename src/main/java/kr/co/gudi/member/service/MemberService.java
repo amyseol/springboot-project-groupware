@@ -297,7 +297,12 @@ public class MemberService implements UserDetailsService{
 	}
 
 	public void createDpt(HashMap<String, String> param) {
-		dao.createDpt(param);
+		String depart_p_no=param.get("depart_p_no");
+		if(!depart_p_no.equals("")) {
+			dao.createTeam(param);
+		}else {			
+			dao.createDpt(param);
+		}
 		
 	}
 
@@ -314,6 +319,11 @@ public class MemberService implements UserDetailsService{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String resign_date = currentDate.format(formatter);
         dao.delMember(member_no,resign_date);
+		
+	}
+
+	public void updateTeam(HashMap<String, String> param) {
+		dao.updateTeam(param);
 		
 	}
 

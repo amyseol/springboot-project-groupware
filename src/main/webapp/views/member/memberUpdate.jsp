@@ -33,7 +33,7 @@ body{
     #memberDetail{margin-left: 15%; height: 100px;}
     #memberDetail .detailInner{position: relative; width: 800px; height:300px; padding:100px 0 0 15%;}
     #memberDetail .detailInner .detailBox{position: relative;}
-    #memberDetail .detailInner .detailBox li{float: left;  width:70%; height: 30px; border: 1px solid rgb(4, 11, 80); box-sizing: border-box;
+    #memberDetail .detailInner .detailBox li{float: left;  width:70%; height: 30px; border-radius: 10px; border: 3px solid #007aff; box-sizing: border-box;
     text-align: center;}
     #memberDetail .detailInner .detailBox li:nth-child(2n){width: 30%;}
     #memberDetail .detailInner .detailBox li:first-child{width: 100%; height: 250px;}

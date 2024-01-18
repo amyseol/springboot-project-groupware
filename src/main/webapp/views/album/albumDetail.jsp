@@ -48,7 +48,7 @@
     	.fileName {white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
     	
     	.btnBox{margin-left:50px;}
-    	form{display:none;}
+    	form{display:block;}
     	.txt{font-size: 15;font-weight: 600;}
     </style>
 <body>
@@ -230,7 +230,7 @@ function openAddModal(){
     }
 	
 	yesBtn.onclick = function(){
-		location.href = "/approval/draftDoc"; 
+		location.href = "/draftDoc"; 
 	}
 }
 
@@ -245,7 +245,7 @@ function openCancelModal(){
     }
 	
 	yesBtn.onclick = function(){
-		location.href = "approval/draftDoc";
+		location.href = "/draftDoc";
 	}
 }
 //-------------------------------- 모달 창 end ------------------------------------------

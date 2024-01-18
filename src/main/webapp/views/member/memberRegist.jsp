@@ -10,8 +10,7 @@
 <style>
 
     body {
-        font-family: 'Arial', sans-serif;
-        background-color: #2d6a4f;
+
         margin: 0;
         padding: 0;
     }
@@ -22,7 +21,7 @@
     	padding-bottom:60px;
         max-width: 700px;
         height:800px;
-        background-color: #fff;
+  
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 5px;
         position:relative;
@@ -31,6 +30,9 @@
     .registTable{
         width: 100%;
         border-collapse: collapse;
+         border-radius: 10px;
+	border: 3px solid #007aff;
+    font-family: 'Helvetica', Arial, sans-serif;
         
     }
 
@@ -38,7 +40,7 @@
         padding: 10px;
         border: 1px solid #ddd;
         text-align: center;
-        background: #899857;
+        
 
     }
 

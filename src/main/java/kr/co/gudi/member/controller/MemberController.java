@@ -284,6 +284,13 @@ public class MemberController {
     	return new ModelAndView("member/departList");
     }
     
+    @PostMapping(value="/updateTeam")
+    public ModelAndView updateTeam(@RequestParam HashMap<String, String> param){
+    	logger.info("팀수정정보 : "+param);
+    	service.updateTeam(param);
+    	return new ModelAndView("member/departList");
+    }
+    
     @PostMapping(value="/createDpt")
     public String createDpt(@RequestParam HashMap<String, String> param){
     	logger.info("부서 등록 정보 : "+param);

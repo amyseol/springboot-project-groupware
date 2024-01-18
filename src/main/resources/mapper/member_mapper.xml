@@ -241,6 +241,11 @@
 			member_no=#{oner_no} where depart_no=#{depart_no}
 	</update>
 	
+	<update id="updateTeam">
+		update department set depart_name=#{team_name},
+			member_no=#{team_oner_no} where depart_no=#{team_no}
+	</update>
+	
 	<insert id="createDpt">
 		insert into department(member_no,depart_name,depart_p_no)
 			values(#{oner_no},#{depart_name},0) 
@@ -254,5 +259,10 @@
 	<update id="delMember">
 		update member set member_state='퇴사', resign_date=#{param2}
 			where member_no=#{param1}
+	</update>
+	
+	<update id="createTeam">
+		insert into department(member_no,depart_name,depart_p_no)
+			values(#{oner_no},#{depart_name},#{depart_p_no}) 
 	</update>
 </mapper>
