@@ -46,10 +46,30 @@
         #common_list_form .search_box:hover #search_info{border-top: 1px solid #333; border-bottom: 1px solid #333;}
         #common_list_form .search_box:hover .btn_box{border: 1px solid #333; border-left: none;}
 
-        
-        #del_modal{display: none;}
         .txt{font-size:20;border: 1px solid black;padding: 5px;}
+        .btn_submenu{margin-right: 12px; cursor: pointer;}
+        .toolbar{display:flex;}
         
+         #del_modal{
+			display: none; 
+			width:300px; 
+			height:150px; 
+			background: rgb(237, 237, 237); 
+			border:1px solid gray; 
+			text-align:center;
+			position:absolute; 
+			left:50%; 
+			bottom: 50%;
+		}
+		
+		.modalBtnNo, .modalBtnYes{
+			height: 35px;
+			width: 80px;
+			color: white;
+			border: none;
+			border-radius: 10px;
+			background-color: gray;
+		}
     </style>
 <body>
 	<%@ include file="/views/nav.jsp" %>
@@ -64,7 +84,7 @@
                     <ul class="toolbar" >
                         <!-- 툴바 -->
                         <li class="btn_submenu">
-                            <a class="btn_tool" data-role="button" onclick="delSend()">
+                            <a class="btn_tool" data-role="button" onclick="delModal()">
                                 <span class="txt">삭제</span>
                             </a>
                         </li>
@@ -97,7 +117,9 @@
                 </li>
             </ul>
         </div>
-
+        
+        <input type="hidden" id="hidden" value="${seMailDetail.note_no}">
+        
 		<!-- 모달 -->
 		<div id="del_modal">
 			<div style="margin:30px 0; font-size:24px;">삭제 하시겠습니까?</div>
@@ -108,25 +130,27 @@
     <!-- -------------------------------------------mailWrap end------------------------------------------------- -->
 </body>
 <script>
-    //-----------------------------------------mail start-----------------------------------------
-    $(document).ready(function(){
-        $.ajax({
-            type: "get",
-            url: "sendMail/counts.ajax",
-            dataType: "JSON",
-            success: function(data){
-                console.log(data);
+    //-----------------------------------------mail start-----------------------------------------    
+	 // 받은 쪽지 삭제 모달창
+    function delModal(){
+        document.getElementById('del_modal').style.display = 'block';
+    }
 
-                // 전체 메일 갯수 업데이트
-                $("#totalMail").text(data.totalMail);
-                // 안 읽은 메일 갯수 업데이트
-                $("#unreadMail").text(data.unreadMail);
-            },
-            error: function(e){
-                console.log(e);
-            }
-        });
-    });
+    // 받은 메일 '아니요 버튼 클릭
+    function delNo(){
+        document.getElementById('del_modal').style.display = 'none';
+    }
+
+    // 받은 메일 '예' 버튼 클릭(리스트에서 숨김 처리)
+    function delYes(){
+    	var note_no = $("#hidden").val();
+    	console.log("보낸 메일 번호 : "+note_no);
+    	
+    	// 삭제 버튼을 클릭하면 메일 리스트로 이동
+        window.location.href = "/delSeMailDetail?note_no="+note_no; 
+
+        document.getElementById('del_modal').style.display = 'none';
+    }
     //------------------------------------------mail end--------------------------------------
 </script>
 </html>

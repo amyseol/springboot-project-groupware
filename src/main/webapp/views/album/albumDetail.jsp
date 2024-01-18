@@ -48,7 +48,7 @@
     	.fileName {white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
     	
     	.btnBox{margin-left:50px;}
-    	form{display:block;}
+    	form{display:hidden;}
     	.txt{font-size: 15;font-weight: 600;}
     </style>
 <body>

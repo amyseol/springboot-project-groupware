@@ -208,8 +208,17 @@
 				data.dto.forEach(function(dtoItem) {
 					$('#eventTitle').append(dtoItem.title);
 					$('#eventContent').append(dtoItem.content);
-					$('#eventStart').append(dtoItem.start);
-					$('#eventEnd').append(dtoItem.end);
+					var start = new Date(dtoItem.start);
+	                var formattedStart = formatDate(start);
+	                $('#eventStart').append(formattedStart);
+
+	                var end = new Date(dtoItem.end);
+	                var formattedEnd = formatDate(end);
+	                $('#eventEnd').append(formattedEnd);
+	                
+	                
+					/* $('#eventStart').append(dtoItem.start);
+					$('#eventEnd').append(dtoItem.end); */
 					$('#eventSchNo').val(dtoItem.sch_no);
 				});
 			},
@@ -217,6 +226,18 @@
 				console.log(e)
 			}
 		});
+	}
+	
+	// 날짜 형식 지정 함수
+	function formatDate(date) {
+	    var year = date.getFullYear();
+	    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+	    var day = ('0' + date.getDate()).slice(-2);
+	    var hours = ('0' + date.getHours()).slice(-2);
+	    var minutes = ('0' + date.getMinutes()).slice(-2);
+	    var seconds = ('0' + date.getSeconds()).slice(-2);
+
+	    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 	}
 </script>
 

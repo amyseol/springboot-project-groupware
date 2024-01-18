@@ -17,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.gudi.approval.service.ApprovalService;
-import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.service.MemberService;
 import kr.co.gudi.member.vo.MemberVO;
@@ -42,7 +43,7 @@ public class MemberController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired MemberService service;
-
+	@Autowired ApprovalService approvalService;
 	
 	
 	// 로그인 페이지 이동
@@ -149,28 +150,39 @@ public class MemberController {
 		return "common/msg";
 	}
 	
-	@GetMapping("/organization")
-	public String organization() {
-		return "common/organization";
-	}
 	
-	@GetMapping("/organization/departments")
-	@ResponseBody
-    public List<Department> showDepartments() {
-        return service.getAllDepartments();
-    }
-	
-	@GetMapping("/organization/teams/{depart_no}")
-	@ResponseBody
-	public List<MemberDTO> getTeamList(@PathVariable int depart_no){
-		return service.getTeamList(depart_no);
-	}
-	
-	@GetMapping("/organization/members/{depart_no}")
-	@ResponseBody
-	public List<MemberDTO> getMemberList(@PathVariable int depart_no){
-		return service.getMemberList(depart_no);
-	}
+	  @GetMapping("/organization.ajax") 
+	  @ResponseBody
+	  public ResponseEntity<Map<String, List<MemberDTO>>> organization() {
+		  Map<String, List<MemberDTO>> orgData = new HashMap<>();
+		  
+		  List<MemberDTO> departments = service.getAllDepartments();
+		  List<MemberDTO> teams = service.getAllTeams();
+	      List<MemberDTO> members = service.getAllMembers();
+	      
+	      orgData.put("departments", departments);
+	      orgData.put("teams", teams);
+	      orgData.put("members", members);
+	      
+	      return new ResponseEntity<>(orgData, HttpStatus.OK);
+	  }
+	 /* 
+	 * @GetMapping("/organization/departments")
+	 * 
+	 * @ResponseBody public List<Department> showDepartments() { return
+	 * service.getAllDepartments(); }
+	 * 
+	 * @GetMapping("/organization/teams/{depart_no}")
+	 * 
+	 * @ResponseBody public List<MemberDTO> getTeamList(@PathVariable int
+	 * depart_no){ return service.getTeamList(depart_no); }
+	 * 
+	 * @GetMapping("/organization/members/{depart_no}")
+	 * 
+	 * @ResponseBody public List<MemberDTO> getMemberList(@PathVariable int
+	 * depart_no){ return service.getMemberList(depart_no); }
+	 */
+
 	
 	@GetMapping("/organization/detail/{member_no}")
 	@ResponseBody

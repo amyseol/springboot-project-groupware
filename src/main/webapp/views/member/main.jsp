@@ -29,7 +29,7 @@
 	padding-left: 15%;
 	padding-top: 100px; 	
 	box-sizing: border-box;
-	height: 650px;
+	height: 750px;
 	}
 .float{
 	float:left;
@@ -55,16 +55,17 @@
 	width: 100%;
     height: 50%;
      border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
 	padding-bottom:1%;
 }	
 .mainRight{	
+	padding-top:30px;
 	box-sizing: border-box;
 	width: 100%;
     height: 50%;
     overflow:auto;
      border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
 }	
 
 .mainPageAttend{
@@ -76,7 +77,7 @@
 	box-sizing: border-box;
 	height: 350px;
 	 border-radius: 10px;
-	border: 3px solid #007aff;
+	border: 1px solid #025464;
 }
 .mainBoard{
 	box-sizing: border-box;

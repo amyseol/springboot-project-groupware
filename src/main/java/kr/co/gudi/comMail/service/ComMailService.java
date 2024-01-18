@@ -217,4 +217,12 @@ public class ComMailService {
 	public String getSender(String note_no) {
 		return dao.getSender(note_no);
 	}
+
+	public void delSeMailDetail(String note_no) {
+		dao.delSend(note_no);
+	}
+
+	public void delReMailDetail(String note_no) {
+		dao.delReceive(note_no);
+	}
 }
