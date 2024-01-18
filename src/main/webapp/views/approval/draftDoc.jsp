@@ -670,21 +670,21 @@ function drawApprover(apprList){
 			horContent += '<div class="sign_rank">'+item.member_position+'</div>';
 			horContent += '<div class="sign_name">'+item.name+'</div>';
 			horContent += '<div class="sign_date"></div>';
-			horContent += '<input type="hidden" name="approver'+(idx+1)+'">';
+			horContent += '<input type="hidden" name="approver'+(idx+1)+'" value="'+item.member_no+'">';
 			horContent += '</div>';
-			
-			$('.vertical_appr').empty();
-			$('.vertical_appr').append(verContent);
-			$('.horizontal_appr').empty();
-			$('.horizontal_appr').append(horContent);
-			$('input[name="approver'+(idx+1)+'"]').val(item.member_no);
 		});
+		$('.vertical_appr').empty();
+		$('.horizontal_appr').empty();
+		$('.vertical_appr').append(verContent);
+		$('.horizontal_appr').append(horContent);
 	} else{
 		$('.vertical_appr').empty();
 		$('.horizontal_appr').empty();
 	}
-	
+	console.log($('input[name="approver1"]').val());
+	console.log($('input[name="approver2"]').val());
 }
+
 
 function drawObserver(apprList){
 	
