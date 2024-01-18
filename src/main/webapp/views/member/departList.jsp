@@ -385,11 +385,6 @@ $(document).on('click', 'p', function() {
 		$('#departmentList').append(content);
 	}
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/master
 	function createModal() {
 		var departNo = $('#depart_no').val();
 		 $('#depart_p_no').val(departNo);

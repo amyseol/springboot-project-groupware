@@ -94,7 +94,7 @@
 					</li>
 					<li class="btn_box">
 						<div class="search_btn">
-							<img src="./img/search.png" alt="검색 버튼" onclick="search()">
+							<img src="/resources/img/common/search.png" alt="검색 버튼" onclick="search()">
 						</div>
 					</li>
 				</ul>         
@@ -238,15 +238,20 @@
 	        content += '<li><input type="checkbox" name="sendCheck" value="' + item.note_no + '"/></li>';
 	        content +='<li>' 
 	            if(item.send_state==="0"){
-	                content+='<img src="/resources/img/common/unread.jpg" alt="unreadImage" width=20 height=20/>';
+	                content+='<img src="/resources/img/common/unread.png" alt="unreadImage" width=20 height=20/>';
 	            }else if(item.send_state==="1"){
-	                content+='<img src="/resources/img/common/read.jpg" alt="readImage" width=20 height=20/>';
+	                content+='<img src="/resources/img/common/read.png" alt="readImage" width=20 height=20/>';
 	            }
 	        content +='</li>';
 	        content += '<li><span class="name">' + item.receiver_name + '</span></li>';
 	        content += '<li><a href="sendMail/list/detail?note_no='+item.note_no+'">' + item.note_subject + '</a></li>';
 	        content += '<li><span class="date">' + item.note_date + '</span></li>';
-	        content += '<li><span class="num">' + item.file_size + 'KB</span></li>';
+	        content += '<li>'
+	            if (item.file_size == null) {
+	                content += '<span class="num">' + 0 + 'KB</span></li>';
+	             } else{
+	                content += '<span class="num">' + item.file_size + 'KB</span></li>';
+	             }
 	        content += '</ul>';
 	    });
 	    $('.list_content').empty();

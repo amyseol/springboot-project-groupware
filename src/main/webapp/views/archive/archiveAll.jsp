@@ -75,7 +75,7 @@
             </li>
             <li class="btn_box">
                 <div class="search_btn">
-                    <img src="./img/search.png" alt="검색 버튼" onclick="search()">
+                    <img src="/resources/img/common/search.png" alt="검색 버튼" onclick="search()">
                 </div>
             </li>
         </ul>

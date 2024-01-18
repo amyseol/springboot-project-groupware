@@ -16,7 +16,7 @@
 <script type="text/javascript" src="/resources/richtexteditor/rte.js"></script>
 <script type="text/javascript" src='/resources/richtexteditor/plugins/all_plugins.js'></script>
 <style>
-	/* approval form */
+   /* approval form */
         #approval_write{position:relative; margin-left: 15%;}
         #approval_write .top_area{position:fixed; top: 0; left: 15%; width:100%; padding: 30px 50px 17px 50px; border-bottom: 1px solid #ccc; background-color: #fff; z-index: 9997;}
         #approval_write .top_area h2{font-size: 24px; font-weight:500; padding-bottom:20px;}
@@ -167,7 +167,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="/views/nav.jsp" %>
+   <%@ include file="/views/nav.jsp" %>
     <!-- -------------------------------------------form start------------------------------------------ -->
     <section id="approval_write">
         <div class="top_area">
@@ -206,9 +206,9 @@
                             </div>
                         </li>
                         <li class="list_box">
-                        	<ul class="vertical_appr">
-	                        	
-	                        </ul>
+                           <ul class="vertical_appr">
+                              
+                           </ul>
                         </li>
                     </ul>
                     <ul class="list_box observer sor_box vertical_obser">
@@ -220,7 +220,7 @@
                 <form id="form_info" class="doc_form" action="approvalWrite.do" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="form_no" value="1">
                 <ul class="horizontal_obser">
-                	
+                   
                 </ul>
                     <div class="form_top">
                         <h4 class="form_name">업 무 기 안</h4>
@@ -249,7 +249,7 @@
                                     </div>
                                 </div>
                                 <div class="horizontal_appr sign_wrap">
-                                	
+                                   
                                 </div>
                             </div>
                         </div>
@@ -283,7 +283,7 @@
                         </div>
                     </div>
                 <div class="file_form">
-               	 <div id="file_btn">파일선택</div>
+                   <div id="file_btn">파일선택</div>
                     <input id="input_file" type="file" name="files" onchange="addFile(this);" multiple="multiple" />
                     <div class="file-list"></div>
                 </div>
@@ -308,41 +308,41 @@
                         <h5>조직도</h5>
                         <div class="org_chart">
                             <ul>
-                            	<c:forEach items="${departments}" var="depart">
-                            		<c:if test="${depart.depart_p_no eq 0}">
-                            			<li>
-	                            			<span>
-		                                        <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-		                                        <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> ${depart.depart_name}
-		                                    </span>
-		                                    <ul>
-		                                    	<c:forEach items="${teams}" var="team">
-			                                    	<c:if test="${depart.depart_no eq team.depart_p_no}">
-			                                    		<li>
-			                                    			<span>
-				                                                <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
-				                                                <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> ${team.depart_name}
-				                                            </span>
-				                                            <ul>
-				                                            	<c:forEach items="${members}" var="member">
-				                                            		<c:if test="${team.depart_no eq member.depart_no}">
-				                                            			<li>
-						                                                    <p data-member-no="${member.member_no}">
-						                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-						                                                        <path fill="#025768" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
-						                                                        </svg> ${member.name} ${member.member_position}
-						                                                    </p>
-						                                                </li>
-				                                            		</c:if>
-				                                            	</c:forEach>
-				                                            </ul>
-			                                    		</li>
-			                                    	</c:if>
-			                                    </c:forEach>
-		                                    </ul>
-	                                    </li>
-                            		</c:if>
-                            	</c:forEach>
+                               <c:forEach items="${departments}" var="depart">
+                                  <c:if test="${depart.depart_p_no eq 0}">
+                                     <li>
+                                        <span>
+                                              <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
+                                              <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> ${depart.depart_name}
+                                          </span>
+                                          <ul>
+                                             <c:forEach items="${teams}" var="team">
+                                                <c:if test="${depart.depart_no eq team.depart_p_no}">
+                                                   <li>
+                                                      <span>
+                                                            <svg class="plus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12m96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg>
+                                                            <svg class="minus" width="12" height="12" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48m-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6"/></svg> ${team.depart_name}
+                                                        </span>
+                                                        <ul>
+                                                           <c:forEach items="${members}" var="member">
+                                                              <c:if test="${team.depart_no eq member.depart_no}">
+                                                                 <li>
+                                                                      <p data-member-no="${member.member_no}">
+                                                                          <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
+                                                                          <path fill="#025768" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
+                                                                          </svg> ${member.name} ${member.member_position}
+                                                                      </p>
+                                                                  </li>
+                                                              </c:if>
+                                                           </c:forEach>
+                                                        </ul>
+                                                   </li>
+                                                </c:if>
+                                             </c:forEach>
+                                          </ul>
+                                       </li>
+                                  </c:if>
+                               </c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -409,45 +409,45 @@
 <script>
 
 function approval_do(){
-	event.stopPropagation();
-	var form = document.getElementById("form_info");
-	var content = editor.getHTMLCode();
-	var $date = $('input[name = "date"]');
-	var $title = $('input[name = "title"]');
-	var $content = $('input[name = "content"]');
-	var $approver = $('input[name = "approver1"]');
-	$content.val(content);
-	
-	if(content.length > (2*1024*1024)){
-		// POST 방식은 순수 컨텐츠의 크기가 2MB 이상은 수용하지 못한다.
-		// data:image는 별도의 파트가 아닌, 문자열과 함께하는 컨텐츠이기 때문에 2MB가 넘어가면 안된다.
-		// 되도록이면 2MB를 넘으면 안되지만, 넘어야 할 경우라면 server.xml에서 조정 가능하다.
-		// maxPostSize = -1 (무제한) maxPostSize = 허용바이트
-		// <Connector maxPostSize="-1" connectionTimeout="20000" maxParameterCount="1000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
-		alert('컨텐츠의 크기가 너무 큽니다. 이미지의 갯수나 크기를 줄여 주세요.');
-	}else if($date.val() == ''){
-		alert("시행일자를 입력해 주세요.");
-		$date.focus();
-	}else if($title.val() == ''){
-		alert("제목을 입력해 주세요.");
-		$title.focus();
-	}else if($content.val() == ''){
-		alert("내용을 입력해 주세요.");
-		$content.focus();
-	}else if($approver.length == 0){
-		alert("결재자를 선택해 주세요.");
-		approver_select_go();
-	}else{
-		form.submit();
-	}
+   event.stopPropagation();
+   var form = document.getElementById("form_info");
+   var content = editor.getHTMLCode();
+   var $date = $('input[name = "date"]');
+   var $title = $('input[name = "title"]');
+   var $content = $('input[name = "content"]');
+   var $approver = $('input[name = "approver1"]');
+   $content.val(content);
+   
+   if(content.length > (2*1024*1024)){
+      // POST 방식은 순수 컨텐츠의 크기가 2MB 이상은 수용하지 못한다.
+      // data:image는 별도의 파트가 아닌, 문자열과 함께하는 컨텐츠이기 때문에 2MB가 넘어가면 안된다.
+      // 되도록이면 2MB를 넘으면 안되지만, 넘어야 할 경우라면 server.xml에서 조정 가능하다.
+      // maxPostSize = -1 (무제한) maxPostSize = 허용바이트
+      // <Connector maxPostSize="-1" connectionTimeout="20000" maxParameterCount="1000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+      alert('컨텐츠의 크기가 너무 큽니다. 이미지의 갯수나 크기를 줄여 주세요.');
+   }else if($date.val() == ''){
+      alert("시행일자를 입력해 주세요.");
+      $date.focus();
+   }else if($title.val() == ''){
+      alert("제목을 입력해 주세요.");
+      $title.focus();
+   }else if($content.val() == ''){
+      alert("내용을 입력해 주세요.");
+      $content.focus();
+   }else if($approver.length == 0){
+      alert("결재자를 선택해 주세요.");
+      approver_select_go();
+   }else{
+      form.submit();
+   }
 }
 
 function cancel_go(){
-	var userResponse = confirm("작성한 내용은 저장되지 않습니다.\n취소하시겠습니까?");
-	
-	if (userResponse) {
-		window.location.href = '/draftBox';
-	}
+   var userResponse = confirm("작성한 내용은 저장되지 않습니다.\n취소하시겠습니까?");
+   
+   if (userResponse) {
+      window.location.href = '/draftBox';
+   }
 }
 
 // ------------------------------------ approver_select_box start ------------------------------------
@@ -573,12 +573,12 @@ function observer_select(){
         alert('참조할 직원을 클릭해주세요.');
         return;
     } else{
-    	if (isDuplicate(observer_arr, member_no)) {
+       if (isDuplicate(observer_arr, member_no)) {
             alert("중복된 대상입니다.");
         } else {
             // 중복이 아니면 배열에 추가
             observer_arr.push(member_no.toString());
-        	observer_count++;
+           observer_count++;
             observer_class_num++;
             var content = "";
             content += '<li class="name obser_list'+observer_class_num+'">'+member_name+'</li>';
@@ -623,93 +623,93 @@ function observer_selected_del(element){
 }
 
 function setApprover(){
-	$('#approver_light_box').fadeOut(50);
-	
-	$.ajax({
-	    url: 'setApprover.ajax',
-	    type: 'POST',
-	    dataType:'JSON',
-	    contentType: 'application/json',
-	    data: JSON.stringify({
-	        approver: approver_arr,
-	        observer: observer_arr
-	    }),
-	    success: function(data) {
-	        console.log("setApprover.ajax 성공");
-	        drawApprover(data);
-	        if(data.observer != 0){
-	        	drawObserver(data);
-	        } else{
-	        	$('.vertical_obser').empty();
-	        	$('.horizontal_obser').empty();
-	        }
-	    },
-	    error: function(error) {
-	        console.error("setApprover.ajax 실패");
-	    }
-	});
+   $('#approver_light_box').fadeOut(50);
+   
+   $.ajax({
+       url: 'setApprover.ajax',
+       type: 'POST',
+       dataType:'JSON',
+       contentType: 'application/json',
+       data: JSON.stringify({
+           approver: approver_arr,
+           observer: observer_arr
+       }),
+       success: function(data) {
+           console.log("setApprover.ajax 성공");
+           drawApprover(data);
+           if(data.observer != 0){
+              drawObserver(data);
+           } else{
+              $('.vertical_obser').empty();
+              $('.horizontal_obser').empty();
+           }
+       },
+       error: function(error) {
+           console.error("setApprover.ajax 실패");
+       }
+   });
 }
 
 function drawApprover(apprList){
-	
-	var verContent = "";
-	var horContent = '<div class="left_wrap"><p>승<br>인</p></div>';
-	
-	if(apprList.approver != 0){
-		apprList.approver.forEach(function(item, idx){
-			verContent += '<li>';
-			verContent += '<div class="info_box"><div class="left_box"> <div class="img_box">';
-			verContent += '<a href="javascript:"><img src="/resources/img/common/'+item.file_newname+'" alt="'+item.member_no+'_'+item.name+'"></a></div></div>';
-			verContent += '<div class="right_box"><ul class="approver_info">';
-			verContent += '<li class="member_name"><a href="javascript:">'+item.name+' '+item.member_position+'</a></li>';
-			verContent += '<li class="depart_name">'+item.depart_name+'</li>';
-			verContent += '<li class="sortation">결재</li>';
-			verContent += '</ul></div></div></li>';
-			
-			horContent += '<div class="right_wrap">';
-			horContent += '<div class="sign_rank">'+item.member_position+'</div>';
-			horContent += '<div class="sign_name">'+item.name+'</div>';
-			horContent += '<div class="sign_date"></div>';
-			horContent += '<input type="hidden" name="approver'+(idx+1)+'" value="'+item.member_no+'">';
-			horContent += '</div>';
-		});
-		$('.vertical_appr').empty();
-		$('.horizontal_appr').empty();
-		$('.vertical_appr').append(verContent);
-		$('.horizontal_appr').append(horContent);
-	} else{
-		$('.vertical_appr').empty();
-		$('.horizontal_appr').empty();
-	}
-	console.log($('input[name="approver1"]').val());
-	console.log($('input[name="approver2"]').val());
+   
+   var verContent = "";
+   var horContent = '<div class="left_wrap"><p>승<br>인</p></div>';
+   
+   if(apprList.approver != 0){
+      apprList.approver.forEach(function(item, idx){
+         verContent += '<li>';
+         verContent += '<div class="info_box"><div class="left_box"> <div class="img_box">';
+         verContent += '<a href="javascript:"><img src="/resources/img/common/'+item.file_newname+'" alt="'+item.member_no+'_'+item.name+'"></a></div></div>';
+         verContent += '<div class="right_box"><ul class="approver_info">';
+         verContent += '<li class="member_name"><a href="javascript:">'+item.name+' '+item.member_position+'</a></li>';
+         verContent += '<li class="depart_name">'+item.depart_name+'</li>';
+         verContent += '<li class="sortation">결재</li>';
+         verContent += '</ul></div></div></li>';
+         
+         horContent += '<div class="right_wrap">';
+         horContent += '<div class="sign_rank">'+item.member_position+'</div>';
+         horContent += '<div class="sign_name">'+item.name+'</div>';
+         horContent += '<div class="sign_date"></div>';
+         horContent += '<input type="hidden" name="approver'+(idx+1)+'" value="'+item.member_no+'">';
+         horContent += '</div>';
+      });
+      $('.vertical_appr').empty();
+      $('.horizontal_appr').empty();
+      $('.vertical_appr').append(verContent);
+      $('.horizontal_appr').append(horContent);
+   } else{
+      $('.vertical_appr').empty();
+      $('.horizontal_appr').empty();
+   }
+   console.log($('input[name="approver1"]').val());
+   console.log($('input[name="approver2"]').val());
 }
 
 
 function drawObserver(apprList){
-	
-	var verContent = "";
-	var horContent = "";
-	
-	apprList.observer.forEach(function(item, idx){
-		verContent += '<li>';
-		verContent += '<div class="info_box"><div class="left_box"> <div class="img_box">';
-		verContent += '<a href="javascript:"><img src="/resources/img/common/'+item.file_newname+'" alt="'+item.member_no+'_'+item.name+'"></a></div></div>';
-		verContent += '<div class="right_box"><ul class="approver_info">';
-		verContent += '<li class="member_name"><a href="javascript:">'+item.name+' '+item.member_position+'</a></li>';
-		verContent += '<li class="depart_name">'+item.depart_name+'</li>';
-		verContent += '<li class="sortation">결재</li>';
-		verContent += '</ul></div></div></li>';
-		
-		horContent += '<li><input type="hidden" name="observer" class="observer'+(idx+1)+'"></li>';
-			
-		$('.vertical_obser').empty();
-		$('.vertical_obser').append(verContent);
-		$('.horizontal_obser').empty();
-		$('.horizontal_obser').append(horContent);
-		$('input[class="observer'+(idx+1)+'"]').val(item.member_no);
-	});
-	
+   
+   var verContent = "";
+   var horContent = "";
+   
+   apprList.observer.forEach(function(item, idx){
+      verContent += '<li>';
+      verContent += '<div class="info_box"><div class="left_box"> <div class="img_box">';
+      verContent += '<a href="javascript:"><img src="/resources/img/common/'+item.file_newname+'" alt="'+item.member_no+'_'+item.name+'"></a></div></div>';
+      verContent += '<div class="right_box"><ul class="approver_info">';
+      verContent += '<li class="member_name"><a href="javascript:">'+item.name+' '+item.member_position+'</a></li>';
+      verContent += '<li class="depart_name">'+item.depart_name+'</li>';
+      verContent += '<li class="sortation">결재</li>';
+      verContent += '</ul></div></div></li>';
+      
+      horContent += '<li><input type="hidden" name="observer" class="observer'+(idx+1)+'"></li>';
+         
+      $('.vertical_obser').empty();
+      $('.vertical_obser').append(verContent);
+      $('.horizontal_obser').empty();
+      $('.horizontal_obser').append(horContent);
+      $('input[class="observer'+(idx+1)+'"]').val(item.member_no);
+   });
+   
 }
 
 
@@ -766,19 +766,19 @@ var editor = new RichTextEditor("#rich_editor", config);
 // 장점 : 서버에 별도의 파일처리를 하지 않아도 된다.
 // 단점 : 파일만 별도로 용량제어가 안된다. / 원래 이미지보다 사이즈가 커진다.
 function save(){
-	var content = editor.getHTMLCode();
-	$('input[name="content"]').val(content);
-	console.log((content.length/1024/1024)+'MB');
-	if(content.length > (2*1024*1024)){
-		// POST 방식은 순수 컨텐츠의 크기가 2MB 이상은 수용하지 못한다.
-		// data:image는 별도의 파트가 아닌, 문자열과 함께하는 컨텐츠이기 때문에 2MB가 넘어가면 안된다.
-		// 되도록이면 2MB를 넘으면 안되지만, 넘어야 할 경우라면 server.xml에서 조정 가능하다.
-		// maxPostSize = -1 (무제한) maxPostSize = 허용바이트
-		// <Connector maxPostSize="-1" connectionTimeout="20000" maxParameterCount="1000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
-		alert('컨텐츠의 크기가 너무 큽니다. 이미지의 갯수나 크기를 줄여 주세요!');
-	}else{
-		$('form').submit();
-	}
+   var content = editor.getHTMLCode();
+   $('input[name="content"]').val(content);
+   console.log((content.length/1024/1024)+'MB');
+   if(content.length > (2*1024*1024)){
+      // POST 방식은 순수 컨텐츠의 크기가 2MB 이상은 수용하지 못한다.
+      // data:image는 별도의 파트가 아닌, 문자열과 함께하는 컨텐츠이기 때문에 2MB가 넘어가면 안된다.
+      // 되도록이면 2MB를 넘으면 안되지만, 넘어야 할 경우라면 server.xml에서 조정 가능하다.
+      // maxPostSize = -1 (무제한) maxPostSize = 허용바이트
+      // <Connector maxPostSize="-1" connectionTimeout="20000" maxParameterCount="1000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+      alert('컨텐츠의 크기가 너무 큽니다. 이미지의 갯수나 크기를 줄여 주세요!');
+   }else{
+      $('form').submit();
+   }
 }
 // ----------------------------------- text editor end ------------------------------------------
 
@@ -852,8 +852,8 @@ function deleteFile(num) {
 
 // input file 버튼 수정
 $('#file_btn').on('click',function(event){
-	event.stopPropagation();
-	document.getElementById("input_file").click();  
+   event.stopPropagation();
+   document.getElementById("input_file").click();  
 });
 
 $('.cancel_box').on('click',function(){

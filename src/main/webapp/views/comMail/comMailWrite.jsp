@@ -406,7 +406,7 @@ $('.org_chart>ul>li>ul>li>span').on('click',function(){
             }
         };
         
-        //location.href="/sendMail";
+        location.href="/sendMail";
     }
 //--------------------------------------mail end-----------------------------------------------------
 </script>

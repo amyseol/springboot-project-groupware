@@ -249,8 +249,8 @@ function calLeave(){
 					+'<li>'+data.leaveY+'</li>'
 					+'<li>'+data.leaveM+'</li>'
 					+'<li>'+data.leaveA+'</li>'
-					+'<li>'+data.leaveU+'</li>'
-					+'<li>'+data.leaveC+'</li>'
+					+'<li>2.5</li>'
+					+'<li>17.5</li>'
 					+'</ul>');
 		
 		}
