@@ -13,6 +13,13 @@
 <style>
 	<style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        
+        @font-face {
+            font-family: 'EF_jejudoldam';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-EF@1.0/EF_jejudoldam.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
 
         @font-face {
             font-family: 'GmarketSansBold';
@@ -39,12 +46,12 @@
         img{border:none; display: block;}
         body, header, section, footer, div, ul, li, p, a, span, input, textarea{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 14px;}
         h2, h3, h4, h5, h6{font-family: 'Noto Sans KR', sans-serif; color: #222; font-size: 24px;}
-        h1{font-family: 'GmarketSansMedium'; color:#222;}
+        h1{font-family: 'EF_jejudoldam'; color:#222;}
 
         #nav{position:fixed; width:15%; height:100%; box-shadow: 0 0 3px 0.5px rgb(228, 228, 228); background-color: #fff; overflow: auto; z-index:9998;}
         #nav .nav_inner{padding-top: 40px;}
         #nav .logo{padding: 0 0 30px 40px;}
-        #nav .logo a{color:#222; font-size:20px;}
+        #nav .logo>a{color:#025464; font-size:24px; font-family: 'EF_jejudoldam'; text-align: center;}
         #nav .gnb ul{display: none;}
         #nav .gnb li{padding:10px 0 10px 40px; font-size:14px; font-family: 'GmarketSansMedium', sans-serif; color:#888; letter-spacing: 0.5px; word-spacing: -2px;}
         #nav .gnb li.dep2{padding-left:50px;}
@@ -119,7 +126,7 @@
         #approval_light_box .select_form_box .form_box_inner .btn_area{position:relative;}
         #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner{position: absolute; right:0;}
         #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner button{width:50px; height:35px; box-sizing: border-box; cursor: pointer;}
-        #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner button:first-child{background-color: #eb568e; border: none; color: #fff;}
+        #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner button:first-child{background-color: #025768; border: none; color: #fff;}
         #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner button:last-child{border: 1px solid #ccc;}
         
     </style>
@@ -195,7 +202,7 @@
     <!-- -------------------------------------------nav start------------------------------------------ -->
     <div id="nav">
         <div class="nav_inner">
-            <h1 class="logo"><a href="/main">Hoony Music</a></h1>
+            <h1 class="logo"><a href="/main">HOONY</a></h1>
             	<ul class="gnb">
                 <a href="javascript:"><li class="dep1" data-index="11">게시판
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
@@ -390,215 +397,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 //-------------------------------- toggle end ------------------------------------------
-//-------------------------------- organization start----------------------------------------
-var selecEl = null;
-        
-        // 부서 모달 팝업
-        function showDepartModal(){
-            var departModal = $("#departModal");
-            
-            if (departModal.css("display") == "none") {
-            	departModal.show();
-            	
-            	getDepartmentList();
-			} else {
-				departModal.hide();
-			}
-        }
-        
-        // 멤버 팝업 띄우기
-        function showMemberModal(content){
-        	var memberModal = $("#memberModal");
-        	var memberInfo = $("#memberInfo");
-        	var close = $(".close");
-        	
-        	if (memberModal.is(":visible")) {
-        		memberInfo.empty().append(content);
-			} else {
-				memberInfo.append(content);
-                memberModal.show();
-			}
-        	
-        	close.show();
-        }
-        
-        function getDepartmentList(){
-        	// 부서 리스트를 가져오는 AJAX
-            $.ajax({
-                type: "GET",
-                url: "/organization/departments",
-                dataType: "JSON",
-                success: function(departments){
-                    // 부서 목록
-                    var departmentList = $("#departments");
-                    departmentList.empty();
-                    
-                    departments.forEach(function(department){
-                        var li = $('<li class="departList"><span onclick="toggleDepart(' + department.depart_no + ')">' + department.depart_name + '</span></li>');
-                        departmentList.append(li);
-                    });
-                },
-                error: function(e){
-                    console.log(e);
-                }
-            });
-        }
-        
-
-        // 팀 리스트를 가져오는 AJAX
-        function toggleDepart(depart_no){
-            // 팀 리스트
-            var teamList = $("#teamListUl" + depart_no);
-            // 해당 부서의 팀 리스트가 표시될 위치
-            var teamLocation = $(".departList").eq(depart_no - 1);
-
-            if(teamList.length){
-                teamList.toggle();
-            } else{
-                $.ajax({
-                    type: "GET",
-                    url: "/organization/teams/" + depart_no,
-                    dataType: "JSON",
-                    success: function(departments){
-                        teamList = $('<ul id="teamListUl'+depart_no+'" class="teamListUl"></ul>');
-
-                        departments.forEach(function(department){
-                            var teamItem = $('<li class="teamList"><span onclick="toggleTeam(' + department.depart_no + ')">' + department.depart_name + '</span></li>');
-                            teamList.append(teamItem);
-                        });
-                        
-                        teamLocation.append(teamList);
-                        teamLocation.slideDown(300);
-    
-                        $(".memberList").eq(depart_no - 1).slideUp(300);
-                    },
-                    error: function(e){
-                        console.log(e);
-                    }
-                });
-            }
-
-            toggleElement(teamLocation);
-
-        }
-
-        // 해당 팀의 직원 목록을 가져오는 AJAX 
-        function toggleTeam(depart_no){
-            // 직원 리스트
-            var memberList = $("#memberListUl" + depart_no);
-            // 해당 팀의 직원 리스트가 표시될 위치
-            var memberLocation  = $(".teamList").eq(depart_no - 5);
-
-            if(memberList.length){
-                memberList.toggle();
-            } else{
-                $.ajax({
-                    type: "GET",
-                    url: "/organization/members/" + depart_no,
-                    dataType: "JSON",
-                    success: function(members){
-                        memberList = $('<ul id="memberListUl'+ depart_no +'" class="memberListUl"></ul>');
-                        members.forEach(function(member){
-                            var memberItem = $('<li class="memberList"><p data-member-no="'+ member.member_no  +'" onclick="getMemberDetail(' + member.member_no + ')">' + member.name + '</p></li>');
-                            memberList.append(memberItem);
-                        });
-                        
-                        memberLocation.append(memberList);
-                        memberLocation.slideDown(300);
-                    },
-                    error: function(e){
-                        console.log(e);
-                    }
-                });
-            }
-
-            toggleElement(memberLocation);
-        }
-
-        function toggleElement(element){
-            // 클릭한 요소에 토글 스타일 적용 및 이전에 선택된 요소의 스타일 제거
-            if(selecEl){
-                selecEl.removeClass("active");
-            }
-            selecEl = element;
-            element.addClass("active");
-        }
-        
-        // 직원 정보 표시 팝업
-        function getMemberDetail(member_no){
-        	$.ajax({
-                type: "GET",
-                url: "/organization/detail/" + member_no,
-                success: function(member) {
-                	var popupContent = '<div style="display: flex;">';
-                	console.log(member);
-                	member.list.forEach(function(item){
-	                    // 팝업의 내용을 생성
-	                    popupContent +=
-	                        '<div style="flex: 1;">' +
-	                        '<img src="/photo/' + member.file_newname + '" alt="프로필 사진" style="max-width: 100%;">' +
-	                        '<p>' + item.name + ' ' + item.member_position + '</p>' +
-	                        '</div>' +
-	                        '<div style="flex: 1; padding-left: 10px;">' +
-	                        '<p><strong>직급:</strong> ' + item.member_position + '</p>' +
-	                        '<p><strong>연락처:</strong> ' + item.phone + '</p>' +
-	                        '<p><strong>이메일:</strong> ' + item.email + '</p>' +
-	                        '</div>' +
-	                        '<span class="close" onclick="closeModal()"> X </span>' +
-	                        '</div>';
-                	});
-
-                    // 팝업 생성 및 표시
-                    showMemberModal(popupContent);
-                },
-                error: function(e) {
-                    console.log(e);
-                }
-        	});
-        }
-        
-     	// 팝업 닫기 함수
-        function closeModal() {
-            var modal = $("#memberModal");
-            var close = $(".close");
-            modal.hide();
-            close.hide();
-        }
-//-------------------------------- organization end-----------------------------------------
-
-
-//-------------------------------- 조직도 테스트 버튼 start -----------------------------------------
-function organization(){
-	$('#orgChartModal').modal('show');
-}
-
-$('.org_chart>ul>li>span').on('click',function(){
-    var $ul = $(this).siblings('ul');
-
-    $ul.slideToggle(400,function(){
-        if ($(this).is(":hidden")) {
-            $(this).siblings('span').find('.minus').css('display','none');
-            $(this).siblings('span').find('.plus').css('display','inline-block');
-        }else{
-            $(this).siblings('span').find('.minus').css('display','inline-block');
-            $(this).siblings('span').find('.plus').css('display','none');
-        }
-    });
-});
-$('.org_chart>ul>li>ul>li>span').on('click',function(){
-    var $ul = $(this).siblings('ul');
-
-    $ul.slideToggle(300,function(){
-        if ($(this).is(":hidden")) {
-            $(this).siblings('span').find('.minus').css('display','none');
-            $(this).siblings('span').find('.plus').css('display','inline-block');
-        }else{
-            $(this).siblings('span').find('.minus').css('display','inline-block');
-            $(this).siblings('span').find('.plus').css('display','none');
-        }
-    });
-});
-//-------------------------------- 조직도 테스트 버튼 end -----------------------------------------
 
 
 
@@ -606,12 +404,6 @@ $('.org_chart>ul>li>ul>li>span').on('click',function(){
 
 
 // ------------------------------------ approval_select_box start ------------------------------------
-// var $member_name = ${sessionScope.loginMember.name};
-// console.log($member_name);
-// var $member_depart_name = ${sessionScope.loginMember.depart_name};
-// console.log($member_depart_name);
-// $('#approval_name').text($member_name);
-// $('#approval_depart_name').text($member_depart_name);
 
 
 function approval_select_go(){
@@ -654,7 +446,7 @@ $('#form_go').on('click',function(){
     } else if(dataIndexValue == 2){
         window.location.href = 'javascript:';
     } else if(dataIndexValue == 3){
-        window.location.href = 'form_two.html';
+        window.location.href = '/leaveApp';
     } else if(dataIndexValue == 4){
         window.location.href = 'javascript:';
     } else if(dataIndexValue == 5){

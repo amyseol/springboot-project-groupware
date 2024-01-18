@@ -46,6 +46,12 @@ public class ApprovalService {
 		return mav;
 	}
 	
+	// 휴가신청서 작성 이동
+	public ModelAndView leaveApp(int member_no) {
+		mav.setViewName("approval/leaveApp");
+		return mav;
+	}
+	
 	// 결재선 지정
 	public HashMap<String, Object> setApprover(String[] approver, String[] observer) {
 		List<ApprovalDTO> approverArr = new ArrayList<ApprovalDTO>();
@@ -147,7 +153,9 @@ public class ApprovalService {
 		if(form_no == 1) {
 			mav.setViewName("approval/draftDocDetail?approval_no="+approval_no);
 		} else if(form_no == 2) {
-			
+			mav.setViewName("approval/expenseReqDetail?approval_no="+approval_no);
+		} else if(form_no == 3) {
+			mav.setViewName("approval/leaveAppDetail?approval_no="+approval_no);
 		}
 		return mav;
 	}
@@ -319,6 +327,8 @@ public class ApprovalService {
 		mav.setViewName("approval/draftBox");
 		return mav;
 	}
+
+	
 
 
 }

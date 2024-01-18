@@ -34,11 +34,11 @@
         #approval_write .bottom_area .left_area .sortation_box{width: 100%;}
         #approval_write .bottom_area .left_area .sortation_box .list_btn{padding-left: 50px; height: 31px;}
         #approval_write .bottom_area .left_area .sortation_box .list_btn li{float: left; margin-left: 15px; text-align: center; cursor: pointer; padding: 0 7px 10px 7px;}
-        #approval_write .bottom_area .left_area .sortation_box .list_btn li.on{border-bottom: 2px solid #025768; font-weight: 700;}
+        #approval_write .bottom_area .left_area .sortation_box .list_btn li.on{border-bottom: 2px solid #025464; font-weight: 700;}
         #approval_write .bottom_area .left_area .sortation_box .list_btn li:first-child{margin-left: 0;}
         #approval_write .bottom_area .left_area .sortation_box>.list_box{border-top: 1px solid #ccc; width: 300px;  height: 640px; box-sizing: border-box; overflow: auto;}
         #approval_write .bottom_area .left_area .sortation_box .list_box>li{height: 100px;}
-        #approval_write .bottom_area .left_area .sortation_box .list_box>li.on{background-color: rgba(26, 170, 50, 0.1); border-left: 3px solid #025768;}
+        #approval_write .bottom_area .left_area .sortation_box .list_box>li.on{background-color: rgba(26, 170, 50, 0.1); border-left: 3px solid #025464;}
         #approval_write .bottom_area .left_area .sortation_box .list_box>li>ul>li{height: 100px;}
         #approval_write .bottom_area .left_area .sortation_box .list_box .info_box{padding: 20px 50px;}
         #approval_write .bottom_area .left_area .sortation_box .list_box .info_box>div{float: left;}
@@ -78,18 +78,22 @@
         #approval_write .bottom_area .right_area .form_top .top_right .right_inner .sign_wrap .right_wrap .sign_rank{height: 30px; border-top: 1px solid #333; line-height: 27px;}
         #approval_write .bottom_area .right_area .form_top .top_right .right_inner .sign_wrap .right_wrap .sign_name{height: 65px; line-height: 62px;}
         #approval_write .bottom_area .right_area .form_top .top_right .right_inner .sign_wrap .right_wrap .sign_date{height: 30px; line-height: 27px;}
-        #approval_write .bottom_area .right_area .form_bottom{position:relative; height: 472px;}
+        #approval_write .bottom_area .right_area .form_bottom{position:relative;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul{position: relative; width: 800px;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li{position:relative; float: left; width:30%; border-bottom: 1px solid #333; border-right: 1px solid #333; box-sizing: border-box; padding: 5px; height: 36px;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li.head{width: 18%; text-align: center; font-weight: 500; background-color: #dedede;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li.head{width: 20%; text-align: center; font-weight: 500; background-color: #dedede;}
         #approval_write .bottom_area .right_area .form_bottom>div>ul>li.bor_top{border-top: 1px solid #333;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li.bor_left{border-left: 1px solid #333;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(2){width: 24%;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(4){width: 40%;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(6){width: 82%;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(7){width: 100%; height: 400px;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li>input, #approval_write .bottom_area .right_area .form_bottom>div>ul>li>select{width: 100%; height: 100%; box-sizing: border-box; border: 1px solid #ccc;}
-        #approval_write .bottom_area .right_area .form_bottom>div>ul>li #date_picker:hover{border: 1px solid #222;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li.reason_row{height: 300px;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li.reason_head{line-height:280px;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(2n){width: 80%;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:nth-child(2n-1){border-left: 1px solid #333;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:last-child{width: 100%; background-color: #dedede; height: 130px; font-size: 13px; padding: 20px;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li:last-child span{font-size:11px; color: #8f8f8f;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li>input, #approval_write .bottom_area .right_area .form_bottom>div>ul>li>select{height: 100%; box-sizing: border-box; border: 1px solid #ccc;;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li>input.datepicker{width: 25%;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li #testDatepicker1, #approval_write .bottom_area .right_area .form_bottom>div>ul>li #testDatepicker2{padding-left: 26px;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li svg{position:absolute; left: 9px; top: 9px;}
+        #approval_write .bottom_area .right_area .form_bottom>div>ul>li svg.svg_sec{left: 181px;}
         .file-list {height: 145px; border: 2px dashed #ddd; padding: 10px;}
         .file-list .filebox p {font-size: 13px; margin-top: 8px; display: inline-block;}
         .file-list .filebox .delete i{color: #aaa;margin-left: 5px;}
@@ -122,7 +126,7 @@
         #approval_light_box .select_form_box .form_box_inner .btn_area{position:relative;}
         #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner{position: absolute; right:0;}
         #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner button{width:50px; height:35px; box-sizing: border-box; cursor: pointer;}
-        #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner button:first-child{background-color: #025768; border: none; color: #fff;}
+        #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner button:first-child{background-color: #eb568e; border: none; color: #fff;}
         #approval_light_box .select_form_box .form_box_inner .btn_area .btn_inner button:last-child{border: 1px solid #ccc;}
 
         /* approver select box css */
@@ -153,7 +157,7 @@
         #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .right_box>div>div>.picker:hover{background-color: #ededed; transition: 0.1s;}
         #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .right_box>div>div>div{float: left; width: 90%; overflow: auto; height: 174px;}
         #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .right_box>div>div>div ul li{float: left; padding: 8px 0 8px 2%; text-align: center; font-size: 13px;}
-        #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .right_box>div>div>div ul li.head{border-bottom: 1px solid #ccc; font-size: 14px; font-weight: 500; background-color: rgba(26, 170, 50, 0.1);}
+        #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .right_box>div>div>div ul li.head{border-bottom: 1px solid #ccc; font-size: 14px; font-weight: 500; background-color: #ededed;}
         #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .right_box>div>div>div ul li:first-child, #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .right_box>div>div>div ul li.name{width: 28%;}
         #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .right_box>div>div>div ul li:nth-child(2), #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .right_box>div>div>div ul li.position{width: 13%;}
         #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .right_box>div>div>div ul li:nth-child(3), #approver_light_box .select_approver_box .approver_box_inner .inner_wrap .right_box>div>div>div ul li.team{width: 30%;}
@@ -162,7 +166,7 @@
         #approver_light_box .select_approver_box .approver_box_inner .btn_area{position:relative; bottom: -122%;}
         #approver_light_box .select_approver_box .approver_box_inner .btn_area .btn_inner{position: absolute; right:0; bottom: 0;}
         #approver_light_box .select_approver_box .approver_box_inner .btn_area .btn_inner button{width:50px; height:35px; box-sizing: border-box; cursor: pointer;}
-        #approver_light_box .select_approver_box .approver_box_inner .btn_area .btn_inner button:first-child{background-color: #025768; border: none; color: #fff;}
+        #approver_light_box .select_approver_box .approver_box_inner .btn_area .btn_inner button:first-child{background-color: #eb568e; border: none; color: #fff;}
         #approver_light_box .select_approver_box .approver_box_inner .btn_area .btn_inner button:last-child{border: 1px solid #ccc;}
 </style>
 </head>
@@ -171,7 +175,7 @@
     <!-- -------------------------------------------form start------------------------------------------ -->
     <section id="approval_write">
         <div class="top_area">
-            <h2 class="title">업무기안</h2>
+            <h2 class="title">휴가신청서</h2>
             <ul class="approval_btn">
                 <li><a href="javascript:" id="approval_do" onclick="approval_do()"><svg width="15" height="15" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 9l-3 .54L5 6.5L10.73.79a1 1 0 0 1 1.42 0l1.06 1.06a1 1 0 0 1 0 1.42Z"/><path d="M12 9.5v3a1 1 0 0 1-1 1H1.5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3"/></g></svg> 결재요청</a></li>
                 <li><a href="javascript:" onclick="approval_select_go()"><svg width="16" height="16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M24 24v2h2.46A5.94 5.94 0 0 1 22 28a6.007 6.007 0 0 1-6-6h-2a7.984 7.984 0 0 0 14 5.265V30h2v-6zm-2-10a8.04 8.04 0 0 0-6 2.735V14h-2v6h6v-2h-2.46A5.94 5.94 0 0 1 22 16a6.007 6.007 0 0 1 6 6h2a8.01 8.01 0 0 0-8-8"/><path fill="currentColor" d="M12 28H6v-4h2v-2H6v-5h2v-2H6v-5h2V8H6V4h18v8h2V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v4H2v2h2v5H2v2h2v5H2v2h2v4a2 2 0 0 0 2 2h6Z"/></svg> 양식변경</a></li>
@@ -223,7 +227,7 @@
                 	
                 </ul>
                     <div class="form_top">
-                        <h4 class="form_name">업 무 기 안</h4>
+                        <h4 class="form_name">연 차 신 청 서</h4>
                         <div class="top_left">
                             <ul>
                                 <li class="head">기안자</li>
@@ -257,28 +261,56 @@
                     <div class="form_bottom">
                         <div class="bottom_inner">
                             <ul>
-                                <li class="head bor_top bor_left">시행일자</li>
-                                <li class="bor_top"><input type="date" name="date" id="date_picker"></li>
-                                <li class="head bor_top">협조팀명</li>
+                                <li class="head bor_top">휴가 종류</li>
                                 <li class="bor_top">
-                                    <select name="team_name">
-                                        <option value="0">-</option>
-                                        <option value="1">광고팀</option>
-                                        <option value="2">기획팀</option>
-                                        <option value="3">영상/디자인팀</option>
-                                        <option value="4">물류팀</option>
-                                        <option value="5">저작권 관리팀</option>
-                                        <option value="6">계약운영 관리팀</option>
-                                        <option value="7">전략/분석팀</option>
-                                        <option value="8">지원팀</option>
-                                        <option value="9">총무팀</option>
-                                        <option value="10">인사팀</option>
+                                    <select>
+                                        <option>연차</option>
+                                        <option>조퇴</option>
+                                        <option>지각</option>
+                                        <option>경조</option>
+                                        <option>공가</option>
+                                        <option>질병휴가</option>
                                     </select>
                                 </li>
-                                <li class="head bor_left">제목</li>
-                                <li><input type="text" name="title"/></li>
-                                <li id="rich_editor" class="bor_left"></li>
-                                <input type="hidden" name="content" value=""/>
+                                <li class="head">기간 및 일시</li>
+                                <li><input class="datepicker" type="text" id="testDatepicker1"><svg width="17" height="17" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                    <g fill="none">
+                                        <path fill="#B4ACBC" d="m2 9l13.267-2.843a3.5 3.5 0 0 1 1.466 0L30 9v15.8a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 24.8z"/>
+                                        <path fill="#F3EEF8" d="m3 8l12.213-2.818a3.5 3.5 0 0 1 1.574 0L29 8v16.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5z"/>
+                                        <path fill="#998EA4" d="M8 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm0 5.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.6c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2H8a.2.2 0 0 1-.2-.2zM14.6 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.7c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 5.2a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zM21 12.2c0-.11.09-.2.2-.2H24c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 10.7a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
+                                        <path fill="#0084CE" d="M7.2 2A5.2 5.2 0 0 0 2 7.2V9h28V7.2A5.2 5.2 0 0 0 24.8 2zm14 15.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
+                                    </g>
+                                </svg>
+                                ~
+                                <input class="datepicker" type="text" id="testDatepicker2"><svg class="svg_sec" width="17" height="17" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                    <g fill="none">
+                                        <path fill="#B4ACBC" d="m2 9l13.267-2.843a3.5 3.5 0 0 1 1.466 0L30 9v15.8a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 24.8z"/>
+                                        <path fill="#F3EEF8" d="m3 8l12.213-2.818a3.5 3.5 0 0 1 1.574 0L29 8v16.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5z"/>
+                                        <path fill="#998EA4" d="M8 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm0 5.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.6c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2H8a.2.2 0 0 1-.2-.2zM14.6 12a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zm-.2 5.7c0-.11.09-.2.2-.2h2.8c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 5.2a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2h2.8a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2zM21 12.2c0-.11.09-.2.2-.2H24c.11 0 .2.09.2.2v2.6a.2.2 0 0 1-.2.2h-2.8a.2.2 0 0 1-.2-.2zm.2 10.7a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
+                                        <path fill="#0084CE" d="M7.2 2A5.2 5.2 0 0 0 2 7.2V9h28V7.2A5.2 5.2 0 0 0 24.8 2zm14 15.5a.2.2 0 0 0-.2.2v2.6c0 .11.09.2.2.2H24a.2.2 0 0 0 .2-.2v-2.6a.2.2 0 0 0-.2-.2z"/>
+                                    </g>
+                                </svg>
+                                &nbsp;&nbsp;
+                                사용일수 : <input id="use_days" class="input_style" type="text" readonly/>
+                                </li>
+                                <li class="head">반차 여부</li>
+                                <li>
+                                    <span class="half_area">
+                                        <input type="checkbox" id="start_date"> 시작일 ( <input type="radio" id="start_am" name="start"> 오전 &nbsp; <input type="radio" id="start_pm" name="start"> 오후 )
+                                        &nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="end_date"> 종료일 ( <input type="radio" id="end_am" name="end"> 오전 &nbsp; <input type="radio" id="end_pm" name="end"> 오후 )
+                                    </span>
+                                </li>
+                                <li class="head">연차 일수</li>
+                                <li>잔여연차 : <input class="input_style" type="text" readonly/> &nbsp; 신청연차 : <input class="input_style" type="text" readonly/></li>
+                                <li class="head reason_row reason_head">휴가 사유</li>
+                                <li id="rich_editor" class="reason_row"></li>
+                                <li>
+                                    1. 연차의 사용은 근로기준법에 따라 전년도에 발생한 개인별 잔여 연차에 한하여 사용함을 원칙으로 한다.<br>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;단, 최초 입사시에는 근로 기준법에 따라 발생 예정된 연차를 차용하여 월 1회 사용 할 수 있다.</span><br>
+                                    2. 경조사 휴가는 행사일을 증명할 수 있는 가족 관계 증명서 또는 등본, 청첩장 등 제출<br>
+                                    3. 공가(예비군/민방위)는 사전에 통지서를, 사후에 참석증을 반드시 제출
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -329,7 +361,7 @@
 				                                            			<li>
 						                                                    <p data-member-no="${member.member_no}">
 						                                                        <svg width="14" height="14" viewBox="0 0 1408 1472" xmlns="http://www.w3.org/2000/svg">
-						                                                        <path fill="#025768" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
+						                                                        <path fill="#df7ca2" d="M704 128q-144 0-225 106t-81 271q-1 205 132 325q17 16 12 41l-23 48q-11 24-32.5 37.5T396 995q-3 1-126.5 41T138 1080q-84 35-110 73q-28 63-28 319h1408q0-256-28-319q-26-38-110-73q-8-4-131.5-44T1012 995q-69-25-90.5-38.5T889 919l-23-48q-5-25 12-41q133-120 132-325q0-165-81-271T704 128"/>
 						                                                        </svg> ${member.name} ${member.member_position}
 						                                                    </p>
 						                                                </li>

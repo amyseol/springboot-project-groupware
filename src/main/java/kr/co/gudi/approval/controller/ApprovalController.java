@@ -10,14 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,6 +38,15 @@ public class ApprovalController {
 		log.info("----------------- end draftDocForm --------------------");
 		return apprService.draftDoc(member_no);
 	}
+	
+	// 휴가 신청서 작성 이동
+		@GetMapping("/leaveApp")
+		public ModelAndView leaveAppForm(HttpSession session) {
+			log.info("----------------- start draftDocForm --------------------");
+			member_no=((MemberVO)session.getAttribute("loginMember")).getMember_no();
+			log.info("----------------- end draftDocForm --------------------");
+			return apprService.leaveApp(member_no);
+		}
 	
 	// 결재선 지정
 	@PostMapping("/setApprover.ajax")

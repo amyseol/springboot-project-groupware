@@ -362,14 +362,6 @@ $(document).on('click', 'p', function() {
 		$('#departmentList').append(content);
 	}
 
-	function approver_select() {
-		$('#approver_light_box').fadeIn(500);
-	}
-
-	$('.cancel_box').on('click', function() {
-		$('#approver_light_box').fadeOut(500);
-	});
-
 	function createModal() {
 		$('#createModal').modal('show');
 	}
