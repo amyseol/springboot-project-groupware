@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hoony Music</title>
+<title>HoonyMusic</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 </head>
 <style>
