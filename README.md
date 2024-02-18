@@ -1,1 +1,9 @@
-사용자의 위치를 기반으로 반려 동물의 위탁소를 찾아주는 웹 서비스 입니다. 
+음원/음반을 유통하는 업체를 위한 그룹웨어 서비스 입니다. 
+2023. 12. 25 ~ 2024. 01. 17 
+인원 : Backend 6명
+
+🖥 사용 기술
+Front-End : HTML5, CSS3, JavaScript, jQuery
+Back-End : JAVA 11, Spring Boot 2.7.17, MAVEN, JSP, MariaDB, Tomcat
+Infra : AMAZON EC2, Git, Github, SourceTree
+
