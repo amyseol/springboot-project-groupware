@@ -8,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
@@ -61,9 +62,14 @@ public class NotiService {
 		map.put("del_cnt", cnt);
 		return map;
 	}
-
+	
+	@Scheduled(cron = "0 0 3 * * *")
 	public void deleteNoti() {
-		dao.deleteNoti();
+		try {
+			logger.info("오래된 알림 삭제 성공!");
+			dao.deleteNoti();
+		} catch (Exception e) {
+			logger.info("알림 삭제 오류 발생 == " +e);
+		}
 	}
-
 }
