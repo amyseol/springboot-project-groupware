@@ -63,7 +63,8 @@ public class NotiService {
 		return map;
 	}
 	
-	@Scheduled(cron = "0 0 3 * * *")
+	// 매일 새벽 3시에 스케줄러 실행 
+	@Scheduled(cron = "0 0 22 * * ?")
 	public void deleteNoti() {
 		try {
 			logger.info("오래된 알림 삭제 성공!");
