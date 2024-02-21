@@ -91,22 +91,20 @@ public class AlbumController {
 //	} 
 	
 	// 파일 업로드 (return 값은 기능을 결재 페이지로 옮길 때 변경하기) 
-	@PostMapping(value="/albumFile.do")
-	public String albumFile(MultipartFile[] files, int alb_no) throws Exception {
-		service.fileUpload(files, alb_no);
-		return "redirect:/albumDetail";
-	}
+//	@PostMapping(value="/albumFile.do")
+//	public String albumFile(MultipartFile[] files, int alb_no) throws Exception {
+//		service.fileUpload(files, alb_no);
+//		return "redirect:/albumDetail";
+//	}
 	
-	// 파일 다운로드 
+	// 파일 다운로드 (팀 공유) 
 	@GetMapping(value="/download.do")
 	public ResponseEntity<Resource> albumDownload(String newName, String oriName) throws IOException {
-		logger.info("newName / oriName === "+newName+" / "+oriName);
+		//logger.info("newName / oriName === "+newName+" / "+oriName);
 		String path = root+newName;
-		logger.info(path);
-		//String ext = newName.substring(newName.lastIndexOf("."));		
+		//logger.info(path);
 		//본문(파일)
 		Resource resource = new FileSystemResource(path); // 파일시스템의 특정 파일을 읽어오는 기능		
-		
 		//보여주기와 다운로드는 헤더 속성 값의 차이
 		HttpHeaders header = new HttpHeaders(); // org.springframework.http.HttpHeaders
 		// text/... : 문자열, image/... : 이미지, application/octet-stream : 바이너리	
@@ -115,8 +113,8 @@ public class AlbumController {
 		// 파일일 경우 파일명이 들어가는데, 한글은 다 깨진다.
 		// DB 에서 원본 파일명을 가져왔다고 가정하자
 		String oriFileName = URLEncoder.encode(oriName, "UTF-8");
-		logger.info("oriFileName==="+oriFileName);
-		// attachment;fileName="원본.jpg"
+		//logger.info("oriFileName==="+oriFileName);
+		// attachment;fileName="원본파일명" 
 		header.add("Content-Disposition", "attachment;fileName=\""+oriFileName+"\"");		
 		
 		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK); //바디,헤더,상태(200,500)

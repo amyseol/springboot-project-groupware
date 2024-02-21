@@ -20,7 +20,7 @@ public interface AlbumDAO {
 
 	ArrayList<AlbumDTO> chartData(String num, String optionVal);
 
-	void fileUpload(String oriFileName, String newFileName, int alb_no, String size);
+	//void fileUpload(String oriFileName, String newFileName, int alb_no, String size);
 
 	ArrayList<AlbumDTO> getFile(String alb_no);
 

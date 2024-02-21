@@ -76,27 +76,27 @@ public class AlbumService {
 
 	
 	// 파일 업로드 (결재 페이지로 수정시 변경하기, root 경로 확인하기)  
-	public void fileUpload(MultipartFile[] files, int alb_no) throws Exception {
-		for (MultipartFile file : files) {
-			String oriFileName = file.getOriginalFilename();
-			
-			if (!oriFileName.equals("")) {
-				// 1. 파일이름 변경
-				String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
-				String newFileName = System.currentTimeMillis()+ext;
-				
-				// 2. 파일을 경로에 저장
-				byte[] arr = file.getBytes();
-				Path path = Paths.get(root+newFileName);
-				Files.write(path, arr);
-				
-				// 3. 파일 사이즈 가져오기
-				long sizeInKB = Math.round(file.getSize()/1024.0);
-				String size = Long.toString(sizeInKB);
-				//3. 기존 파일명, 새로운 파일명, 파일 사이즈, alb_no 를 file 테이블에 추가
-				dao.fileUpload(oriFileName, newFileName, alb_no, size);
-			}
-		}
-	}
+//	public void fileUpload(MultipartFile[] files, int alb_no) throws Exception {
+//		for (MultipartFile file : files) {
+//			String oriFileName = file.getOriginalFilename();
+//			
+//			if (!oriFileName.equals("")) {
+//				// 1. 파일이름 변경
+//				String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
+//				String newFileName = System.currentTimeMillis()+ext;
+//				
+//				// 2. 파일을 경로에 저장
+//				byte[] arr = file.getBytes();
+//				Path path = Paths.get(root+newFileName);
+//				Files.write(path, arr);
+//				
+//				// 3. 파일 사이즈 가져오기
+//				long sizeInKB = Math.round(file.getSize()/1024.0);
+//				String size = Long.toString(sizeInKB);
+//				//3. 기존 파일명, 새로운 파일명, 파일 사이즈, alb_no 를 file 테이블에 추가
+//				dao.fileUpload(oriFileName, newFileName, alb_no, size);
+//			}
+//		}
+//	}
 	
 }
