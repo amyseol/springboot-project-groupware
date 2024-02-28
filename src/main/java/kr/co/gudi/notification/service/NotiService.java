@@ -64,8 +64,9 @@ public class NotiService {
 	}
 	
 	// 매일 새벽 3시에 스케줄러 실행 
-	@Scheduled(cron = "0 0 22 * * ?")
+	@Scheduled(cron = "0 0 3 * * *")
 	public void deleteNoti() {
+		logger.info("3시 스케줄러 접근!");
 		try {
 			logger.info("오래된 알림 삭제 성공!");
 			dao.deleteNoti();

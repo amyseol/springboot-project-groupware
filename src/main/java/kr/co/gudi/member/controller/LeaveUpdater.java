@@ -1,27 +1,20 @@
 package kr.co.gudi.member.controller;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import kr.co.gudi.member.service.MemberService;
 
-@EnableScheduling
-@Controller
+@Component
 public class LeaveUpdater {
 	    private final MemberService service;
-
+	    Logger logger = LoggerFactory.getLogger(getClass());
 	    @Autowired
 	    public LeaveUpdater(MemberService service) {
 	        this.service = service;
@@ -32,7 +25,12 @@ public class LeaveUpdater {
 	    	LocalDate currentDate = LocalDate.now();
 	    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd");
 	    	String formattedDate = currentDate.format(formatter);
-	        service.updateLeave(formattedDate);
+	    	try {
+	    		service.updateLeave(formattedDate);
+	    		logger.info("연차 업데이트 성공!");
+			} catch (Exception e) {
+				logger.info("연차 업데이트 에러 == ", e);
+			}
 	    }
 	    
 	   
