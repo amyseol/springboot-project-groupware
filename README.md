@@ -5,13 +5,5 @@
 
 인원 : Backend 6명
 
-## 🖥  사용 기술
-Back-End : JAVA 11, Spring Boot 2.7.17, MAVEN, JSP, MariaDB, Tomcat
-
-Front-End : HTML5, CSS3, JavaScript, jQuery
-
-Infra : AMAZON EC2, Git, Github, SourceTree
-
-## ⚙️ 주요 기능
 
 
