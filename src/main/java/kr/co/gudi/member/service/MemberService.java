@@ -38,6 +38,7 @@ public class MemberService implements UserDetailsService{
 	@Autowired PasswordEncoder encoder;
 	@Autowired
 	private MemberDAO dao;
+
 	
 	@Value("${spring.servlet.multipart.location}") private String root; //C:/upload/
 	
@@ -81,19 +82,7 @@ public class MemberService implements UserDetailsService{
 	public List<MemberDTO> getAllMembers() {
 		return dao.getAllMembers();
 	}
-	/*
-	public List<Department> getAllDepartments() {
-		return dao.getAllDepartments();
-	}
 
-	public List<MemberDTO> getTeamList(int depart_no) {
-		return dao.getTeamList(depart_no);
-	}
-
-	public List<MemberDTO> getMemberList(int depart_no) {
-		return dao.getMemberList(depart_no);
-	}
-	*/
 	public List<MemberDTO> getMemberDetail(int member_no) {
 		return dao.getMemberDetail(member_no);
 	}
@@ -117,7 +106,7 @@ public class MemberService implements UserDetailsService{
 		String newFileName = System.currentTimeMillis()+ext; // 새파일명생성+확장자
 		String file_location = "p";
 		int file_unique_no=dao.getMember_id();
-
+    
 		try {
 			byte[] bytes= uploadFile.getBytes();
 			double fileSizeInKB = bytes.length / 1024.0;  // 바이트에서 킬로바이트로 변환

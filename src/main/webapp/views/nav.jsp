@@ -288,7 +288,7 @@ console.log(member_no);
 
 $.ajax({
 	type:'get',
-	url:'notiCount',
+	url:'noti/count',
 	data:{'member_no':member_no}, 
 	dataType:'JSON',
 	success: function(data){

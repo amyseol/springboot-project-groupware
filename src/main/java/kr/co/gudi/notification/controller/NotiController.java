@@ -28,47 +28,30 @@ public class NotiController {
 		return "notification/noti";
 	}
 	
-	@GetMapping(value="/notiList")
+	@GetMapping(value="/noti/list")
 	@ResponseBody
 	public Map<String, Object> notiList(String member_no, HttpSession session){
-		logger.info("member_no === " + member_no);
 		int depart_no = ((MemberVO)session.getAttribute("loginMember")).getDepart_p_no();
-		logger.info("depart_no === "+depart_no);
 		return service.notiList(member_no, depart_no);
 	}
 	
-	@GetMapping(value="/notiCount")
+	@GetMapping(value="/noti/count")
 	@ResponseBody
 	public Map<String, Object> notiCount(String member_no, HttpSession session){
-		logger.info("member_no === " + member_no);
 		int depart_no = ((MemberVO)session.getAttribute("loginMember")).getDepart_p_no();
-		logger.info("depart_no === "+depart_no);
 		return service.notiCount(member_no, depart_no);
 	}	
 	
-	
-	@GetMapping(value="/notiStateUpdate")
+	@GetMapping(value="/noti/stateUpdate")
 	public String notiStateUpdate(String noti_no, String locate){
-		logger.info("unique_no / locate === " + noti_no + " / " + locate);
-		service.stateUpdate(noti_no, locate);
+		service.notiStateUpdate(noti_no, locate);
 		return "redirect:/noti";
 	}
 	
-	
-	@GetMapping(value="/notiDel")
+	@GetMapping(value="/noti/delete")
 	@ResponseBody
-	public Map<String, Object> notiDel(@RequestParam(value="delList[]") ArrayList<String> delList,
+	public Map<String, Object> deleteSelectedNoti(@RequestParam(value="delList[]") ArrayList<String> delList,
 			HttpSession session, Model model){
-		return service.notiDel(delList,model);
+		return service.deleteSelectedNoti(delList,model);
 	}
-	
-//	@Scheduled(cron = "0 0 3 * * *")
-//	public void deleteNoti() {
-//		logger.info("오래된 알림 삭제 완료!");
-//		try {
-//			service.deleteNoti();
-//		} catch (Exception e) {
-//			
-//		}
-//	}
 }

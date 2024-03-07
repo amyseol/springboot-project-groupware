@@ -9,14 +9,13 @@ public class NotiDTO {
 	private int noti_no;
 	private int noti_sender;
 	private int noti_receiver;
-	
 	private Date noti_date;
 	private String noti_content;
 	private String noti_locate;
 	private String noti_state;
 	private String noti_depart_no;
-	
-	
+	private String name;
+	private String member_position;
 	
 	public String getNoti_depart_no() {
 		return noti_depart_no;
@@ -32,11 +31,6 @@ public class NotiDTO {
 	public void setNoti_count(int noti_count) {
 		this.noti_count = noti_count;
 	}
-	private String name;
-	private String member_position;
-	
-	
-	
 	public String getName() {
 		return name;
 	}
@@ -91,6 +85,4 @@ public class NotiDTO {
 	public void setNoti_state(String noti_state) {
 		this.noti_state = noti_state;
 	}
-	
-	
 }

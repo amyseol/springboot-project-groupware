@@ -11,39 +11,17 @@
         #common_list_form .big_title{padding: 50px 50px;}
         #common_list_form .sub_title{padding: 20px 50px; text-align:center;}
         #common_list_form .list_form{position:relative;display:flex; align-item:center; justify-content:center;}
-        
         #common_list_form .list_form .notiOuterBox{justify-content: center;align-items: center;width:60%;height:100%;}
         #common_list_form .list_form .notiBox{display:flex; justify-content: space-between;width:100%; height: 100%;border: 1px solid grey;margin-bottom: 10px;}        
         #common_list_form .list_form .notiBox ul{padding: 10px;}
         #common_list_form .list_form .notiBox .notiContent{margin-right: 20px;}
-        #common_list_form .list_form .notiBox .notiDate{text-align: right;}
-                
+        #common_list_form .list_form .notiBox .notiDate{text-align: right;}       
         #delBtn{margin: 0 3% 1% 73%;width: 45;height: 30;border-radius: 3px;background-color:025464;color:white;padding: 5 10;border:none;}        
 
-        .blink{
-		  -webkit-animation: blink 0.7s ease-in-out infinite alternate;
-		  -moz-animation: blink 0.7s ease-in-out infinite alternate;
-		  animation: blink 0.7s ease-in-out infinite alternate;
-		}
-		
-		@-webkit-keyframes blink{
-		  0% {opacity: 0.2;}
-		  100% {opacity: 1;}
-		}
-		
-		@-moz-keyframes blink{
-		  0% {opacity: 0.2;}
-		  100% {opacity: 1;}
-		}
-		
-		@keyframes blink{
-		  0% {opacity: 0.2;}
-		  100% {opacity: 1;}
-		  to {
-                background-color: yellow;
-            }
-		}
-		
+        .blink{-webkit-animation: blink 0.7s ease-in-out infinite alternate; -moz-animation: blink 0.7s ease-in-out infinite alternate; animation: blink 0.7s ease-in-out infinite alternate;}
+		@-webkit-keyframes blink{0% {opacity: 0.2;} 100% {opacity: 1;}}
+		@-moz-keyframes blink{0% {opacity: 0.2;} 100% {opacity: 1;}}
+		@keyframes blink{0% {opacity: 0.2;} 100% {opacity: 1;} to {background-color: yellow;}}
 		#del_modal{background: rgba(0, 0, 0, 0.8);display: none; width:300px; height:150px; background: rgb(237, 237, 237); border:1px solid gray; text-align:center;position:absolute; left:58%; top:27%; }
 		
 </style>
@@ -58,7 +36,6 @@
 		<!------- 리스트 ------->
         <div class="list_form">
         	<div class="notiOuterBox" id="notiList">
-
 			</div>
         </div>
         <!-- 삭제 모달 -->
@@ -77,27 +54,21 @@ var notiCount = 0;
 
 function listCall(){	
 	var member_no = ${sessionScope.loginMember.member_no};
-	//console.log(member_no);
-	
 	$.ajax({
 		type:'get',
-		url:'notiList',
+		url:'noti/list',
 		data:{'member_no':member_no}, 
 		dataType:'JSON',
 		success: function(data){
-			//console.log(data);
 			drawList(data);	
 			// 읽음 표시 - noti_state 에 따른 css 변경 
  			data.list.forEach(function(item,idx){
-				//console.log(item.noti_state);
 				if(item.noti_state==0){
 					$('#blinking'+item.noti_no).addClass('blink');
-					//console.log($('#blinking'+item.noti_no));
 				}
 			}); 
   			// 새로운 알림 개수
  			notiCount = data.noti_count || 0;
-			//console.log(notiCount);
             $('#notiCnt').text(notiCount);  
 		},
 		error:function(e){
@@ -117,7 +88,7 @@ function drawList(list){
 		content+='<div class="notiBox" id="blinking'+item.noti_no+'" onclick="boxClick('+item.noti_no+','+item.noti_state+',\'' + item.noti_locate + '\')">';
 		content+='<ul class="notiContent">';
 		if(item.noti_locate=='p'){
-			content+='<li>[회의실/공연장]</li>'; // artist 테이블
+			content+='<li>[회의실/공연장]</li>'; 
 		}else{
 			content+='<li>[일정]</li>'; 
 		}
@@ -156,8 +127,6 @@ function drawList(list){
 // 모든 리스트 체크 
 $('#checkAll').on('click',function(){
 	var $chk = $('input[name="checkEach"]');
-	//console.log($chk);
-	console.log($(this).is(":checked")); // true/false
 	if($(this).is(":checked")){
 		$chk.prop("checked",true);
 	}else{
@@ -169,7 +138,6 @@ $('#checkAll').on('click',function(){
 function delBtnClick(){
 	// 체크 박스 선택됐으면 모달창 열기
 	$('input[name="checkEach"]:checked').each(function(idx,item){
-		console.log('체크됨!');
 		document.getElementById('del_modal').style.display = 'block';
 	});
 }
@@ -181,10 +149,8 @@ function delNo(){
 
 function delYes(){
 	// 작성자가 본인인 파일만 삭제할 수 있어야 한다
-	// 체크박스 배열
 	var chkArr = []; 
 	$('input[name="checkEach"]:checked').each(function(idx,item){
-		//console.log(idx, $(item).val()); 
 		var val = $(item).val();
 		if(val != 'on'){
 			chkArr.push(val);
@@ -192,11 +158,10 @@ function delYes(){
 	});
 	$.ajax({
 		type:'get',
-		url:'notiDel',
+		url:'noti/delete',
 		data:{'delList' : chkArr},
 		dataType:'JSON',
 		success:function(data){
-			//console.log(data);
 			if(data.del_cnt>0){
 				alert('요청하신 '+data.del_cnt+'개의 게시물이 삭제 되었습니다.');
 				listCall();
@@ -204,7 +169,6 @@ function delYes(){
 				$('input[name="checkEach"]').prop('checked', false);
 				$('#checkAll').prop('checked', false);
 			}else{
-				console.log(data.msg);
 				alert(data.msg);
 				listCall();
 				document.getElementById('del_modal').style.display = 'none';
@@ -225,7 +189,7 @@ function boxClick(num, state, locate){
 	console.log(num, state, locate);
 	$.ajax({
 		type:'get',
-		url:'notiStateUpdate',
+		url:'noti/stateUpdate',
 		data:{'noti_no':num, 'locate':locate}, 
 		dataType:'JSON',
 		success: function(data){
@@ -234,7 +198,6 @@ function boxClick(num, state, locate){
 			console.log(e);
 		}
 	});
-	console.log($('#blinking'+num));
 	// 읽음 표시 - noti_state 에 따른 css 변경 
 	$('#blinking'+num).removeClass('blink');
 	// 알림 아이콘에 표시 

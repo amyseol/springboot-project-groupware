@@ -9,16 +9,9 @@ import kr.co.gudi.notification.dto.NotiDTO;
 
 @Mapper
 public interface NotiDAO {
-
 	ArrayList<NotiDTO> notiList(String member_no, String num);
-
-	void stateUpdate(String noti_no, String locate);
-
-	int notiCount(String member_no, String num);
-
-	int notiDel(String noti_no);
-
-	void deleteNoti();
-
-
+	void notiStateUpdate(String noti_no, String locate);
+	int newNotiCount(String member_no, String num);
+	int deleteSelectedNoti(String noti_no);
+	void deleteOldNoti();
 }
