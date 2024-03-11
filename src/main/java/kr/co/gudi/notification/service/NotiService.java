@@ -1,18 +1,14 @@
 package kr.co.gudi.notification.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
-
 import kr.co.gudi.notification.dao.NotiDAO;
 import kr.co.gudi.notification.dto.NotiDTO;
 
