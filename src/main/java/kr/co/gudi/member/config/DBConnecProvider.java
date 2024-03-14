@@ -21,9 +21,8 @@ import kr.co.gudi.member.vo.MemberVO;
 public class DBConnecProvider implements AuthenticationProvider {
 	@Autowired
 	private MemberDAO dao;
-	
 	Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	@Bean
 	public BCryptPasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
@@ -31,16 +30,14 @@ public class DBConnecProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		String member_id = authentication.getName();	// 인증 객체에서 id를 가져옴
-		String pw = (String) authentication.getCredentials();		// 인증 객체에서 비밀번호를 가져옴
-		
+		String member_id = authentication.getName(); 
+		String pw = (String) authentication.getCredentials(); 
 		MemberVO loginMember = dao.selectMemberByParam(Map.of("member_id", member_id));
-		
-		if (loginMember == null || !encoder().matches(pw, loginMember.getPassword())) {	// 로그인 실패시
+		if (loginMember == null || !encoder().matches(pw, loginMember.getPassword())) { 
 			throw new BadCredentialsException("로그인에 실패하였습니다!!");
 		} else {
-			if (loginMember.isCredentialsNonExpired()) {	// 퇴사자 라면
-				return new UsernamePasswordAuthenticationToken(loginMember, pw, loginMember.getAuthorities());	// 인증된 객체
+			if (loginMember.isCredentialsNonExpired()) { // 퇴사자 처리
+				return new UsernamePasswordAuthenticationToken(loginMember, pw, loginMember.getAuthorities());
 			} else {
 				throw new BadCredentialsException("인증에 실패했습니다.");
 			}
@@ -48,8 +45,7 @@ public class DBConnecProvider implements AuthenticationProvider {
 	}
 
 	@Override
-	public boolean supports(Class<?> authentication) { //토큰 타입과 일치하면 인증
+	public boolean supports(Class<?> authentication) { 
 		return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
 	}
-
 }

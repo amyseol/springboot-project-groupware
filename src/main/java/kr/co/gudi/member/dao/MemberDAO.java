@@ -1,18 +1,13 @@
 package kr.co.gudi.member.dao;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
-
 import kr.co.gudi.approval.dto.ApprovalDTO;
-import kr.co.gudi.member.dto.Department;
 import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.vo.MemberVO;
-
 
 @Mapper
 public interface MemberDAO {
@@ -25,19 +20,13 @@ public interface MemberDAO {
 	int updateProfileImg(Map<String, Object> param);
 
 	int searchFileNo(int member_no);
-	
+
 	MemberVO getMember();
-	
+
 	List<MemberDTO> getAllDepartments();
 
 	List<MemberDTO> getAllMembers();
-	/*
-	List<Department> getAllDepartments();
 
-	List<MemberDTO> getTeamList(int depart_no);
-
-	List<MemberDTO> getMemberList(int depart_no);
-	*/
 	List<MemberDTO> getMemberDetail(int member_no);
 
 	void join(HashMap<String, String> params);
@@ -46,7 +35,7 @@ public interface MemberDAO {
 
 	void uploadProfile(String file_location, int file_unique_no, String oriFileName, String newFileName, int size);
 
-	ArrayList<MemberDTO> list(String member_state,int depart_no);
+	ArrayList<MemberDTO> list(String member_state, int depart_no);
 
 	void depart(int member_no, String depart_name);
 
@@ -79,7 +68,7 @@ public interface MemberDAO {
 	void updateDo(HashMap<String, String> params);
 
 	Map<String, Object> getMemberInfo(int member_no);
-	
+
 	void updateTotalMember();
 
 	ArrayList<MemberDTO> departTotal();
@@ -90,7 +79,6 @@ public interface MemberDAO {
 
 	ArrayList<MemberDTO> getTeam(String depart_no);
 
-
 	void updateDpt(HashMap<String, String> param);
 
 	ArrayList<MemberDTO> detailTeam(String depart_name);
@@ -100,6 +88,7 @@ public interface MemberDAO {
 	ArrayList<ApprovalDTO> dptInfo();
 
 	ArrayList<ApprovalDTO> memberInfo();
+
 	String getFileName(int member_no);
 
 	String findFileName(String member_no);

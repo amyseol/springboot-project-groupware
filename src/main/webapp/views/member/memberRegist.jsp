@@ -251,14 +251,13 @@ $('#selectedDptno').change(function(){
 	        }
 	    });
 });
-//주소API id="addr_kakao"
+// 주소API id="addr_kakao"
+// 참조 링크 : https://postcode.map.daum.net/guide
 function showMap(event){
 	event.preventDefault();
-    //카카오 지도 발생
     new daum.Postcode({
         oncomplete: function(data) { //선택시 입력값 세팅
             document.getElementById("addr_kakao").value = data.address; // 주소 넣기              
-            console.log('도로명주소 : ' + data.roadAddress);
             document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱                
         }
     }).open();
