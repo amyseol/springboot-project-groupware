@@ -61,14 +61,12 @@
 </head>
 <body>
 	<%@ include file="/views/nav.jsp" %>
-    <!-- -------------------------------------------list_form start------------------------------------------ -->
     <section id="common_list_form">
         <h2 class="big_title">공용자료실</h2>
         <h3 class="sub_title">
         	<span id="allList" onclick="selectDepart('전사')">전사</span>
         	<span id="departList" onclick="selectDepart('부서')">부서</span>
         </h3>
-        <!------- 검색 ------->
         <ul class="search_box">
             <li>
                 <input type="text" id="search_info" placeholder="검색" onkeydown="handleKeyDown(event)"/>
@@ -79,32 +77,27 @@
                 </div>
             </li>
         </ul>
-        <!------- 검색 ------->
-        <!------- 파일 등록 ------->
         <ul class="fileBox">
         	<li><input type="button" id="delBtn" value="삭제" onclick="delBtnClick()"/></li>
 	        <li>
 	        	<ul id="fileUploadBox">
 		            <li id="allFileBox">
-						<form action="allFileUpload.do" id="allUploadForm" method="post" enctype="multipart/form-data">
+						<form action="company-file/upload" id="allUploadForm" method="post" enctype="multipart/form-data">
 						    <input type="file" id="allFile" name="files" multiple/>
-					        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
-					        <input type="button" value="전사 파일 등록" id="allUploadBtn">
+					        <input type="hidden" name="memberNumber" value="${sessionScope.loginMember.member_no}"/>
+					        <input type="button" value="전사 파일 등록" id="companyFileUploadBtn">
 					    </form>
 		            </li>
 		            <li id="departFileBox">
-						<form action="departFileUpload.do" id="departUploadForm" method="post" enctype="multipart/form-data">
+						<form action="department-file/upload" id="departUploadForm" method="post" enctype="multipart/form-data">
 						    <input type="file" id="departFile" name="files" multiple/>
-					        <input type="hidden" name="member_no" value="${sessionScope.loginMember.member_no}"/>
-					        <input type="button" value="부서 파일 등록" id="departUploadBtn">
+					        <input type="hidden" name="memberNumber" value="${sessionScope.loginMember.member_no}"/>
+					        <input type="button" value="부서 파일 등록" id="departFileUploadBtn">
 					    </form>
 		            </li>
 	            </ul>
 	        </li>    
         </ul>
-        
-        <!------- 파일 등록 ------->
-		<!------- 리스트 ------->
         <div class="list_form">
             <ul>
                 <li class="list_title">
@@ -123,14 +116,12 @@
             </ul>
         </div>
 		<div id="paging" class="pagingBox">
-			<!-- 	플러그인 사용	(twbsPagination)	- 이렇게 사용하라고 tutorial 에서 제공함-->
 			<div class="container">
 				<nav aria-label="Page navigation" style="text-align:center;">
 					<ul class="pagination" id="pagination"></ul>
 				</nav>
 			</div>
 		</div>
-		<!-- 삭제 모달 -->
 		<div id="del_modal">
 			<div style="margin:30px 0; font-size:24px;">삭제 하시겠습니까?</div>
 			<button onclick="delNo()" class="modalBtnNo">아니요</button>
@@ -139,45 +130,37 @@
     </section>
 </body>
 <script>
-//----------------------- all/depart list start ----------------------------------
 var selectedState = '전사';
-var showPage=1;
+var showPage = 1;
 listCall(showPage);
 var member_no = ${sessionScope.loginMember.member_no};
 
-//페이지 로딩 시 초기값에 해당하는 라벨에 스타일 적용
 document.getElementById('allList').style.fontWeight = 'bold';
 document.getElementById('allList').style.border = '1px solid black';
 document.getElementById('departList').style.fontWeight = 'normal';
 document.getElementById('departList').style.border = '1px solid lightgray';
 
 function selectDepart(state){
-	selectedState = state;
-	console.log(selectedState);
-	
+	selectedState = state;	
 	document.getElementById('allList').style.fontWeight = (selectedState === '전사') ? 'bold' : 'normal';
 	document.getElementById('allList').style.border = (selectedState === '전사') ? '1px solid rgb(4, 11, 80)' : '1px solid lightgray';
-
     document.getElementById('departList').style.fontWeight = (selectedState === '부서') ? 'bold' : 'normal';
     document.getElementById('departList').style.border = (selectedState === '부서') ? '1px solid rgb(4, 11, 80)' : '1px solid lightgray';
-
     listCall(showPage);	
 }
 
-// 파일 리스트 
 function listCall(page){
 	$.ajax({
 		type:'get',
-		url:'archAllList',
+		url:'archive/list',
 		data:{
 			'page':page, 
 			'member_no':member_no, 
 			'state':selectedState,
-			'a_name': $('#search_info').val()
+			'searchKeyword': $('#search_info').val()
 		}, 
 		dataType:'JSON',
 		success: function(data){
-			console.log(data);
 			drawAllList(data);	
 		},
 		error:function(e){
@@ -193,10 +176,8 @@ function drawAllList(list){
 		content+='<li><input type="checkbox" name="checkEach" value="'+item.arch_no+'"/></li>'
 		content+='<li>'+item.file_oriname+'</li>';
 		content+='<li><button id="downBtn" onclick="location.href=\'download.do?newName='+item.file_newname+'&oriName='+item.file_oriname+'\'">다운로드</button></li>';
-		
 		content+='<li>'+item.name+'</li>'; 
 		content+='<li>'+item.file_size+'KB</li>'; 
-		
 		var date = new Date(item.arch_date);
 		var uploadDate = date.toLocaleDateString("ko-KR");
 		content+='<li>'+uploadDate+'</li>';
@@ -218,14 +199,9 @@ function drawAllList(list){
 		}
 	});
 }
-//----------------------- all/depart list end ---------------------------------------
 
-//----------------------- delete start ---------------------------------------
-// 모든 리스트 체크 
 $('#checkAll').on('click',function(){
 	var $chk = $('input[name="checkEach"]');
-	//console.log($chk);
-	console.log($(this).is(":checked")); // true/false
 	if($(this).is(":checked")){
 		$chk.prop("checked",true);
 	}else{
@@ -233,28 +209,20 @@ $('#checkAll').on('click',function(){
 	}
 }); 
 
-// 삭제 모달
 function delBtnClick(){
-	// 체크 박스 선택됐으면 모달창 열기
 	$('input[name="checkEach"]:checked').each(function(idx,item){
-		console.log('체크됨!');
 		document.getElementById('del_modal').style.display = 'block';
 	});
 }
 
-// 모달 아니요 버튼 
 function delNo(){
 	document.getElementById('del_modal').style.display = 'none';
 }
 
 function delYes(){
-	// 작성자가 본인인 파일만 삭제할 수 있어야 한다
-	// 체크박스 배열
 	var chkArr = []; 
-	// 이름 배열 - 로그인 한 name 과 작성자 name 이 일치하는지 확인하기 위함
 	var names = [];
-	$('input[name="checkEach"]:checked').each(function(idx,item){
-		//console.log(idx, $(item).val()); 
+	$('input[name="checkEach"]:checked').each(function(idx, item){
 		var name = $(item).closest('li').nextAll('li').eq(2).html();
 		var val = $(item).val();
 		if(val != 'on'){
@@ -262,22 +230,18 @@ function delYes(){
 			names.push(name);
 		}		
 	});
-	//console.log(chkArr);
-	console.log(names);
 	
 	$.ajax({
 		type:'get',
-		url:'archiveDel',
-		data:{'delList' : chkArr, 'names':names},
+		url:'archive/delete',
+		data:{'deleteFileList' : chkArr, 'checkFileMemberNames':names},
 		dataType:'JSON',
 		success:function(data){
-			//console.log(data);
 			if(data.del_cnt>0){
 				alert('요청하신 '+data.del_cnt+'개의 게시물이 삭제 되었습니다.');
 				listCall(showPage);
 				document.getElementById('del_modal').style.display = 'none';
 			}else{
-				console.log(data.msg);
 				alert(data.msg);
 				listCall(showPage);
 				document.getElementById('del_modal').style.display = 'none';
@@ -289,62 +253,41 @@ function delYes(){
 	}); 
 }
 
-//----------------------- delete end ---------------------------------------
-
-//----------------------- 전사 파일 등록 버튼 처리 start----------------------------------
-// depart_no가 3, 4인 직원 로그인시 버튼 보여주기 
 var allFileBox = document.getElementById('allFileBox');
 var depart_p_no = ${sessionScope.loginMember.depart_p_no};
 
 $(document).ready(function() {
 	if(depart_p_no==3||depart_p_no==4){
-		console.log('경영지원 부서 입니다.');
 		allFileBox.style.display='block';
 	}
 });
-// 파일 선택 안하고 등록 버튼 클릭시 처리 
-document.getElementById('allUploadBtn').addEventListener('click', function() {
-    // 파일이 선택되었는지 확인
+
+document.getElementById('companyFileUploadBtn').addEventListener('click', function() {
     var fileInput = document.getElementById('allFile');
     if (fileInput.files.length > 0) {
-        // 파일이 선택되었으면 submit 이벤트 실행
-        document.getElementById('allUploadForm').submit();
+        document.getElementById('companyFileUploadBtn').submit();
     } else {
-        // 파일이 선택되지 않았을 경우에 대한 처리
         alert('파일을 선택하세요.');
-        location.href='/archiveAll';
+        location.href='/archive';
     }
 });
-//----------------------- 전사 파일 등록 버튼 처리 end ----------------------------------
 
-
-//----------------------- 부서 파일 등록 버튼 start ----------------------------------
-// 파일 선택 안하고 등록 버튼 클릭시 처리 
-document.getElementById('departUploadBtn').addEventListener('click', function() {
-    // 파일이 선택되었는지 확인
+document.getElementById('departFileUploadBtn').addEventListener('click', function() {
     var fileInput = document.getElementById('departFile');
     if (fileInput.files.length > 0) {
-        // 파일이 선택되었으면 submit 이벤트 실행
-        document.getElementById('departUploadForm').submit();
+        document.getElementById('departFileUploadBtn').submit();
     } else {
-        // 파일이 선택되지 않았을 경우에 대한 처리
         alert('파일을 선택하세요.');
-        location.href='/archiveAll';
+        location.href='/archive';
     }
 });
-//----------------------- 부서 파일 등록 버튼 end ----------------------------------
 
-//-------------------------------- 검색 start ------------------------------------------
 function handleKeyDown(event) {
-    // 엔터 키의 keyCode는 13
     if (event.keyCode === 13) {
-        // 엔터 키를 눌렀을 때 실행할 검색 함수 호출
         showPage=1;
         listCall(showPage);
     }
 }
-//-------------------------------- 검색 end ------------------------------------------
-
 
 </script>
 </html>
