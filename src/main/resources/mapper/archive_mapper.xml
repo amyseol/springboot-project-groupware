@@ -3,12 +3,11 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="kr.co.gudi.archive.dao.ArchiveDAO">
-	<select id="totalPage" resultType="int">
+	<select id="totalCompanyPage" resultType="int">
 		SELECT CEIL(COUNT(arch_no)/20) AS pages FROM archive WHERE arch_state = '0' AND arch_depart='전사'
 	</select>
 	
-	<!-- 전사 리스트 출력 -->
-	<select id="archAllList" resultType="archive">
+	<select id="companyArchiveList" resultType="archive">
 		SELECT a.*, m.name, f.file_oriname, f.file_newname, f.file_size FROM archive a
 			LEFT OUTER JOIN member m ON a.member_no = m.member_no
 			LEFT OUTER JOIN file f ON f.file_location ='s' AND f.file_unique_no = a.arch_no
@@ -19,26 +18,25 @@
 				ORDER BY a.arch_no DESC LIMIT 20 OFFSET #{param1}
 	</select> 
 	
- 	<select id="totalDepartPage" resultType="int">
+ 	<select id="totalDepartmentPage" resultType="int">
 		SELECT CEIL(COUNT(arch_no)/20) AS pages FROM archive WHERE arch_state = '0' AND arch_depart = #{param1}
 	</select> 
 	
-	<!-- 부서별 리스트 출력 -->
-	<select id="archDepartList" resultType="archive">
+	<select id="departmentArchiveList" resultType="archive">
 		SELECT a.*, m.name, f.file_oriname, f.file_newname, f.file_size FROM archive a
 			LEFT OUTER JOIN member m ON a.member_no = m.member_no
-			LEFT OUTER JOIN file f ON f.file_location ='s' AND f.file_unique_no = a.arch_no
-		WHERE a.arch_state = '0' AND a.arch_depart= #{param2}
+			LEFT OUTER JOIN file f ON f.file_location = 's' AND f.file_unique_no = a.arch_no
+		WHERE a.arch_state = '0' AND a.arch_depart = #{param2}
 			<if test="a_name!=null">
-				AND f.file_oriname LIKE CONCAT('%',#{param3},'%')
+				AND f.file_oriname LIKE CONCAT('%', #{param3}, '%')
 			</if>
 				ORDER BY a.arch_no DESC LIMIT 20 OFFSET #{param1}
 	</select> 
 	
-	<select id="getDepartName" resultType="String">
-		SELECT depart_name from department where depart_no = 
-					(select depart_p_no from department where depart_no=
-						(select depart_no from member where member_no=#{param1}))
+	<select id="getDepartmentName" resultType="String">
+		SELECT depart_name FROM department WHERE depart_no = 
+			(SELECT depart_p_no FROM department WHERE depart_no=
+				(SELECT depart_no FROM member WHERE member_no = #{param1}))
 	</select>
 	
 	<insert 
@@ -50,13 +48,12 @@
 			VALUES (#{member_no}, #{arch_depart})
 	</insert>
 
-	<insert id="departFileUpload">
+	<insert id="archiveFileUpload">
 		INSERT INTO file(file_location, file_unique_no, file_oriname, file_newname, file_size, file_state) 
-			VALUES("s", #{param3}, #{param1},#{param2},#{param4},"0")
+			VALUES("s", #{param3}, #{param1}, #{param2}, #{param4}, "0")
 	</insert> 
 	
-	<update id="archiveDel">
-		UPDATE archive SET arch_state='1' WHERE arch_no=#{param1}
+	<update id="archiveDelete">
+		UPDATE archive SET arch_state = '1' WHERE arch_no = #{param1}
 	</update>
-	
 </mapper>

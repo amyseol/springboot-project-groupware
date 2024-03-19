@@ -1,29 +1,25 @@
 package kr.co.gudi.archive.dao;
 
 import java.util.ArrayList;
-
 import org.apache.ibatis.annotations.Mapper;
-
 import kr.co.gudi.archive.dto.ArchiveDTO;
-import kr.co.gudi.resource.dto.AlbumDTO;
 
 @Mapper
 public interface ArchiveDAO {
 
-	int totalPage();
+	ArrayList<ArchiveDTO> companyArchiveList(int offset, String searchKeyword);
 
-	ArrayList<ArchiveDTO> archAllList(int offset, String a_name);
+	ArrayList<ArchiveDTO> departmentArchiveList(int offset, String departmentName, String searchKeyword);
 
-	void departFileUpload(String oriFileName, String newFileName, int arch_no, String size);
+	int totalCompanyPage();
+
+	int totalDepartmentPage(String departmentName);
+
+	void archiveFileUpload(String oriFileName, String newFileName, int archiveIndex, String fileSize);
 
 	void saveDepartArchive(ArchiveDTO dto);
 
-	String getDepartName(String member_no);
+	String getDepartmentName(String member_no);
 
-	int archiveDel(String arch_no);
-
-	ArrayList<ArchiveDTO> archDepartList(int offset, String departName, String a_name);
-
-	int totalDepartPage(String departName);
-	
+	int archiveDelete(String archiveIndex);
 }
