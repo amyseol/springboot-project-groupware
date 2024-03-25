@@ -208,7 +208,7 @@
                 </ul>
                 <a href="/schedule"><li class="dep1" data-index="4">일정관리</li></a>
                
-                <a href="/archiveAll"><li class="dep1">공용자료실</li></a>
+                <a href="/archive"><li class="dep1">공용자료실</li></a>
                 <a href="/reserve"><li class="dep1">시설예약</li></a>
                 <a href="javascript:"><li class="dep1" data-index="7">근태관리
                     <div class="arrow"><svg width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">

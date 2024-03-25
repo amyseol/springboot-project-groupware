@@ -327,7 +327,7 @@
                         <div class="file_form">
 		                    <div class="file-list">
 		                    	<c:forEach items="${fileInfo}" var="file">
-		                    		<div class="filebox"><p class="name">${file.file_oriname}</p> <a href="download.do?newName=${file.file_newname}&oriName=${file.file_oriname}" class="down_btn">다운로드</a></div>
+		                    		<div class="filebox"><p class="name">${file.file_oriname}</p> <a href="file/download?newName=${file.file_newname}&oriName=${file.file_oriname}" class="down_btn">다운로드</a></div>
 		                    	</c:forEach>
 		                    </div>
 		                </div>

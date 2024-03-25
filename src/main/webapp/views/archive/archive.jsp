@@ -83,14 +83,14 @@
 	        	<ul id="fileUploadBox">
 		            <li id="allFileBox">
 						<form action="company-file/upload" id="allUploadForm" method="post" enctype="multipart/form-data">
-						    <input type="file" id="allFile" name="files" multiple/>
+						    <input type="file" id="allFile" name="uploadFileList" multiple/>
 					        <input type="hidden" name="memberNumber" value="${sessionScope.loginMember.member_no}"/>
 					        <input type="button" value="전사 파일 등록" id="companyFileUploadBtn">
 					    </form>
 		            </li>
 		            <li id="departFileBox">
 						<form action="department-file/upload" id="departUploadForm" method="post" enctype="multipart/form-data">
-						    <input type="file" id="departFile" name="files" multiple/>
+						    <input type="file" id="departFile" name="uploadFileList" multiple/>
 					        <input type="hidden" name="memberNumber" value="${sessionScope.loginMember.member_no}"/>
 					        <input type="button" value="부서 파일 등록" id="departFileUploadBtn">
 					    </form>
@@ -175,7 +175,7 @@ function drawAllList(list){
 		content+='<ul>';
 		content+='<li><input type="checkbox" name="checkEach" value="'+item.arch_no+'"/></li>'
 		content+='<li>'+item.file_oriname+'</li>';
-		content+='<li><button id="downBtn" onclick="location.href=\'download.do?newName='+item.file_newname+'&oriName='+item.file_oriname+'\'">다운로드</button></li>';
+		content += '<li><button id="downBtn" onclick="location.href=\'file/download?newName=' + item.file_newname + '&oriName=' + item.file_oriname + '\'">다운로드</button></li>';
 		content+='<li>'+item.name+'</li>'; 
 		content+='<li>'+item.file_size+'KB</li>'; 
 		var date = new Date(item.arch_date);
@@ -265,7 +265,7 @@ $(document).ready(function() {
 document.getElementById('companyFileUploadBtn').addEventListener('click', function() {
     var fileInput = document.getElementById('allFile');
     if (fileInput.files.length > 0) {
-        document.getElementById('companyFileUploadBtn').submit();
+        document.getElementById('allUploadForm').submit();
     } else {
         alert('파일을 선택하세요.');
         location.href='/archive';
@@ -275,7 +275,7 @@ document.getElementById('companyFileUploadBtn').addEventListener('click', functi
 document.getElementById('departFileUploadBtn').addEventListener('click', function() {
     var fileInput = document.getElementById('departFile');
     if (fileInput.files.length > 0) {
-        document.getElementById('departFileUploadBtn').submit();
+        document.getElementById('departUploadForm').submit();
     } else {
         alert('파일을 선택하세요.');
         location.href='/archive';
