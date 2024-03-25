@@ -114,7 +114,7 @@
                         <li>
                         	<c:forEach items="${list}" var="file">
 								<span class="fileName">${file.file_oriname}</span>
-								<button onclick="location.href='/download.do?newName=${file.file_newname}&oriName=${file.file_oriname}'">download</button>
+								<button onclick="location.href='/file/download?newName=${file.file_newname}&oriName=${file.file_oriname}'">download</button>
 							</c:forEach>
                         </li>
                         <li>내용</li>

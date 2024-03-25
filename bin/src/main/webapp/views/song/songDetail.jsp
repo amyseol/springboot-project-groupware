@@ -55,7 +55,7 @@
                 <li>첨부 파일</li>
                 <li>
 					<c:forEach items="${list}" var="file">
-						<a href="download.do?newName=${file.file_newname}&oriName=${file.file_oriname}" class="download">
+						<a href="file/download?newName=${file.file_newname}&oriName=${file.file_oriname}" class="download">
 							${file.file_newname}
 						</a>
 					</c:forEach>

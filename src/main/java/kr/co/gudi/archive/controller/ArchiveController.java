@@ -1,5 +1,7 @@
 package kr.co.gudi.archive.controller;
 
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,11 +58,23 @@ public class ArchiveController {
 	
 	@GetMapping(value="/archive/delete")
 	@ResponseBody
-	public Map<String, Object> archiveDelete(HttpSession session, Model model,
+	public Map<String, Object> archiveDelete(HttpSession session,
 			@RequestParam(value="delList[]") ArrayList<String> deleteFileList,
 			@RequestParam(value="names[]") ArrayList<String> checkFileMemberNames 
 			){
 		String memberName = ((MemberVO)session.getAttribute("loginMember")).getName();
-		return service.archiveDelete(deleteFileList, checkFileMemberNames, memberName, model);
+		return service.archiveDelete(deleteFileList, checkFileMemberNames, memberName);
+	}
+	
+	@GetMapping(value="/file/download")
+	public ResponseEntity<Resource> fileDownload(String newName, String oriName) throws IOException {
+		String filePath = root + newName;
+		String originalFileName = URLEncoder.encode(oriName, "UTF-8");
+		Resource resource = new FileSystemResource(filePath); 
+		
+		HttpHeaders header = new HttpHeaders();
+		header.add("Content-type", "application/octet-stream");
+		header.add("Content-Disposition", "attachment;fileName=\""+originalFileName+"\"");		
+		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK); 
 	}
 }
