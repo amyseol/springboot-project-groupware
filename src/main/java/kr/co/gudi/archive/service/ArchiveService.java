@@ -68,9 +68,13 @@ public class ArchiveService {
 		dto.setArch_depart("전사");
 		dao.saveDepartArchive(dto);
 		
+		logger.info("archive number : "+dto.getArch_no());
 		int archiveIndex = dto.getArch_no();
+		logger.info("archiveIndex = "+archiveIndex);
 		if(archiveIndex > 0) {
+			logger.info("파일 업로드 할게!");
 			saveFile(uploadFileList, archiveIndex);
+			logger.info("파일 업로드 완료!");
 		}
 	}	
 	
@@ -78,15 +82,13 @@ public class ArchiveService {
 				throws Exception {
 		for (MultipartFile file : uploadFileList) {
 			String originalFileName = file.getOriginalFilename();
-			
+	
 			if (!originalFileName.equals("")) {
 				String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
 				String newFileName = System.currentTimeMillis() + extension;
-				
 				byte[] arr = file.getBytes();
-				Path path = Paths.get(root+newFileName);
+				Path path = Paths.get(root + newFileName);
 				Files.write(path, arr);
-				
 				long sizeInKB = Math.round(file.getSize()/1024.0);
 				String fileSize = Long.toString(sizeInKB);
 				dao.archiveFileUpload(originalFileName, newFileName, archiveIndex, fileSize);
@@ -95,7 +97,7 @@ public class ArchiveService {
 	}
 
 	public Map<String, Object> archiveDelete(ArrayList<String> deleteFileList, 
-			ArrayList<String> checkFileMemberNames, String memberName, Model model) {
+			ArrayList<String> checkFileMemberNames, String memberName) {
 		int count = 0;
 		for(String name : checkFileMemberNames) {
 			if(!name.equals(memberName)) {

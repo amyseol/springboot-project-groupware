@@ -93,7 +93,7 @@
 							${file.file_oriname}
 							<%-- <img src="/photo/${file.file_newname}" width="300" height="300"/> --%>
 						</p>
-						<button id="downbtn" onclick="location.href='download.do?newName=${file.file_newname}&oriName=${file.file_oriname}'">download</button>
+						<button id="downbtn" onclick="location.href='file/download?newName=${file.file_newname}&oriName=${file.file_oriname}'">download</button>
 					</c:forEach>
                 </li>
             </ul>

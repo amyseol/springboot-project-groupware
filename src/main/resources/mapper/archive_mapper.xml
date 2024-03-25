@@ -12,7 +12,7 @@
 			LEFT OUTER JOIN member m ON a.member_no = m.member_no
 			LEFT OUTER JOIN file f ON f.file_location ='s' AND f.file_unique_no = a.arch_no
 		WHERE a.arch_state = '0' AND a.arch_depart = '전사' 
-			<if test="a_name!=null">
+			<if test="searchKeyword!=null">
 				AND f.file_oriname LIKE CONCAT('%',#{param2},'%')
 			</if>
 				ORDER BY a.arch_no DESC LIMIT 20 OFFSET #{param1}
@@ -27,7 +27,7 @@
 			LEFT OUTER JOIN member m ON a.member_no = m.member_no
 			LEFT OUTER JOIN file f ON f.file_location = 's' AND f.file_unique_no = a.arch_no
 		WHERE a.arch_state = '0' AND a.arch_depart = #{param2}
-			<if test="a_name!=null">
+			<if test="searchKeyword!=null">
 				AND f.file_oriname LIKE CONCAT('%', #{param3}, '%')
 			</if>
 				ORDER BY a.arch_no DESC LIMIT 20 OFFSET #{param1}

@@ -192,7 +192,7 @@ function drawAllList(list){
 		content+='<ul>';
 		content+='<li><input type="checkbox" name="checkEach" value="'+item.arch_no+'"/></li>'
 		content+='<li>'+item.file_oriname+'</li>';
-		content+='<li><button id="downBtn" onclick="location.href=\'download.do?newName='+item.file_newname+'&oriName='+item.file_oriname+'\'">다운로드</button></li>';
+		content+='<li><button id="downBtn" onclick="location.href=\'file/download?newName='+item.file_newname+'&oriName='+item.file_oriname+'\'">다운로드</button></li>';
 		
 		content+='<li>'+item.name+'</li>'; 
 		content+='<li>'+item.file_size+'KB</li>'; 
