@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.gudi.approval.service.ApprovalService;
+import kr.co.gudi.member.dto.MemberAuthority;
 import kr.co.gudi.member.dto.MemberDTO;
 import kr.co.gudi.member.service.MemberService;
 import kr.co.gudi.member.vo.MemberVO;
