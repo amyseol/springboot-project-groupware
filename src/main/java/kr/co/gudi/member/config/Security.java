@@ -15,9 +15,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.cors.CorsUtils;
-
 import kr.co.gudi.member.dto.MemberAuthority;
-import kr.co.gudi.member.vo.MemberVO;
 
 @Configuration
 @EnableWebSecurity
@@ -47,7 +45,7 @@ public class Security {
 					.antMatchers("/memberRegist","/memberList","/departmentList")
 						.hasAnyAuthority(MemberAuthority.EXECUTIVE.name(), MemberAuthority.SUPPORT.name())
 					.antMatchers("/album")
-						.hasAnyAuthority(MemberAuthority.EXECUTIVE.name(), MemberAuthority.MARKETING.name())
+						.hasAnyAuthority(MemberAuthority.EXECUTIVE.name(), MemberAuthority.AD_TEAM_EMP.name(), MemberAuthority.CONTRACT_TEAM_EMP.name())
 				.and()
 				.logout()
 					.logoutSuccessUrl("/loginPage")
