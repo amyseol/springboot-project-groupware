@@ -243,7 +243,7 @@
 
 
 <body style="padding: 30px;">
-	<%@ include file="/views/nav.jsp"%>
+	<%@ include file="/views/nav.jsp" %>
 	<!-- calendar 태그 -->
 	<div id='calendar-container'>
 		<div class="calFilter">
