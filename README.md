@@ -11,7 +11,6 @@
 ### Contents
 - [개발 환경](#개발-환경)
 - [주요 기능](#주요-기능)
-- [내가 구현한 부분](#내가-구현한-부분)
 - [How To Start](#how-to-start)
 
 ## 개발 환경 
@@ -96,28 +95,7 @@ IDE : STS(Spring Tool Suite)<br/>
 - 실적 관리 
     - 음반 실적 리스트, 음반명/아티스트명 검색
     - 저작권 실적 관리 (진행중)
-## 내가 구현한 부분
-- <span style="line-height:33px"> **CRUD 기능을 위한 REST API 설계 및 작성** </span>
-    - 세션에 저장된 DTO 정보를 기반으로 부서별 페이지 접근 권한 설정
-    - 키워드 검색 조회 기능 구현
-    - 키워드 검색시 페이지 수를 고려하여 Pagination 구현
-    - 동적 데이터 조회를 위한 SQL 문 작성
-- <span style="line-height:33px"> **공용자료실** </span>
-    - 기능 : 리스트, 부서 파일 업로드, 전사 파일 업로드, 삭제 - [코드보기](https://github.com/amyseol/springboot-project-groupware/blob/main/src/main/java/kr/co/gudi/archive/service/ArchiveService.java)
-    - 파일 다운로드 API 를 생성하여 팀원들과 endpoint 공유 
-    - 세션에 저장된 DTO 정보를 기반으로 파일 등록/삭제 권한 설정
-- <span style="line-height:33px"> **음원관리** </span>
-    - 기능 : 리스트, 상세보기, 회차별 그래프 - [코드보기](https://github.com/amyseol/springboot-project-groupware/blob/main/src/main/java/kr/co/gudi/resource/service/AlbumService.java)
-    - 회차별 생산량과 판매량을 그래프로 시각화하기 위한 Chart.js 라이브러리 활용 
-- <span style="line-height:33px"> **실시간 음원 차트** </span>
-    - Jsoup 라이브러리를 이용한 ‘멜론 음원 차트’ 웹 크롤링 작업 - [코드보기](https://github.com/amyseol/springboot-project-groupware/blob/main/src/main/java/kr/co/gudi/marketing/service/MusicChartService.java)
-- <span style="line-height:33px"> **알림** </span>
-    - 기능 : 리스트, 알림 확인 여부, 새로운 알림수, 삭제 - [코드보기](https://github.com/amyseol/springboot-project-groupware/blob/main/src/main/java/kr/co/gudi/notification/service/NotiService.java)
-    - 일정 기간이 지난 알림을 삭제하기 위해 Spring Scheduler 를 이용한 배치 작업
-- <span style="line-height:33px"> **보안 설정** [Refactoring] </span>
-    - 페이지별 접근 권한 설정을 위해 Security Config 설정 추가 - [코드보기](https://github.com/amyseol/springboot-project-groupware/blob/main/src/main/java/kr/co/gudi/member/config/Security.java)
-    - 인사 관리 페이지는 경영지원부, 임원만 접근 가능하게 설정
-    - 음반 관리 페이지는 마케팅부의 광고팀, 운영부의 계약 관리팀, 임원만 접근 가능하게 설정 
+
 ## How To Start
 배포되지 않은 서비스이기 때문에 로그인 화면만 보여질 수 있습니다. <br/>
 ```ini

@@ -1,48 +1,44 @@
 package kr.co.gudi.marketing.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
+import kr.co.gudi.marketing.dto.MusicChartDTO;
 import kr.co.gudi.marketing.service.MusicChartService;
 
 @Controller
 public class MusicChartController {
+	
 	Logger logger = LoggerFactory.getLogger(getClass());
-	@Autowired MusicChartService service;
+	
+	private final MusicChartService musicChartService;
+	
+	public MusicChartController(MusicChartService musicChartService) {
+		this.musicChartService = musicChartService;
+	}
 	
 	@GetMapping(value="/musicChart")
 	public String musicChart(Model model) throws Exception {
-		service.getDatetime(model);
+		musicChartService.getChartDatetime(model);
 		return "musicChart/musicChart";
 	}
 	
-	@GetMapping(value="/musicChartCall")
+	@GetMapping(value="/chart/list")
 	@ResponseBody
-	public List<HashMap<String, Object>> musicChartCall() throws IOException {
-		return service.getChart();
+	public List<MusicChartDTO> musicChartList() throws IOException {
+		logger.info("음원 차트 가져와!");
+		return musicChartService.getMusicChartList();
 	}
 	
-	@PostMapping(value="/musicArtistCall")
+	@GetMapping(value="/musicArtist/list")
 	@ResponseBody
-	public List<String> musicArtistCall(@RequestBody Map<String, List<String>> jsonData){
-		List<String> artNameArray = jsonData.get("artNameArray");
-		logger.info("Received artist names: {}", artNameArray);
-		
-		return service.musicArtistCall(artNameArray);
+	public List<MusicChartDTO> musicArtistList() throws IOException{
+		return musicChartService.getMusicArtistList();
 	}
 	
 }
