@@ -28,7 +28,7 @@ public class MusicChartController {
 		return "musicChart/musicChart";
 	}
 	
-	@GetMapping(value="/chart/list")
+	@GetMapping(value="/musicChart/list")
 	@ResponseBody
 	public List<MusicChartDTO> musicChartList() throws IOException {
 		logger.info("음원 차트 가져와!");

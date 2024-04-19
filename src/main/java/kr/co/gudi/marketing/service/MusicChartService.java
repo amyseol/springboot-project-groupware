@@ -7,6 +7,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import kr.co.gudi.marketing.dao.MusicChartDAO;
@@ -17,7 +19,7 @@ public class MusicChartService {
 	
 	private final MusicChartDAO musicChartDao;
 	private static final String MELON_CHART_URL = "https://www.melon.com/chart/index.htm";	
-		
+	Logger logger = LoggerFactory.getLogger(getClass());
 	public MusicChartService(MusicChartDAO musicChartDao) {
 		this.musicChartDao = musicChartDao;
 	}
@@ -38,6 +40,7 @@ public class MusicChartService {
 	        MusicChartDTO musicChartdto = createMusicChartDTO(chartElement);	        
 	        musicChartList.add(musicChartdto);
 	    }
+		logger.info("리스트 DTO 에 담기");
 		return musicChartList;
 	}
 	
