@@ -68,7 +68,7 @@ function musicChartCall(artistNames){
 	console.log("리스트 불러와!", artistNames);
 	$.ajax({
 		type:'get',
-		url:'chart/list',
+		url:'musicChart/list',
 		dataType:'JSON',
 		success: function(data){
 			console.log('data==', data);
