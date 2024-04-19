@@ -62,19 +62,18 @@
 //------------------------------- music chart start ------------------------------------------
 var artNames = [];
 musicChartCall(artNames);
+artNames = [];
 
 function musicChartCall(artNames){	
 	$.ajax({
 		type:'get',
-		url:'musicChartCall',
+		url:'musicChart/list',
 		data:{}, 
 		dataType:'JSON',
 		success: function(data){
 			console.log(data);
-			// data의 artName 이 artNames 에 포함된 리스트만 그리기
 			if(artNames!=''){
 				console.log('비어있지 않아!');
-				console.log(artNames);
 				drawList(data, artNames);
 			}else{
 				console.log('비어있어!');
@@ -89,15 +88,18 @@ function musicChartCall(artNames){
 
 function drawList(list, artNames){
 	console.log(list);
+	console.log(artNames);
 	var content='';
+		
 	list.forEach(function(item,idx){ 
-		if (artNames.length === 0 || artNames.some(function (artName) 
-				{ return item.artName.includes(artName); })) { // artNames 에 있는 artName 만 가져오기 
+		if (artNames.length === 0 || artNames.some(function (art) { 
+			return item.artName.includes(art.artName); })) 
+		{ 
 			content+='<ul>';
 			content+='<li>'+item.rank+'</li>'; 
 			content+='<li><a href="https://www.melon.com/album/detail.htm?albumId='+item.albNo+'"><img src="'+item.imgSrc+'" width="90" height="90"/></a></li>';
 			content+='<li>'+item.songName+'</li>';
-			content+='<li id="artName">'+item.artName+'</li>';
+			content+='<li>'+item.artName+'</li>';
 			content+='<li>'+item.albName+'</li>';
 			content+='</ul>';
 		}
@@ -110,26 +112,13 @@ function drawList(list, artNames){
 
 //------------------------------- 소속 아티스트 불러오기 start ------------------------------------------
 function musicArtistCall(){
-	// ${item.artName} 만 가져와서 배열에 담기 
-	var artNameArray = [];
-	var artNameElements = document.querySelectorAll('#musicChart li#artName');
- 	artNameArray = Array.from(artNameElements).map(function(element) {
-	    return element.textContent.trim(); // 앞, 뒤 공백 제거 
-	}); 
-	console.log(artNameArray); 
-	
  	$.ajax({
-		type:'post',
-		url:'musicArtistCall',
-		data:JSON.stringify({artNameArray:artNameArray}), // JSON 형태로 데이터 보내기 
-		contentType:'application/json',
+		type:'get',
+		url:'musicArtist/list',
 		dataType:'JSON',
 		success: function(data){
-			//console.log(data);
-			// 전역 변수 artNames 배열에 누적하기 
-			artNames = artNames.concat(data);
-			//console.log(artNames); // ['Red Velvet', '세븐틴'] 같이 출력됨 
-			musicChartCall(artNames);
+			console.log(data);
+			musicChartCall(data);
 		},
 		error:function(e){
 			console.log(e);
