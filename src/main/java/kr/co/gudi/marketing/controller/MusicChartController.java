@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +15,8 @@ import kr.co.gudi.marketing.service.MusicChartService;
 @Controller
 public class MusicChartController {
 	
-	Logger logger = LoggerFactory.getLogger(getClass());
-	
 	private final MusicChartService musicChartService;
+	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public MusicChartController(MusicChartService musicChartService) {
 		this.musicChartService = musicChartService;
@@ -28,10 +28,9 @@ public class MusicChartController {
 		return "musicChart/musicChart";
 	}
 	
-	@GetMapping(value="/musicChart/list")
+	@GetMapping(value="/chart/list")
 	@ResponseBody
 	public List<MusicChartDTO> musicChartList() throws IOException {
-		logger.info("음원 차트 가져와!");
 		return musicChartService.getMusicChartList();
 	}
 	
