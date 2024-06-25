@@ -60,23 +60,22 @@
 </body>
 <script>
 //------------------------------- music chart start ------------------------------------------
-var artNames = [];
-musicChartCall(artNames);
-artNames = [];
+var artistNames = [];
+musicChartCall(artistNames);
+artistNames = [];
 
-function musicChartCall(artNames){	
+function musicChartCall(artistNames){	
 	$.ajax({
 		type:'get',
-		url:'musicChart/list',
-		data:{}, 
+		url:'chart/list',
 		dataType:'JSON',
 		success: function(data){
-			console.log(data);
-			if(artNames!=''){
-				console.log('비어있지 않아!');
-				drawList(data, artNames);
+			console.log('data==', data);
+			if(artistNames!=''){
+				console.log('비어있지 않아!', artistNames);
+				drawList(data, artistNames);
 			}else{
-				console.log('비어있어!');
+				console.log('비어있어!', data);
 				drawList(data, []);	
 			}
 		},
@@ -86,21 +85,19 @@ function musicChartCall(artNames){
 	});
 }
 
-function drawList(list, artNames){
-	console.log(list);
-	console.log(artNames);
+function drawList(list, artistNames){
+	console.log("데이터 그린다~");
 	var content='';
-		
 	list.forEach(function(item,idx){ 
-		if (artNames.length === 0 || artNames.some(function (art) { 
-			return item.artName.includes(art.artName); })) 
-		{ 
+		if (artistNames.length === 0 || artistNames.some(function (art) { 
+			return item.artistName.includes(art.artistName); })) 
+		{  
 			content+='<ul>';
-			content+='<li>'+item.rank+'</li>'; 
-			content+='<li><a href="https://www.melon.com/album/detail.htm?albumId='+item.albNo+'"><img src="'+item.imgSrc+'" width="90" height="90"/></a></li>';
+			content+='<li>'+item.musicRank+'</li>'; 
+			content+='<li><a href="https://www.melon.com/album/detail.htm?albumId='+item.albumNo+'"><img src="'+item.albumImageSrc+'" width="90" height="90"/></a></li>';
 			content+='<li>'+item.songName+'</li>';
-			content+='<li>'+item.artName+'</li>';
-			content+='<li>'+item.albName+'</li>';
+			content+='<li>'+item.artistName+'</li>';
+			content+='<li>'+item.albumName+'</li>';
 			content+='</ul>';
 		}
 	});
@@ -111,13 +108,12 @@ function drawList(list, artNames){
 
 
 //------------------------------- 소속 아티스트 불러오기 start ------------------------------------------
-function musicArtistCall(){
+function musicArtistCall(){	
  	$.ajax({
 		type:'get',
 		url:'musicArtist/list',
 		dataType:'JSON',
 		success: function(data){
-			console.log(data);
 			musicChartCall(data);
 		},
 		error:function(e){
